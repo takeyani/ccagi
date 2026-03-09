@@ -1,0 +1,44 @@
+import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { LogoutButton } from "@/components/auth/LogoutButton";
+import { Sidebar } from "@/components/dashboard/Sidebar";
+
+const navItems = [
+  { href: "/dashboard", label: "ダッシュボード", icon: "📊" },
+  { href: "/dashboard/projects", label: "プロジェクト", icon: "📁" },
+  { href: "/dashboard/settings", label: "設定", icon: "⚙️" },
+];
+
+export default async function DashboardLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const supabase = await createSupabaseServerClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const { data: profile } = await supabase
+    .from("cad_user_profiles")
+    .select("display_name")
+    .eq("id", user!.id)
+    .single();
+
+  return (
+    <div className="flex min-h-screen">
+      <aside className="w-64 bg-gray-900 text-white flex flex-col">
+        <div className="p-4 border-b border-gray-700">
+          <h2 className="text-lg font-bold">CAD Viewer</h2>
+          <p className="text-sm text-gray-400 mt-1">
+            {profile?.display_name ?? user!.email}
+          </p>
+        </div>
+        <Sidebar items={navItems} />
+        <div className="p-4 border-t border-gray-700">
+          <LogoutButton />
+        </div>
+      </aside>
+      <main className="flex-1 bg-gray-50 p-8">{children}</main>
+    </div>
+  );
+}

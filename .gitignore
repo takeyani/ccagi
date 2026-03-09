@@ -1,3 +1,7 @@
 node_modules/
+.next/
 debug.log
 output.txt
+.env.local
+.env*.local
+*.ifc
