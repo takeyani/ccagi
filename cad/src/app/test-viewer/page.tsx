@@ -15,7 +15,7 @@ export default function TestViewerPage() {
   return (
     <ViewerClient
       fileId="local-test"
-      fileName="ローカルIFCテスト"
+      fileName="3Dモデルビューア"
       fileUrl={null}
     />
   );

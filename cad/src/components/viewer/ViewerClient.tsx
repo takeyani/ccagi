@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import { IFCViewer } from "./IFCViewer";
+import { ModelViewer } from "./ModelViewer";
 import { ModelTree, type TreeNode } from "./ModelTree";
 import { PropertiesPanel, type PropertyGroup } from "./PropertiesPanel";
 import { Toolbar } from "./Toolbar";
@@ -35,17 +35,17 @@ export default function ViewerClient({ fileId, fileName, fileUrl }: Props) {
   );
 
   const handleElementSelected = useCallback(
-    (expressId: number | null, props: PropertyGroup[]) => {
-      setSelectedId(expressId);
+    (id: number | null, props: PropertyGroup[]) => {
+      setSelectedId(id);
       setProperties(props);
     },
     []
   );
 
   const handleTreeSelect = useCallback(
-    (expressId: number) => {
+    (id: number) => {
       if (viewerApi?.selectElement) {
-        viewerApi.selectElement(expressId);
+        viewerApi.selectElement(id);
       }
     },
     [viewerApi]
@@ -94,9 +94,10 @@ export default function ViewerClient({ fileId, fileName, fileUrl }: Props) {
           </div>
         )}
 
-        <div className="flex-1 relative" style={{ minHeight: 0 }}>
-          <IFCViewer
+        <div className="flex-1 relative" style={{ minHeight: 0, minWidth: 0 }}>
+          <ModelViewer
             fileUrl={fileUrl}
+            fileName={fileName}
             onModelLoaded={handleModelLoaded}
             onElementSelected={handleElementSelected}
           />

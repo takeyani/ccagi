@@ -3,6 +3,7 @@
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
+import { ACCEPT_STRING, isSupportedFormat, SUPPORTED_3D_FORMATS } from "@/lib/formats";
 
 export function FileUploadForm({ projectId }: { projectId: string }) {
   const [file, setFile] = useState<File | null>(null);
@@ -77,10 +78,13 @@ export function FileUploadForm({ projectId }: { projectId: string }) {
   function handleDrop(e: React.DragEvent) {
     e.preventDefault();
     const droppedFile = e.dataTransfer.files[0];
-    if (droppedFile && droppedFile.name.toLowerCase().endsWith(".ifc")) {
+    if (droppedFile && isSupportedFormat(droppedFile.name)) {
       setFile(droppedFile);
-    } else {
-      setError("IFCファイルのみアップロードできます");
+      setError("");
+    } else if (droppedFile) {
+      setError(
+        `未対応のファイル形式です。対応形式: ${SUPPORTED_3D_FORMATS.map((f) => `.${f.ext}`).join(", ")}`
+      );
     }
   }
 
@@ -108,21 +112,27 @@ export function FileUploadForm({ projectId }: { projectId: string }) {
         ) : (
           <div>
             <p className="text-gray-500">
-              ここにIFCファイルをドラッグ&ドロップ
+              3Dファイルをドラッグ&ドロップ
             </p>
             <p className="text-sm text-gray-400 mt-1">
               またはクリックしてファイルを選択
+            </p>
+            <p className="text-xs text-gray-400 mt-2">
+              対応形式: {SUPPORTED_3D_FORMATS.map((f) => `.${f.ext}`).join(", ")}
             </p>
           </div>
         )}
         <input
           ref={inputRef}
           type="file"
-          accept=".ifc"
+          accept={ACCEPT_STRING}
           className="hidden"
           onChange={(e) => {
             const f = e.target.files?.[0];
-            if (f) setFile(f);
+            if (f) {
+              setFile(f);
+              setError("");
+            }
           }}
         />
       </div>
