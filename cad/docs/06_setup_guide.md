@@ -1,4 +1,4 @@
-# IFC 3Dビューア — セットアップガイド
+# 3Dモデルビューア — セットアップガイド
 
 ## 1. 前提条件
 
@@ -46,7 +46,7 @@ npm run dev
 
 ## 6. テスト（Supabase不要）
 
-サンプルIFCファイルを配置:
+サンプルファイルを配置:
 
 ```bash
 mkdir -p public/samples
@@ -54,8 +54,12 @@ cp /path/to/your/file.ifc public/samples/sample.ifc
 ```
 
 ブラウザでアクセス:
-- http://localhost:3002/test-sample — サンプルIFCを自動読込
-- http://localhost:3002/test-viewer — ドラッグ&ドロップでIFC読込
+- http://localhost:3002/test-sample — サンプルファイルを自動読込
+- http://localhost:3002/test-viewer — ファイル選択 or D&D で読込（全形式対応）
+
+### 対応フォーマット
+
+IFC, glTF/GLB, FBX, OBJ, STL, COLLADA, PLY, 3DS
 
 ## 7. 本番ビルド
 
@@ -67,10 +71,12 @@ npm start
 ## 8. 検証チェックリスト
 
 - [ ] `npx tsc --noEmit` — TypeScriptエラーなし
-- [ ] `/test-sample` — IFCファイルが3D表示される
+- [ ] `/test-viewer` — 3Dファイル（IFC/glTF/FBX/OBJ等）が3D表示される
+- [ ] `/test-sample` — サンプルファイルが自動読込される
 - [ ] マウスで回転・ズーム・パンが動作する
 - [ ] ツールバーのボタンが動作する（全体表示、正面、上面、側面、ワイヤーフレーム）
 - [ ] 3Dモデルの要素をクリック → プロパティパネルに情報表示
+- [ ] モデルツリーのノードをクリック → カメラ移動 + ハイライト + プロパティ連動
 - [ ] ログイン → ダッシュボード表示
-- [ ] プロジェクト作成 → ファイルアップロード → 一覧表示
-- [ ] ビューアでアップロードしたIFCが表示される
+- [ ] プロジェクト作成 → ファイルアップロード（全形式対応） → 一覧表示
+- [ ] ビューアでアップロードした3Dファイルが表示される

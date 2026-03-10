@@ -1,4 +1,4 @@
-# IFC 3Dビューア — コンポーネントリファレンス
+# 3Dモデルビューア — コンポーネントリファレンス
 
 ## 1. 認証コンポーネント
 
@@ -39,8 +39,9 @@
 ### FileUploadForm (`components/dashboard/FileUploadForm.tsx`)
 - **種類:** Client Component
 - **Props:** `projectId: string`
-- **機能:** IFCファイルのアップロード。D&D対応。プログレスバー表示。
+- **機能:** 3Dファイルのアップロード。D&D対応。全対応形式（IFC, glTF/GLB, FBX, OBJ, STL, COLLADA, PLY, 3DS）。プログレスバー表示。
 - **状態:** file, notes, uploading, error, progress
+- **依存:** `@/lib/formats` から `ACCEPT_STRING`, `isSupportedFormat`, `SUPPORTED_3D_FORMATS` を使用
 
 ### DeleteProjectButton (`components/dashboard/DeleteProjectButton.tsx`)
 - **種類:** Client Component
@@ -62,16 +63,20 @@
 ### ViewerClient (`components/viewer/ViewerClient.tsx`)
 - **種類:** Client Component (default export)
 - **Props:** `fileId, fileName, fileUrl`
-- **機能:** ビューア全体のレイアウトとstate管理。Toolbar/ModelTree/IFCViewer/PropertiesPanelを配置。
+- **機能:** ビューア全体のレイアウトとstate管理。Toolbar/ModelTree/ModelViewer/PropertiesPanelを配置。
 - **状態:** treeData, properties, selectedId, showTree, showProps, wireframe, viewerApi
+- **連動:** ツリー選択 → `viewerApi.selectElement(id)` → カメラ移動 + ハイライト + プロパティ更新
 
-### IFCViewer (`components/viewer/IFCViewer.tsx`)
+### ModelViewer (`components/viewer/ModelViewer.tsx`)
 - **種類:** Client Component
 - **Props:**
-  - `fileUrl: string | null` — IFCファイルのURL（nullならローカルテストモード）
+  - `fileUrl: string | null` — ファイルURL（nullならローカルテストモード）
+  - `fileName: string` — ファイル名（拡張子からフォーマット判定）
   - `onModelLoaded: (api: ViewerApi) => void` — モデル読込完了コールバック
-  - `onElementSelected: (expressId, props) => void` — 要素選択コールバック
-- **機能:** Three.jsシーン管理、web-ifcによるIFC読込、レイキャスティングによる要素選択
+  - `onElementSelected: (id, props) => void` — 要素選択コールバック
+- **機能:** Three.jsシーン管理、マルチフォーマット3D読込（9形式対応）、レイキャスティングによる要素選択
+- **内部状態:** status（ロード進捗）、error（エラーメッセージ）、loaded（読込完了フラグ）
+- **ローダー:** IFCはweb-ifc、他はThree.jsローダー（dynamic importで必要時のみ読込）
 
 ### Toolbar (`components/viewer/Toolbar.tsx`)
 - **種類:** Client Component
@@ -81,7 +86,7 @@
 ### ModelTree (`components/viewer/ModelTree.tsx`)
 - **種類:** Client Component
 - **Props:** `nodes: TreeNode[], selectedId: number|null, onSelect: (id) => void`
-- **機能:** モデル要素のツリー表示。展開/折りたたみ。クリックで選択。
+- **機能:** モデル要素のツリー表示。展開/折りたたみ。クリックで選択（カメラ移動・ハイライト・プロパティ連動）。
 - **エクスポート:** `TreeNode` 型
 
 ### PropertiesPanel (`components/viewer/PropertiesPanel.tsx`)
@@ -89,3 +94,13 @@
 - **Props:** `properties: PropertyGroup[], selectedId: number|null`
 - **機能:** 選択要素のプロパティをグループごとに表示
 - **エクスポート:** `PropertyGroup` 型
+
+## 4. ユーティリティ
+
+### formats (`lib/formats.ts`)
+- **エクスポート:**
+  - `SUPPORTED_3D_FORMATS` — 対応形式リスト `{ ext, label }[]`
+  - `SUPPORTED_EXTENSIONS` — 拡張子配列 `["ifc", "glb", "gltf", ...]`
+  - `ACCEPT_STRING` — HTML input accept用文字列 `".ifc,.glb,.gltf,..."`
+  - `getFormatFromFileName(fileName)` — ファイル名から拡張子を取得
+  - `isSupportedFormat(fileName)` — 対応形式かどうかを判定

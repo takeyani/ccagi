@@ -1,4 +1,4 @@
-# IFC 3Dビューア — アーキテクチャ設計書
+# 3Dモデルビューア — アーキテクチャ設計書
 
 ## 1. 技術スタック
 
@@ -9,7 +9,7 @@
 | TypeScript | 5.x | 型安全 |
 | Tailwind CSS | 4.x | スタイリング |
 | Supabase | 共有インスタンス | Auth + DB + Storage |
-| Three.js | ^0.183 | 3Dレンダリング |
+| Three.js | ^0.183 | 3Dレンダリング + 各種ローダー (GLTF, FBX, OBJ, STL, COLLADA, PLY, 3DS) |
 | web-ifc | ^0.0.77 | IFCパーサー（WASM） |
 
 ## 2. リポジトリ配置
@@ -18,7 +18,7 @@
 ccagi/
 ├── lp/           # ランディングページ
 ├── estimator/    # 見積もりツール
-├── cad/          # 本プロジェクト（IFC 3Dビューア）
+├── cad/          # 本プロジェクト（3Dモデルビューア）
 ├── cli.js
 └── package.json
 ```
@@ -30,12 +30,11 @@ ccagi/
 ```
 cad/
 ├── public/
-│   └── samples/           # テスト用IFCファイル
+│   └── samples/           # テスト用3Dファイル
 ├── src/
 │   ├── app/
 │   │   ├── api/
-│   │   │   ├── auth/callback/route.ts    # OAuth callback
-│   │   │   └── test-ifc/route.ts         # テスト用IFC配信API
+│   │   │   └── auth/callback/route.ts    # OAuth callback
 │   │   ├── dashboard/
 │   │   │   ├── layout.tsx                # ダッシュボード共通レイアウト
 │   │   │   ├── page.tsx                  # ダッシュボードトップ
@@ -53,8 +52,8 @@ cad/
 │   │   │       └── actions.ts
 │   │   ├── login/page.tsx
 │   │   ├── signup/page.tsx
-│   │   ├── test-sample/page.tsx          # サンプルIFCテスト
-│   │   ├── test-viewer/page.tsx          # ローカルファイルテスト
+│   │   ├── test-sample/page.tsx          # サンプルファイルテスト表示
+│   │   ├── test-viewer/page.tsx          # ローカルファイルテスト（全形式対応）
 │   │   ├── layout.tsx                    # ルートレイアウト
 │   │   ├── page.tsx                      # リダイレクト
 │   │   └── globals.css
@@ -67,17 +66,18 @@ cad/
 │   │   │   ├── Sidebar.tsx
 │   │   │   ├── StatsCard.tsx
 │   │   │   ├── DataTable.tsx
-│   │   │   ├── FileUploadForm.tsx
+│   │   │   ├── FileUploadForm.tsx        # 全3D形式対応アップロード
 │   │   │   ├── DeleteProjectButton.tsx
 │   │   │   └── SettingsForm.tsx
 │   │   └── viewer/
 │   │       ├── ViewerLoader.tsx          # dynamic import ラッパー
 │   │       ├── ViewerClient.tsx          # ビューア全体レイアウト
-│   │       ├── IFCViewer.tsx             # Three.js + web-ifc コア
+│   │       ├── ModelViewer.tsx           # Three.js + マルチフォーマットローダー
 │   │       ├── Toolbar.tsx               # 上部ツールバー
 │   │       ├── ModelTree.tsx             # 左パネル: モデルツリー
 │   │       └── PropertiesPanel.tsx       # 右パネル: プロパティ
 │   ├── lib/
+│   │   ├── formats.ts                    # 対応フォーマット定義・判定ユーティリティ
 │   │   └── supabase/
 │   │       ├── client.ts                 # ブラウザ用クライアント
 │   │       └── server.ts                 # サーバー用クライアント
@@ -98,7 +98,7 @@ cad/
 | ページ（dashboard/*） | Server Component | Supabaseからのデータ取得 |
 | LoginForm / SignupForm | Client Component | フォーム操作 |
 | Sidebar | Client Component | pathname による active 判定 |
-| IFCViewer | Client Component | Three.js / web-ifc はブラウザ専用 |
+| ModelViewer | Client Component | Three.js / web-ifc はブラウザ専用 |
 | ViewerLoader | Client Component | `dynamic(ssr:false)` による SSR 回避 |
 
 ### 4.2 3Dビューア構成
@@ -108,25 +108,42 @@ ViewerLoader（Client, dynamic import, ssr: false）
 └── ViewerClient（ビューア全体のstate管理）
     ├── Toolbar（上部ツールバー）
     ├── ModelTree（左パネル）
-    ├── IFCViewer（中央、Three.js Canvas）
+    ├── ModelViewer（中央、Three.js Canvas）
     └── PropertiesPanel（右パネル）
 ```
 
 **データフロー:**
-1. IFCViewer がモデル読込完了 → `onModelLoaded(viewerApi)` を呼出
+1. ModelViewer がモデル読込完了 → `onModelLoaded(viewerApi)` を呼出
 2. ViewerClient が `viewerApi` をstateに保存
 3. Toolbar のボタン押下 → `viewerApi.fitView()` 等を呼出
-4. IFCViewer 内でクリック → `onElementSelected(expressId, props)` を呼出
-5. ViewerClient が PropertiesPanel に props を渡す
+4. ModelViewer 内でクリック → `onElementSelected(id, props)` を呼出
+5. ViewerClient が selectedId + properties を更新 → ModelTree ハイライト + PropertiesPanel 表示
 
-### 4.3 IFC読込フロー
+**パネル連動:**
+- 3Dクリック → ツリーハイライト + プロパティ更新
+- ツリー選択 → カメラ移動 + 3Dハイライト + プロパティ更新
+- 空クリック → 全選択解除
 
+### 4.3 マルチフォーマット読込フロー
+
+**IFC形式:**
 ```
 1. fetch(fileUrl) → ArrayBuffer取得
 2. new WebIFC.IfcAPI() → WASM初期化（CDN: unpkg.com）
 3. ifcApi.OpenModel(data) → IFCモデル展開
 4. ifcApi.StreamAllMeshes() → ジオメトリ取得
 5. 各メッシュ → Three.js BufferGeometry + MeshStandardMaterial → Group に追加
+6. IFCタイプ情報取得 → ツリーノード名・タイプ設定
+7. カメラをモデル全体にフィット
+```
+
+**その他の形式 (glTF, FBX, OBJ, STL, COLLADA, PLY, 3DS):**
+```
+1. dynamic import で該当ローダーを読み込み
+2. loader.load(url) → Three.js Group / BufferGeometry を取得
+3. STL/PLY の場合は Geometry → Mesh に変換
+4. modelGroup に追加
+5. Object3D 階層からツリーノードを再帰構築
 6. カメラをモデル全体にフィット
 ```
 
@@ -147,3 +164,11 @@ ifcApi.SetWasmPath("https://unpkg.com/web-ifc@0.0.77/", true);
 ```
 
 シングルスレッドWASM使用。COOP/COEPヘッダー不要でデプロイが簡単。
+
+## 7. フォーマット判定
+
+`src/lib/formats.ts` で対応フォーマットを一元管理:
+- `SUPPORTED_3D_FORMATS` — 対応形式リスト
+- `ACCEPT_STRING` — ファイル選択ダイアログ用（`.ifc,.glb,.gltf,.fbx,...`）
+- `getFormatFromFileName()` — ファイル名から拡張子を取得
+- `isSupportedFormat()` — 対応形式かどうかを判定

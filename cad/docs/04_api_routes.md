@@ -1,4 +1,4 @@
-# IFC 3Dビューア — ルート・API設計書
+# 3Dモデルビューア — ルート・API設計書
 
 ## 1. ページルート
 
@@ -11,18 +11,17 @@
 | `/dashboard/projects` | Server | 必要 | プロジェクト一覧 |
 | `/dashboard/projects/new` | Static | 必要 | プロジェクト作成フォーム |
 | `/dashboard/projects/[id]` | Server | 必要 | プロジェクト詳細（ファイル一覧） |
-| `/dashboard/projects/[id]/upload` | Server | 必要 | ファイルアップロード |
+| `/dashboard/projects/[id]/upload` | Server | 必要 | ファイルアップロード（全3D形式対応） |
 | `/dashboard/viewer/[fileId]` | Server | 必要 | 3Dビューア（メイン） |
 | `/dashboard/settings` | Server | 必要 | ユーザー設定 |
-| `/test-sample` | Client | 不要 | サンプルIFCテスト表示 |
-| `/test-viewer` | Client | 不要 | ローカルファイルテスト |
+| `/test-sample` | Client | 不要 | サンプルファイルテスト表示 |
+| `/test-viewer` | Client | 不要 | ローカルファイルテスト（全形式対応） |
 
 ## 2. APIルート
 
 | パス | メソッド | 認証 | 説明 |
 |------|---------|------|------|
 | `/api/auth/callback` | GET | - | OAuth コールバック（code → session交換） |
-| `/api/test-ifc` | GET | 不要 | ローカルサンプルIFCファイルの配信 |
 
 ## 3. Server Actions
 
@@ -52,7 +51,7 @@
 ## 5. ファイルアップロードフロー
 
 ```
-1. クライアント: FileUploadForm でファイル選択
+1. クライアント: FileUploadForm でファイル選択（全3D形式対応）
 2. クライアント: supabase.auth.getUser() でユーザーID取得
 3. クライアント: supabase.storage.from('cad-files').upload(path, file)
 4. クライアント: supabase.from('cad_files').insert({...}) でDB登録
@@ -66,7 +65,9 @@
 ```
 1. サーバー: cad_files テーブルからファイル情報取得
 2. サーバー: supabase.storage.createSignedUrl() で署名付きURL生成（有効期限1時間）
-3. クライアント: ViewerLoader → ViewerClient → IFCViewer にURLを渡す
-4. クライアント: IFCViewer が fetch(signedUrl) でIFCデータ取得
-5. クライアント: web-ifc で解析 → Three.js メッシュ生成 → シーンに追加
+3. クライアント: ViewerLoader → ViewerClient → ModelViewer にURL + fileNameを渡す
+4. クライアント: ModelViewer が fileName の拡張子からフォーマットを判定
+5. IFCの場合: fetch(signedUrl) → web-ifc で解析 → Three.js メッシュ生成
+6. その他の場合: dynamic import でローダー読込 → loader.load(signedUrl) → シーンに追加
+7. ツリーノード構築 + カメラフィット
 ```
