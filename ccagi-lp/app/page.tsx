@@ -108,72 +108,83 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Architecture */}
-      <section className="py-20 px-6 bg-gray-50">
+      {/* Reasoning Model — The Core Difference */}
+      <section className="py-20 px-6 bg-indigo-950 text-white">
         <div className="mx-auto max-w-5xl">
-          <h2 className="text-3xl font-bold text-center mb-4">
-            CCAGIのアーキテクチャ
-          </h2>
-          <p className="text-center text-gray-500 mb-12">
-            Claude Agent SDK を核とした自律型開発基盤
+          <p className="text-sm font-semibold text-indigo-300 tracking-widest uppercase text-center mb-4">
+            The Most Important Difference
           </p>
-          <div className="grid md:grid-cols-4 gap-6">
-            {layers.map((l, i) => (
-              <div
-                key={i}
-                className="rounded-xl bg-white border border-gray-200 p-6 text-center"
-              >
-                <div className="text-3xl mb-3">{l.icon}</div>
-                <h4 className="font-bold mb-2">{l.title}</h4>
-                <p className="text-xs text-gray-500 leading-relaxed">
-                  {l.desc}
-                </p>
-              </div>
-            ))}
-          </div>
-          <div className="mt-12 rounded-2xl bg-gray-900 text-gray-100 p-8 font-mono text-sm overflow-x-auto">
-            <p className="text-gray-400 mb-2"># CCAGIの実行例</p>
-            <p>
-              <span className="text-green-400">$</span> ccagi-sdk
-              &quot;見積もりツールをNext.jsで作って&quot;
-            </p>
-            <p className="text-gray-500 mt-2">
-              → 要件定義 → DB設計 → UI実装 → API構築 → テスト → デプロイ
-            </p>
-            <p className="text-gray-500">
-              → 数時間で本番稼働するWebアプリが完成
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Use Cases */}
-      <section className="py-20 px-6">
-        <div className="mx-auto max-w-5xl">
-          <h2 className="text-3xl font-bold text-center mb-4">
-            CCAGIで構築した実例
+          <h2 className="text-3xl sm:text-4xl font-bold text-center mb-6">
+            推論モデルが、根本的に違う
           </h2>
-          <p className="text-center text-gray-500 mb-12">
-            すべてCCAGIエージェントが自律的に設計・実装
+          <p className="text-center text-indigo-200 max-w-3xl mx-auto mb-6 leading-relaxed">
+            推論モデルが違えば、<strong className="text-white">集める情報の質</strong>が変わる。
+            <br />
+            必要なものだけを正確に取り、不要なものは持ってこない。
+            <br className="hidden sm:block" />
+            その差が、プロダクト全体の品質を決定します。
           </p>
-          <div className="grid md:grid-cols-3 gap-8">
-            {useCases.map((uc, i) => (
-              <div key={i} className="rounded-2xl border border-gray-200 p-8">
-                <div className="text-3xl mb-3">{uc.icon}</div>
-                <h3 className="text-lg font-bold mb-2">{uc.title}</h3>
-                <p className="text-sm text-gray-600 mb-4">{uc.desc}</p>
-                <div className="flex flex-wrap gap-1.5">
-                  {uc.techs.map((t, j) => (
-                    <span
-                      key={j}
-                      className="rounded-full bg-gray-100 px-2.5 py-1 text-xs text-gray-600"
-                    >
-                      {t}
-                    </span>
-                  ))}
+          <p className="text-center text-indigo-300/80 text-sm max-w-2xl mx-auto mb-16 leading-relaxed">
+            軽量モデルは「関連しそうな情報」を広く浅く集め、確率的な重みづけで「それらしい」答えを出す。
+            Opusは「この工程で本当に必要な情報」だけを的確に選び取り、論理的に判断する。
+            その結果、エラーやハルシネーションが圧倒的に少なく、
+            成果物の正確性とスピードが段違い — これがスペックの差です。
+          </p>
+          <div className="grid md:grid-cols-2 gap-8 mb-12">
+            <div className="rounded-2xl bg-white/5 border border-white/10 p-8">
+              <h3 className="text-lg font-bold mb-4 text-gray-300">Claude Code のモデル戦略</h3>
+              <div className="space-y-4 text-sm">
+                <div className="flex items-start gap-3">
+                  <span className="shrink-0 mt-1 w-2 h-2 rounded-full bg-gray-500" />
+                  <span className="text-gray-400">タスクに応じてHaiku / Sonnet / Opusを自動選択</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="shrink-0 mt-1 w-2 h-2 rounded-full bg-gray-500" />
+                  <span className="text-gray-400">簡単なタスクには軽量モデルで高速応答</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="shrink-0 mt-1 w-2 h-2 rounded-full bg-gray-500" />
+                  <span className="text-gray-400">情報収集が広く浅い — 「関連しそう」な情報を多めに取得</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="shrink-0 mt-1 w-2 h-2 rounded-full bg-gray-500" />
+                  <span className="text-gray-400">個別タスクの完了が目的 — 全体の整合性は人間が担保</span>
                 </div>
               </div>
-            ))}
+            </div>
+            <div className="rounded-2xl bg-indigo-500/15 border border-indigo-400/30 p-8">
+              <h3 className="text-lg font-bold mb-4 text-indigo-300">CCAGI のモデル戦略</h3>
+              <div className="space-y-4 text-sm">
+                <div className="flex items-start gap-3">
+                  <span className="shrink-0 mt-1 w-2 h-2 rounded-full bg-indigo-400" />
+                  <span className="text-indigo-100">常にOpus — 最高の推論能力でプロダクトを構築</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="shrink-0 mt-1 w-2 h-2 rounded-full bg-indigo-400" />
+                  <span className="text-indigo-100">DB設計の判断ミスは全レイヤーに波及 — 妥協しない</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="shrink-0 mt-1 w-2 h-2 rounded-full bg-indigo-400" />
+                  <span className="text-indigo-100">必要な情報だけを正確に取得 — ノイズのない判断</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="shrink-0 mt-1 w-2 h-2 rounded-full bg-indigo-400" />
+                  <span className="text-indigo-100">重みづけではなく論理的判断 — エラー・ハルシネーションが圧倒的に少ない</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="rounded-2xl bg-white/5 border border-white/10 p-8">
+            <h3 className="text-center font-bold mb-6 text-lg">なぜ推論モデルが重要なのか</h3>
+            <div className="grid sm:grid-cols-3 gap-6 text-center">
+              {reasoningMatters.map((r, i) => (
+                <div key={i}>
+                  <div className="text-3xl mb-2">{r.icon}</div>
+                  <h4 className="font-semibold text-sm mb-1">{r.title}</h4>
+                  <p className="text-xs text-indigo-300 leading-relaxed">{r.desc}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -319,83 +330,33 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Reasoning Model — The Core Difference */}
-      <section className="py-20 px-6 bg-indigo-950 text-white">
+      {/* Use Cases */}
+      <section className="py-20 px-6">
         <div className="mx-auto max-w-5xl">
-          <p className="text-sm font-semibold text-indigo-300 tracking-widest uppercase text-center mb-4">
-            The Most Important Difference
-          </p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-center mb-6">
-            推論モデルが、根本的に違う
+          <h2 className="text-3xl font-bold text-center mb-4">
+            CCAGIで構築した実例
           </h2>
-          <p className="text-center text-indigo-200 max-w-3xl mx-auto mb-6 leading-relaxed">
-            推論モデルが違えば、<strong className="text-white">集める情報の質</strong>が変わる。
-            <br />
-            必要なものだけを正確に取り、不要なものは持ってこない。
-            <br className="hidden sm:block" />
-            その差が、プロダクト全体の品質を決定します。
+          <p className="text-center text-gray-500 mb-12">
+            すべてCCAGIエージェントが自律的に設計・実装
           </p>
-          <p className="text-center text-indigo-300/80 text-sm max-w-2xl mx-auto mb-16 leading-relaxed">
-            軽量モデルは「関連しそうな情報」を広く浅く集め、確率的な重みづけで「それらしい」答えを出す。
-            Opusは「この工程で本当に必要な情報」だけを的確に選び取り、論理的に判断する。
-            その結果、エラーやハルシネーションが圧倒的に少なく、
-            成果物の正確性とスピードが段違い — これがスペックの差です。
-          </p>
-          <div className="grid md:grid-cols-2 gap-8 mb-12">
-            <div className="rounded-2xl bg-white/5 border border-white/10 p-8">
-              <h3 className="text-lg font-bold mb-4 text-gray-300">Claude Code のモデル戦略</h3>
-              <div className="space-y-4 text-sm">
-                <div className="flex items-start gap-3">
-                  <span className="shrink-0 mt-1 w-2 h-2 rounded-full bg-gray-500" />
-                  <span className="text-gray-400">タスクに応じてHaiku / Sonnet / Opusを自動選択</span>
-                </div>
-                <div className="flex items-start gap-3">
-                  <span className="shrink-0 mt-1 w-2 h-2 rounded-full bg-gray-500" />
-                  <span className="text-gray-400">簡単なタスクには軽量モデルで高速応答</span>
-                </div>
-                <div className="flex items-start gap-3">
-                  <span className="shrink-0 mt-1 w-2 h-2 rounded-full bg-gray-500" />
-                  <span className="text-gray-400">情報収集が広く浅い — 「関連しそう」な情報を多めに取得</span>
-                </div>
-                <div className="flex items-start gap-3">
-                  <span className="shrink-0 mt-1 w-2 h-2 rounded-full bg-gray-500" />
-                  <span className="text-gray-400">個別タスクの完了が目的 — 全体の整合性は人間が担保</span>
+          <div className="grid md:grid-cols-3 gap-8">
+            {useCases.map((uc, i) => (
+              <div key={i} className="rounded-2xl border border-gray-200 p-8">
+                <div className="text-3xl mb-3">{uc.icon}</div>
+                <h3 className="text-lg font-bold mb-2">{uc.title}</h3>
+                <p className="text-sm text-gray-600 mb-4">{uc.desc}</p>
+                <div className="flex flex-wrap gap-1.5">
+                  {uc.techs.map((t, j) => (
+                    <span
+                      key={j}
+                      className="rounded-full bg-gray-100 px-2.5 py-1 text-xs text-gray-600"
+                    >
+                      {t}
+                    </span>
+                  ))}
                 </div>
               </div>
-            </div>
-            <div className="rounded-2xl bg-indigo-500/15 border border-indigo-400/30 p-8">
-              <h3 className="text-lg font-bold mb-4 text-indigo-300">CCAGI のモデル戦略</h3>
-              <div className="space-y-4 text-sm">
-                <div className="flex items-start gap-3">
-                  <span className="shrink-0 mt-1 w-2 h-2 rounded-full bg-indigo-400" />
-                  <span className="text-indigo-100">常にOpus — 最高の推論能力でプロダクトを構築</span>
-                </div>
-                <div className="flex items-start gap-3">
-                  <span className="shrink-0 mt-1 w-2 h-2 rounded-full bg-indigo-400" />
-                  <span className="text-indigo-100">DB設計の判断ミスは全レイヤーに波及 — 妥協しない</span>
-                </div>
-                <div className="flex items-start gap-3">
-                  <span className="shrink-0 mt-1 w-2 h-2 rounded-full bg-indigo-400" />
-                  <span className="text-indigo-100">必要な情報だけを正確に取得 — ノイズのない判断</span>
-                </div>
-                <div className="flex items-start gap-3">
-                  <span className="shrink-0 mt-1 w-2 h-2 rounded-full bg-indigo-400" />
-                  <span className="text-indigo-100">重みづけではなく論理的判断 — エラー・ハルシネーションが圧倒的に少ない</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="rounded-2xl bg-white/5 border border-white/10 p-8">
-            <h3 className="text-center font-bold mb-6 text-lg">なぜ推論モデルが重要なのか</h3>
-            <div className="grid sm:grid-cols-3 gap-6 text-center">
-              {reasoningMatters.map((r, i) => (
-                <div key={i}>
-                  <div className="text-3xl mb-2">{r.icon}</div>
-                  <h4 className="font-semibold text-sm mb-1">{r.title}</h4>
-                  <p className="text-xs text-indigo-300 leading-relaxed">{r.desc}</p>
-                </div>
-              ))}
-            </div>
+            ))}
           </div>
         </div>
       </section>
@@ -469,11 +430,41 @@ export default function Home() {
               </tbody>
             </table>
           </div>
-          <p className="mt-8 text-center text-sm text-gray-500">
+          <p className="mt-8 text-center text-sm text-gray-500 mb-12">
             CCAGIはClaude Codeを否定するものではなく、その能力を最大限に活用して
             <br className="hidden sm:block" />
             「ツールとしてのAI」から「チームメイトとしてのAI」への進化を実現します。
           </p>
+
+          {/* Architecture (integrated) */}
+          <h3 className="text-xl font-bold text-center mb-6">CCAGIのアーキテクチャ</h3>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            {layers.map((l, i) => (
+              <div
+                key={i}
+                className="rounded-xl bg-white border border-gray-200 p-5 text-center"
+              >
+                <div className="text-2xl mb-2">{l.icon}</div>
+                <h4 className="font-bold text-sm mb-1">{l.title}</h4>
+                <p className="text-xs text-gray-500 leading-relaxed">
+                  {l.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+          <div className="rounded-2xl bg-gray-900 text-gray-100 p-8 font-mono text-sm overflow-x-auto">
+            <p className="text-gray-400 mb-2"># CCAGIの実行例</p>
+            <p>
+              <span className="text-green-400">$</span> ccagi-sdk
+              &quot;見積もりツールをNext.jsで作って&quot;
+            </p>
+            <p className="text-gray-500 mt-2">
+              → 要件定義 → DB設計 → UI実装 → API構築 → テスト → デプロイ
+            </p>
+            <p className="text-gray-500">
+              → 数時間で本番稼働するWebアプリが完成
+            </p>
+          </div>
         </div>
       </section>
 
