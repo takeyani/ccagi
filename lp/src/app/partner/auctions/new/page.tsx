@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { requirePartnerId } from "@/lib/auth";
 import { createPartnerAuction } from "../actions";
 
@@ -24,6 +25,7 @@ export default async function NewPartnerAuctionPage() {
 
   return (
     <div>
+      <Link href="/partner/auctions" className="text-sm text-indigo-600 hover:text-indigo-800 mb-4 inline-block">← オークション一覧に戻る</Link>
       <h1 className="text-2xl font-bold mb-6">オークション出品</h1>
       <div className="bg-white rounded-2xl border shadow-sm p-6 max-w-2xl">
         <form action={createPartnerAuction} className="space-y-4">

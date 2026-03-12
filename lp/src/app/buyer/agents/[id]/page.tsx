@@ -77,7 +77,10 @@ export default async function EditAgentPage({
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold">エージェント編集</h1>
+        <div>
+          <Link href="/buyer/agents" className="text-sm text-teal-600 hover:text-teal-800">← エージェント一覧に戻る</Link>
+          <h1 className="text-2xl font-bold">エージェント編集</h1>
+        </div>
         <div className="flex gap-2">
           <form action={runWithId}>
             <button

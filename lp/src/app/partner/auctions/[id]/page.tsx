@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { requirePartnerId } from "@/lib/auth";
 
@@ -31,6 +32,7 @@ export default async function PartnerAuctionDetailPage({
 
   return (
     <div>
+      <Link href="/partner/auctions" className="text-sm text-indigo-600 hover:text-indigo-800 mb-4 inline-block">← オークション一覧に戻る</Link>
       <h1 className="text-2xl font-bold mb-6">オークション詳細</h1>
       <div className="grid grid-cols-2 gap-6 max-w-4xl">
         <div className="bg-white rounded-2xl border shadow-sm p-6">

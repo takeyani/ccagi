@@ -183,6 +183,23 @@ export default function AffiliatePage() {
               <p className="text-sm text-gray-500">
                 このリンクを経由して購入が発生すると、売上の10%がコミッションとして記録されます。
               </p>
+
+              {isCreator && (
+                <div className="mt-4 rounded-lg border border-indigo-200 bg-indigo-50 p-4">
+                  <p className="text-sm font-medium text-indigo-900">
+                    クリエイターとして登録されました
+                  </p>
+                  <p className="mt-1 text-sm text-indigo-700">
+                    上記のコードを使って、クリエイターポータルからLP（ランディングページ）を作成できます。
+                  </p>
+                  <Link
+                    href="/creator"
+                    className="mt-3 inline-block rounded-full bg-indigo-600 px-5 py-2 text-sm font-semibold text-white transition hover:bg-indigo-700"
+                  >
+                    クリエイターポータルへ →
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
         )}

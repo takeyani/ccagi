@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { requirePartnerId } from "@/lib/auth";
 import { updatePartnerLot, deletePartnerLot } from "../actions";
@@ -24,6 +25,7 @@ export default async function EditPartnerLotPage({
 
   return (
     <div>
+      <Link href="/partner/lots" className="text-sm text-indigo-600 hover:text-indigo-800 mb-4 inline-block">← ロット一覧に戻る</Link>
       <h1 className="text-2xl font-bold mb-6">ロット 編集</h1>
       <div className="bg-white rounded-2xl border shadow-sm p-6 max-w-2xl">
         <p className="text-sm text-gray-500 mb-4">

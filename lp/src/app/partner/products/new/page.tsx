@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { createPartnerProduct } from "../actions";
 import { getSupabase } from "@/lib/supabase";
 import { ProductAttributes } from "@/components/ProductAttributes";
@@ -23,6 +24,7 @@ export default async function NewPartnerProductPage() {
 
   return (
     <div>
+      <Link href="/partner/products" className="text-sm text-indigo-600 hover:text-indigo-800 mb-4 inline-block">← 商品一覧に戻る</Link>
       <h1 className="text-2xl font-bold mb-6">商品 新規登録</h1>
       <div className="bg-white rounded-2xl border shadow-sm p-6 max-w-2xl">
         <form action={createPartnerProduct} className="space-y-4">

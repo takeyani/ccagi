@@ -132,7 +132,10 @@ export function LPEditor({ design }: Props) {
     <div className="flex h-screen flex-col">
       {/* Toolbar */}
       <div className="flex items-center justify-between border-b bg-white px-4 py-2">
-        <h1 className="text-lg font-bold">LP エディター</h1>
+        <div className="flex items-center gap-3">
+          <a href="/creator/designs" className="text-sm text-indigo-600 hover:text-indigo-800">← 一覧</a>
+          <h1 className="text-lg font-bold">LP エディター</h1>
+        </div>
         <div className="flex items-center gap-3">
           <button
             onClick={() => setShowTheme(!showTheme)}

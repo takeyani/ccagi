@@ -1,0 +1,555 @@
+export default function Home() {
+  return (
+    <div className="min-h-screen bg-white text-gray-900">
+      {/* Header */}
+      <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur border-b border-gray-100">
+        <div className="mx-auto max-w-6xl px-6 py-4 flex items-center justify-between">
+          <span className="text-xl font-bold tracking-tight">CCAGI</span>
+          <a
+            href="#contact"
+            className="rounded-full bg-gray-900 px-5 py-2 text-sm font-medium text-white hover:bg-gray-700 transition"
+          >
+            お問い合わせ
+          </a>
+        </div>
+      </header>
+
+      {/* Hero */}
+      <section className="pt-32 pb-20 px-6">
+        <div className="mx-auto max-w-4xl text-center">
+          <p className="text-sm font-semibold text-indigo-600 tracking-widest uppercase mb-4">
+            Beyond Generative AI
+          </p>
+          <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight leading-tight">
+            生成AIは「答える」。
+            <br />
+            <span className="text-indigo-600">CCAGIは「つくる」。</span>
+          </h1>
+          <p className="mt-6 text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+            テキスト生成を超え、自律エージェントが設計・実装・テスト・デプロイまで
+            一気通貫でプロダクトを構築する — それがCCAGIです。
+          </p>
+        </div>
+      </section>
+
+      {/* Comparison Table */}
+      <section className="py-20 px-6 bg-gray-50">
+        <div className="mx-auto max-w-5xl">
+          <h2 className="text-3xl font-bold text-center mb-4">
+            生成AI vs CCAGI
+          </h2>
+          <p className="text-center text-gray-500 mb-12">
+            従来の生成AIとCCAGIの根本的な違い
+          </p>
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="border-b-2 border-gray-200">
+                  <th className="py-4 px-6 text-sm font-semibold text-gray-500 w-1/4">
+                    比較項目
+                  </th>
+                  <th className="py-4 px-6 text-sm font-semibold text-gray-400 w-[37.5%]">
+                    生成AI（ChatGPT等）
+                  </th>
+                  <th className="py-4 px-6 text-sm font-semibold text-indigo-600 w-[37.5%]">
+                    CCAGI
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="text-sm">
+                {comparisons.map((row, i) => (
+                  <tr key={i} className="border-b border-gray-100">
+                    <td className="py-4 px-6 font-medium text-gray-900">
+                      {row.label}
+                    </td>
+                    <td className="py-4 px-6 text-gray-500">{row.genai}</td>
+                    <td className="py-4 px-6 text-gray-900 font-medium">
+                      {row.ccagi}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      {/* Key Differences */}
+      <section className="py-20 px-6">
+        <div className="mx-auto max-w-5xl">
+          <h2 className="text-3xl font-bold text-center mb-4">
+            CCAGIが変えること
+          </h2>
+          <p className="text-center text-gray-500 mb-12">
+            3つの根本的なパラダイムシフト
+          </p>
+          <div className="grid md:grid-cols-3 gap-8">
+            {paradigms.map((p, i) => (
+              <div
+                key={i}
+                className="rounded-2xl border border-gray-200 p-8 hover:shadow-lg transition"
+              >
+                <div className="text-4xl mb-4">{p.icon}</div>
+                <h3 className="text-xl font-bold mb-3">{p.title}</h3>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  {p.before}
+                </p>
+                <div className="my-3 flex items-center gap-2 text-indigo-600 font-semibold text-sm">
+                  <span className="h-px flex-1 bg-indigo-200" />
+                  <span>CCAGI</span>
+                  <span className="h-px flex-1 bg-indigo-200" />
+                </div>
+                <p className="text-gray-900 text-sm leading-relaxed font-medium">
+                  {p.after}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Architecture */}
+      <section className="py-20 px-6 bg-gray-50">
+        <div className="mx-auto max-w-5xl">
+          <h2 className="text-3xl font-bold text-center mb-4">
+            CCAGIのアーキテクチャ
+          </h2>
+          <p className="text-center text-gray-500 mb-12">
+            Claude Agent SDK を核とした自律型開発基盤
+          </p>
+          <div className="grid md:grid-cols-4 gap-6">
+            {layers.map((l, i) => (
+              <div
+                key={i}
+                className="rounded-xl bg-white border border-gray-200 p-6 text-center"
+              >
+                <div className="text-3xl mb-3">{l.icon}</div>
+                <h4 className="font-bold mb-2">{l.title}</h4>
+                <p className="text-xs text-gray-500 leading-relaxed">
+                  {l.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+          <div className="mt-12 rounded-2xl bg-gray-900 text-gray-100 p-8 font-mono text-sm overflow-x-auto">
+            <p className="text-gray-400 mb-2"># CCAGIの実行例</p>
+            <p>
+              <span className="text-green-400">$</span> ccagi-sdk
+              &quot;見積もりツールをNext.jsで作って&quot;
+            </p>
+            <p className="text-gray-500 mt-2">
+              → 要件定義 → DB設計 → UI実装 → API構築 → テスト → デプロイ
+            </p>
+            <p className="text-gray-500">
+              → 数時間で本番稼働するWebアプリが完成
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Use Cases */}
+      <section className="py-20 px-6">
+        <div className="mx-auto max-w-5xl">
+          <h2 className="text-3xl font-bold text-center mb-4">
+            CCAGIで構築した実例
+          </h2>
+          <p className="text-center text-gray-500 mb-12">
+            すべてCCAGIエージェントが自律的に設計・実装
+          </p>
+          <div className="grid md:grid-cols-3 gap-8">
+            {useCases.map((uc, i) => (
+              <div key={i} className="rounded-2xl border border-gray-200 p-8">
+                <div className="text-3xl mb-3">{uc.icon}</div>
+                <h3 className="text-lg font-bold mb-2">{uc.title}</h3>
+                <p className="text-sm text-gray-600 mb-4">{uc.desc}</p>
+                <div className="flex flex-wrap gap-1.5">
+                  {uc.techs.map((t, j) => (
+                    <span
+                      key={j}
+                      className="rounded-full bg-gray-100 px-2.5 py-1 text-xs text-gray-600"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Reasoning Model — The Core Difference */}
+      <section className="py-20 px-6 bg-indigo-950 text-white">
+        <div className="mx-auto max-w-5xl">
+          <p className="text-sm font-semibold text-indigo-300 tracking-widest uppercase text-center mb-4">
+            The Most Important Difference
+          </p>
+          <h2 className="text-3xl sm:text-4xl font-bold text-center mb-6">
+            推論モデルが、根本的に違う
+          </h2>
+          <p className="text-center text-indigo-200 max-w-3xl mx-auto mb-16 leading-relaxed">
+            Claude Codeは速度とコストを最適化し、タスクの難易度に応じてモデルを切り替えます。
+            <br />
+            CCAGIは常に最高の推論モデル（Opus）でプロダクトを構築します。
+            <br className="hidden sm:block" />
+            なぜなら、プロダクト構築では<strong className="text-white">すべての判断が後続工程に波及する</strong>からです。
+          </p>
+          <div className="grid md:grid-cols-2 gap-8 mb-12">
+            <div className="rounded-2xl bg-white/5 border border-white/10 p-8">
+              <h3 className="text-lg font-bold mb-4 text-gray-300">Claude Code のモデル戦略</h3>
+              <div className="space-y-4 text-sm">
+                <div className="flex items-start gap-3">
+                  <span className="shrink-0 mt-1 w-2 h-2 rounded-full bg-gray-500" />
+                  <span className="text-gray-400">タスクに応じてHaiku / Sonnet / Opusを自動選択</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="shrink-0 mt-1 w-2 h-2 rounded-full bg-gray-500" />
+                  <span className="text-gray-400">簡単なタスクには軽量モデルで高速応答</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="shrink-0 mt-1 w-2 h-2 rounded-full bg-gray-500" />
+                  <span className="text-gray-400">コスト効率を重視した最適化</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="shrink-0 mt-1 w-2 h-2 rounded-full bg-gray-500" />
+                  <span className="text-gray-400">個別タスクの完了が目的 — 全体の整合性は人間が担保</span>
+                </div>
+              </div>
+            </div>
+            <div className="rounded-2xl bg-indigo-500/15 border border-indigo-400/30 p-8">
+              <h3 className="text-lg font-bold mb-4 text-indigo-300">CCAGI のモデル戦略</h3>
+              <div className="space-y-4 text-sm">
+                <div className="flex items-start gap-3">
+                  <span className="shrink-0 mt-1 w-2 h-2 rounded-full bg-indigo-400" />
+                  <span className="text-indigo-100">常にOpus — 最高の推論能力でプロダクトを構築</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="shrink-0 mt-1 w-2 h-2 rounded-full bg-indigo-400" />
+                  <span className="text-indigo-100">DB設計の判断ミスは全レイヤーに波及 — 妥協しない</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="shrink-0 mt-1 w-2 h-2 rounded-full bg-indigo-400" />
+                  <span className="text-indigo-100">アーキテクチャ全体を俯瞰した一貫性のある設計</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="shrink-0 mt-1 w-2 h-2 rounded-full bg-indigo-400" />
+                  <span className="text-indigo-100">品質 × 自律性 = 人間の介入なしに本番品質を実現</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="rounded-2xl bg-white/5 border border-white/10 p-8">
+            <h3 className="text-center font-bold mb-6 text-lg">なぜ推論モデルが重要なのか</h3>
+            <div className="grid sm:grid-cols-3 gap-6 text-center">
+              {reasoningMatters.map((r, i) => (
+                <div key={i}>
+                  <div className="text-3xl mb-2">{r.icon}</div>
+                  <h4 className="font-semibold text-sm mb-1">{r.title}</h4>
+                  <p className="text-xs text-indigo-300 leading-relaxed">{r.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Claude Code vs CCAGI */}
+      <section className="py-20 px-6 bg-gray-50">
+        <div className="mx-auto max-w-5xl">
+          <h2 className="text-3xl font-bold text-center mb-4">
+            Claude Code vs CCAGI
+          </h2>
+          <p className="text-center text-gray-500 mb-12">
+            CCAGIはClaude Codeの上に構築されたプロダクト開発プラットフォームです
+          </p>
+          <div className="grid md:grid-cols-2 gap-8 mb-12">
+            <div className="rounded-2xl border border-gray-200 bg-white p-8">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center text-lg">
+                  &gt;_
+                </div>
+                <h3 className="text-xl font-bold">Claude Code</h3>
+              </div>
+              <p className="text-sm text-gray-600 mb-4">
+                Anthropic公式のCLI開発ツール。ターミナルからClaudeにコーディング作業を依頼できる汎用ツール。
+              </p>
+              <ul className="space-y-2 text-sm text-gray-600">
+                {claudeCodePoints.map((p, i) => (
+                  <li key={i} className="flex items-start gap-2">
+                    <span className="text-gray-400 mt-0.5">-</span>
+                    <span>{p}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="rounded-2xl border-2 border-indigo-200 bg-white p-8">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-lg bg-indigo-100 flex items-center justify-center text-lg font-bold text-indigo-600">
+                  C
+                </div>
+                <h3 className="text-xl font-bold text-indigo-600">CCAGI</h3>
+              </div>
+              <p className="text-sm text-gray-600 mb-4">
+                Claude Code + Agent SDK を基盤に、プロダクト構築に特化した自律開発プラットフォーム。
+              </p>
+              <ul className="space-y-2 text-sm text-gray-900">
+                {ccagiPoints.map((p, i) => (
+                  <li key={i} className="flex items-start gap-2">
+                    <span className="text-indigo-500 mt-0.5">+</span>
+                    <span>{p}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="border-b-2 border-gray-200">
+                  <th className="py-3 px-4 text-sm font-semibold text-gray-500 w-1/4">比較</th>
+                  <th className="py-3 px-4 text-sm font-semibold text-gray-400 w-[37.5%]">Claude Code</th>
+                  <th className="py-3 px-4 text-sm font-semibold text-indigo-600 w-[37.5%]">CCAGI</th>
+                </tr>
+              </thead>
+              <tbody className="text-sm">
+                {ccComparisons.map((row, i) => (
+                  <tr key={i} className="border-b border-gray-100">
+                    <td className="py-3 px-4 font-medium text-gray-900">{row.label}</td>
+                    <td className="py-3 px-4 text-gray-500">{row.cc}</td>
+                    <td className="py-3 px-4 text-gray-900 font-medium">{row.ccagi}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="mt-8 text-center text-sm text-gray-500">
+            CCAGIはClaude Codeを否定するものではなく、その能力を最大限に活用して
+            <br className="hidden sm:block" />
+            「ツールとしてのAI」から「チームメイトとしてのAI」への進化を実現します。
+          </p>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section id="contact" className="py-20 px-6 bg-gray-900 text-white">
+        <div className="mx-auto max-w-3xl text-center">
+          <h2 className="text-3xl font-bold mb-4">
+            生成AIの「次」を体験しませんか？
+          </h2>
+          <p className="text-gray-400 mb-8">
+            CCAGIは、テキスト生成ではなくプロダクト構築を自動化します。
+            <br />
+            あなたのアイデアを、数時間で動くプロダクトに変えましょう。
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href="https://github.com/takeyani/ccagi"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-full bg-white text-gray-900 px-8 py-3 font-semibold hover:bg-gray-100 transition"
+            >
+              GitHub で見る
+            </a>
+            <a
+              href="mailto:contact@example.com"
+              className="rounded-full border border-white/30 px-8 py-3 font-semibold hover:bg-white/10 transition"
+            >
+              お問い合わせ
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="py-8 px-6 border-t border-gray-100 text-center text-sm text-gray-400">
+        &copy; {new Date().getFullYear()} CCAGI. Built by CCAGI agents.
+      </footer>
+    </div>
+  );
+}
+
+const comparisons = [
+  {
+    label: "本質",
+    genai: "テキスト生成エンジン",
+    ccagi: "自律型プロダクト構築エージェント",
+  },
+  {
+    label: "出力",
+    genai: "文章・コード断片・画像",
+    ccagi: "動作するアプリケーション全体",
+  },
+  {
+    label: "操作",
+    genai: "プロンプトを1回ずつ入力",
+    ccagi: "ゴールを伝えたら自律的に完遂",
+  },
+  {
+    label: "ツール利用",
+    genai: "テキスト出力のみ（コピペが必要）",
+    ccagi: "ファイル操作・Git・DB・API を直接実行",
+  },
+  {
+    label: "コンテキスト",
+    genai: "会話ウィンドウ内で完結",
+    ccagi: "プロジェクト全体を把握して横断的に作業",
+  },
+  {
+    label: "品質保証",
+    genai: "人間がレビュー・テスト",
+    ccagi: "エージェントが自動テスト・型チェック・修正",
+  },
+  {
+    label: "マルチステップ",
+    genai: "1ターン完結（人間がつなぐ）",
+    ccagi: "設計→実装→テスト→デプロイを一気通貫",
+  },
+  {
+    label: "学習",
+    genai: "セッションごとにリセット",
+    ccagi: "プロジェクトの記憶を永続化して蓄積",
+  },
+];
+
+const paradigms = [
+  {
+    icon: "01",
+    title: "生成 → 構築",
+    before:
+      "生成AIはコード「断片」を出力します。人間がそれをコピーし、ファイルに貼り付け、エラーを修正し、テストを書く必要があります。",
+    after:
+      "CCAGIはプロジェクト全体を設計し、ファイルを作成・編集し、依存関係をインストールし、テストを実行し、バグを自分で修正します。",
+  },
+  {
+    icon: "02",
+    title: "受動 → 自律",
+    before:
+      "生成AIは質問に答えるだけの受動的なツールです。毎回ユーザーが次のステップを指示する必要があります。",
+    after:
+      "CCAGIはゴールを理解し、タスクを分解し、優先順位をつけ、障害を検出・回避しながら自律的にプロジェクトを完遂します。",
+  },
+  {
+    icon: "03",
+    title: "テキスト → アクション",
+    before:
+      "生成AIの出力はテキストです。実際の環境（ファイルシステム、DB、API）には何も影響を与えません。",
+    after:
+      "CCAGIはファイルの読み書き、Gitコミット、DBマイグレーション、APIコール、ビルドコマンドを実際に実行します。",
+  },
+];
+
+const layers = [
+  {
+    icon: "🧠",
+    title: "Claude Opus",
+    desc: "最先端のLLMが推論・設計・コード生成を担当",
+  },
+  {
+    icon: "🔧",
+    title: "Agent SDK",
+    desc: "ツール実行・ファイル操作・マルチターン制御を提供",
+  },
+  {
+    icon: "📂",
+    title: "プロジェクト認識",
+    desc: "コードベース全体を理解し、既存パターンに沿って開発",
+  },
+  {
+    icon: "🔄",
+    title: "自己修正ループ",
+    desc: "ビルドエラー・テスト失敗を検知し自動で修正を繰り返す",
+  },
+];
+
+const claudeCodePoints = [
+  "汎用コーディングアシスタント（言語・フレームワーク問わず）",
+  "ファイル編集・検索・Bash実行などのツールを備えたCLI",
+  "1つのタスクに対して対話的に指示を出しながら作業",
+  "開発者の「手」として個別タスクを高速に処理",
+  "セッション単位で完結、プロジェクト横断の記憶は限定的",
+];
+
+const ccagiPoints = [
+  "プロダクト構築に特化 — 要件定義からデプロイまでカバー",
+  "Agent SDKによるマルチターン自律実行（人間の介入を最小化）",
+  "プロジェクト構造・設計パターン・DB設計を自動で一貫管理",
+  "複数プロジェクトを横断するモノレポ構築（LP・API・ビューア等）",
+  "プロジェクトの記憶を永続化し、セッションを超えて知見を蓄積",
+];
+
+const reasoningMatters = [
+  {
+    icon: "🏗️",
+    title: "設計判断の波及",
+    desc: "DB設計・API設計の初期判断は、後続のUI・認証・テストすべてに影響。軽量モデルの「おおよそ正しい」設計は、後工程で技術的負債になる。",
+  },
+  {
+    icon: "🔗",
+    title: "一貫性の維持",
+    desc: "46テーブル・数百ファイルのプロジェクトでは、命名規則・エラーハンドリング・型定義の一貫性が品質を決める。最高の推論力が必要。",
+  },
+  {
+    icon: "🛡️",
+    title: "自律実行の安全性",
+    desc: "人間の介入なしにコードを書き、DBを操作する。推論の精度が低ければ、データ破壊やセキュリティホールのリスクが生じる。",
+  },
+];
+
+const ccComparisons = [
+  {
+    label: "推論モデル",
+    cc: "タスク難度に応じてHaiku/Sonnet/Opusを切替",
+    ccagi: "常にOpus — 全工程で最高の推論品質を保証",
+  },
+  {
+    label: "位置づけ",
+    cc: "汎用コーディングCLIツール",
+    ccagi: "プロダクト構築プラットフォーム",
+  },
+  {
+    label: "スコープ",
+    cc: "1ファイル〜1機能の単位で作業",
+    ccagi: "プロジェクト全体を俯瞰して設計・実装",
+  },
+  {
+    label: "自律性",
+    cc: "対話的（人間が次の指示を出す）",
+    ccagi: "自律的（ゴールから逆算して自走）",
+  },
+  {
+    label: "記憶",
+    cc: "セッション内コンテキスト",
+    ccagi: "永続メモリ＋ドキュメント自動生成で知見を蓄積",
+  },
+  {
+    label: "成果物",
+    cc: "コード修正・機能追加",
+    ccagi: "DB設計＋API＋UI＋認証＋テスト＋ドキュメントの完成品",
+  },
+  {
+    label: "チーム開発",
+    cc: "個人の生産性向上ツール",
+    ccagi: "ONBOARDING.md・設計書を自動生成し、チーム共有を前提に構築",
+  },
+];
+
+const useCases = [
+  {
+    icon: "💰",
+    title: "開発見積もりツール",
+    desc: "条件入力から工程別工数を自動算出。PDF出力対応のフルスタックWebアプリ。",
+    techs: ["Next.js", "Supabase", "React PDF", "Tailwind"],
+  },
+  {
+    icon: "🏗️",
+    title: "3D CADビューア",
+    desc: "IFC/glTF/FBX等9形式対応。ブラウザ上で3Dモデルを閲覧・操作。",
+    techs: ["Three.js", "web-ifc", "WASM", "Next.js"],
+  },
+  {
+    icon: "🛒",
+    title: "B2B マーケットプレイス",
+    desc: "商品管理・オークション・証明チェーン・LP作成機能を持つ総合プラットフォーム。",
+    techs: ["Next.js", "Supabase", "Stripe", "46テーブル"],
+  },
+];

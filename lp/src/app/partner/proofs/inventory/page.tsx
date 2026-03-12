@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { requirePartnerId } from "@/lib/auth";
 import { submitInventoryProof } from "./actions";
 
@@ -23,6 +24,7 @@ export default async function PartnerInventoryProofsPage() {
 
   return (
     <div>
+      <Link href="/partner/proofs" className="text-sm text-indigo-600 hover:text-indigo-800 mb-4 inline-block">← 証明チェーンに戻る</Link>
       <h1 className="text-2xl font-bold mb-2">在庫証明</h1>
       <p className="text-sm text-gray-500 mb-6">
         倉庫情報の登録・在庫の実地検証を行ってください

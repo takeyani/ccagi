@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { requirePartnerId } from "@/lib/auth";
 import { ProofStatusBadge } from "@/components/proofs/ProofStatusBadge";
 import { updatePartnerDeliveryStatus } from "./actions";
@@ -16,6 +17,7 @@ export default async function PartnerDeliveryProofsPage() {
 
   return (
     <div>
+      <Link href="/partner/proofs" className="text-sm text-indigo-600 hover:text-indigo-800 mb-4 inline-block">← 証明チェーンに戻る</Link>
       <h1 className="text-2xl font-bold mb-2">配送証明</h1>
       <p className="text-sm text-gray-500 mb-6">
         自社商品の配送状況を管理

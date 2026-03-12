@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { requirePartnerId } from "@/lib/auth";
 import { getSupabase } from "@/lib/supabase";
@@ -55,6 +56,7 @@ export default async function EditPartnerProductPage({
 
   return (
     <div>
+      <Link href="/partner/products" className="text-sm text-indigo-600 hover:text-indigo-800 mb-4 inline-block">← 商品一覧に戻る</Link>
       <h1 className="text-2xl font-bold mb-6">商品 編集</h1>
       <div className="bg-white rounded-2xl border shadow-sm p-6 max-w-2xl">
         <form action={updateWithId} className="space-y-4">

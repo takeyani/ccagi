@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { requirePartnerId } from "@/lib/auth";
 import { createPartnerLot } from "../actions";
 
@@ -11,6 +12,7 @@ export default async function NewPartnerLotPage() {
 
   return (
     <div>
+      <Link href="/partner/lots" className="text-sm text-indigo-600 hover:text-indigo-800 mb-4 inline-block">← ロット一覧に戻る</Link>
       <h1 className="text-2xl font-bold mb-6">ロット 新規作成</h1>
       <div className="bg-white rounded-2xl border shadow-sm p-6 max-w-2xl">
         <form action={createPartnerLot} className="space-y-4">

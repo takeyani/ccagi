@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { createAgent } from "../../actions";
 import { SpecRequirements } from "@/components/buyer/SpecRequirements";
@@ -24,6 +25,7 @@ export default async function NewAgentPage() {
 
   return (
     <div>
+      <Link href="/buyer/agents" className="text-sm text-teal-600 hover:text-teal-800 mb-4 inline-block">← エージェント一覧に戻る</Link>
       <h1 className="text-2xl font-bold mb-6">購買エージェント 新規作成</h1>
       <div className="bg-white rounded-2xl border shadow-sm p-6 max-w-2xl">
         <form action={createAgent} className="space-y-4">

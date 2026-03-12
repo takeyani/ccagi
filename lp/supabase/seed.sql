@@ -96,6 +96,22 @@ VALUES
 -- ※ 証明チェーンの verified_by が auth.users を参照するため先に作成
 -- ========================================
 
+-- 管理者ユーザー
+INSERT INTO auth.users (instance_id, id, aud, role, email, encrypted_password, email_confirmed_at, raw_app_meta_data, raw_user_meta_data, created_at, updated_at, confirmation_token)
+VALUES
+  ('00000000-0000-0000-0000-000000000000', 'e1000000-0000-0000-0000-000000000099',
+   'authenticated', 'authenticated', 'admin@example.com',
+   crypt('password123', gen_salt('bf')), now(),
+   '{"provider":"email","providers":["email"]}', '{}', now(), now(), '');
+
+INSERT INTO auth.identities (id, user_id, provider_id, provider, identity_data, last_sign_in_at, created_at, updated_at)
+VALUES
+  ('e1000000-0000-0000-0000-000000000099', 'e1000000-0000-0000-0000-000000000099', 'e1000000-0000-0000-0000-000000000099', 'email',
+   '{"sub":"e1000000-0000-0000-0000-000000000099","email":"admin@example.com"}', now(), now(), now());
+
+INSERT INTO public.user_profiles (id, role, partner_id, display_name)
+VALUES ('e1000000-0000-0000-0000-000000000099', 'admin', NULL, '管理者');
+
 -- パートナーユーザー（株式会社サンプルフーズ）
 INSERT INTO auth.users (instance_id, id, aud, role, email, encrypted_password, email_confirmed_at, raw_app_meta_data, raw_user_meta_data, created_at, updated_at, confirmation_token)
 VALUES
@@ -160,6 +176,11 @@ VALUES
 
 INSERT INTO public.user_profiles (id, role, partner_id, display_name)
 VALUES ('e1000000-0000-0000-0000-000000000003', 'buyer', NULL, '高橋三郎');
+
+-- クリエイター（アフィリエイト）テストユーザー
+INSERT INTO public.affiliates (id, name, email, code, commission_rate, is_creator)
+VALUES
+  ('f1000000-0000-0000-0000-000000000001', 'クリエイター太郎', 'creator@example.com', 'creator-test-001', 10.00, true);
 
 -- 証明チェーン（スコアリングに影響）
 INSERT INTO public.entity_proofs (id, partner_id, proof_type, document_url, issuer, issued_at, expires_at, status, verified_by, verified_at, notes)
