@@ -279,6 +279,46 @@ export default function ReferralPage() {
         </div>
       </section>
 
+      {/* Council Review */}
+      <section className="py-20 px-6 bg-gray-900 text-white">
+        <div className="mx-auto max-w-4xl">
+          <div className="text-center mb-12">
+            <p className="text-sm font-semibold text-amber-400 tracking-widest uppercase mb-4">
+              Certification Council
+            </p>
+            <h2 className="text-3xl font-bold mb-4">
+              認定パートナーへの道
+            </h2>
+            <p className="text-gray-400 max-w-2xl mx-auto leading-relaxed">
+              認定パートナーになるには、カスタマークラウド社の評議会による審査が必要です。
+              技術力・ビジネス理解・倫理基準を総合的に評価し、
+              CCAGIブランドにふさわしいパートナーのみを認定します。
+            </p>
+          </div>
+
+          {/* Process Flow */}
+          <div className="grid md:grid-cols-4 gap-4 mb-12">
+            {councilSteps.map((step, i) => (
+              <div key={i} className="text-center">
+                <div className="w-10 h-10 rounded-full bg-amber-500/20 border border-amber-500/30 flex items-center justify-center mx-auto mb-3">
+                  <span className="text-sm font-bold text-amber-400">{i + 1}</span>
+                </div>
+                <h4 className="font-semibold text-sm mb-1">{step.title}</h4>
+                <p className="text-xs text-gray-400 leading-relaxed">{step.desc}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="rounded-2xl bg-white/5 border border-white/10 p-8 text-center">
+            <p className="text-sm text-gray-400 leading-relaxed max-w-2xl mx-auto">
+              評議会は、CCAGIのエコシステムの品質と信頼性を維持するために設置されています。
+              認定パートナーとして活動いただくことで、20%の紹介フィーに加え、
+              カスタマークラウド社からの公式サポートと優先案件のご紹介も受けられます。
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* FAQ */}
       <section className="py-20 px-6 bg-gray-50">
         <div className="mx-auto max-w-3xl">
@@ -387,6 +427,7 @@ const tiers = [
       { text: "直接紹介フィー 20%", included: true },
       { text: "2次紹介フィー 5%", included: true },
       { text: "3次紹介フィー 5%", included: true },
+      { text: "カスタマークラウド社 評議会の審査あり", included: true },
     ],
   },
 ];
@@ -449,6 +490,25 @@ const steps = [
   },
 ];
 
+const councilSteps = [
+  {
+    title: "申請",
+    desc: "認定パートナープログラムに申請。経歴・実績・活動計画を提出。",
+  },
+  {
+    title: "書類審査",
+    desc: "カスタマークラウド社が技術力・ビジネス理解・倫理基準を審査。",
+  },
+  {
+    title: "評議会審査",
+    desc: "評議会メンバーによる最終審査。面談を含む総合的な評価。",
+  },
+  {
+    title: "認定",
+    desc: "審査通過後、正式に認定パートナーとして活動開始。20%+3階層が適用。",
+  },
+];
+
 const faqs = [
   {
     q: "ワークショップだけでも紹介フィーは発生しますか？",
@@ -468,6 +528,14 @@ const faqs = [
   },
   {
     q: "ユーザーから認定パートナーにアップグレードできますか？",
-    a: "はい。差額をお支払いいただくことで認定パートナーにアップグレード可能です。アップグレード後は3階層の紹介フィーが適用されます。",
+    a: "はい。差額をお支払いいただくことで認定パートナーにアップグレード可能です。ただし、カスタマークラウド社の評議会による審査が必要となります。",
+  },
+  {
+    q: "評議会の審査ではどのような点が評価されますか？",
+    a: "技術力・CCAGIへの理解度・ビジネス実績・倫理基準を総合的に評価します。CCAGIブランドの品質と信頼性を維持するための審査です。",
+  },
+  {
+    q: "評議会の審査に落ちた場合はどうなりますか？",
+    a: "ユーザーレベル（直接15% + 2次5%）での活動は引き続き可能です。フィードバックを基に再申請いただくことも可能です。",
   },
 ];
