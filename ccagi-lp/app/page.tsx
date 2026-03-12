@@ -247,6 +247,78 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Security — Iron Dome Approach */}
+      <section className="py-20 px-6 bg-gradient-to-b from-gray-950 to-gray-900 text-white">
+        <div className="mx-auto max-w-5xl">
+          <p className="text-sm font-semibold text-red-400 tracking-widest uppercase text-center mb-4">
+            Iron Dome Security
+          </p>
+          <h2 className="text-3xl sm:text-4xl font-bold text-center mb-6">
+            アイアンドーム型セキュリティ
+          </h2>
+          <p className="text-center text-gray-400 max-w-3xl mx-auto mb-16 leading-relaxed">
+            CCAGIは「コードを書いて終わり」ではありません。
+            最新の脆弱性情報を常に監視し、プロダクトに自動でパッチを適用する
+            <strong className="text-white">アイアンドーム型の防御アプローチ</strong>を採用しています。
+          </p>
+
+          {/* Security Flow */}
+          <div className="rounded-2xl bg-white/5 border border-white/10 p-8 mb-12">
+            <div className="grid md:grid-cols-4 gap-6">
+              {securityFlow.map((step, i) => (
+                <div key={i} className="text-center">
+                  <div className="w-12 h-12 rounded-full bg-red-500/10 border border-red-500/30 flex items-center justify-center mx-auto mb-3">
+                    <span className="text-lg">{step.icon}</span>
+                  </div>
+                  <h4 className="font-semibold text-sm mb-1">{step.title}</h4>
+                  <p className="text-xs text-gray-400 leading-relaxed">{step.desc}</p>
+                  {i < securityFlow.length - 1 && (
+                    <div className="hidden md:block text-red-500/30 text-xl mt-3">&darr;</div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Comparison: Traditional vs Iron Dome */}
+          <div className="grid md:grid-cols-2 gap-8 mb-12">
+            <div className="rounded-2xl bg-white/5 border border-white/10 p-8">
+              <h3 className="text-lg font-bold mb-4 text-gray-400">従来のセキュリティ対応</h3>
+              <div className="space-y-3 text-sm">
+                {traditionalSecurity.map((item, i) => (
+                  <div key={i} className="flex items-start gap-3">
+                    <span className="shrink-0 mt-1 text-red-400">✕</span>
+                    <span className="text-gray-400">{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="rounded-2xl bg-red-500/5 border border-red-500/20 p-8">
+              <h3 className="text-lg font-bold mb-4 text-red-400">CCAGIアイアンドーム</h3>
+              <div className="space-y-3 text-sm">
+                {ironDomeSecurity.map((item, i) => (
+                  <div key={i} className="flex items-start gap-3">
+                    <span className="shrink-0 mt-1 text-emerald-400">✓</span>
+                    <span className="text-gray-200">{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="rounded-2xl bg-gradient-to-r from-red-500/10 to-orange-500/10 border border-red-500/20 p-8 text-center">
+            <p className="text-lg font-bold mb-2">
+              脆弱性は「見つかってから対応」では遅い
+            </p>
+            <p className="text-sm text-gray-400 max-w-2xl mx-auto leading-relaxed">
+              CCAGIのアイアンドームは、脆弱性データベースの更新を常時監視し、
+              該当するパッケージを使用しているプロジェクトに対して自動でパッチを提案・適用します。
+              人間が気づく前に、プロダクトは既に守られています。
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Reasoning Model — The Core Difference */}
       <section className="py-20 px-6 bg-indigo-950 text-white">
         <div className="mx-auto max-w-5xl">
@@ -550,6 +622,45 @@ const ccagiPoints = [
   "プロジェクト構造・設計パターン・DB設計を自動で一貫管理",
   "複数プロジェクトを横断するモノレポ構築（LP・API・ビューア等）",
   "プロジェクトの記憶を永続化し、セッションを超えて知見を蓄積",
+];
+
+const securityFlow = [
+  {
+    icon: "📡",
+    title: "脆弱性の検知",
+    desc: "CVEデータベース・npm advisory・GitHub Security Advisoryを常時監視。新たな脆弱性を即座にキャッチ。",
+  },
+  {
+    icon: "🔍",
+    title: "影響範囲の特定",
+    desc: "プロジェクト内の依存関係を解析し、該当パッケージとその利用箇所を自動特定。",
+  },
+  {
+    icon: "🛠️",
+    title: "パッチの自動適用",
+    desc: "最新のセキュリティパッチを適用。破壊的変更がある場合はコード修正も含めて対応。",
+  },
+  {
+    icon: "🛡️",
+    title: "継続的防御",
+    desc: "パッチ適用後もビルド・テストを自動実行し、修正が正しく動作することを保証。",
+  },
+];
+
+const traditionalSecurity = [
+  "脆弱性が公表されてから人間が気づくまでにタイムラグ",
+  "npm audit の警告を見ても、どう対応すべきか判断に時間がかかる",
+  "パッチ適用で既存機能が壊れるリスクがあり、慎重になりすぎる",
+  "セキュリティ対応が後回しになり、技術的負債として蓄積",
+  "OWASP Top 10は知っていても、実装時に見落としが発生",
+];
+
+const ironDomeSecurity = [
+  "脆弱性の公表と同時に自動検知 — ゼロデイに近い速度で対応",
+  "影響範囲を正確に特定し、最小限の変更で最大の防御効果",
+  "パッチ適用 + 自動テストで「直したら壊れた」を防止",
+  "セキュリティ対応が開発フローに組み込まれ、負債にならない",
+  "コード生成時点でOWASP Top 10（XSS・SQLi・CSRF等）を自動回避",
 ];
 
 const orchestrationPhases = [
