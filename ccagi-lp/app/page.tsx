@@ -178,6 +178,75 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Orchestration — Agent Framework */}
+      <section className="py-20 px-6 bg-gray-900 text-white">
+        <div className="mx-auto max-w-5xl">
+          <p className="text-sm font-semibold text-emerald-400 tracking-widest uppercase text-center mb-4">
+            Genius-Level Orchestration
+          </p>
+          <h2 className="text-3xl sm:text-4xl font-bold text-center mb-6">
+            IQ150超の天才エンジニアが設計した
+            <br className="hidden sm:block" />
+            AIエージェント・フレームワーク
+          </h2>
+          <p className="text-center text-gray-400 max-w-3xl mx-auto mb-16 leading-relaxed">
+            ブロックチェーンを構築できるレベルのトップエンジニアが、
+            システム開発の全工程を分析し、フェーズ・タスク・ラベルの構成まで設計した
+            AIエージェント群。必要なフェーズで、必要なエージェントが、
+            オーケストレーションとして自律的に連携します。
+          </p>
+
+          {/* Orchestration Flow */}
+          <div className="mb-16">
+            <div className="flex flex-col md:flex-row items-stretch gap-4">
+              {orchestrationPhases.map((phase, i) => (
+                <div key={i} className="flex-1 relative">
+                  <div className="rounded-xl bg-white/5 border border-white/10 p-6 h-full">
+                    <div className="flex items-center gap-2 mb-3">
+                      <span className="text-xs font-bold text-emerald-400 bg-emerald-400/10 rounded-full px-2.5 py-0.5">
+                        Phase {i + 1}
+                      </span>
+                      <span className="text-xs text-gray-500">{phase.label}</span>
+                    </div>
+                    <h4 className="font-bold mb-2">{phase.title}</h4>
+                    <p className="text-xs text-gray-400 leading-relaxed mb-3">{phase.desc}</p>
+                    <div className="flex flex-wrap gap-1">
+                      {phase.agents.map((a, j) => (
+                        <span key={j} className="text-[10px] rounded bg-white/10 px-2 py-0.5 text-gray-300">
+                          {a}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  {i < orchestrationPhases.length - 1 && (
+                    <div className="hidden md:flex absolute -right-3 top-1/2 -translate-y-1/2 z-10 text-emerald-400/50 text-lg">
+                      &rarr;
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Why this matters */}
+          <div className="grid sm:grid-cols-3 gap-6">
+            {orchestrationPoints.map((p, i) => (
+              <div key={i} className="rounded-xl bg-white/5 border border-white/10 p-6">
+                <div className="text-2xl mb-3">{p.icon}</div>
+                <h4 className="font-semibold text-sm mb-2">{p.title}</h4>
+                <p className="text-xs text-gray-400 leading-relaxed">{p.desc}</p>
+              </div>
+            ))}
+          </div>
+
+          <p className="mt-12 text-center text-sm text-gray-500 max-w-2xl mx-auto leading-relaxed">
+            一般的なAIコーディングツールは「コードを書く」だけ。
+            CCAGIのエージェント群は、システム開発のプロが行う思考プロセスそのものを
+            フレームワークとして実装しています。
+          </p>
+        </div>
+      </section>
+
       {/* Reasoning Model — The Core Difference */}
       <section className="py-20 px-6 bg-indigo-950 text-white">
         <div className="mx-auto max-w-5xl">
@@ -481,6 +550,51 @@ const ccagiPoints = [
   "プロジェクト構造・設計パターン・DB設計を自動で一貫管理",
   "複数プロジェクトを横断するモノレポ構築（LP・API・ビューア等）",
   "プロジェクトの記憶を永続化し、セッションを超えて知見を蓄積",
+];
+
+const orchestrationPhases = [
+  {
+    label: "PLAN",
+    title: "要件分析・設計",
+    desc: "プロジェクト全体を俯瞰し、DBスキーマ・API設計・UI構成・認証フローを一貫した設計として策定。",
+    agents: ["Architect Agent", "Schema Designer", "Plan Validator"],
+  },
+  {
+    label: "BUILD",
+    title: "実装・構築",
+    desc: "設計に基づきコード生成・ファイル構成・依存関係管理を実行。各レイヤーの整合性を保ちながら並行構築。",
+    agents: ["Code Generator", "File Manager", "Dependency Resolver"],
+  },
+  {
+    label: "VERIFY",
+    title: "検証・修正",
+    desc: "型チェック・ビルド・テスト実行を自動で行い、エラーを検知したら原因を特定し自己修正。",
+    agents: ["Type Checker", "Test Runner", "Bug Fixer"],
+  },
+  {
+    label: "SHIP",
+    title: "デプロイ・文書化",
+    desc: "ビルド最適化・デプロイ設定・ONBOARDING.mdやAPI仕様書の自動生成まで完遂。",
+    agents: ["Deploy Agent", "Doc Generator", "Review Agent"],
+  },
+];
+
+const orchestrationPoints = [
+  {
+    icon: "🔗",
+    title: "ブロックチェーン級の設計力",
+    desc: "分散システム・暗号技術・コンセンサスアルゴリズムを構築できるレベルのエンジニアリング知見が、フレームワークの設計思想に組み込まれている。",
+  },
+  {
+    icon: "🎼",
+    title: "フェーズ別エージェント配置",
+    desc: "「何でもやるAI」ではなく、各フェーズに特化したエージェントが最適なタイミングで起動。タスクとラベルの構成まで考慮された精密なオーケストレーション。",
+  },
+  {
+    icon: "🧬",
+    title: "天才のフレームワーク",
+    desc: "IQ150超の開発者が数千時間のシステム開発経験を分析し、暗黙知をフレームワークとして形式化。誰でもトップエンジニアの思考プロセスを再現できる。",
+  },
 ];
 
 const reasoningMatters = [
