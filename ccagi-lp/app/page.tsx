@@ -187,12 +187,18 @@ export default function Home() {
           <h2 className="text-3xl sm:text-4xl font-bold text-center mb-6">
             推論モデルが、根本的に違う
           </h2>
-          <p className="text-center text-indigo-200 max-w-3xl mx-auto mb-16 leading-relaxed">
-            Claude Codeは速度とコストを最適化し、タスクの難易度に応じてモデルを切り替えます。
+          <p className="text-center text-indigo-200 max-w-3xl mx-auto mb-6 leading-relaxed">
+            推論モデルが違えば、<strong className="text-white">集める情報の質</strong>が変わる。
             <br />
-            CCAGIは常に最高の推論モデル（Opus）でプロダクトを構築します。
+            必要なものだけを正確に取り、不要なものは持ってこない。
             <br className="hidden sm:block" />
-            なぜなら、プロダクト構築では<strong className="text-white">すべての判断が後続工程に波及する</strong>からです。
+            その差が、プロダクト全体の品質を決定します。
+          </p>
+          <p className="text-center text-indigo-300/80 text-sm max-w-2xl mx-auto mb-16 leading-relaxed">
+            軽量モデルは「関連しそうな情報」を広く浅く集め、確率的な重みづけで「それらしい」答えを出す。
+            Opusは「この工程で本当に必要な情報」だけを的確に選び取り、論理的に判断する。
+            その結果、エラーやハルシネーションが圧倒的に少なく、
+            成果物の正確性とスピードが段違い — これがスペックの差です。
           </p>
           <div className="grid md:grid-cols-2 gap-8 mb-12">
             <div className="rounded-2xl bg-white/5 border border-white/10 p-8">
@@ -208,7 +214,7 @@ export default function Home() {
                 </div>
                 <div className="flex items-start gap-3">
                   <span className="shrink-0 mt-1 w-2 h-2 rounded-full bg-gray-500" />
-                  <span className="text-gray-400">コスト効率を重視した最適化</span>
+                  <span className="text-gray-400">情報収集が広く浅い — 「関連しそう」な情報を多めに取得</span>
                 </div>
                 <div className="flex items-start gap-3">
                   <span className="shrink-0 mt-1 w-2 h-2 rounded-full bg-gray-500" />
@@ -229,11 +235,11 @@ export default function Home() {
                 </div>
                 <div className="flex items-start gap-3">
                   <span className="shrink-0 mt-1 w-2 h-2 rounded-full bg-indigo-400" />
-                  <span className="text-indigo-100">アーキテクチャ全体を俯瞰した一貫性のある設計</span>
+                  <span className="text-indigo-100">必要な情報だけを正確に取得 — ノイズのない判断</span>
                 </div>
                 <div className="flex items-start gap-3">
                   <span className="shrink-0 mt-1 w-2 h-2 rounded-full bg-indigo-400" />
-                  <span className="text-indigo-100">品質 × 自律性 = 人間の介入なしに本番品質を実現</span>
+                  <span className="text-indigo-100">重みづけではなく論理的判断 — エラー・ハルシネーションが圧倒的に少ない</span>
                 </div>
               </div>
             </div>
@@ -479,19 +485,19 @@ const ccagiPoints = [
 
 const reasoningMatters = [
   {
+    icon: "🎯",
+    title: "情報収集の精度",
+    desc: "軽量モデルは「関連しそう」な情報を広く集め、ノイズが判断を歪める。Opusは今この工程で本当に必要な情報だけを選び取り、不要なものは読まない。",
+  },
+  {
+    icon: "🧩",
+    title: "重みづけではない判断",
+    desc: "軽量モデルは確率的な重みづけで「それらしい」答えを出す。Opusは論理的に判断する。この差がエラーとハルシネーションの発生率を圧倒的に下げる。",
+  },
+  {
     icon: "🏗️",
     title: "設計判断の波及",
-    desc: "DB設計・API設計の初期判断は、後続のUI・認証・テストすべてに影響。軽量モデルの「おおよそ正しい」設計は、後工程で技術的負債になる。",
-  },
-  {
-    icon: "🔗",
-    title: "一貫性の維持",
-    desc: "46テーブル・数百ファイルのプロジェクトでは、命名規則・エラーハンドリング・型定義の一貫性が品質を決める。最高の推論力が必要。",
-  },
-  {
-    icon: "🛡️",
-    title: "自律実行の安全性",
-    desc: "人間の介入なしにコードを書き、DBを操作する。推論の精度が低ければ、データ破壊やセキュリティホールのリスクが生じる。",
+    desc: "DB設計の1つのミスがUI・API・認証・テスト全層に波及する。正確な情報収集と論理的判断ができなければ、数百ファイルの整合性は保てない。",
   },
 ];
 
@@ -499,7 +505,17 @@ const ccComparisons = [
   {
     label: "推論モデル",
     cc: "タスク難度に応じてHaiku/Sonnet/Opusを切替",
-    ccagi: "常にOpus — 全工程で最高の推論品質を保証",
+    ccagi: "常にOpus — 必要な情報だけを正確に取得し論理的に判断",
+  },
+  {
+    label: "情報収集",
+    cc: "関連しそうな情報を広く取得（ノイズを含む）",
+    ccagi: "必要なものだけ取り、不要なものは持ってこない",
+  },
+  {
+    label: "正確性",
+    cc: "確率的重みづけ — ハルシネーションのリスクあり",
+    ccagi: "論理的判断 — エラー・ハルシネーションが圧倒的に少ない",
   },
   {
     label: "位置づけ",
