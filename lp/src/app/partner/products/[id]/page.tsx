@@ -182,7 +182,7 @@ export default async function EditPartnerProductPage({
             </div>
             <div className="mt-3">
               <label className={labelClass}>注文に関する備考</label>
-              <textarea name="order_notes" rows={2} defaultValue={product.order_notes ?? ""} className={inputClass} placeholder="リードタイム、ロット単位の制約など" />
+              <textarea name="order_notes" rows={2} defaultValue={product.order_notes ?? ""} className={inputClass} placeholder="リードタイム、最小注文数の制約など" />
             </div>
           </div>
 

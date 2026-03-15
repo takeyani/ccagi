@@ -68,7 +68,7 @@ const buyerSteps: Step[] = [
     title: "購入・決済",
     description: "商談がまとまったら、Stripe経由で安全に決済を完了します。",
     details: [
-      "通常購入：ロット単位での即時購入",
+      "通常購入：箱単位で数量を指定して即時購入",
       "オークション入札：希望額を提示して競り",
       "自動入札：上限額を設定して自動入札を有効化",
       "Stripe Checkoutで安全なカード決済",
@@ -280,7 +280,7 @@ export default function BuyerFlowPage() {
           <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
             <div className="text-3xl mb-3">🛒</div>
             <h3 className="font-bold text-gray-900 mb-2">通常購入</h3>
-            <p className="text-sm text-gray-500 mb-4">ロット単位で即時購入。表示価格でそのまま決済できます。</p>
+            <p className="text-sm text-gray-500 mb-4">箱単位で数量を指定して即時購入。1箱からでも購入できます。</p>
             <ul className="text-xs text-gray-400 space-y-1">
               <li>- 固定価格で即時購入</li>
               <li>- Stripe Checkoutで安全決済</li>

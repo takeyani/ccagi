@@ -602,7 +602,7 @@ export default function FlowPage() {
           <FeatureCard icon="📊" title="アフィリエイト" description="コード追跡で成果報酬を自動計算" />
           <FeatureCard icon="📝" title="帳票管理" description="見積書・請求書・納品書の作成・管理" />
           <FeatureCard icon="💬" title="グループウェア" description="メッセージ・タスク・ファイル共有" />
-          <FeatureCard icon="🏷️" title="オークション" description="ロット単位の競り・自動入札機能" />
+          <FeatureCard icon="🏷️" title="オークション" description="箱単位から入札可能な競り・自動入札機能" />
           <FeatureCard icon="📈" title="ランキング" description="パートナー・商品のスコアランキング" />
           <FeatureCard icon="🔌" title="埋め込みウィジェット" description="外部サイトにiframeで商品表示" />
           <FeatureCard icon="📋" title="アンケート" description="バイヤー向けのサーベイ作成・集計" />

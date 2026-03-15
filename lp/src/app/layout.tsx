@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "単品決済ロットLP | 初期費用0円・成果報酬型マーケットプレイス",
   description:
-    "初期費用0円・月額0円の成果報酬型BtoBマーケットプレイス。ロット単位の取引に最適化された商品管理・プルーフチェーン・AI検索・LP作成機能を提供します。",
+    "初期費用0円・月額0円の成果報酬型マーケットプレイス。箱単位から購入可能な商品管理・プルーフチェーン・AI検索・LP作成機能を提供します。",
 };
 
 export default function RootLayout({
