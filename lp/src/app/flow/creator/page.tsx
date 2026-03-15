@@ -30,14 +30,14 @@ const creatorSteps: Step[] = [
   },
   {
     number: "02",
-    title: "商品を選ぶ・リサーチ",
-    description: "マーケットプレイスから紹介したい商品をリサーチし、LPの題材を決めます。",
+    title: "販売許可取得・価格設定",
+    description: "メーカーから販売許可を取得し、卸値に利益を上乗せした販売価格を設定します。",
     details: [
-      "商品カタログから魅力的な商品を検索",
-      "ランキングページで人気商品をチェック",
+      "メーカーに販売許可をリクエスト",
+      "卸値（仕入れ価格）を確認",
+      "卸値に利益を上乗せした販売価格を設定",
       "プルーフチェーンで品質・信頼性を確認",
-      "ロットの在庫・価格・有効期限を確認",
-      "自分のフォロワー層に合った商品を選定",
+      "卸値と販売価格の差分がクリエイターの利益",
     ],
   },
   {
@@ -86,14 +86,14 @@ const creatorSteps: Step[] = [
   },
   {
     number: "06",
-    title: "成果確認・報酬獲得",
+    title: "成果確認・利益獲得",
     description:
-      "アナリティクスで成果を確認し、コンバージョンに応じた報酬を獲得します。",
+      "アナリティクスで売上を確認。販売価格と卸値の差分がクリエイターの利益です。",
     details: [
       "LP/コレクション別の閲覧数を確認",
       "コンバージョン数（購入完了）の追跡",
-      "報酬 = 購入金額 x 2% でポイント自動付与",
-      "リファラルテーブルで全成果を一覧確認",
+      "利益 = 販売価格 - 卸値（仕入れ価格）",
+      "売上・利益のリアルタイム確認",
       "高パフォーマンスLPの分析・改善",
     ],
   },
@@ -271,10 +271,10 @@ export default function CreatorFlowPage() {
           </div>
           <div className="mt-6 bg-gradient-to-r from-pink-50 to-purple-50 rounded-xl p-4 text-center">
             <p className="text-sm font-bold text-gray-700">
-              報酬 = 購入金額 x 2%（ポイント還元）
+              利益 = 販売価格 - 卸値（仕入れ価格）
             </p>
             <p className="text-xs text-gray-500 mt-1">
-              ?ref=あなたのコード でトラッキング → 購入完了時に自動記録
+              メーカーから販売許可を取得 → 卸値に利益を上乗せしてLPで販売
             </p>
           </div>
         </div>
@@ -351,28 +351,30 @@ export default function CreatorFlowPage() {
 
       {/* 報酬シミュレーション */}
       <section className="max-w-5xl mx-auto px-6 mb-20">
-        <h2 className="text-2xl font-extrabold text-gray-900 mb-2 text-center">報酬シミュレーション</h2>
-        <p className="text-gray-500 text-sm text-center mb-10">アフィリエイト還元率2%（ポイント）の場合の報酬例</p>
-        <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden max-w-2xl mx-auto">
+        <h2 className="text-2xl font-extrabold text-gray-900 mb-2 text-center">利益シミュレーション</h2>
+        <p className="text-gray-500 text-sm text-center mb-10">卸値に20%上乗せして販売した場合の利益例</p>
+        <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden max-w-3xl mx-auto">
           <table className="w-full text-sm">
             <thead>
               <tr className="bg-gray-50 border-b">
-                <th className="text-left px-5 py-3 font-medium text-gray-600">月間LP経由売上</th>
-                <th className="text-left px-5 py-3 font-medium text-gray-600">コンバージョン</th>
-                <th className="text-right px-5 py-3 font-medium text-gray-600">月間報酬</th>
+                <th className="text-left px-4 py-3 font-medium text-gray-600">卸値（仕入れ）</th>
+                <th className="text-left px-4 py-3 font-medium text-gray-600">販売価格</th>
+                <th className="text-left px-4 py-3 font-medium text-gray-600">月間販売数</th>
+                <th className="text-right px-4 py-3 font-medium text-gray-600">月間利益</th>
               </tr>
             </thead>
             <tbody>
               {[
-                { sales: "10万円", cv: "10件", reward: "2,000pt" },
-                { sales: "50万円", cv: "50件", reward: "10,000pt" },
-                { sales: "100万円", cv: "100件", reward: "20,000pt" },
-                { sales: "500万円", cv: "500件", reward: "100,000pt" },
+                { cost: "¥3,000", price: "¥3,600", qty: "30箱", profit: "¥18,000" },
+                { cost: "¥3,000", price: "¥3,600", qty: "100箱", profit: "¥60,000" },
+                { cost: "¥5,000", price: "¥6,000", qty: "50箱", profit: "¥50,000" },
+                { cost: "¥5,000", price: "¥6,000", qty: "200箱", profit: "¥200,000" },
               ].map((row, i) => (
                 <tr key={i} className="border-b last:border-0">
-                  <td className="px-5 py-3">{row.sales}</td>
-                  <td className="px-5 py-3">{row.cv}</td>
-                  <td className="px-5 py-3 text-right font-bold text-pink-600">{row.reward}</td>
+                  <td className="px-4 py-3">{row.cost}</td>
+                  <td className="px-4 py-3">{row.price}</td>
+                  <td className="px-4 py-3">{row.qty}</td>
+                  <td className="px-4 py-3 text-right font-bold text-pink-600">{row.profit}</td>
                 </tr>
               ))}
             </tbody>

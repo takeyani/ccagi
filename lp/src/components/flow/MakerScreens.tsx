@@ -10,7 +10,7 @@ import {
   MockFormField,
 } from "./ScreenMockup";
 
-const sidebarItems = ["ダッシュボード", "商品管理", "プルーフ", "問い合わせ", "帳票", "グループウェア", "設定"];
+const sidebarItems = ["ダッシュボード", "商品管理", "企画・キャンペーン", "プルーフ", "問い合わせ", "帳票", "グループウェア", "設定"];
 
 export function MakerDashboardScreen() {
   return (
@@ -217,6 +217,64 @@ export function InquiryScreen() {
             <MockButton label="承諾する" primary />
             <MockButton label="辞退する" />
             <MockButton label="見積書を作成" />
+          </div>
+        </div>
+      </div>
+    </ScreenMockup>
+  );
+}
+
+export function CampaignScreen() {
+  return (
+    <ScreenMockup title="partner.ccagi.app/campaigns">
+      <div className="flex">
+        <MockSidebar items={sidebarItems} active="企画・キャンペーン" />
+        <div className="flex-1 p-3 bg-gray-50">
+          <div className="flex items-center justify-between mb-2">
+            <div className="font-bold text-sm text-gray-900">企画・キャンペーン管理</div>
+            <MockButton label="+ 新規企画" primary />
+          </div>
+          <div className="bg-white border border-gray-200 rounded-lg overflow-hidden mb-2">
+            <MockTable
+              headers={["企画名", "対象在庫", "割引率", "対象企業", "期間", "状態"]}
+              rows={[
+                ["春の新生活応援", "LOT-2026-001", "15%", "3社", "3/1〜3/31", ""],
+                ["まとめ買い割", "LOT-2026-002", "10%", "全取引先", "通年", ""],
+                ["ABC商事 特別価格", "LOT-2026-001", "20%", "1社", "3/15〜4/30", ""],
+              ]}
+            />
+            <div className="flex gap-12 ml-2 -mt-1 mb-1">
+              <span /><span /><span /><span /><span /><span className="flex gap-1">
+                <MockBadge label="実施中" color="green" />
+                <MockBadge label="実施中" color="blue" />
+                <MockBadge label="準備中" color="yellow" />
+              </span>
+            </div>
+          </div>
+          {/* 企画詳細プレビュー */}
+          <div className="bg-white border border-gray-200 rounded-lg p-2">
+            <div className="text-[10px] font-bold mb-1.5 text-gray-900">ABC商事 特別価格 - 詳細</div>
+            <div className="grid grid-cols-2 gap-2 text-[9px]">
+              <div>
+                <span className="text-gray-400">対象在庫：</span>
+                <span className="font-medium">LOT-2026-001 有機抹茶パウダー</span>
+              </div>
+              <div>
+                <span className="text-gray-400">通常価格：</span>
+                <span className="font-medium">¥3,500</span>
+                <span className="mx-1 text-gray-300">→</span>
+                <span className="font-bold text-red-600">¥2,800</span>
+              </div>
+            </div>
+            <div className="mt-1.5 text-[9px] font-medium text-gray-600 mb-1">対象取引先</div>
+            <div className="flex flex-wrap gap-1">
+              <span className="px-1.5 py-0.5 rounded text-[8px] font-medium bg-emerald-100 text-emerald-700 border border-emerald-200">ABC商事</span>
+              <span className="px-1.5 py-0.5 rounded text-[8px] font-medium bg-gray-100 text-gray-400 border border-gray-200">DEF食品（対象外）</span>
+              <span className="px-1.5 py-0.5 rounded text-[8px] font-medium bg-gray-100 text-gray-400 border border-gray-200">GHI貿易（対象外）</span>
+            </div>
+            <div className="mt-1.5 text-[8px] text-gray-400">
+              対象企業は緑、対象外はグレーで表示。企画ごとに取引先を選択して割引を適用できます。
+            </div>
           </div>
         </div>
       </div>

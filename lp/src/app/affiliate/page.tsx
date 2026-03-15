@@ -58,6 +58,43 @@ export default function AffiliatePage() {
           </p>
         </div>
 
+        {/* フロー説明 */}
+        <div className="mt-6 rounded-2xl bg-white p-6 shadow-sm border border-gray-200">
+          <h3 className="font-bold text-gray-900 text-sm mb-4">ご利用の流れ</h3>
+          <div className="space-y-3">
+            {[
+              { step: "1", text: "ユーザー登録を行い、紹介リンク・QRコードを発行" },
+              { step: "2", text: "メーカーや代理店にリンク/QRコードを共有" },
+              { step: "3", text: "紹介先がリンクから登録すると、あなたに紐付き" },
+              { step: "4", text: "紹介先の売上発生時、12%の成果報酬のうち2%をポイント獲得" },
+            ].map((item) => (
+              <div key={item.step} className="flex items-start gap-3">
+                <span className="flex-shrink-0 w-6 h-6 bg-indigo-100 text-indigo-700 rounded-full flex items-center justify-center text-xs font-bold">{item.step}</span>
+                <p className="text-sm text-gray-700">{item.text}</p>
+              </div>
+            ))}
+          </div>
+          <div className="mt-4 bg-gray-50 rounded-lg p-3 text-center">
+            <p className="text-xs text-gray-500">報酬内訳</p>
+            <div className="flex items-center justify-center gap-4 mt-2">
+              <div className="text-center">
+                <p className="text-lg font-extrabold text-indigo-600">12%</p>
+                <p className="text-xs text-gray-500">成果報酬</p>
+              </div>
+              <span className="text-gray-400">=</span>
+              <div className="text-center">
+                <p className="text-lg font-extrabold text-amber-600">2%</p>
+                <p className="text-xs text-gray-500">紹介者ポイント</p>
+              </div>
+              <span className="text-gray-400">+</span>
+              <div className="text-center">
+                <p className="text-lg font-extrabold text-gray-600">10%</p>
+                <p className="text-xs text-gray-500">プラットフォーム</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {!result ? (
           <form
             onSubmit={handleSubmit}
