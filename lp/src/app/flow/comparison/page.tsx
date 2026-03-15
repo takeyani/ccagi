@@ -115,6 +115,12 @@ const pricingPoints = [
 
 const advantages = [
   {
+    icon: "💰",
+    title: "初期費用0円・成果報酬型で始められる",
+    desc: "従来のECでは初期費用 数十万円＋月額 数万円の固定費が必要。単品決済ロットLPなら初期費用0円・月額0円、商品が売れた時だけ12%の成果報酬のみ。売上ゼロならコストもゼロ。リスクなく始められます。",
+    highlight: true,
+  },
+  {
     icon: "🔐",
     title: "プルーフチェーンで信頼を可視化",
     desc: "従来のECではレビューに頼るしかなかった商品の信頼性を、事業者証明・商品証明・在庫証明・所有権履歴・配送証明の5層で客観的に証明します。",
@@ -261,17 +267,17 @@ export default function ComparisonPage() {
             KEY ADVANTAGES
           </p>
           <h2 className="text-2xl font-extrabold text-center mb-3">
-            従来ECにはない6つの優位性
+            従来ECにはない7つの優位性
           </h2>
           <p className="text-gray-400 text-center text-sm mb-10 max-w-xl mx-auto">
             単品決済ロットLPが提供する、BtoB取引に最適化された独自の機能
           </p>
           <div className="grid md:grid-cols-2 gap-6">
-            {advantages.map((a) => (
-              <div key={a.title} className="bg-slate-800 border border-slate-700 rounded-xl p-6">
+            {advantages.map((a, i) => (
+              <div key={a.title} className={`rounded-xl p-6 ${i === 0 ? "md:col-span-2 bg-gradient-to-r from-indigo-600 to-purple-600 border-2 border-indigo-400 shadow-lg shadow-indigo-500/20" : "bg-slate-800 border border-slate-700"}`}>
                 <div className="text-2xl mb-3">{a.icon}</div>
-                <h4 className="font-bold text-sm mb-2">{a.title}</h4>
-                <p className="text-xs text-gray-400 leading-relaxed">{a.desc}</p>
+                <h4 className={`font-bold mb-2 ${i === 0 ? "text-lg text-white" : "text-sm"}`}>{a.title}</h4>
+                <p className={`leading-relaxed ${i === 0 ? "text-sm text-indigo-100" : "text-xs text-gray-400"}`}>{a.desc}</p>
               </div>
             ))}
           </div>
