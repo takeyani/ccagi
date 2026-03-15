@@ -25,7 +25,7 @@ const creatorSteps: Step[] = [
       "プロフィール（名前・アバター・SNSリンク）を設定",
       "固有のアフィリエイトコードを取得",
       "クリエイターモード（is_creator）を有効化",
-      "コミッション率の確認",
+      "ポイント還元率の確認",
     ],
   },
   {
@@ -92,7 +92,7 @@ const creatorSteps: Step[] = [
     details: [
       "LP/コレクション別の閲覧数を確認",
       "コンバージョン数（購入完了）の追跡",
-      "報酬 = 購入金額 x コミッション率 で自動計算",
+      "報酬 = 購入金額 x 2% でポイント自動付与",
       "リファラルテーブルで全成果を一覧確認",
       "高パフォーマンスLPの分析・改善",
     ],
@@ -271,7 +271,7 @@ export default function CreatorFlowPage() {
           </div>
           <div className="mt-6 bg-gradient-to-r from-pink-50 to-purple-50 rounded-xl p-4 text-center">
             <p className="text-sm font-bold text-gray-700">
-              報酬 = 購入金額 x コミッション率
+              報酬 = 購入金額 x 2%（ポイント還元）
             </p>
             <p className="text-xs text-gray-500 mt-1">
               ?ref=あなたのコード でトラッキング → 購入完了時に自動記録
@@ -352,7 +352,7 @@ export default function CreatorFlowPage() {
       {/* 報酬シミュレーション */}
       <section className="max-w-5xl mx-auto px-6 mb-20">
         <h2 className="text-2xl font-extrabold text-gray-900 mb-2 text-center">報酬シミュレーション</h2>
-        <p className="text-gray-500 text-sm text-center mb-10">コミッション率5%の場合の報酬例</p>
+        <p className="text-gray-500 text-sm text-center mb-10">アフィリエイト還元率2%（ポイント）の場合の報酬例</p>
         <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden max-w-2xl mx-auto">
           <table className="w-full text-sm">
             <thead>
@@ -364,10 +364,10 @@ export default function CreatorFlowPage() {
             </thead>
             <tbody>
               {[
-                { sales: "10万円", cv: "10件", reward: "5,000円" },
-                { sales: "50万円", cv: "50件", reward: "25,000円" },
-                { sales: "100万円", cv: "100件", reward: "50,000円" },
-                { sales: "500万円", cv: "500件", reward: "250,000円" },
+                { sales: "10万円", cv: "10件", reward: "2,000pt" },
+                { sales: "50万円", cv: "50件", reward: "10,000pt" },
+                { sales: "100万円", cv: "100件", reward: "20,000pt" },
+                { sales: "500万円", cv: "500件", reward: "100,000pt" },
               ].map((row, i) => (
                 <tr key={i} className="border-b last:border-0">
                   <td className="px-5 py-3">{row.sales}</td>

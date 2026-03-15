@@ -30,7 +30,7 @@ const comparisonRows: ComparisonRow[] = [
   {
     label: "料金体系",
     traditional: "固定費 + 売上手数料（二重コスト）",
-    ours: "成果報酬型のみ（売れた時だけ）",
+    ours: "成果報酬12%のみ（売れた時だけ）",
     highlight: true,
   },
   {
@@ -108,8 +108,8 @@ const pricingPoints = [
   },
   {
     icon: "🎯",
-    title: "成果報酬型",
-    desc: "商品が売れた時だけ手数料が発生。売上がなければコストもゼロ。あなたのビジネスに寄り添う料金体系です。",
+    title: "成果報酬 12%",
+    desc: "商品が売れた時だけ12%の手数料が発生。売上がなければコストもゼロ。アフィリエイト登録者には売上の2%をポイント還元。",
   },
 ];
 
@@ -202,7 +202,7 @@ export default function ComparisonPage() {
               従来のEC：初期費用 数十万円 + 月額 数万円 + 売上手数料
             </p>
             <p className="text-lg font-extrabold text-indigo-600">
-              単品決済ロットLP：初期費用 0円 + 月額 0円 + 成果報酬のみ
+              単品決済ロットLP：初期費用 0円 + 月額 0円 + 成果報酬12%のみ
             </p>
             <p className="text-sm text-gray-500 mt-2">
               売上が立つまで一切コストがかからないので、リスクゼロで始められます

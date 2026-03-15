@@ -53,8 +53,8 @@ export default function AffiliatePage() {
           </h1>
           <p className="mt-3 text-gray-600">
             紹介リンクを共有して、売上の
-            <span className="font-bold text-indigo-600">10%</span>
-            のコミッションを獲得しましょう。
+            <span className="font-bold text-indigo-600">2%</span>
+            をポイントとして獲得しましょう。獲得ポイントは全商品の購入に使えます。
           </p>
         </div>
 
@@ -181,7 +181,7 @@ export default function AffiliatePage() {
                 </div>
               </div>
               <p className="text-sm text-gray-500">
-                このリンクを経由して購入が発生すると、売上の10%がコミッションとして記録されます。
+                このリンクを経由して購入が発生すると、売上の2%がポイントとして付与されます。ポイントはプラットフォーム内の全商品の購入にご利用いただけます。
               </p>
 
               {isCreator && (

@@ -41,12 +41,28 @@ export default function Pricing() {
             <div className="text-4xl mb-3">🎯</div>
             <p className="text-sm font-semibold text-indigo-600 mb-2">手数料</p>
             <div className="text-4xl font-extrabold text-indigo-600 mb-2">
-              成果報酬型
+              12%
             </div>
             <p className="text-sm text-gray-500">
-              商品が売れた時だけ手数料が発生。売上ゼロならコストもゼロ
+              商品が売れた時だけ発生する成果報酬型。売上ゼロならコストもゼロ
             </p>
           </div>
+        </div>
+
+        {/* アフィリエイト還元 */}
+        <div className="mt-8 bg-white rounded-2xl border-2 border-amber-400 p-6 max-w-2xl mx-auto shadow-sm">
+          <div className="flex items-center justify-center gap-3 mb-3">
+            <span className="text-3xl">🤝</span>
+            <h3 className="font-bold text-gray-900 text-lg">アフィリエイトプログラム</h3>
+          </div>
+          <p className="text-gray-700 text-sm leading-relaxed">
+            アフィリエイト登録をすると、紹介した商品が売れた際に
+            <span className="font-bold text-amber-600 text-base mx-1">2%</span>
+            をポイントとして取得できます。
+          </p>
+          <p className="mt-2 text-gray-500 text-xs">
+            獲得ポイントはプラットフォーム内の全商品の購入に利用可能
+          </p>
         </div>
 
         <div className="mt-10 bg-white rounded-2xl border border-gray-200 p-6 max-w-2xl mx-auto shadow-sm">
