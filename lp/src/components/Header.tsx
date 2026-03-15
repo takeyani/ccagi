@@ -5,7 +5,7 @@ export default function Header() {
     <header className="absolute top-0 left-0 right-0 z-50">
       <div className="mx-auto max-w-5xl px-6 py-4 flex items-center justify-between">
         <Link href="/" className="text-lg font-bold text-white">
-          CCAGI
+          単品決済ロットLP
         </Link>
         <nav className="flex items-center gap-4">
           <Link

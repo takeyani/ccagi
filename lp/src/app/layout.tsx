@@ -15,9 +15,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "デジタルコンテンツ | あなたのビジネスを次のレベルへ",
+  title: "単品決済ロットLP | 初期費用0円・成果報酬型マーケットプレイス",
   description:
-    "プロが作成したデジタルテンプレートで、時間とコストを大幅に削減。今すぐダウンロードして、すぐに使い始められます。",
+    "初期費用0円・月額0円の成果報酬型BtoBマーケットプレイス。ロット単位の取引に最適化された商品管理・プルーフチェーン・AI検索・LP作成機能を提供します。",
 };
 
 export default function RootLayout({
