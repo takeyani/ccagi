@@ -250,6 +250,49 @@ function StepCard({ step, gallery }: { step: Step; gallery?: React.ReactNode }) 
   );
 }
 
+function FlowNode({ label, sub, color }: { label: string; sub: string; color: string }) {
+  return (
+    <div className="w-36 text-center rounded-xl p-4 text-white" style={{ background: color }}>
+      <div className="font-bold text-sm">{label}</div>
+      <div className="text-xs opacity-80 mt-0.5">{sub}</div>
+    </div>
+  );
+}
+
+function FlowArrow({ direction, label, color = "#94a3b8" }: { direction: "right" | "down" | "left"; label: string; color?: string }) {
+  if (direction === "right") {
+    return (
+      <div className="flex flex-col items-center gap-0.5">
+        <div className="text-[9px] text-gray-500 font-medium whitespace-nowrap">{label}</div>
+        <svg width="48" height="12" viewBox="0 0 48 12">
+          <defs><marker id={`ar-${label}`} markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d={`M0,0 L6,3 L0,6`} fill={color} /></marker></defs>
+          <line x1="2" y1="6" x2="42" y2="6" stroke={color} strokeWidth="2" markerEnd={`url(#ar-${label})`} />
+        </svg>
+      </div>
+    );
+  }
+  if (direction === "left") {
+    return (
+      <div className="flex flex-col items-center gap-0.5">
+        <svg width="48" height="12" viewBox="0 0 48 12">
+          <defs><marker id={`al-${label}`} markerWidth="6" markerHeight="6" refX="1" refY="3" orient="auto"><path d={`M6,0 L0,3 L6,6`} fill={color} /></marker></defs>
+          <line x1="46" y1="6" x2="6" y2="6" stroke={color} strokeWidth="2" markerEnd={`url(#al-${label})`} />
+        </svg>
+        <div className="text-[9px] text-gray-500 font-medium whitespace-nowrap">{label}</div>
+      </div>
+    );
+  }
+  return (
+    <div className="flex items-center gap-1">
+      <svg width="12" height="36" viewBox="0 0 12 36">
+        <defs><marker id={`ad-${label}`} markerWidth="6" markerHeight="6" refX="3" refY="5" orient="auto"><path d="M0,0 L3,6 L6,0" fill={color} /></marker></defs>
+        <line x1="6" y1="2" x2="6" y2="30" stroke={color} strokeWidth="2" markerEnd={`url(#ad-${label})`} />
+      </svg>
+      <div className="text-[9px] text-gray-500 font-medium whitespace-nowrap">{label}</div>
+    </div>
+  );
+}
+
 function FlowDiagram() {
   return (
     <div className="bg-white rounded-2xl border border-gray-200 p-8 shadow-sm">
@@ -257,85 +300,64 @@ function FlowDiagram() {
         全体の取引フロー
       </h3>
 
-      {/* 上段：メーカー → 単品決済ロットLP → 代理店 */}
-      <div className="flex items-center justify-center gap-4 mb-4">
-        {[
-          { id: "maker", label: "メーカー", sub: "商品開発・製造", color: "#2563eb" },
-          { id: "platform", label: "単品決済ロットLP", sub: "マーケットプレイス", color: "#0f172a" },
-          { id: "agent", label: "代理店", sub: "販売・販促", color: "#7c3aed" },
-        ].map((node, i) => (
-          <div key={node.id} className="flex items-center gap-4">
-            <div
-              className="w-36 text-center rounded-xl p-4 text-white"
-              style={{ background: node.color }}
-            >
-              <div className="font-bold text-sm">{node.label}</div>
-              <div className="text-xs opacity-80 mt-0.5">{node.sub}</div>
-            </div>
-            {i < 2 && (
-              <div className="flex flex-col items-center gap-0.5">
-                <svg width="48" height="24" viewBox="0 0 48 24">
-                  <defs>
-                    <marker id={`ah-${i}`} markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
-                      <path d="M0,0 L6,3 L0,6" fill="#94a3b8" />
-                    </marker>
-                    <marker id={`ahr-${i}`} markerWidth="6" markerHeight="6" refX="1" refY="3" orient="auto">
-                      <path d="M6,0 L0,3 L6,6" fill="#94a3b8" />
-                    </marker>
-                  </defs>
-                  <line x1="4" y1="8" x2="44" y2="8" stroke="#94a3b8" strokeWidth="1.5" markerEnd={`url(#ah-${i})`} />
-                  <line x1="44" y1="16" x2="4" y2="16" stroke="#94a3b8" strokeWidth="1.5" markerEnd={`url(#ahr-${i})`} />
-                </svg>
-              </div>
-            )}
-          </div>
-        ))}
+      {/*
+        レイアウト:
+        メーカー → プラットフォーム → 代理店
+                       ↓                ↓
+                   クリエイター    →  LP作成
+                       ↓
+                   バイヤー（LP経由で購入）
+      */}
+
+      {/* 上段：メーカー → プラットフォーム → 代理店 */}
+      <div className="flex items-center justify-center gap-2 mb-2">
+        <FlowNode label="メーカー" sub="商品開発・製造" color="#2563eb" />
+        <FlowArrow direction="right" label="商品・プルーフ登録" color="#2563eb" />
+        <FlowNode label="単品決済ロットLP" sub="マーケットプレイス" color="#0f172a" />
+        <FlowArrow direction="right" label="商品データ連携" color="#7c3aed" />
+        <FlowNode label="代理店" sub="販売・販促" color="#7c3aed" />
       </div>
 
-      {/* 下段：バイヤー（左）とクリエイター（右） */}
-      <div className="flex justify-center gap-16 mt-2">
-        {/* バイヤー */}
-        <div className="flex flex-col items-center gap-2">
-          <svg width="24" height="32" viewBox="0 0 24 32">
-            <defs>
-              <marker id="ah-d" markerWidth="6" markerHeight="6" refX="3" refY="5" orient="auto">
-                <path d="M0,0 L3,6 L6,0" fill="#94a3b8" />
-              </marker>
-              <marker id="ah-u" markerWidth="6" markerHeight="6" refX="3" refY="1" orient="auto">
-                <path d="M0,6 L3,0 L6,6" fill="#94a3b8" />
-              </marker>
-            </defs>
-            <line x1="8" y1="2" x2="8" y2="28" stroke="#94a3b8" strokeWidth="1.5" markerEnd="url(#ah-d)" />
-            <line x1="16" y1="28" x2="16" y2="2" stroke="#94a3b8" strokeWidth="1.5" markerEnd="url(#ah-u)" />
-          </svg>
-          <div className="w-36 text-center rounded-xl p-4 text-white" style={{ background: "#059669" }}>
-            <div className="font-bold text-sm">バイヤー</div>
-            <div className="text-xs opacity-80 mt-0.5">購入・調達</div>
+      {/* 中段：プラットフォーム→クリエイター、クリエイター→LP */}
+      <div className="flex justify-center mb-2">
+        <div className="w-36" /> {/* メーカー分のスペース */}
+        <div className="w-[48px]" /> {/* 矢印分 */}
+        <div className="flex flex-col items-center">
+          <FlowArrow direction="down" label="商品情報提供" color="#ec4899" />
+          <FlowNode label="クリエイター" sub="LP作成・集客" color="#ec4899" />
+          <div className="mt-2 bg-pink-50 border border-pink-200 rounded-lg px-4 py-2 text-center">
+            <div className="text-[10px] font-bold text-pink-700">画像・動画でLP作成</div>
+            <div className="text-[9px] text-pink-500">ブロックエディタで商品を紹介</div>
           </div>
         </div>
-        {/* クリエイター */}
-        <div className="flex flex-col items-center gap-2">
-          <svg width="24" height="32" viewBox="0 0 24 32">
-            <defs>
-              <marker id="ah-d2" markerWidth="6" markerHeight="6" refX="3" refY="5" orient="auto">
-                <path d="M0,0 L3,6 L6,0" fill="#94a3b8" />
-              </marker>
-              <marker id="ah-u2" markerWidth="6" markerHeight="6" refX="3" refY="1" orient="auto">
-                <path d="M0,6 L3,0 L6,6" fill="#94a3b8" />
-              </marker>
-            </defs>
-            <line x1="8" y1="2" x2="8" y2="28" stroke="#94a3b8" strokeWidth="1.5" markerEnd="url(#ah-d2)" />
-            <line x1="16" y1="28" x2="16" y2="2" stroke="#94a3b8" strokeWidth="1.5" markerEnd="url(#ah-u2)" />
-          </svg>
-          <div className="w-36 text-center rounded-xl p-4 text-white" style={{ background: "#ec4899" }}>
-            <div className="font-bold text-sm">クリエイター</div>
-            <div className="text-xs opacity-80 mt-0.5">LP作成・集客</div>
+      </div>
+
+      {/* 下段：LP → バイヤー（購入） */}
+      <div className="flex justify-center mb-2">
+        <div className="flex flex-col items-center">
+          <FlowArrow direction="down" label="LP経由で集客" color="#059669" />
+          <FlowNode label="バイヤー / ユーザー" sub="LP閲覧 → 購入" color="#059669" />
+        </div>
+      </div>
+
+      {/* 購入フロー（バイヤー→プラットフォーム→メーカー） */}
+      <div className="flex justify-center mt-3">
+        <div className="bg-gray-50 border border-gray-200 rounded-xl px-6 py-3 flex items-center gap-3">
+          <div className="text-[10px] font-bold text-emerald-600">購入フロー:</div>
+          <div className="flex items-center gap-2 text-[10px] text-gray-600">
+            <span className="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded font-medium">バイヤー</span>
+            <span className="text-gray-400">→ LP閲覧 →</span>
+            <span className="bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded font-medium">Stripe決済</span>
+            <span className="text-gray-400">→ 注文 →</span>
+            <span className="bg-blue-100 text-blue-700 px-2 py-0.5 rounded font-medium">メーカー出荷</span>
+            <span className="text-gray-400">→</span>
+            <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded font-medium">クリエイター報酬</span>
           </div>
         </div>
       </div>
 
       {/* 凡例 */}
-      <div className="mt-8 grid grid-cols-2 md:grid-cols-3 gap-3 text-xs text-gray-500">
+      <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-3 text-xs text-gray-500">
         {connections.map((c, i) => (
           <div key={i} className="flex items-center gap-2">
             <span className="w-5 h-0.5 bg-gray-400 shrink-0" />
