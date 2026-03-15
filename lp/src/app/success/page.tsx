@@ -119,7 +119,7 @@ export default async function SuccessPage({
         <p className="mt-4 text-gray-600 leading-relaxed">
           決済が正常に完了しました。
           <br />
-          ご登録のメールアドレスにダウンロードリンクをお送りしました。
+          注文確認メールをお送りしました。注文状況はマイページからご確認いただけます。
         </p>
         <div className="mt-8">
           <Link
