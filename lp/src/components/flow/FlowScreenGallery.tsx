@@ -5,6 +5,7 @@ import {
   ProductRegistrationScreen,
   LotManagementScreen,
   ProofChainScreen,
+  CreatorPermissionScreen,
   CampaignScreen,
   InquiryScreen,
   InvoiceScreen,
@@ -41,8 +42,9 @@ export function MakerScreenGallery({ stepNumber }: { stepNumber: string }) {
     ],
     "03": [{ stepNumber: "03", component: <ProofChainScreen /> }],
     "04": [{ stepNumber: "04", component: <CampaignScreen /> }],
-    "05": [{ stepNumber: "05", component: <InquiryScreen /> }],
-    "06": [{ stepNumber: "06", component: <InvoiceScreen /> }],
+    "05": [{ stepNumber: "05", component: <CreatorPermissionScreen /> }],
+    "06": [{ stepNumber: "06", component: <InquiryScreen /> }],
+    "07": [{ stepNumber: "07", component: <InvoiceScreen /> }],
   };
   const entries = screens[stepNumber];
   if (!entries) return null;

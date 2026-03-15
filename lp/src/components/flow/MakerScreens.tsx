@@ -10,7 +10,7 @@ import {
   MockFormField,
 } from "./ScreenMockup";
 
-const sidebarItems = ["ダッシュボード", "商品管理", "企画・キャンペーン", "プルーフ", "問い合わせ", "帳票", "グループウェア", "設定"];
+const sidebarItems = ["ダッシュボード", "商品管理", "企画・キャンペーン", "販売許可", "プルーフ", "問い合わせ", "帳票", "グループウェア", "設定"];
 
 export function MakerDashboardScreen() {
   return (
@@ -217,6 +217,63 @@ export function InquiryScreen() {
             <MockButton label="承諾する" primary />
             <MockButton label="辞退する" />
             <MockButton label="見積書を作成" />
+          </div>
+        </div>
+      </div>
+    </ScreenMockup>
+  );
+}
+
+export function CreatorPermissionScreen() {
+  return (
+    <ScreenMockup title="partner.ccagi.app/creator-permissions">
+      <div className="flex">
+        <MockSidebar items={sidebarItems} active="販売許可" />
+        <div className="flex-1 p-3 bg-gray-50">
+          <div className="flex items-center justify-between mb-2">
+            <div className="font-bold text-sm text-gray-900">クリエイター販売許可管理</div>
+          </div>
+          <div className="bg-white border border-gray-200 rounded-lg overflow-hidden mb-2">
+            <MockTable
+              headers={["クリエイター", "商品", "価格下限", "価格上限", "状態"]}
+              rows={[
+                ["@tanaka_design", "有機抹茶パウダー", "¥3,800", "¥5,000", ""],
+                ["@suzuki_media", "玄米プロテイン", "¥4,200", "¥6,000", ""],
+                ["@yamada_ch", "柚子エキス", "¥2,500", "¥3,500", ""],
+              ]}
+            />
+            <div className="flex gap-12 ml-2 -mt-1 mb-1">
+              <span /><span /><span /><span /><span className="flex gap-1">
+                <MockBadge label="許可済み" color="green" />
+                <MockBadge label="許可済み" color="green" />
+                <MockBadge label="申請中" color="yellow" />
+              </span>
+            </div>
+          </div>
+          {/* 許可設定詳細 */}
+          <div className="bg-white border border-gray-200 rounded-lg p-2">
+            <div className="text-[10px] font-bold mb-1.5 text-gray-900">販売許可設定 - @yamada_ch</div>
+            <div className="grid grid-cols-2 gap-2 text-[9px]">
+              <div>
+                <span className="text-gray-400">対象商品：</span>
+                <span className="font-medium">柚子エキス（LOT-2026-001）</span>
+              </div>
+              <div>
+                <span className="text-gray-400">卸値：</span>
+                <span className="font-medium">¥2,000</span>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-2 mt-1.5">
+              <MockFormField label="販売価格 下限" placeholder="¥2,500" />
+              <MockFormField label="販売価格 上限" placeholder="¥3,500" />
+            </div>
+            <div className="text-[8px] text-gray-400 mt-1">
+              クリエイターはこの範囲内で自由に販売価格を設定できます。卸値との差分がクリエイターの利益になります。
+            </div>
+            <div className="flex justify-end gap-1.5 mt-1.5">
+              <MockButton label="却下" />
+              <MockButton label="許可する" primary />
+            </div>
           </div>
         </div>
       </div>
