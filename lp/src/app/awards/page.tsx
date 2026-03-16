@@ -633,6 +633,164 @@ export default function AwardsPage() {
           </div>
         </section>
 
+        {/* ロール別ランキング */}
+        <section>
+          <h2 className="text-2xl font-extrabold text-gray-900 mb-2 text-center">ロール別ランキング</h2>
+          <p className="text-gray-500 text-sm text-center mb-10 max-w-2xl mx-auto">
+            メーカー・販売代理店・クリエイター・紹介者それぞれの視点で独立したランキングを自動生成。各ロールの貢献度を正当に評価します。
+          </p>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* メーカーランキング */}
+            <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+              <div className="bg-blue-600 text-white px-6 py-4">
+                <div className="flex items-center gap-3">
+                  <span className="text-2xl">🏭</span>
+                  <div>
+                    <h3 className="font-bold">メーカーランキング</h3>
+                    <p className="text-blue-200 text-xs">カテゴリー別×メーカー単位</p>
+                  </div>
+                </div>
+              </div>
+              <div className="p-6 space-y-3">
+                {[
+                  { icon: "💰", metric: "カテゴリー別 売上高ランキング", desc: "各カテゴリー内でのメーカー別月間売上額" },
+                  { icon: "📦", metric: "販売件数ランキング", desc: "受注件数の多いメーカーを表彰" },
+                  { icon: "⭐", metric: "バイヤー評価ランキング", desc: "平均レビュースコアの高いメーカー" },
+                  { icon: "🔐", metric: "プルーフチェーン達成ランキング", desc: "証明書類の充実度が高いメーカー" },
+                  { icon: "👥", metric: "新規バイヤー獲得ランキング", desc: "新規取引先を最も多く獲得したメーカー" },
+                  { icon: "🔄", metric: "リピート率ランキング", desc: "バイヤーのリピート購入率が高いメーカー" },
+                  { icon: "⚡", metric: "問い合わせ対応速度ランキング", desc: "バイヤーへの応答が最も早いメーカー" },
+                ].map((item) => (
+                  <div key={item.metric} className="flex items-start gap-2 text-xs">
+                    <span className="text-base mt-0.5">{item.icon}</span>
+                    <div>
+                      <p className="font-bold text-gray-900">{item.metric}</p>
+                      <p className="text-gray-500">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* 販売代理店ランキング */}
+            <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+              <div className="bg-purple-600 text-white px-6 py-4">
+                <div className="flex items-center gap-3">
+                  <span className="text-2xl">🏢</span>
+                  <div>
+                    <h3 className="font-bold">販売代理店ランキング</h3>
+                    <p className="text-purple-200 text-xs">代理店の営業実績評価</p>
+                  </div>
+                </div>
+              </div>
+              <div className="p-6 space-y-3">
+                {[
+                  { icon: "💰", metric: "代理店別 売上高ランキング", desc: "LP経由・直接販売合計の月間売上額" },
+                  { icon: "📦", metric: "販売件数ランキング", desc: "成立した取引件数の多い代理店" },
+                  { icon: "🏭", metric: "取り扱いメーカー数ランキング", desc: "多くのメーカー商品を販売している代理店" },
+                  { icon: "👥", metric: "新規バイヤー開拓ランキング", desc: "新規の購入企業を獲得した代理店" },
+                  { icon: "🤝", metric: "共同購入成立ランキング", desc: "共同購入グループをまとめた件数" },
+                  { icon: "🔨", metric: "オークション落札総額ランキング", desc: "オークション経由の取引額が大きい代理店" },
+                ].map((item) => (
+                  <div key={item.metric} className="flex items-start gap-2 text-xs">
+                    <span className="text-base mt-0.5">{item.icon}</span>
+                    <div>
+                      <p className="font-bold text-gray-900">{item.metric}</p>
+                      <p className="text-gray-500">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* クリエイターランキング */}
+            <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+              <div className="bg-pink-600 text-white px-6 py-4">
+                <div className="flex items-center gap-3">
+                  <span className="text-2xl">🎨</span>
+                  <div>
+                    <h3 className="font-bold">クリエイターランキング</h3>
+                    <p className="text-pink-200 text-xs">LP作成・SNS拡散の成果評価</p>
+                  </div>
+                </div>
+              </div>
+              <div className="p-6 space-y-3">
+                {[
+                  { icon: "💰", metric: "LP経由 売上高ランキング", desc: "クリエイターのLP経由で発生した月間売上合計" },
+                  { icon: "🎯", metric: "コンバージョン率ランキング", desc: "LP閲覧→購入完了率の高いクリエイター" },
+                  { icon: "👁️", metric: "LP閲覧数ランキング", desc: "最も多くの閲覧を集めたLPの作成者" },
+                  { icon: "📱", metric: "SNS流入ランキング", desc: "SNS経由のLP流入が最も多いクリエイター" },
+                  { icon: "⭐", metric: "バイヤー評価ランキング", desc: "LP購入者からの評価が高いクリエイター" },
+                  { icon: "🎬", metric: "LP作成数ランキング", desc: "アクティブなLP数が多いクリエイター" },
+                  { icon: "🏭", metric: "提携メーカー数ランキング", desc: "多くのメーカーから販売許可を得ているクリエイター" },
+                ].map((item) => (
+                  <div key={item.metric} className="flex items-start gap-2 text-xs">
+                    <span className="text-base mt-0.5">{item.icon}</span>
+                    <div>
+                      <p className="font-bold text-gray-900">{item.metric}</p>
+                      <p className="text-gray-500">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* 紹介者ランキング */}
+            <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+              <div className="bg-amber-600 text-white px-6 py-4">
+                <div className="flex items-center gap-3">
+                  <span className="text-2xl">📣</span>
+                  <div>
+                    <h3 className="font-bold">紹介者ランキング</h3>
+                    <p className="text-amber-200 text-xs">グループ紹介フィー・アフィリエイト評価</p>
+                  </div>
+                </div>
+              </div>
+              <div className="p-6 space-y-3">
+                {[
+                  { icon: "👥", metric: "紹介登録数ランキング", desc: "紹介リンク経由で新規登録したユーザー数" },
+                  { icon: "💰", metric: "紹介経由 売上高ランキング", desc: "紹介したメンバーの合計売上額" },
+                  { icon: "🏭", metric: "メーカー紹介ランキング", desc: "プラットフォームに紹介したメーカー数" },
+                  { icon: "🎤", metric: "インフルエンサー紹介ランキング", desc: "紹介したクリエイター/インフルエンサー数" },
+                  { icon: "📈", metric: "紹介先 継続率ランキング", desc: "紹介した人がアクティブに活動している割合" },
+                  { icon: "🤝", metric: "グループ紹介フィー獲得ランキング", desc: "グループ紹介フィーの獲得ポイント合計" },
+                ].map((item) => (
+                  <div key={item.metric} className="flex items-start gap-2 text-xs">
+                    <span className="text-base mt-0.5">{item.icon}</span>
+                    <div>
+                      <p className="font-bold text-gray-900">{item.metric}</p>
+                      <p className="text-gray-500">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* ランキングの閲覧単位 */}
+          <div className="mt-8 bg-gray-100 rounded-2xl p-6">
+            <h3 className="font-bold text-gray-900 text-sm mb-4 text-center">ランキングの閲覧単位</h3>
+            <p className="text-xs text-gray-500 text-center mb-4">
+              すべてのランキングは以下の切り口で絞り込み・閲覧できます
+            </p>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+              {[
+                { label: "集計期間", options: "デイリー / 週間 / 月間", icon: "📅" },
+                { label: "カテゴリー", options: "食品 / 化粧品 / 家電 / アパレル / サービス / 映像 / 産業用", icon: "🏷️" },
+                { label: "ロール", options: "メーカー / 代理店 / クリエイター / 紹介者", icon: "👤" },
+                { label: "地域", options: "全国 / 都道府県別 / 海外", icon: "🌏" },
+              ].map((filter) => (
+                <div key={filter.label} className="bg-white rounded-xl p-4 text-center">
+                  <span className="text-xl">{filter.icon}</span>
+                  <p className="font-bold text-gray-900 text-xs mt-1">{filter.label}</p>
+                  <p className="text-[10px] text-gray-500 mt-0.5">{filter.options}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* 受賞バッジの表示 */}
         <section>
           <h2 className="text-2xl font-extrabold text-gray-900 mb-2 text-center">受賞バッジの活用</h2>
