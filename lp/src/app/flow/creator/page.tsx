@@ -349,6 +349,153 @@ export default function CreatorFlowPage() {
         </div>
       </section>
 
+      {/* デザイン・動画で伝えることの重要性 */}
+      <section className="max-w-5xl mx-auto px-6 mb-20">
+        <p className="text-sm font-medium text-pink-500 tracking-wider mb-3 text-center">
+          WHY DESIGN &amp; VIDEO MATTER
+        </p>
+        <h2 className="text-2xl font-extrabold text-gray-900 mb-2 text-center">
+          なぜデザインと動画で伝えることが重要なのか？
+        </h2>
+        <p className="text-gray-500 text-sm text-center max-w-2xl mx-auto mb-10">
+          スペック表だけでは伝わらない。「見せ方」が購買を決める時代です。
+        </p>
+
+        <div className="grid sm:grid-cols-2 gap-6 mb-8">
+          <div className="bg-red-50 border border-red-200 rounded-2xl p-6">
+            <h3 className="font-bold text-red-800 mb-4">テキストだけのECページ</h3>
+            <ul className="space-y-2 text-sm text-gray-600">
+              <li className="flex items-start gap-2"><span className="text-red-400">✕</span> 商品スペックの羅列で、違いが分からない</li>
+              <li className="flex items-start gap-2"><span className="text-red-400">✕</span> 写真は白背景のカタログ写真だけ</li>
+              <li className="flex items-start gap-2"><span className="text-red-400">✕</span> 「なぜこの商品がいいのか」が伝わらない</li>
+              <li className="flex items-start gap-2"><span className="text-red-400">✕</span> どの商品も同じに見えてしまう</li>
+              <li className="flex items-start gap-2"><span className="text-red-400">✕</span> 専門知識がないと選べない</li>
+            </ul>
+          </div>
+          <div className="bg-green-50 border border-green-200 rounded-2xl p-6">
+            <h3 className="font-bold text-green-800 mb-4">クリエイターのLP</h3>
+            <ul className="space-y-2 text-sm text-gray-600">
+              <li className="flex items-start gap-2"><span className="text-green-500">✓</span> 使用シーンの動画で「自分ごと化」できる</li>
+              <li className="flex items-start gap-2"><span className="text-green-500">✓</span> 美しいデザインで商品の魅力が伝わる</li>
+              <li className="flex items-start gap-2"><span className="text-green-500">✓</span> 「この人が薦めるなら」という信頼</li>
+              <li className="flex items-start gap-2"><span className="text-green-500">✓</span> 専門家の視点で「なぜ良いか」を解説</li>
+              <li className="flex items-start gap-2"><span className="text-green-500">✓</span> 証明データと合わせて信頼性が倍増</li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="bg-white rounded-2xl border border-gray-200 p-8 shadow-sm">
+          <h3 className="font-bold text-gray-900 text-center mb-6">クリエイターの3つの力</h3>
+          <div className="grid sm:grid-cols-3 gap-6">
+            <div className="text-center">
+              <div className="text-4xl mb-3">🎨</div>
+              <h4 className="font-bold text-gray-900 text-sm mb-2">デザインの力</h4>
+              <p className="text-xs text-gray-500 leading-relaxed">
+                同じ商品でも見せ方を変えるだけで購買率は数倍変わります。色使い、レイアウト、写真の切り取り方。プロのデザインが商品の価値を引き上げます。
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl mb-3">🎬</div>
+              <h4 className="font-bold text-gray-900 text-sm mb-2">動画の力</h4>
+              <p className="text-xs text-gray-500 leading-relaxed">
+                テキストの5,000倍の情報量。実際に使っている様子、質感、サイズ感。動画なら3秒で伝わることが、文章では伝えきれません。
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl mb-3">❓</div>
+              <h4 className="font-bold text-gray-900 text-sm mb-2">問いの力</h4>
+              <p className="text-xs text-gray-500 leading-relaxed">
+                「この成分は何のため？」「なぜこの製法にこだわるのか？」。専門家だからこそ投げかけられる問いが、バイヤーの判断材料になります。証明データがその答えを裏付けます。
+              </p>
+            </div>
+          </div>
+          <div className="mt-6 bg-gradient-to-r from-pink-50 to-purple-50 rounded-xl p-4 text-center">
+            <p className="text-sm text-gray-700">
+              <span className="font-bold">デザイン × 動画 × 問い × 証明</span> = 「選ばれる理由」が完成する
+            </p>
+            <p className="text-xs text-gray-500 mt-1">
+              クリエイターが伝え、証明が裏付ける。この組み合わせが最強の販売力です。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* SNS連携 */}
+      <section className="bg-slate-900 text-white py-16 mb-20">
+        <div className="max-w-5xl mx-auto px-6">
+          <p className="text-sm font-medium text-pink-400 tracking-wider mb-3 text-center">
+            SNS INTEGRATION
+          </p>
+          <h2 className="text-2xl font-extrabold text-center mb-3">
+            ワンクリックで複数SNSに連携
+          </h2>
+          <p className="text-gray-400 text-center text-sm mb-10 max-w-2xl mx-auto">
+            作成したLPは、すべての主要SNSに簡単にシェアできます。
+            各SNSに最適化されたプレビューが自動生成されます。
+          </p>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
+            {[
+              { name: "Instagram", icon: "📸", color: "from-pink-500 to-purple-600", features: ["ストーリーズリンク", "フィード投稿", "リール連動"] },
+              { name: "X (Twitter)", icon: "🐦", color: "from-gray-700 to-gray-900", features: ["OGPカード自動生成", "ポスト連携", "スレッド投稿"] },
+              { name: "TikTok", icon: "🎵", color: "from-gray-900 to-pink-600", features: ["プロフィールリンク", "動画説明欄", "ショップ連携"] },
+              { name: "YouTube", icon: "▶️", color: "from-red-600 to-red-700", features: ["概要欄リンク", "カード挿入", "エンドスクリーン"] },
+              { name: "LINE", icon: "💬", color: "from-green-500 to-green-600", features: ["リッチメッセージ", "LINEシェア", "公式アカウント連携"] },
+              { name: "Facebook", icon: "👤", color: "from-blue-600 to-blue-700", features: ["OGPプレビュー", "ページ投稿", "マーケットプレイス"] },
+            ].map((sns) => (
+              <div key={sns.name} className="bg-slate-800 border border-slate-700 rounded-xl overflow-hidden">
+                <div className={`bg-gradient-to-r ${sns.color} px-3 py-2 text-center`}>
+                  <span className="text-xl">{sns.icon}</span>
+                  <p className="text-xs font-bold mt-0.5">{sns.name}</p>
+                </div>
+                <div className="p-3 space-y-1">
+                  {sns.features.map((f) => (
+                    <p key={f} className="text-[10px] text-gray-400 flex items-center gap-1">
+                      <span className="text-green-400">✓</span> {f}
+                    </p>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="bg-slate-800 border border-slate-700 rounded-2xl p-6">
+            <h3 className="font-bold text-center mb-4">LP → SNS連携の流れ</h3>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+              {[
+                { step: "LPを作成", icon: "🎨" },
+                { step: "シェアボタンをクリック", icon: "📤" },
+                { step: "SNSを選択", icon: "📱" },
+                { step: "最適プレビュー自動生成", icon: "✨" },
+                { step: "投稿完了", icon: "🎉" },
+              ].map((item, i) => (
+                <div key={i} className="flex items-center gap-2">
+                  <div className="text-center">
+                    <div className="w-12 h-12 bg-slate-700 rounded-xl flex items-center justify-center text-xl mb-1">{item.icon}</div>
+                    <p className="text-[10px] text-gray-400 max-w-[80px]">{item.step}</p>
+                  </div>
+                  {i < 4 && <span className="text-gray-600 hidden sm:block">→</span>}
+                </div>
+              ))}
+            </div>
+            <div className="mt-4 grid sm:grid-cols-3 gap-3">
+              <div className="bg-slate-700/50 rounded-lg p-3 text-center">
+                <p className="text-xs font-bold text-pink-400">OGP自動生成</p>
+                <p className="text-[10px] text-gray-400">SNSでシェアした時に美しいプレビューカードが自動で表示</p>
+              </div>
+              <div className="bg-slate-700/50 rounded-lg p-3 text-center">
+                <p className="text-xs font-bold text-pink-400">UTMパラメータ自動付与</p>
+                <p className="text-[10px] text-gray-400">どのSNSから流入したかを自動で追跡。効果測定も簡単</p>
+              </div>
+              <div className="bg-slate-700/50 rounded-lg p-3 text-center">
+                <p className="text-xs font-bold text-pink-400">QRコード生成</p>
+                <p className="text-[10px] text-gray-400">オフラインイベントや名刺にも。QRコードでLPに誘導</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* 報酬シミュレーション */}
       <section className="max-w-5xl mx-auto px-6 mb-20">
         <h2 className="text-2xl font-extrabold text-gray-900 mb-2 text-center">利益シミュレーション</h2>

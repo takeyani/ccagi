@@ -95,6 +95,64 @@ export default function AffiliatePage() {
           </div>
         </div>
 
+        {/* 多段階紹介（紹介者チェーン） */}
+        <div className="mt-6 rounded-2xl bg-white p-6 shadow-sm border border-gray-200">
+          <h3 className="font-bold text-gray-900 text-sm mb-4">多段階紹介（紹介者チェーン）</h3>
+          <p className="text-xs text-gray-500 mb-4">
+            あなたがインフルエンサーを紹介し、そのインフルエンサーが商品を売った場合、
+            あなたにも紹介フィーが還元されます。
+          </p>
+          <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-4 mb-4">
+            <div className="flex items-center justify-between text-center text-sm">
+              <div>
+                <div className="w-12 h-12 mx-auto bg-purple-100 rounded-full flex items-center justify-center text-xl mb-1">👤</div>
+                <p className="text-xs font-bold text-purple-700">あなた</p>
+                <p className="text-[10px] text-purple-500">紹介者</p>
+              </div>
+              <div className="text-gray-400 text-xs">紹介→</div>
+              <div>
+                <div className="w-12 h-12 mx-auto bg-pink-100 rounded-full flex items-center justify-center text-xl mb-1">🎤</div>
+                <p className="text-xs font-bold text-pink-700">インフルエンサー</p>
+                <p className="text-[10px] text-pink-500">クリエイター</p>
+              </div>
+              <div className="text-gray-400 text-xs">販売→</div>
+              <div>
+                <div className="w-12 h-12 mx-auto bg-emerald-100 rounded-full flex items-center justify-center text-xl mb-1">🛒</div>
+                <p className="text-xs font-bold text-emerald-700">バイヤー</p>
+                <p className="text-[10px] text-emerald-500">購入者</p>
+              </div>
+            </div>
+          </div>
+          <div className="bg-gray-50 rounded-lg p-3">
+            <p className="text-xs font-bold text-gray-700 mb-2">フィーの分配例（食品カテゴリー 12%の場合）</p>
+            <div className="space-y-2">
+              <div className="flex items-center justify-between text-xs">
+                <span className="text-gray-600">インフルエンサー（クリエイター）の利益</span>
+                <span className="font-bold text-pink-600">販売価格 - 卸値</span>
+              </div>
+              <div className="flex items-center justify-between text-xs">
+                <span className="text-gray-600">あなた（紹介者）のポイント</span>
+                <span className="font-bold text-purple-600">売上の 0.5%</span>
+              </div>
+              <div className="flex items-center justify-between text-xs">
+                <span className="text-gray-600">インフルエンサーの紹介ポイント</span>
+                <span className="font-bold text-amber-600">売上の 1.5%</span>
+              </div>
+              <div className="flex items-center justify-between text-xs">
+                <span className="text-gray-600">プラットフォーム</span>
+                <span className="font-bold text-gray-600">売上の 10%</span>
+              </div>
+              <div className="border-t pt-1 flex items-center justify-between text-xs">
+                <span className="font-bold text-gray-900">合計手数料</span>
+                <span className="font-bold text-indigo-600">12%</span>
+              </div>
+            </div>
+            <p className="text-[10px] text-gray-400 mt-2">
+              ※ 紹介者チェーンが存在する場合、2%の紹介ポイントを紹介者とクリエイターで分配します。分配率はカテゴリーや契約条件で調整可能。
+            </p>
+          </div>
+        </div>
+
         {!result ? (
           <form
             onSubmit={handleSubmit}

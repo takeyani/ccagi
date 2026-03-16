@@ -157,9 +157,11 @@ const agentSteps: Step[] = [
   {
     number: "05",
     title: "帳票管理・精算",
-    description: "取引に関する帳票を管理し、メーカーとの精算を行います。",
+    description: "取引に関する帳票を管理し、メーカーとの精算を行います。BtoB/BtoC両対応。",
     details: [
-      "請求書・納品書の発行",
+      "BtoB帳票：見積書・請求書・納品書の発行",
+      "BtoC帳票：領収書・購入明細・返品伝票の発行",
+      "インボイス制度対応：適格請求書番号（T+13桁）を自動反映",
       "税区分（10%/8%）の自動計算",
       "アフィリエイト報酬の確認",
     ],
@@ -486,7 +488,8 @@ export default function FlowPage() {
               <li>- 自社商品の登録・在庫管理</li>
               <li>- 5層プルーフチェーンで信頼性を証明</li>
               <li>- バイヤーからの問い合わせに対応</li>
-              <li>- 帳票管理（見積書・請求書・納品書）</li>
+              <li>- 帳票管理（BtoB: 見積書・請求書・納品書 / BtoC: 領収書・購入明細・返品伝票）</li>
+              <li>- インボイス制度対応（適格請求書の自動発行）</li>
               <li>- グループウェアで社内連携</li>
               <li>- クリエイターへの販売許可で販路拡大</li>
             </ul>
@@ -1222,7 +1225,7 @@ export default function FlowPage() {
           <FeatureCard icon="💳" title="Stripe決済" description="クレジットカード決済をワンクリックで" />
           <FeatureCard icon="🎨" title="LP作成ツール" description="ブロックエディタでカスタムLPを構築" />
           <FeatureCard icon="📊" title="アフィリエイト" description="コード追跡で成果報酬を自動計算" />
-          <FeatureCard icon="📝" title="帳票管理" description="見積書・請求書・納品書の作成・管理" />
+          <FeatureCard icon="📝" title="帳票管理（BtoB/BtoC両対応）" description="BtoB: 見積書・請求書・納品書 / BtoC: 領収書・購入明細・返品伝票。インボイス番号を自動反映" />
           <FeatureCard icon="💬" title="グループウェア" description="メッセージ・タスク・ファイル共有" />
           <FeatureCard icon="🏷️" title="オークション" description="箱単位から入札可能な競り・自動入札機能" />
           <FeatureCard icon="📈" title="ランキング" description="パートナー・商品のスコアランキング" />

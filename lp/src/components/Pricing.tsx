@@ -75,7 +75,7 @@ export default function Pricing() {
               "Stripe決済連携",
               "LP作成ツール",
               "アフィリエイト機能",
-              "帳票管理（見積・請求・納品）",
+              "帳票管理（BtoB/BtoC・インボイス対応）",
               "オークション・自動入札",
             ].map((feature) => (
               <div key={feature} className="flex items-center gap-2 text-sm text-gray-700">
