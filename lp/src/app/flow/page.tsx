@@ -51,13 +51,13 @@ const makerSteps: Step[] = [
   {
     number: "03",
     title: "5層プルーフチェーン",
-    description: "商品の信頼性を証明する5段階の証明書類を登録します。",
+    description: "商品の信頼性を証明する証明書類を登録します。カテゴリーにより必要な項目が異なります。",
     details: [
-      "L1: 事業者証明（営業許可証・署名）",
-      "L2: 商品証明（成分表・検査結果）",
-      "L3: 在庫証明（バーコード/WMS/IoT連携）",
-      "L4: 所有権履歴（出品→購入→移管の追跡）",
-      "L5: 配送証明（追跡番号・写真・署名）",
+      "L1: 事業者証明（営業許可証・署名）── 全カテゴリー推奨",
+      "L2: 商品証明（成分表・検査結果）── 食品・化粧品は必須、他は任意",
+      "L3: 在庫証明（バーコード/倉庫連携）── 物理商品のみ、デジタル商品は対象外",
+      "L4: 所有権履歴（受発注レコードで自動記録）── システムが自動生成",
+      "L5: 配送証明（追跡番号・写真・署名）── 物理商品のみ",
     ],
     color: "#2563eb",
   },
@@ -112,11 +112,11 @@ const makerSteps: Step[] = [
 const agentSteps: Step[] = [
   {
     number: "01",
-    title: "代理店登録",
-    description: "代理店としてアカウントを作成し、親メーカーと紐付けます。",
+    title: "販売代理店登録",
+    description: "販売代理店としてアカウントを作成し、親メーカーと紐付けます。",
     details: [
-      "会社名・連絡先の登録",
-      "パートナー種別「代理店」を選択",
+      "会社名・連絡先の登録（個人事業主も可）",
+      "パートナー種別「販売代理店」を選択",
       "親パートナー（メーカー）との紐付け",
     ],
     color: "#7c3aed",
@@ -232,11 +232,11 @@ const creatorSteps: Step[] = [
 
 const connections: FlowConnection[] = [
   { from: "メーカー", to: "プラットフォーム", label: "商品・プルーフ登録" },
-  { from: "プラットフォーム", to: "代理店", label: "商品データ連携" },
-  { from: "代理店", to: "バイヤー", label: "LP・販促" },
+  { from: "プラットフォーム", to: "販売代理店", label: "商品データ連携" },
+  { from: "販売代理店", to: "バイヤー", label: "LP・販促" },
   { from: "バイヤー", to: "プラットフォーム", label: "購入エージェント検索" },
-  { from: "プラットフォーム", to: "メーカー/代理店", label: "問い合わせ通知" },
-  { from: "メーカー/代理店", to: "バイヤー", label: "見積・受注・出荷" },
+  { from: "プラットフォーム", to: "メーカー/販売代理店", label: "問い合わせ通知" },
+  { from: "メーカー/販売代理店", to: "バイヤー", label: "見積・受注・出荷" },
   { from: "クリエイター", to: "プラットフォーム", label: "LP作成・画像/動画アップ" },
   { from: "クリエイター", to: "バイヤー", label: "LP経由の集客" },
 ];
@@ -342,7 +342,7 @@ function FlowDiagram() {
         <FlowArrow direction="right" label="商品・プルーフ登録" color="#2563eb" />
         <FlowNode label="単品決済ロットLP" sub="マーケットプレイス" color="#0f172a" />
         <FlowArrow direction="right" label="商品データ連携" color="#7c3aed" />
-        <FlowNode label="代理店" sub="販売・販促" color="#7c3aed" />
+        <FlowNode label="販売代理店" sub="メーカー代理店・法人営業" color="#7c3aed" />
       </div>
 
       {/* 中段：プラットフォーム→クリエイター、クリエイター→LP */}
@@ -351,7 +351,7 @@ function FlowDiagram() {
         <div className="w-[48px]" /> {/* 矢印分 */}
         <div className="flex flex-col items-center">
           <FlowArrow direction="down" label="商品情報提供" color="#ec4899" />
-          <FlowNode label="クリエイター" sub="LP作成・集客" color="#ec4899" />
+          <FlowNode label="クリエイター" sub="映像制作者・インフルエンサー" color="#ec4899" />
           <div className="mt-2 bg-pink-50 border border-pink-200 rounded-lg px-4 py-2 text-center">
             <div className="text-[10px] font-bold text-pink-700">画像・動画でLP作成</div>
             <div className="text-[9px] text-pink-500">ブロックエディタで商品を紹介</div>
@@ -363,7 +363,7 @@ function FlowDiagram() {
       <div className="flex justify-center mb-2">
         <div className="flex flex-col items-center">
           <FlowArrow direction="down" label="LP経由で集客" color="#059669" />
-          <FlowNode label="バイヤー / ユーザー" sub="LP閲覧 → 購入" color="#059669" />
+          <FlowNode label="バイヤー / ユーザー" sub="購入企業(国内・輸出商社)・個人購入者" color="#059669" />
         </div>
       </div>
 
@@ -435,7 +435,7 @@ export default function FlowPage() {
               メーカー
             </a>
             <a href="#agent" className="text-gray-600 hover:text-gray-900">
-              代理店
+              販売代理店
             </a>
             <a href="#creator" className="text-gray-600 hover:text-gray-900">
               クリエイター
@@ -481,7 +481,9 @@ export default function FlowPage() {
             </div>
             <h3 className="font-bold text-gray-900 mb-2">商品を製造・提供する企業</h3>
             <div className="bg-blue-100 border border-blue-200 rounded-lg p-3 mb-3">
-              <p className="text-xs font-bold text-blue-800 mb-1">なぜ登録するのか？</p>
+              <p className="text-xs font-bold text-blue-800 mb-1">具体的にはどんな人？</p>
+              <p className="text-xs text-blue-700 leading-relaxed mb-1">食品メーカー、化粧品会社、家電メーカー、アパレルブランド、サービス事業者、映像制作会社など。自社の商品やサービスを出品・販売します。</p>
+              <p className="text-xs font-bold text-blue-800 mt-2 mb-1">なぜ登録するのか？</p>
               <p className="text-xs text-blue-700 leading-relaxed">初期費用ゼロ・成果報酬型で、売れた時だけ手数料が発生。自社ECを持たなくても、クリエイターや代理店が販路を広げてくれるため、少ない労力で全国のバイヤーにリーチできます。</p>
             </div>
             <ul className="text-sm text-gray-600 space-y-1.5">
@@ -496,11 +498,13 @@ export default function FlowPage() {
           </div>
           <div className="bg-purple-50 border border-purple-200 rounded-2xl p-6">
             <div className="inline-block bg-purple-600 text-white text-xs font-bold px-3 py-1 rounded-full mb-3">
-              代理店
+              販売代理店
             </div>
-            <h3 className="font-bold text-gray-900 mb-2">メーカー商品を販売する企業</h3>
+            <h3 className="font-bold text-gray-900 mb-2">メーカー商品を販売する企業・個人</h3>
             <div className="bg-purple-100 border border-purple-200 rounded-lg p-3 mb-3">
-              <p className="text-xs font-bold text-purple-800 mb-1">なぜ登録するのか？</p>
+              <p className="text-xs font-bold text-purple-800 mb-1">具体的にはどんな人？</p>
+              <p className="text-xs text-purple-700 leading-relaxed mb-1">メーカーの販売代理店、商社、問屋、営業代行会社、または個人でLPを作成して販売する人など。既存の取引先ネットワークやWebサイトを活用して商品を販売します。</p>
+              <p className="text-xs font-bold text-purple-800 mt-2 mb-1">なぜ登録するのか？</p>
               <p className="text-xs text-purple-700 leading-relaxed">在庫リスクなしでメーカー商品を取り扱い可能。LP作成ツールで独自の販売ページを簡単に構築でき、紹介報酬（2%ポイント）も獲得。既存の取引先ネットワークを活かして収益を最大化できます。</p>
             </div>
             <ul className="text-sm text-gray-600 space-y-1.5">
@@ -518,7 +522,9 @@ export default function FlowPage() {
             </div>
             <h3 className="font-bold text-gray-900 mb-2">LP作成で商品を拡散・収益化</h3>
             <div className="bg-pink-100 border border-pink-200 rounded-lg p-3 mb-3">
-              <p className="text-xs font-bold text-pink-800 mb-1">なぜ登録するのか？</p>
+              <p className="text-xs font-bold text-pink-800 mb-1">具体的にはどんな人？</p>
+              <p className="text-xs text-pink-700 leading-relaxed mb-1">映像制作会社、映像クリエイター、インフルエンサー、デザイナーなど、商品のLPを作成して販促する人。SNSやYouTubeのフォロワーを活かして商品を紹介します。</p>
+              <p className="text-xs font-bold text-pink-800 mt-2 mb-1">なぜ登録するのか？</p>
               <p className="text-xs text-pink-700 leading-relaxed">仕入れ不要・在庫リスクなしで物販を始められます。メーカーから販売許可をもらい、卸値に利益を上乗せしたLPを作成。売れた分だけ利益になるので、SNSやブログのフォロワーを収益に変えられます。</p>
             </div>
             <ul className="text-sm text-gray-600 space-y-1.5">
@@ -559,7 +565,7 @@ export default function FlowPage() {
             AGENT FLOW
           </span>
           <h2 className="text-2xl font-extrabold text-gray-900 mb-2">
-            代理店の業務フロー
+            販売代理店の業務フロー
           </h2>
           <p className="text-gray-500 text-sm">
             メーカー商品の取り扱いから販促・精算までの一連の流れ
@@ -605,6 +611,15 @@ export default function FlowPage() {
             買い手が商品を購入するとき、頭の中にある5つの不安。
             その一つひとつに証拠で答えるのが「5層プルーフチェーン」です。
           </p>
+          <div className="bg-amber-500/10 border border-amber-500/30 rounded-xl p-4 max-w-2xl mx-auto mb-4">
+            <p className="text-amber-300 text-sm font-bold mb-1">すべて必須ではありません</p>
+            <p className="text-amber-200/80 text-xs leading-relaxed">
+              5つの証明は、取り扱うカテゴリーによって必要な項目が変わります。
+              例えば映像販売のように在庫が無限にあるデジタル商品では在庫証明（L3）や配送証明（L5）は不要です。
+              食品の場合は表示義務があるため商品証明（L2）が必須になります。
+              所有権履歴（L4）は受発注のレコードからシステムが自動生成します。
+            </p>
+          </div>
           <p className="text-gray-500 text-center text-xs mb-10 max-w-xl mx-auto">
             購入エージェント（AI）はこの5つの証明をスコア化して、信頼できる商品を自動で見つけ出します
           </p>
@@ -627,21 +642,21 @@ export default function FlowPage() {
                 agent: "カテゴリーに必要な検査書類が揃っているか確認 → 不足があればスコアを下げる",
               },
               {
-                layer: "L3", title: "在庫は本当にある？", subtitle: "在庫の証明", icon: "📦",
+                layer: "L3", title: "在庫は本当にある？", subtitle: "在庫の証明（物理商品のみ）", icon: "📦",
                 worry: "注文したのに「在庫がありませんでした」とか言われないよね？",
-                proof: "実際の在庫を写真・バーコード・倉庫システムで確認。「この在庫は今、確かに存在しています」と証明します。",
+                proof: "実際の在庫を写真・バーコード・倉庫システムで確認。「この在庫は今、確かに存在しています」と証明します。デジタル商品（映像・サービス等）の場合は在庫が無限のため、この証明は不要です。",
                 example: "倉庫の写真、バーコード読み取り記録、倉庫管理システム（WMS）との連携データなど",
-                agent: "証明方法のレベル（目視 < バーコード < WMS < IoTセンサー）でスコアを変える",
+                agent: "証明方法のレベル（目視 < バーコード < WMS < IoTセンサー）でスコアを変える。デジタル商品はこの項目をスキップ",
               },
               {
-                layer: "L4", title: "誰から買うの？怪しくない？", subtitle: "所有権の履歴", icon: "🔗",
+                layer: "L4", title: "誰から買うの？怪しくない？", subtitle: "所有権の履歴（自動記録）", icon: "🔗",
                 worry: "転売品？偽物じゃない？どういうルートで来た商品なの？",
-                proof: "商品の出品→購入→転売の履歴をすべて記録。「この商品はメーカーからまっすぐ来ています」と証明します。",
-                example: "メーカー → 代理店 → 出品 → 購入 のルートが追跡可能",
+                proof: "受発注が成立するとシステムが自動でレコードを生成し、権利が譲渡されます。所有者の権利と在庫の保管場所は別々に管理し、最終的に在庫が輸送・納品されたら取引完了となります。",
+                example: "メーカー → 販売代理店 → 出品 → 購入 の取引レコードが自動追跡される",
                 agent: "ルートが短い（メーカー直→高スコア）、転売を繰り返している→スコアを下げる",
               },
               {
-                layer: "L5", title: "ちゃんと届く？", subtitle: "配送の証明", icon: "🚚",
+                layer: "L5", title: "ちゃんと届く？", subtitle: "配送の証明（物理商品のみ）", icon: "🚚",
                 worry: "お金を払ったのに届かなかったらどうしよう？届いた商品が違ったら？",
                 proof: "配送追跡番号、届いた時の写真、受け取りサインを記録。「確かにこの商品が届きました」と証明します。",
                 example: "配送会社の追跡番号、配達完了時の写真撮影、受取人の電子署名など",
@@ -749,6 +764,55 @@ export default function FlowPage() {
                 <li className="flex items-start gap-2"><span className="text-green-400">✓</span> AIが高スコア判定→自動で推薦される</li>
               </ul>
             </div>
+          </div>
+
+          {/* カテゴリー別の必須/任意テーブル */}
+          <div className="mt-10 bg-slate-800 border border-slate-700 rounded-2xl p-6">
+            <h3 className="font-bold text-center mb-2">カテゴリー別：プルーフチェーン必要項目</h3>
+            <p className="text-gray-400 text-xs text-center mb-4">取り扱い商品によって必要な証明は異なります</p>
+            <div className="overflow-x-auto">
+              <table className="w-full text-xs">
+                <thead>
+                  <tr className="border-b border-slate-600">
+                    <th className="text-left py-2 px-2 text-gray-400">カテゴリー</th>
+                    <th className="text-center py-2 px-2 text-gray-400">L1 事業者</th>
+                    <th className="text-center py-2 px-2 text-gray-400">L2 商品</th>
+                    <th className="text-center py-2 px-2 text-gray-400">L3 在庫</th>
+                    <th className="text-center py-2 px-2 text-gray-400">L4 所有権</th>
+                    <th className="text-center py-2 px-2 text-gray-400">L5 配送</th>
+                  </tr>
+                </thead>
+                <tbody className="text-gray-300">
+                  {[
+                    { cat: "食品", l1: "◎", l2: "◎", l3: "◎", l4: "自動", l5: "◎", note: "表示義務あり" },
+                    { cat: "化粧品・健康食品", l1: "◎", l2: "◎", l3: "◎", l4: "自動", l5: "◎", note: "成分表示義務あり" },
+                    { cat: "家電・電子機器", l1: "◎", l2: "○", l3: "◎", l4: "自動", l5: "◎", note: "" },
+                    { cat: "洋服・ファッション", l1: "○", l2: "○", l3: "◎", l4: "自動", l5: "◎", note: "" },
+                    { cat: "サービス・コンサル", l1: "○", l2: "−", l3: "−", l4: "自動", l5: "−", note: "無形サービス" },
+                    { cat: "映像・デジタル商品", l1: "○", l2: "−", l3: "−", l4: "自動", l5: "−", note: "在庫無限" },
+                    { cat: "産業用・工業製品", l1: "◎", l2: "○", l3: "◎", l4: "自動", l5: "◎", note: "" },
+                  ].map((row, i) => (
+                    <tr key={i} className="border-b border-slate-700/50">
+                      <td className="py-2 px-2 font-medium">{row.cat} {row.note && <span className="text-amber-400 text-[10px]">※{row.note}</span>}</td>
+                      <td className="text-center py-2 px-2">{row.l1}</td>
+                      <td className="text-center py-2 px-2">{row.l2}</td>
+                      <td className="text-center py-2 px-2">{row.l3}</td>
+                      <td className="text-center py-2 px-2">{row.l4}</td>
+                      <td className="text-center py-2 px-2">{row.l5}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="mt-3 flex flex-wrap gap-4 text-[10px] text-gray-500">
+              <span>◎ 必須</span>
+              <span>○ あると信頼度UP（任意）</span>
+              <span>− 対象外</span>
+              <span>自動 = システムが受発注レコードから自動生成</span>
+            </div>
+            <p className="mt-2 text-[10px] text-amber-300/70">
+              ※ 食品（特に海外輸入品）は日本語での表示義務があり、商品証明（L2）が不足すると出品不可になる場合があります
+            </p>
           </div>
         </div>
       </section>
@@ -1207,6 +1271,62 @@ export default function FlowPage() {
           <div className="px-6 py-3 bg-gray-50 border-t text-xs text-gray-500 text-center">
             手数料は商品が売れた時にのみ発生（成果報酬型）。初期費用・月額費用はすべて0円。紹介者ポイントは全商品の購入に利用可能。
           </div>
+        </div>
+      </section>
+
+      {/* カテゴリー別システム紹介 */}
+      <section className="max-w-5xl mx-auto px-6 mb-20">
+        <p className="text-sm font-medium text-indigo-600 tracking-wider mb-3 text-center">
+          CATEGORY × BUSINESS TYPE
+        </p>
+        <h2 className="text-2xl font-extrabold text-gray-900 mb-2 text-center">
+          取扱商品・取引形態に合わせた紹介ページ
+        </h2>
+        <p className="text-gray-500 text-sm text-center mb-10 max-w-2xl mx-auto">
+          対象となる商品カテゴリーと取引形態（BtoB / BtoC）によって、必要な機能・証明項目・帳票が異なります。
+          あなたのビジネスに最も近いページをご覧ください。
+        </p>
+        <div className="grid sm:grid-cols-2 gap-4">
+          <Link href="/flow/general-btob" className="group bg-white rounded-2xl border border-gray-200 p-6 shadow-sm hover:border-blue-400 hover:shadow-md transition">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center text-xl">🏭</div>
+              <div>
+                <h3 className="font-bold text-gray-900 group-hover:text-blue-600 transition">一般商材 BtoB</h3>
+                <p className="text-xs text-gray-500">企業間取引</p>
+              </div>
+            </div>
+            <p className="text-xs text-gray-500">家電・アパレル・工業製品の卸売。SKU管理・見積書・請求書・共同購入。</p>
+          </Link>
+          <Link href="/flow/general-btoc" className="group bg-white rounded-2xl border border-gray-200 p-6 shadow-sm hover:border-emerald-400 hover:shadow-md transition">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center text-xl">🛒</div>
+              <div>
+                <h3 className="font-bold text-gray-900 group-hover:text-emerald-600 transition">一般商材 BtoC</h3>
+                <p className="text-xs text-gray-500">個人消費者向け</p>
+              </div>
+            </div>
+            <p className="text-xs text-gray-500">クリエイターLPでSNS拡散。領収書・返品対応・レビュー・おすすめ機能。</p>
+          </Link>
+          <Link href="/flow/health-btob" className="group bg-white rounded-2xl border border-gray-200 p-6 shadow-sm hover:border-rose-400 hover:shadow-md transition">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-10 h-10 bg-rose-100 rounded-lg flex items-center justify-center text-xl">🧪</div>
+              <div>
+                <h3 className="font-bold text-gray-900 group-hover:text-rose-600 transition">健康食品・化粧品 BtoB</h3>
+                <p className="text-xs text-gray-500">企業間取引</p>
+              </div>
+            </div>
+            <p className="text-xs text-gray-500">成分管理・賞味期限・温度管理・法定表示義務対応。L1〜L3必須。</p>
+          </Link>
+          <Link href="/flow/health-btoc" className="group bg-white rounded-2xl border border-gray-200 p-6 shadow-sm hover:border-purple-400 hover:shadow-md transition">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center text-xl">💊</div>
+              <div>
+                <h3 className="font-bold text-gray-900 group-hover:text-purple-600 transition">健康食品・化粧品 BtoC</h3>
+                <p className="text-xs text-gray-500">個人消費者向け</p>
+              </div>
+            </div>
+            <p className="text-xs text-gray-500">美容クリエイターLP・成分検索・肌質別レビュー。消費者の安全が最優先。</p>
+          </Link>
         </div>
       </section>
 
