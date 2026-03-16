@@ -516,6 +516,86 @@ export default function BuyerFlowPage() {
         </div>
       </section>
 
+      {/* プラットフォーム参加状況 */}
+      <section className="bg-slate-900 text-white py-16 mb-20">
+        <div className="max-w-5xl mx-auto px-6">
+          <p className="text-sm font-medium text-amber-400 tracking-wider mb-3 text-center">
+            PLATFORM STATS
+          </p>
+          <h2 className="text-2xl font-extrabold text-center mb-3">
+            プラットフォームの参加状況
+          </h2>
+          <p className="text-gray-400 text-center text-sm mb-10 max-w-2xl mx-auto">
+            オークション・共同購入に参加するバイヤーがどの程度いるのか。
+            プラットフォームの利用状況をリアルタイムで確認できます。
+          </p>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            {[
+              { label: "登録ユーザー数", value: "リアルタイム表示", desc: "プラットフォームに登録済みの全ユーザー数", icon: "👥", color: "from-blue-600 to-blue-500" },
+              { label: "現在のログイン数", value: "リアルタイム表示", desc: "今この瞬間にログインしているアクティブユーザー数", icon: "🟢", color: "from-green-600 to-green-500" },
+              { label: "オークション参加者", value: "リアルタイム表示", desc: "現在進行中のオークションに入札しているユーザー数", icon: "🔨", color: "from-amber-600 to-amber-500" },
+              { label: "出品メーカー数", value: "リアルタイム表示", desc: "商品を出品しているメーカー・販売代理店の数", icon: "🏭", color: "from-purple-600 to-purple-500" },
+            ].map((stat) => (
+              <div key={stat.label} className="bg-slate-800 border border-slate-700 rounded-2xl p-5 text-center">
+                <div className="text-3xl mb-2">{stat.icon}</div>
+                <p className="text-xs text-gray-400 mb-1">{stat.label}</p>
+                <div className={`inline-block bg-gradient-to-r ${stat.color} text-white text-xs font-bold px-3 py-1 rounded-full mb-2`}>
+                  {stat.value}
+                </div>
+                <p className="text-[10px] text-gray-500">{stat.desc}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="bg-slate-800 border border-slate-700 rounded-2xl p-6">
+            <h3 className="font-bold text-sm mb-4 text-center">オークション・入札の活況指標</h3>
+            <div className="grid sm:grid-cols-3 gap-4">
+              <div className="bg-slate-700/50 rounded-xl p-4 text-center">
+                <p className="text-xs text-gray-400 mb-1">進行中のオークション数</p>
+                <p className="text-lg font-bold text-amber-400">リアルタイム</p>
+                <p className="text-[10px] text-gray-500 mt-1">箱単位のオークション件数</p>
+              </div>
+              <div className="bg-slate-700/50 rounded-xl p-4 text-center">
+                <p className="text-xs text-gray-400 mb-1">本日の入札件数</p>
+                <p className="text-lg font-bold text-green-400">リアルタイム</p>
+                <p className="text-[10px] text-gray-500 mt-1">今日行われた全入札の合計</p>
+              </div>
+              <div className="bg-slate-700/50 rounded-xl p-4 text-center">
+                <p className="text-xs text-gray-400 mb-1">共同購入グループ</p>
+                <p className="text-lg font-bold text-blue-400">リアルタイム</p>
+                <p className="text-[10px] text-gray-500 mt-1">現在募集中の共同購入グループ数</p>
+              </div>
+            </div>
+            <p className="text-[10px] text-gray-500 text-center mt-4">
+              ※ これらの数値はプラットフォーム上でリアルタイムに更新されます。ダッシュボードから随時確認できます。
+            </p>
+          </div>
+
+          <div className="mt-6 bg-amber-500/10 border border-amber-500/30 rounded-xl p-4">
+            <h4 className="font-bold text-amber-300 text-sm mb-2">なぜ参加状況が重要なのか？</h4>
+            <div className="grid sm:grid-cols-2 gap-3 text-xs text-amber-200/80">
+              <div className="flex items-start gap-2">
+                <span className="text-amber-400 mt-0.5">-</span>
+                <p><span className="font-bold">オークション参加者が多い</span> = 競争が活発 → 売り手にとって有利な価格が付きやすい</p>
+              </div>
+              <div className="flex items-start gap-2">
+                <span className="text-amber-400 mt-0.5">-</span>
+                <p><span className="font-bold">共同購入の参加者が多い</span> = まとまった数量が集まりやすい → 大口割引の交渉力UP</p>
+              </div>
+              <div className="flex items-start gap-2">
+                <span className="text-amber-400 mt-0.5">-</span>
+                <p><span className="font-bold">ログインユーザーが多い時間帯</span> = 出品のタイミング判断に活用</p>
+              </div>
+              <div className="flex items-start gap-2">
+                <span className="text-amber-400 mt-0.5">-</span>
+                <p><span className="font-bold">登録メーカー数の増加</span> = 選べる商品の幅が広がっている証拠</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* 他のフローへのリンク */}
       <section className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white py-16">
         <div className="max-w-3xl mx-auto px-6 text-center">

@@ -529,6 +529,101 @@ export default function CreatorFlowPage() {
         </div>
       </section>
 
+      {/* 公開プロフィール */}
+      <section className="bg-slate-900 text-white py-16 mb-20">
+        <div className="max-w-5xl mx-auto px-6">
+          <p className="text-sm font-medium text-pink-400 tracking-wider mb-3 text-center">
+            PUBLIC PROFILE
+          </p>
+          <h2 className="text-2xl font-extrabold text-center mb-3">
+            クリエイター・インフルエンサー公開プロフィール
+          </h2>
+          <p className="text-gray-400 text-center text-sm mb-10 max-w-2xl mx-auto">
+            あなたの実績・専門性・フォロワー数を公開プロフィールとして表示。
+            メーカーからの販売許可リクエストが届きやすくなり、バイヤーからの信頼も獲得できます。
+          </p>
+
+          {/* プロフィールカード例 */}
+          <div className="max-w-md mx-auto bg-slate-800 border border-slate-700 rounded-2xl overflow-hidden mb-8">
+            <div className="bg-gradient-to-r from-pink-600 to-purple-600 h-20" />
+            <div className="px-6 pb-6 -mt-8">
+              <div className="w-16 h-16 bg-slate-700 border-4 border-slate-800 rounded-full flex items-center justify-center text-2xl mb-3">
+                👩‍🎨
+              </div>
+              <h3 className="font-bold text-lg">クリエイター名</h3>
+              <p className="text-xs text-gray-400 mb-3">美容・コスメ専門 | 映像クリエイター</p>
+              <div className="flex gap-3 mb-4">
+                {[
+                  { label: "フォロワー", value: "50K" },
+                  { label: "販売実績", value: "128件" },
+                  { label: "評価", value: "4.9" },
+                ].map((s) => (
+                  <div key={s.label} className="bg-slate-700/50 rounded-lg px-3 py-2 text-center flex-1">
+                    <p className="text-xs font-bold text-white">{s.value}</p>
+                    <p className="text-[10px] text-gray-400">{s.label}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="flex flex-wrap gap-1.5 mb-4">
+                {["化粧品", "スキンケア", "サプリ", "オーガニック"].map((tag) => (
+                  <span key={tag} className="text-[10px] bg-pink-500/20 text-pink-300 px-2 py-0.5 rounded-full">{tag}</span>
+                ))}
+              </div>
+              <div className="flex gap-2">
+                {["Instagram", "YouTube", "TikTok"].map((sns) => (
+                  <span key={sns} className="text-[10px] bg-slate-700 text-gray-300 px-2 py-1 rounded">{sns}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* プロフィールに表示される情報 */}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {[
+              { icon: "👤", title: "基本情報", desc: "クリエイター名、アバター画像、自己紹介文、専門ジャンル" },
+              { icon: "📊", title: "実績データ", desc: "販売件数、総売上ランク、LP作成数、コンバージョン率" },
+              { icon: "📱", title: "SNSリンク", desc: "Instagram、YouTube、TikTok、X、ブログなどの連携アカウント" },
+              { icon: "👥", title: "フォロワー数", desc: "各SNSのフォロワー数を自動取得して表示（任意公開）" },
+              { icon: "🏅", title: "評価・レビュー", desc: "メーカーやバイヤーからの評価。信頼性の指標になります" },
+              { icon: "🏷️", title: "得意カテゴリー", desc: "取り扱い実績のある商品カテゴリーをタグで表示" },
+              { icon: "🎬", title: "ポートフォリオ", desc: "過去に作成したLPや動画のサンプルギャラリー" },
+              { icon: "📅", title: "活動履歴", desc: "最近の販売実績や新規LP作成の活動状況" },
+              { icon: "🤝", title: "提携メーカー", desc: "販売許可を得ているメーカーのロゴ・リンクを表示" },
+            ].map((item) => (
+              <div key={item.title} className="bg-slate-800 border border-slate-700 rounded-xl p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-xl">{item.icon}</span>
+                  <h4 className="font-bold text-sm">{item.title}</h4>
+                </div>
+                <p className="text-xs text-gray-400">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* プロフィール公開のメリット */}
+          <div className="mt-8 grid sm:grid-cols-3 gap-4">
+            <div className="bg-pink-950/50 border border-pink-800/50 rounded-xl p-5">
+              <h4 className="font-bold text-pink-400 text-sm mb-2">メーカーからのオファー増加</h4>
+              <p className="text-xs text-gray-400">実績やフォロワー数が可視化されることで、メーカーから直接販売許可のオファーが届きます。</p>
+            </div>
+            <div className="bg-purple-950/50 border border-purple-800/50 rounded-xl p-5">
+              <h4 className="font-bold text-purple-400 text-sm mb-2">バイヤーからの信頼獲得</h4>
+              <p className="text-xs text-gray-400">評価スコアや販売実績が見えることで、LP経由の購入コンバージョン率が向上します。</p>
+            </div>
+            <div className="bg-indigo-950/50 border border-indigo-800/50 rounded-xl p-5">
+              <h4 className="font-bold text-indigo-400 text-sm mb-2">クリエイター同士の連携</h4>
+              <p className="text-xs text-gray-400">得意ジャンルの異なるクリエイター同士でコラボLP作成。お互いのフォロワーにリーチ。</p>
+            </div>
+          </div>
+
+          <div className="mt-6 bg-slate-800 border border-slate-700 rounded-xl p-4 text-center">
+            <p className="text-xs text-gray-400">
+              プロフィールの公開範囲は自分で設定できます。フォロワー数やSNSリンクの表示/非表示は個別に選択可能です。
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* CTA */}
       <section className="bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 text-white py-16">
         <div className="max-w-3xl mx-auto px-6 text-center">
