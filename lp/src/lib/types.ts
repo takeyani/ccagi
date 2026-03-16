@@ -59,6 +59,172 @@ export type Product = {
   updated_at: string;
 };
 
+// カテゴリー別フィールド定義
+export type CategoryFieldConfig = {
+  field: string;
+  label: string;
+  required: boolean;
+  type: "text" | "date" | "number" | "select" | "boolean";
+  options?: string[];
+};
+
+export type CategoryTemplate = {
+  id: string;
+  name: string;
+  description: string;
+  commission_rate: number;
+  referral_rate: number;
+  platform_rate: number;
+  product_fields: CategoryFieldConfig[];
+  lot_fields: CategoryFieldConfig[];
+};
+
+// プリセットカテゴリー
+export const CATEGORY_TEMPLATES: Record<string, CategoryTemplate> = {
+  food: {
+    id: "food",
+    name: "食品・飲料",
+    description: "賞味期限・アレルギー情報など食品固有の項目",
+    commission_rate: 12,
+    referral_rate: 2,
+    platform_rate: 10,
+    product_fields: [
+      { field: "allergens", label: "アレルギー表示", required: true, type: "text" },
+      { field: "ingredients", label: "原材料", required: true, type: "text" },
+      { field: "nutrition_facts", label: "栄養成分表示", required: false, type: "text" },
+      { field: "storage_method", label: "保存方法", required: true, type: "text" },
+      { field: "country_of_origin", label: "原産国", required: true, type: "text" },
+      { field: "jan_code", label: "JANコード", required: false, type: "text" },
+    ],
+    lot_fields: [
+      { field: "expiration_date", label: "賞味期限", required: true, type: "date" },
+      { field: "manufacture_date", label: "製造日", required: false, type: "date" },
+      { field: "storage_temperature", label: "保管温度帯", required: true, type: "select", options: ["常温", "冷蔵", "冷凍"] },
+    ],
+  },
+  cosmetics: {
+    id: "cosmetics",
+    name: "化粧品・美容",
+    description: "使用期限・全成分表示など化粧品固有の項目",
+    commission_rate: 15,
+    referral_rate: 3,
+    platform_rate: 12,
+    product_fields: [
+      { field: "ingredients", label: "全成分表示", required: true, type: "text" },
+      { field: "volume", label: "内容量", required: true, type: "text" },
+      { field: "skin_type", label: "対象肌タイプ", required: false, type: "text" },
+      { field: "manufacturer_license", label: "製造販売業許可番号", required: true, type: "text" },
+      { field: "country_of_origin", label: "原産国", required: true, type: "text" },
+    ],
+    lot_fields: [
+      { field: "expiration_date", label: "使用期限", required: true, type: "date" },
+      { field: "manufacture_date", label: "製造日", required: false, type: "date" },
+      { field: "batch_number", label: "製造番号", required: true, type: "text" },
+    ],
+  },
+  electronics: {
+    id: "electronics",
+    name: "家電・電子機器",
+    description: "PSEマーク・保証期間など電子機器固有の項目",
+    commission_rate: 8,
+    referral_rate: 1.5,
+    platform_rate: 6.5,
+    product_fields: [
+      { field: "voltage", label: "定格電圧", required: true, type: "text" },
+      { field: "power_consumption", label: "消費電力", required: false, type: "text" },
+      { field: "pse_mark", label: "PSEマーク", required: true, type: "boolean" },
+      { field: "tech_mark", label: "技適マーク", required: false, type: "boolean" },
+      { field: "warranty_period", label: "保証期間", required: true, type: "text" },
+      { field: "country_of_origin", label: "原産国", required: true, type: "text" },
+    ],
+    lot_fields: [
+      { field: "serial_range", label: "シリアル番号範囲", required: false, type: "text" },
+      { field: "manufacture_date", label: "製造日", required: true, type: "date" },
+      { field: "firmware_version", label: "ファームウェアVer", required: false, type: "text" },
+    ],
+  },
+  apparel: {
+    id: "apparel",
+    name: "アパレル・ファッション",
+    description: "サイズ・素材・洗濯表示などアパレル固有の項目",
+    commission_rate: 15,
+    referral_rate: 3,
+    platform_rate: 12,
+    product_fields: [
+      { field: "material_composition", label: "素材・組成", required: true, type: "text" },
+      { field: "size_range", label: "サイズ展開", required: true, type: "text" },
+      { field: "color_options", label: "カラー展開", required: true, type: "text" },
+      { field: "care_instructions", label: "洗濯表示", required: true, type: "text" },
+      { field: "country_of_origin", label: "原産国", required: true, type: "text" },
+    ],
+    lot_fields: [
+      { field: "season", label: "シーズン", required: false, type: "text" },
+      { field: "size", label: "サイズ", required: true, type: "text" },
+      { field: "color", label: "カラー", required: true, type: "text" },
+    ],
+  },
+  service: {
+    id: "service",
+    name: "サービス・デジタル",
+    description: "有効期限・利用条件などサービス固有の項目（賞味期限不要）",
+    commission_rate: 20,
+    referral_rate: 4,
+    platform_rate: 16,
+    product_fields: [
+      { field: "service_area", label: "提供エリア", required: false, type: "text" },
+      { field: "terms_of_use", label: "利用規約URL", required: true, type: "text" },
+      { field: "cancellation_policy", label: "キャンセルポリシー", required: true, type: "text" },
+      { field: "delivery_method", label: "提供方法", required: true, type: "select", options: ["オンライン", "対面", "郵送", "ダウンロード"] },
+    ],
+    lot_fields: [
+      { field: "valid_from", label: "利用開始日", required: false, type: "date" },
+      { field: "valid_until", label: "有効期限", required: false, type: "date" },
+      { field: "usage_limit", label: "利用回数上限", required: false, type: "number" },
+    ],
+  },
+  medical: {
+    id: "medical",
+    name: "医薬品・医療機器",
+    description: "薬事法関連・使用期限など医薬品固有の項目",
+    commission_rate: 10,
+    referral_rate: 2,
+    platform_rate: 8,
+    product_fields: [
+      { field: "approval_number", label: "承認番号", required: true, type: "text" },
+      { field: "classification", label: "医薬品区分", required: true, type: "select", options: ["第1類", "第2類", "第3類", "医療機器"] },
+      { field: "active_ingredients", label: "有効成分", required: true, type: "text" },
+      { field: "dosage", label: "用法・用量", required: true, type: "text" },
+      { field: "side_effects", label: "副作用", required: true, type: "text" },
+      { field: "storage_method", label: "保管方法", required: true, type: "text" },
+    ],
+    lot_fields: [
+      { field: "expiration_date", label: "使用期限", required: true, type: "date" },
+      { field: "manufacture_date", label: "製造日", required: true, type: "date" },
+      { field: "batch_number", label: "ロット番号", required: true, type: "text" },
+    ],
+  },
+  industrial: {
+    id: "industrial",
+    name: "工業製品・部品",
+    description: "規格・認証など工業製品固有の項目",
+    commission_rate: 6,
+    referral_rate: 1,
+    platform_rate: 5,
+    product_fields: [
+      { field: "standard", label: "適合規格（JIS/ISO等）", required: false, type: "text" },
+      { field: "tolerance", label: "公差", required: false, type: "text" },
+      { field: "material_grade", label: "材質グレード", required: true, type: "text" },
+      { field: "certification", label: "認証・認定", required: false, type: "text" },
+      { field: "datasheet_url", label: "データシートURL", required: false, type: "text" },
+    ],
+    lot_fields: [
+      { field: "manufacture_date", label: "製造日", required: true, type: "date" },
+      { field: "inspection_date", label: "検査日", required: false, type: "date" },
+      { field: "inspection_result", label: "検査成績", required: false, type: "text" },
+    ],
+  },
+};
+
 export type Lot = {
   id: string;
   product_id: string;
@@ -71,6 +237,8 @@ export type Lot = {
   purchase_date: string | null;
   purchase_price: number | null;
   memo: string | null;
+  category_template_id: string | null;
+  custom_fields: Record<string, string | number | boolean | null> | null;
   created_at: string;
   updated_at: string;
 };
