@@ -181,6 +181,51 @@ export default function BuyerFlowPage() {
         </div>
       </section>
 
+      {/* メーカーの参入意義 */}
+      <section className="max-w-5xl mx-auto px-6 -mt-10 mb-8 relative z-10">
+        <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-8 shadow-lg text-white">
+          <h3 className="text-center text-lg font-bold mb-2">メーカーはなぜこのプラットフォームで売りやすくなるのか？</h3>
+          <p className="text-blue-200 text-sm text-center mb-6">従来の営業・ECでは難しかった「売れる仕組み」が自動で動きます</p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {[
+              {
+                icon: "🤖", title: "購買エージェントが商品を自動で見つける",
+                desc: "バイヤーが設定したAIが、条件に合う商品を24時間自動検索。メーカーは営業しなくても、証明を揃えておけば購買エージェントに発見してもらえます。",
+              },
+              {
+                icon: "📊", title: "気配値ボードで常にバイヤーの目に触れる",
+                desc: "出品するだけで価格一覧ボードに掲載。同じ商品の中で価格・品質・証明の条件が良ければ、自然とバイヤーから選ばれます。",
+              },
+              {
+                icon: "🎨", title: "クリエイターが勝手にLPを作って売ってくれる",
+                desc: "販売許可を出すだけで、クリエイターが動画やSNSでLPを作成・拡散。自社では届かなかった消費者層にリーチできます。",
+              },
+              {
+                icon: "🤝", title: "共同購入で大口注文が自動で集まる",
+                desc: "小口バイヤーの入札が集約されて大口注文に。「1社では少量」だった取引が、プラットフォーム上では大口案件に育ちます。",
+              },
+              {
+                icon: "🔐", title: "プルーフチェーンが営業の代わりをする",
+                desc: "「安全？」「本物？」の説明をプルーフが自動で証明。商談コストが大幅に下がり、信頼構築に時間をかけなくて済みます。",
+              },
+              {
+                icon: "💰", title: "成果報酬型だから赤字リスクがない",
+                desc: "初期費用ゼロ・月額ゼロ。売れた時だけ手数料が発生するので、売れなくても損しない。出品しておくだけで商機が生まれます。",
+              },
+            ].map((item) => (
+              <div key={item.title} className="bg-white/10 backdrop-blur border border-white/20 rounded-xl p-4">
+                <div className="text-2xl mb-2">{item.icon}</div>
+                <h4 className="font-bold text-sm mb-1">{item.title}</h4>
+                <p className="text-xs text-blue-100 leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+          <p className="text-blue-200 text-xs text-center mt-6">
+            従来のECでは「出品して待つだけ」でしたが、このプラットフォームでは購買AI・販売AI・クリエイター・共同購入の4つの力が自動で売上を作ります。
+          </p>
+        </div>
+      </section>
+
       {/* 概要カード */}
       <section className="max-w-5xl mx-auto px-6 -mt-10 mb-16 relative z-10">
         <div className="bg-white rounded-2xl border border-gray-200 p-8 shadow-sm">
@@ -307,6 +352,167 @@ export default function BuyerFlowPage() {
               <li>- 入札ログで全履歴を確認</li>
             </ul>
           </div>
+        </div>
+      </section>
+
+      {/* 販売エージェント vs 購買エージェント */}
+      <section className="bg-slate-900 text-white py-16 mb-20">
+        <div className="max-w-5xl mx-auto px-6">
+          <p className="text-sm font-medium text-emerald-400 tracking-wider mb-3 text-center">
+            DUAL AGENT SYSTEM
+          </p>
+          <h2 className="text-2xl font-extrabold text-center mb-3">
+            2つのAIエージェントが取引を加速する
+          </h2>
+          <p className="text-gray-400 text-center text-sm mb-10 max-w-2xl mx-auto">
+            売り手には「販売エージェント」、買い手には「購買エージェント」。
+            それぞれの立場に最適化されたAIが、最良の取引を自動で見つけ出します。
+          </p>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* 販売エージェント */}
+            <div className="bg-blue-950/50 border border-blue-800/50 rounded-2xl overflow-hidden">
+              <div className="bg-blue-900/50 px-6 py-4 border-b border-blue-800/50">
+                <div className="flex items-center gap-3">
+                  <span className="text-3xl">🤖</span>
+                  <div>
+                    <h3 className="font-bold text-blue-300 text-lg">販売エージェント</h3>
+                    <p className="text-xs text-blue-400">メーカー・代理店・クリエイター向け</p>
+                  </div>
+                </div>
+              </div>
+              <div className="p-6 space-y-4">
+                <p className="text-sm text-gray-300">
+                  「自分の商品を、最も高い価格で、最も多く売りたい」を実現するAI
+                </p>
+                <div className="space-y-3">
+                  {[
+                    { icon: "📊", title: "気配値の自動設定", desc: "市場相場・競合価格・在庫状況から最適な出品価格を提案" },
+                    { icon: "🔔", title: "入札通知・自動応答", desc: "バイヤーからの入札をリアルタイム通知。条件に合えば自動で承諾" },
+                    { icon: "🎯", title: "ターゲットバイヤー検知", desc: "過去の購入履歴やエージェント条件から、自社商品に興味がありそうなバイヤーを検知" },
+                    { icon: "📉", title: "在庫回転の最適化", desc: "賞味期限が近いロットは自動で値下げ提案。売れ残りリスクを最小化" },
+                    { icon: "💰", title: "価格戦略シミュレーション", desc: "「この価格なら何個売れるか」をAIが予測。利益最大化の価格帯を提案" },
+                    { icon: "📣", title: "キャンペーン自動提案", desc: "売れ行きが鈍い商品に対して、割引企画やまとめ買いプランを自動提案" },
+                  ].map((item) => (
+                    <div key={item.title} className="flex items-start gap-3">
+                      <span className="text-lg flex-shrink-0">{item.icon}</span>
+                      <div>
+                        <p className="text-sm font-bold text-blue-300">{item.title}</p>
+                        <p className="text-xs text-gray-400">{item.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* 購買エージェント */}
+            <div className="bg-emerald-950/50 border border-emerald-800/50 rounded-2xl overflow-hidden">
+              <div className="bg-emerald-900/50 px-6 py-4 border-b border-emerald-800/50">
+                <div className="flex items-center gap-3">
+                  <span className="text-3xl">🤖</span>
+                  <div>
+                    <h3 className="font-bold text-emerald-300 text-lg">購買エージェント</h3>
+                    <p className="text-xs text-emerald-400">バイヤー向け</p>
+                  </div>
+                </div>
+              </div>
+              <div className="p-6 space-y-4">
+                <p className="text-sm text-gray-300">
+                  「最も信頼できる商品を、最も安い価格で、確実に手に入れたい」を実現するAI
+                </p>
+                <div className="space-y-3">
+                  {[
+                    { icon: "🔍", title: "自動検索・スコアリング", desc: "5因子（認証・プルーフ・タグ・スペック・価格）で商品を自動評価" },
+                    { icon: "📊", title: "クロス出品比較", desc: "同じ商品が複数の売り手から出ている場合、価格・期限・証明レベルを横並び比較" },
+                    { icon: "💰", title: "価格アラート", desc: "狙っている商品が希望価格以下になったら自動で通知。最安値を逃さない" },
+                    { icon: "🤝", title: "共同購入の自動マッチング", desc: "同じ商品を狙っている他のバイヤーと入札を集約。大口価格を自動で引き出す" },
+                    { icon: "📈", title: "価格推移の分析", desc: "過去の取引価格をグラフ化。「今が買い時か」をAIが判定" },
+                    { icon: "🔄", title: "自動入札＆リバランス", desc: "上限額内で最適な入札を自動実行。落札できなければ次の候補に自動切り替え" },
+                  ].map((item) => (
+                    <div key={item.title} className="flex items-start gap-3">
+                      <span className="text-lg flex-shrink-0">{item.icon}</span>
+                      <div>
+                        <p className="text-sm font-bold text-emerald-300">{item.title}</p>
+                        <p className="text-xs text-gray-400">{item.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* エージェント同士の取引 */}
+          <div className="mt-8 bg-slate-800 border border-slate-700 rounded-2xl p-6">
+            <h3 className="font-bold text-center mb-4">エージェント同士が取引を自動マッチング</h3>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <div className="text-center">
+                <div className="w-20 h-20 mx-auto bg-blue-900/50 border border-blue-700 rounded-xl flex items-center justify-center text-3xl mb-2">🤖</div>
+                <p className="text-xs font-bold text-blue-300">販売エージェント</p>
+                <p className="text-[10px] text-gray-500">「¥1,000以上で売りたい」</p>
+              </div>
+              <div className="flex flex-col items-center gap-1">
+                <div className="text-xs text-gray-500">条件が合えば</div>
+                <div className="flex items-center gap-1">
+                  <div className="h-0.5 w-8 bg-amber-500" />
+                  <span className="text-amber-400 text-sm">⚡</span>
+                  <div className="h-0.5 w-8 bg-amber-500" />
+                </div>
+                <div className="text-xs font-bold text-amber-400">自動で取引成立</div>
+              </div>
+              <div className="text-center">
+                <div className="w-20 h-20 mx-auto bg-emerald-900/50 border border-emerald-700 rounded-xl flex items-center justify-center text-3xl mb-2">🤖</div>
+                <p className="text-xs font-bold text-emerald-300">購買エージェント</p>
+                <p className="text-[10px] text-gray-500">「¥1,200以下で買いたい」</p>
+              </div>
+            </div>
+            <p className="text-gray-400 text-xs text-center mt-4">
+              売り手と買い手の条件が一致すると、AIエージェント同士が自動で取引を成立させます。
+              <br />
+              24時間365日、人手を介さずに最適な取引が生まれ続けます。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* 価格比較・入札ツール */}
+      <section className="max-w-5xl mx-auto px-6 mb-20">
+        <h2 className="text-2xl font-extrabold text-gray-900 mb-2 text-center">取引を有利にするツール</h2>
+        <p className="text-gray-500 text-sm text-center mb-10">バイヤーの調達コストを下げ、最適な仕入れを支援する機能</p>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {[
+            {
+              icon: "📊", title: "気配値ボード",
+              desc: "同じ商品の売り手別・ロット別の価格を一覧で見られます。最安値、賞味期限、証明レベルの違いが一目でわかるので、条件に合った最適なロットを選べます。",
+            },
+            {
+              icon: "📈", title: "価格推移グラフ",
+              desc: "過去の取引価格をグラフで表示。季節変動や需給バランスを把握して、今が買い時かどうかを判断できます。",
+            },
+            {
+              icon: "🔔", title: "価格アラート",
+              desc: "狙っている商品に目標価格を設定。その価格以下で出品されたら即座にメールやアプリで通知。買い時を逃しません。",
+            },
+            {
+              icon: "🤝", title: "共同購入（入札集約）",
+              desc: "同じ商品を買いたい複数のバイヤーの入札をまとめて大口注文に変換。数量が集まるほど有利な単価を引き出せます。",
+            },
+            {
+              icon: "🧮", title: "利益シミュレーター",
+              desc: "仕入れ価格・想定販売価格・手数料・送料を入力すると、利益をリアルタイムで計算。仕入れ判断を数字で裏付け。",
+            },
+            {
+              icon: "🌐", title: "クロス出品比較",
+              desc: "同一商品が複数売り手から出品されている場合、価格・賞味期限・プルーフレベル・配送条件を横並びで比較。最良の条件を素早く見つけます。",
+            },
+          ].map((tool) => (
+            <div key={tool.title} className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
+              <div className="text-3xl mb-3">{tool.icon}</div>
+              <h3 className="font-bold text-gray-900 mb-2">{tool.title}</h3>
+              <p className="text-sm text-gray-600 leading-relaxed">{tool.desc}</p>
+            </div>
+          ))}
         </div>
       </section>
 

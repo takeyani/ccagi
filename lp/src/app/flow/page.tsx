@@ -1213,7 +1213,7 @@ export default function FlowPage() {
           主な機能
         </h2>
         <p className="text-gray-500 text-sm text-center mb-10">
-          メーカー・代理店が利用できるプラットフォーム機能
+          メーカー・代理店・バイヤーが利用できるプラットフォーム機能
         </p>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <FeatureCard icon="📦" title="商品・在庫管理" description="商品登録、ロット管理、在庫のリアルタイム追跡" />
@@ -1236,6 +1236,14 @@ export default function FlowPage() {
           <FeatureCard icon="📉" title="売上レポート" description="商品別・期間別の売上分析とCSVエクスポート" />
           <FeatureCard icon="🏅" title="レビュー・評価" description="バイヤーからの商品レビューで信頼度をアップ" />
           <FeatureCard icon="🔗" title="SNS連携" description="商品ページをSNSでワンクリック共有、OGP自動生成" />
+          <FeatureCard icon="📊" title="気配値ボード" description="同じ商品の売り手別・ロット別の価格を一覧表示。最安値や条件の違いが一目でわかる" />
+          <FeatureCard icon="🔔" title="価格アラート" description="狙っている商品が希望価格以下になったら自動で通知。買い時を逃さない" />
+          <FeatureCard icon="🤝" title="共同購入（入札集約）" description="複数バイヤーの入札をまとめて大口注文に。数量が集まるほど有利な価格を引き出せる" />
+          <FeatureCard icon="📈" title="価格推移グラフ" description="商品の過去の取引価格をグラフで表示。相場感をつかんで最適なタイミングで購入" />
+          <FeatureCard icon="🔄" title="再出品・転売" description="購入した商品を所有権履歴（L4）付きで再出品。正規ルートが証明された状態で売れる" />
+          <FeatureCard icon="⚡" title="即決・入札の選択" description="売り手は即決価格とオークション形式を併用可能。買い手は入札で安く買うチャンスも" />
+          <FeatureCard icon="🧮" title="利益シミュレーター" description="仕入れ価格・販売価格・手数料から利益を自動計算。仕入れ判断をサポート" />
+          <FeatureCard icon="🌐" title="クロス出品比較" description="同じ商品が複数の売り手から出品されている場合、条件（価格・期限・証明レベル）を横並び比較" />
         </div>
       </section>
 
