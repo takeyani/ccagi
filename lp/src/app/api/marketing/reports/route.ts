@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { createClient } from "@/lib/supabase/server";
+import { getSupabase } from "@/lib/supabase";
 
 export const runtime = "nodejs";
 
@@ -12,7 +12,7 @@ export const runtime = "nodejs";
  *   affiliate_id: アフィリエイトID（任意）
  */
 export async function GET(request: Request) {
-  const supabase = await createClient();
+  const supabase = getSupabase();
   const { searchParams } = new URL(request.url);
 
   const reportType = searchParams.get("type") || "weekly";

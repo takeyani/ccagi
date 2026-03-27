@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { createClient } from "@/lib/supabase/server";
+import { getSupabase } from "@/lib/supabase";
 
 export const runtime = "nodejs";
 
@@ -8,7 +8,7 @@ export const runtime = "nodejs";
  * フロントエンドからのイベントトラッキング
  */
 export async function POST(request: Request) {
-  const supabase = await createClient();
+  const supabase = getSupabase();
   const body = await request.json();
 
   const {
@@ -70,7 +70,7 @@ export async function POST(request: Request) {
  * GET /api/marketing/analytics - コンテンツ別アナリティクス取得
  */
 export async function GET(request: Request) {
-  const supabase = await createClient();
+  const supabase = getSupabase();
   const { searchParams } = new URL(request.url);
 
   const contentId = searchParams.get("content_id");

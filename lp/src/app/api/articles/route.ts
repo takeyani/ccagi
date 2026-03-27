@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { createClient } from "@/lib/supabase/server";
+import { getSupabase } from "@/lib/supabase";
 import { nanoid } from "nanoid";
 import { getArticleTemplate } from "@/lib/creator-lp/article-templates";
 import type { ArticleTemplate } from "@/lib/types";
@@ -10,7 +10,7 @@ export const runtime = "nodejs";
  * GET /api/articles - 記事LP一覧取得
  */
 export async function GET(request: Request) {
-  const supabase = await createClient();
+  const supabase = getSupabase();
   const { searchParams } = new URL(request.url);
 
   const affiliateId = searchParams.get("affiliate_id");
@@ -38,7 +38,7 @@ export async function GET(request: Request) {
  * POST /api/articles - 記事LP作成
  */
 export async function POST(request: Request) {
-  const supabase = await createClient();
+  const supabase = getSupabase();
   const body = await request.json();
 
   const {
