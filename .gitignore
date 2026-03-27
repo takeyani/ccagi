@@ -5,3 +5,17 @@ output.txt
 .env.local
 .env*.local
 *.ifc
+
+# Build artifacts
+404.html
+index.html
+index.txt
+_next/
+_not-found/
+_not-found.html
+_not-found.txt
+__next.*.txt
+favicon.ico
+*.svg
+docs-txt/
+pdf-*.mjs

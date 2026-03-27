@@ -217,7 +217,7 @@ describe("POST /api/checkout", () => {
   it("includes affiliate code in metadata when valid ref provided", async () => {
     // Override mockFrom to handle affiliate lookup then lot/product lookups
     let fromCallCount = 0;
-    mockFrom.mockImplementation((table: string) => {
+    mockFrom.mockImplementation((table) => {
       if (table === "affiliates") {
         return {
           select: vi.fn(() => ({
