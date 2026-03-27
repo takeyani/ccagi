@@ -796,7 +796,19 @@ export type BlockType =
   | "testimonial"
   | "faq"
   | "cta"
-  | "divider";
+  | "divider"
+  // 記事LP用ブロック
+  | "article_header"
+  | "article_body"
+  | "sns_embed"
+  | "viral_cta"
+  | "social_proof"
+  | "author_profile"
+  | "related_articles"
+  // マーケティング用ブロック
+  | "countdown_timer"
+  | "ab_variant"
+  | "popup_trigger";
 
 export type LPBlock = {
   id: string;
@@ -875,6 +887,113 @@ export type CollectionItem = {
   partner: Partner | null;
   tags: Tag[];
   creatorDesigns: CreatorLPDesign[];
+};
+
+// ====== 記事LP ======
+
+export type ArticleLPDesign = {
+  id: string;
+  affiliate_id: string;
+  slug: string;
+  title: string;
+  description: string | null;
+  cover_image_url: string | null;
+  category: ArticleCategory;
+  tags: string[];
+  template_type: ArticleTemplate;
+  design_config: LPBlock[];
+  theme: LPTheme;
+  seo_config: SEOConfig;
+  analytics_config: AnalyticsConfig;
+  is_published: boolean;
+  published_at: string | null;
+  views_count: number;
+  share_count: number;
+  conversion_count: number;
+  created_at: string;
+  updated_at: string;
+};
+
+export type ArticleCategory =
+  | "business"
+  | "technology"
+  | "lifestyle"
+  | "health"
+  | "finance"
+  | "marketing"
+  | "case_study"
+  | "news";
+
+export type ArticleTemplate =
+  | "threads_viral"       // Threads風バイラル投稿
+  | "twitter_thread"      // X(Twitter)スレッド風
+  | "instagram_story"     // Instagramストーリー風
+  | "note_article"        // note記事風
+  | "listicle"            // リスト型記事
+  | "comparison"          // 比較記事
+  | "how_to"              // ハウツー記事
+  | "case_study"          // 事例紹介
+  | "custom";             // カスタム
+
+export type SEOConfig = {
+  meta_title: string;
+  meta_description: string;
+  canonical_url: string | null;
+  og_image_url: string | null;
+  keywords: string[];
+  noindex: boolean;
+};
+
+export type AnalyticsConfig = {
+  utm_source: string | null;
+  utm_medium: string | null;
+  utm_campaign: string | null;
+  conversion_goals: ConversionGoal[];
+  ab_test_id: string | null;
+};
+
+export type ConversionGoal = {
+  id: string;
+  name: string;
+  type: "click" | "scroll" | "time" | "form_submit" | "purchase";
+  target: string; // ブロックID or URL
+  value: number;  // コンバージョン価値（円）
+};
+
+// ====== マーケティングレポート ======
+
+export type MarketingReport = {
+  id: string;
+  report_type: "daily" | "weekly" | "monthly" | "campaign";
+  period_start: string;
+  period_end: string;
+  metrics: ReportMetrics;
+  breakdown: ReportBreakdown[];
+  created_at: string;
+};
+
+export type ReportMetrics = {
+  total_views: number;
+  unique_visitors: number;
+  total_clicks: number;
+  total_conversions: number;
+  conversion_rate: number;
+  total_revenue: number;
+  cost_per_acquisition: number;
+  return_on_ad_spend: number;
+  avg_time_on_page: number;
+  bounce_rate: number;
+  share_count: number;
+  top_referrers: { source: string; count: number }[];
+  device_breakdown: { device: string; percentage: number }[];
+};
+
+export type ReportBreakdown = {
+  date: string;
+  views: number;
+  clicks: number;
+  conversions: number;
+  revenue: number;
 };
 
 // ====== ステップメール ======

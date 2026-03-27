@@ -37,6 +37,8 @@ const navItems = [
   { href: "/admin/step-mail/api-keys", label: "EC連携APIキー", icon: "🔑" },
   { href: "/admin/ec-connectors", label: "EC連携コネクタ", icon: "🔌" },
   { href: "/admin/maker-referrals", label: "メーカー紹介報酬", icon: "💰" },
+  { href: "/admin/articles", label: "記事LP", icon: "📰" },
+  { href: "/admin/marketing", label: "マーケティング", icon: "📈" },
 ];
 
 export default async function AdminLayout({
