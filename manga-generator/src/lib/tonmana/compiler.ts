@@ -54,11 +54,11 @@ export function compileTonmana(config: TonmanaConfig): string {
   parts.push(COLOR_MODE_PROMPTS[config.color_mode] || "");
   parts.push(LINE_STYLE_PROMPTS[config.line_style] || "");
 
-  if (config.color_palette.length > 0) {
+  if (config.color_palette?.length > 0) {
     parts.push(`using color palette: ${config.color_palette.join(", ")}`);
   }
 
-  if (config.custom_prompt.trim()) {
+  if (config.custom_prompt?.trim()) {
     parts.push(config.custom_prompt.trim());
   }
 
