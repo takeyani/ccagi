@@ -104,7 +104,7 @@ export function LPEditor({ design }: Props) {
       const res = await fetch(`/api/creator/designs/${design.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ design_config: blocks, theme }),
+        body: JSON.stringify({ design_config: blocks, theme, affiliate_id: design.affiliate_id }),
       });
       if (res.ok) {
         setIsDirty(false);

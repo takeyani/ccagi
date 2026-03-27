@@ -13,6 +13,37 @@ export async function POST(request: Request) {
       );
     }
 
+    if (!['product', 'lot'].includes(target_type)) {
+      return NextResponse.json(
+        { error: "target_typeはproductまたはlotを指定してください" },
+        { status: 400 }
+      );
+    }
+
+    if (typeof title !== "string" || title.length > 200) {
+      return NextResponse.json(
+        { error: "タイトルは200文字以内で入力してください" },
+        { status: 400 }
+      );
+    }
+
+    if (typeof author_name !== "string" || author_name.length > 100) {
+      return NextResponse.json(
+        { error: "投稿者名は100文字以内で入力してください" },
+        { status: 400 }
+      );
+    }
+
+    if (author_email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (typeof author_email !== "string" || !emailRegex.test(author_email)) {
+        return NextResponse.json(
+          { error: "有効なメールアドレスを入力してください" },
+          { status: 400 }
+        );
+      }
+    }
+
     const { data, error } = await getSupabase()
       .from("board_threads")
       .insert({

@@ -446,6 +446,12 @@ export default function FlowPage() {
             <Link href="/flow/buyer" className="text-gray-600 hover:text-gray-900">
               バイヤー
             </Link>
+            <Link href="/flow/comparison" className="text-gray-600 hover:text-gray-900">
+              比較
+            </Link>
+            <Link href="/awards" className="text-gray-600 hover:text-gray-900">
+              アワード
+            </Link>
           </nav>
         </div>
       </header>
@@ -1336,7 +1342,7 @@ export default function FlowPage() {
           主な機能
         </h2>
         <p className="text-gray-500 text-sm text-center mb-10">
-          メーカー・代理店・バイヤーが利用できるプラットフォーム機能
+          メーカー・販売代理店・バイヤーが利用できるプラットフォーム機能
         </p>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <FeatureCard icon="📦" title="商品・在庫管理" description="商品登録、ロット管理、在庫のリアルタイム追跡" />

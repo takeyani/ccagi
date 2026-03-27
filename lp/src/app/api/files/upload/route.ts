@@ -22,6 +22,37 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "No file" }, { status: 400 });
   }
 
+  // File type validation
+  const ALLOWED_TYPES = [
+    'image/jpeg', 'image/png', 'image/gif', 'image/webp',
+    'application/pdf', 'text/csv',
+    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+  ];
+  const ALLOWED_EXTENSIONS = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'pdf', 'csv', 'xlsx'];
+  const MAX_SIZE = 50 * 1024 * 1024; // 50MB
+
+  if (!ALLOWED_TYPES.includes(file.type)) {
+    return NextResponse.json(
+      { error: "許可されていないファイル形式です" },
+      { status: 400 }
+    );
+  }
+
+  if (file.size > MAX_SIZE) {
+    return NextResponse.json(
+      { error: "ファイルサイズが大きすぎます。50MB以下にしてください" },
+      { status: 400 }
+    );
+  }
+
+  const fileExt = (file.name.split(".").pop() || "").toLowerCase();
+  if (!ALLOWED_EXTENSIONS.includes(fileExt)) {
+    return NextResponse.json(
+      { error: "許可されていないファイル拡張子です" },
+      { status: 400 }
+    );
+  }
+
   const uploadDir = join(process.cwd(), "public", "uploads");
   await mkdir(uploadDir, { recursive: true });
 

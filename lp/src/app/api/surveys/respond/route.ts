@@ -13,6 +13,22 @@ export async function POST(request: Request) {
       );
     }
 
+    // Validate answers
+    for (const a of answers) {
+      if (a.answer_options && Array.isArray(a.answer_options) && a.answer_options.length > 100) {
+        return NextResponse.json(
+          { error: "選択肢は100個以内にしてください" },
+          { status: 400 }
+        );
+      }
+      if (a.answer_text && typeof a.answer_text === "string" && a.answer_text.length > 10000) {
+        return NextResponse.json(
+          { error: "回答テキストは10000文字以内で入力してください" },
+          { status: 400 }
+        );
+      }
+    }
+
     const supabase = getSupabase();
 
     // 回答レコード作成

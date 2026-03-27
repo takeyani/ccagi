@@ -55,11 +55,11 @@ const buyerSteps: Step[] = [
   {
     number: "04",
     title: "問い合わせ・商談",
-    description: "気になった商品のメーカー/代理店に問い合わせを送り、条件交渉を行います。",
+    description: "気になった商品のメーカー/販売代理店に問い合わせを送り、条件交渉を行います。",
     details: [
       "エージェント結果から直接問い合わせを作成",
       "希望価格・数量・備考を添えて送信",
-      "メーカー/代理店からの回答を待つ（承諾/辞退）",
+      "メーカー/販売代理店からの回答を待つ（承諾/辞退）",
       "見積書の確認・条件の再調整",
     ],
   },
@@ -159,7 +159,7 @@ export default function BuyerFlowPage() {
         <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
           <Link href="/" className="font-bold text-gray-900">単品決済ロットLP</Link>
           <nav className="flex gap-6 text-sm">
-            <Link href="/flow" className="text-gray-600 hover:text-gray-900">メーカー・代理店</Link>
+            <Link href="/flow" className="text-gray-600 hover:text-gray-900">メーカー・販売代理店</Link>
             <a href="#steps" className="text-gray-600 hover:text-gray-900">業務フロー</a>
             <a href="#scoring" className="text-gray-600 hover:text-gray-900">スコアリング</a>
             <Link href="/flow/creator" className="text-gray-600 hover:text-gray-900">クリエイター</Link>
@@ -377,7 +377,7 @@ export default function BuyerFlowPage() {
                   <span className="text-3xl">🤖</span>
                   <div>
                     <h3 className="font-bold text-blue-300 text-lg">販売エージェント</h3>
-                    <p className="text-xs text-blue-400">メーカー・代理店・クリエイター向け</p>
+                    <p className="text-xs text-blue-400">メーカー・販売代理店・クリエイター向け</p>
                   </div>
                 </div>
               </div>
@@ -603,7 +603,7 @@ export default function BuyerFlowPage() {
           <p className="text-emerald-100 text-sm mb-8">各ロールの業務フローを詳しく解説しています。</p>
           <div className="flex justify-center gap-4 flex-wrap">
             <Link href="/flow" className="bg-white text-emerald-700 font-bold px-6 py-3 rounded-lg hover:bg-emerald-50 text-sm transition">
-              メーカー・代理店フロー
+              メーカー・販売代理店フロー
             </Link>
             <Link href="/flow/creator" className="border border-white/50 text-white px-6 py-3 rounded-lg hover:bg-white/10 text-sm transition">
               クリエイターフロー

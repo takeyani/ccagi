@@ -44,8 +44,104 @@ export default function LegalPage() {
           </table>
         </div>
 
-        <p className="mt-6 text-xs text-gray-400 text-center">
+        {/* 業種別特記事項 */}
+        <h2 className="text-2xl font-bold text-gray-900 mt-12 mb-6">業種別特記事項</h2>
+
+        <div className="space-y-6">
+          {/* 健康食品・化粧品 */}
+          <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
+            <h3 className="text-lg font-bold text-gray-800 mb-3">健康食品・化粧品の取扱いについて</h3>
+            <ul className="text-sm text-gray-600 space-y-2 list-disc pl-5">
+              <li>医薬品医療機器等法（薬機法）に基づき、効能効果に関する虚偽・誇大な表現は行いません</li>
+              <li>食品表示法に基づき、原材料名・アレルゲン（特定原材料28品目）・栄養成分を適切に表示します</li>
+              <li>健康増進法に基づき、虚偽または誇大な栄養・健康効果の表示を行いません</li>
+              <li>機能性表示食品については、消費者庁届出番号を商品ページに記載します</li>
+              <li>化粧品の全成分表示は、薬機法の規定に従い商品ページおよびラベルに記載します</li>
+            </ul>
+          </div>
+
+          {/* 食品全般 */}
+          <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
+            <h3 className="text-lg font-bold text-gray-800 mb-3">食品の取扱いについて</h3>
+            <ul className="text-sm text-gray-600 space-y-2 list-disc pl-5">
+              <li>食品衛生法に基づく営業許可を取得した事業者の商品のみ取り扱います</li>
+              <li>賞味期限・消費期限は商品ページおよび商品ラベルに明記します</li>
+              <li>要冷蔵・冷凍商品は適切な温度管理の下で配送します</li>
+              <li>HACCP対応の衛生管理記録をプルーフチェーンに含めます</li>
+            </ul>
+          </div>
+
+          {/* オークション・中古品 */}
+          <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
+            <h3 className="text-lg font-bold text-gray-800 mb-3">オークション・中古品の取扱いについて</h3>
+            <ul className="text-sm text-gray-600 space-y-2 list-disc pl-5">
+              <li>古物営業法に基づく古物商許可番号：第○○○号（○○公安委員会）</li>
+              <li>中古品の売買には本人確認（身分証明書の提示）が必要です</li>
+              <li>取引記録は古物営業法に基づき3年間保存します</li>
+              <li>盗品等の疑いがある場合は直ちに警察へ届出を行います</li>
+            </ul>
+          </div>
+
+          {/* 酒類 */}
+          <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
+            <h3 className="text-lg font-bold text-gray-800 mb-3">酒類の取扱いについて</h3>
+            <ul className="text-sm text-gray-600 space-y-2 list-disc pl-5">
+              <li>酒類販売業免許に基づき販売を行います</li>
+              <li>20歳未満への酒類の販売は法律で禁止されています</li>
+              <li>ご購入時に年齢確認を実施します</li>
+            </ul>
+          </div>
+
+          {/* 越境EC */}
+          <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
+            <h3 className="text-lg font-bold text-gray-800 mb-3">越境EC（海外取引）について</h3>
+            <ul className="text-sm text-gray-600 space-y-2 list-disc pl-5">
+              <li>輸出入に関する法令（外為法・関税法等）を遵守します</li>
+              <li>関税・消費税等の諸費用はお客様のご負担となります</li>
+              <li>ワシントン条約等により輸出入が制限される商品は取り扱いません</li>
+              <li>輸出先国の消費者保護法に準拠した表示を行います</li>
+            </ul>
+          </div>
+        </div>
+
+        {/* 景品表示法 */}
+        <h2 className="text-2xl font-bold text-gray-900 mt-12 mb-6">景品表示法に関するポリシー</h2>
+        <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
+          <ul className="text-sm text-gray-600 space-y-2 list-disc pl-5">
+            <li>商品の品質・規格その他の内容について、実際のものより著しく優良であると示す「優良誤認表示」は行いません</li>
+            <li>商品の価格その他の取引条件について、実際のものより著しく有利であると示す「有利誤認表示」は行いません</li>
+            <li>二重価格表示を行う場合は、比較対照価格の根拠（メーカー希望小売価格・当社通常販売価格等）を明示します</li>
+            <li>「No.1」「最安値」等の最上級表現を使用する場合は、客観的な調査データに基づく根拠を明示します</li>
+            <li>クリエイターLP内の表現については、AI薬機法チェック機能により自動審査を行います</li>
+          </ul>
+        </div>
+
+        {/* 電子メール */}
+        <h2 className="text-2xl font-bold text-gray-900 mt-12 mb-6">特定電子メール法への対応</h2>
+        <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
+          <ul className="text-sm text-gray-600 space-y-2 list-disc pl-5">
+            <li>広告・宣伝メール（ステップメール含む）は、事前にオプトイン（同意）を得た方にのみ配信します</li>
+            <li>すべてのメールに配信停止（オプトアウト）リンクを設置します</li>
+            <li>送信者の氏名・名称、連絡先を全メールに記載します</li>
+            <li>配信停止の申出には速やかに（遅くとも受付から3営業日以内に）対応します</li>
+          </ul>
+        </div>
+
+        {/* インボイス制度 */}
+        <h2 className="text-2xl font-bold text-gray-900 mt-12 mb-6">インボイス制度への対応</h2>
+        <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
+          <ul className="text-sm text-gray-600 space-y-2 list-disc pl-5">
+            <li>適格請求書発行事業者登録番号：T○○○○○○○○○○○○○</li>
+            <li>BtoB取引の帳票（見積書・請求書・納品書）はインボイス記載要件を満たしています</li>
+            <li>税率ごとの消費税額を明記します</li>
+          </ul>
+        </div>
+
+        <p className="mt-8 text-xs text-gray-400 text-center">
           ※ 上記は表示例です。実際の運営情報は正式な事業者情報に置き換えてください。
+        </p>
+        <p className="mt-2 text-xs text-gray-400 text-center mb-8">
+          最終更新日: 2026年3月27日
         </p>
       </div>
     </div>

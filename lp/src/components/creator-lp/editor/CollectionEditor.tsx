@@ -110,7 +110,7 @@ export function CollectionEditor({ collection }: Props) {
       const res = await fetch(`/api/creator/collections/${collection.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ design_config: blocks, theme }),
+        body: JSON.stringify({ design_config: blocks, theme, affiliate_id: collection.affiliate_id }),
       });
       if (res.ok) {
         setIsDirty(false);

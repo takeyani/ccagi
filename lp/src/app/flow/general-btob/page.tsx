@@ -181,6 +181,7 @@ export default function GeneralBtoBPage() {
             <Link href="/flow/general-btoc" className="bg-white border border-gray-200 rounded-lg px-4 py-2 text-sm font-medium text-gray-700 hover:border-indigo-400 transition">一般商材 BtoC</Link>
             <Link href="/flow/health-btob" className="bg-white border border-gray-200 rounded-lg px-4 py-2 text-sm font-medium text-gray-700 hover:border-indigo-400 transition">健康食品・化粧品 BtoB</Link>
             <Link href="/flow/health-btoc" className="bg-white border border-gray-200 rounded-lg px-4 py-2 text-sm font-medium text-gray-700 hover:border-indigo-400 transition">健康食品・化粧品 BtoC</Link>
+            <Link href="/awards" className="bg-white border border-gray-200 rounded-lg px-4 py-2 text-sm font-medium text-gray-700 hover:border-amber-400 transition">🏆 アワード</Link>
           </div>
           <Link href="/flow" className="mt-4 inline-block text-sm text-indigo-600 hover:text-indigo-800">
             ← 業務フロー全体へ戻る

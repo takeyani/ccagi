@@ -33,6 +33,10 @@ const navItems = [
   { href: "/admin/groupware/calendar", label: "カレンダー", icon: "📅" },
   { href: "/admin/groupware/activity", label: "活動ログ", icon: "📋" },
   { href: "/admin/groupware/notifications", label: "通知", icon: "🔔" },
+  { href: "/admin/step-mail", label: "ステップメール", icon: "📧" },
+  { href: "/admin/step-mail/api-keys", label: "EC連携APIキー", icon: "🔑" },
+  { href: "/admin/ec-connectors", label: "EC連携コネクタ", icon: "🔌" },
+  { href: "/admin/maker-referrals", label: "メーカー紹介報酬", icon: "💰" },
 ];
 
 export default async function AdminLayout({

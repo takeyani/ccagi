@@ -13,6 +13,30 @@ export async function POST(request: Request) {
       );
     }
 
+    if (typeof author_name !== "string" || author_name.length > 100) {
+      return NextResponse.json(
+        { error: "投稿者名は100文字以内で入力してください" },
+        { status: 400 }
+      );
+    }
+
+    if (typeof postBody !== "string" || postBody.length > 5000) {
+      return NextResponse.json(
+        { error: "投稿内容は5000文字以内で入力してください" },
+        { status: 400 }
+      );
+    }
+
+    if (author_email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (typeof author_email !== "string" || !emailRegex.test(author_email)) {
+        return NextResponse.json(
+          { error: "有効なメールアドレスを入力してください" },
+          { status: 400 }
+        );
+      }
+    }
+
     const { error } = await getSupabase()
       .from("board_posts")
       .insert({

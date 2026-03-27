@@ -5,12 +5,9 @@ export default function Home() {
       <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur border-b border-gray-100">
         <div className="mx-auto max-w-6xl px-6 py-4 flex items-center justify-between">
           <span className="text-xl font-bold tracking-tight">CCAGI</span>
-          <a
-            href="#contact"
-            className="rounded-full bg-gray-900 px-5 py-2 text-sm font-medium text-white hover:bg-gray-700 transition"
-          >
-            お問い合わせ
-          </a>
+          <span className="text-sm text-gray-500">
+            詳細は紹介者にお尋ねください
+          </span>
         </div>
       </header>
 
@@ -373,6 +370,16 @@ export default function Home() {
               </div>
             ))}
           </div>
+          <div className="mt-12 text-center">
+            <a
+              href="https://customer-cloud.jp.larksuite.com/wiki/FDW7w1dk6ikdqokf3ojjtLVXpLg"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-indigo-50 px-6 py-3 text-sm font-semibold text-indigo-600 hover:bg-indigo-100 transition"
+            >
+              事例一覧を見る →
+            </a>
+          </div>
         </div>
       </section>
 
@@ -494,28 +501,17 @@ export default function Home() {
             <br />
             あなたのアイデアを、数時間で動くプロダクトに変えましょう。
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="https://github.com/takeyani/ccagi"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-full bg-white text-gray-900 px-8 py-3 font-semibold hover:bg-gray-100 transition"
-            >
-              GitHub で見る
-            </a>
-            <a
-              href="mailto:contact@example.com"
-              className="rounded-full border border-white/30 px-8 py-3 font-semibold hover:bg-white/10 transition"
-            >
-              お問い合わせ
-            </a>
-          </div>
+          <p className="text-lg text-gray-300">
+            詳細・お申し込みについては、あなたの紹介者にお尋ねください。
+          </p>
         </div>
       </section>
 
       {/* Footer */}
       <footer className="py-8 px-6 border-t border-gray-100 text-center text-sm text-gray-400">
-        &copy; {new Date().getFullYear()} CCAGI. Built by CCAGI agents.
+        <a href="/ccagi" className="hover:text-gray-600 transition">
+          CCAGI トップページ
+        </a>
       </footer>
     </div>
   );

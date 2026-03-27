@@ -13,6 +13,35 @@ export async function POST(request: Request) {
       );
     }
 
+    if (typeof name !== "string" || name.length > 100) {
+      return NextResponse.json(
+        { error: "名前は100文字以内で入力してください" },
+        { status: 400 }
+      );
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (typeof email !== "string" || !emailRegex.test(email)) {
+      return NextResponse.json(
+        { error: "有効なメールアドレスを入力してください" },
+        { status: 400 }
+      );
+    }
+
+    if (typeof description !== "string" || description.length > 5000) {
+      return NextResponse.json(
+        { error: "依頼内容は5000文字以内で入力してください" },
+        { status: 400 }
+      );
+    }
+
+    if (typeof budget !== "string" || budget.length > 100) {
+      return NextResponse.json(
+        { error: "予算は100文字以内で入力してください" },
+        { status: 400 }
+      );
+    }
+
     const { error } = await getSupabase()
       .from("requests")
       .insert({ name, email, description, budget, deadline: deadline || null });

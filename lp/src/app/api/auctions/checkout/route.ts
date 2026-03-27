@@ -21,6 +21,14 @@ export async function POST(request: Request) {
       );
     }
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (typeof email !== "string" || !emailRegex.test(email)) {
+      return NextResponse.json(
+        { error: "有効なメールアドレスを入力してください" },
+        { status: 400 }
+      );
+    }
+
     // オークション取得
     const { data: auction } = await getSupabase()
       .from("auctions")

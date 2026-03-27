@@ -876,3 +876,99 @@ export type CollectionItem = {
   tags: Tag[];
   creatorDesigns: CreatorLPDesign[];
 };
+
+// ====== ステップメール ======
+
+export type StepMailCampaign = {
+  id: string;
+  name: string;
+  description: string | null;
+  trigger_event: string;
+  trigger_conditions: Record<string, unknown>;
+  from_name: string;
+  from_email: string | null;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+};
+
+export type StepMailStep = {
+  id: string;
+  campaign_id: string;
+  step_number: number;
+  delay_hours: number;
+  subject: string;
+  body_html: string;
+  body_text: string | null;
+  created_at: string;
+};
+
+export type StepMailEnrollment = {
+  id: string;
+  campaign_id: string;
+  user_email: string;
+  user_name: string | null;
+  metadata: Record<string, unknown>;
+  current_step: number;
+  status: "active" | "paused" | "completed" | "unsubscribed" | "bounced";
+  enrolled_at: string;
+  completed_at: string | null;
+};
+
+export type StepMailLog = {
+  id: string;
+  enrollment_id: string;
+  step_id: string;
+  scheduled_for: string;
+  sent_at: string | null;
+  status: "pending" | "sending" | "sent" | "failed" | "bounced" | "opened" | "clicked";
+  resend_message_id: string | null;
+  error_message: string | null;
+  opened_at: string | null;
+  clicked_at: string | null;
+  created_at: string;
+};
+
+export type StepMailApiKey = {
+  id: string;
+  name: string;
+  key_hash: string;
+  key_prefix: string;
+  permissions: string[];
+  is_active: boolean;
+  last_used_at: string | null;
+  created_at: string;
+};
+
+export type StepMailEvent = {
+  id: string;
+  api_key_id: string | null;
+  event_type: string;
+  event_id: string | null;
+  payload: Record<string, unknown>;
+  status: "pending" | "processed" | "failed" | "ignored";
+  processed_at: string | null;
+  error_message: string | null;
+  created_at: string;
+};
+
+// ====== メーカー紹介者報酬 ======
+
+export type MakerReferralCommission = {
+  id: string;
+  referrer_affiliate_id: string;
+  partner_id: string;
+  commission_rate: number;
+  is_active: boolean;
+  created_at: string;
+};
+
+export type MakerReferralPayout = {
+  id: string;
+  commission_id: string;
+  lot_purchase_id: string;
+  purchase_amount: number;
+  commission_amount: number;
+  status: "pending" | "approved" | "paid" | "cancelled";
+  calculated_at: string;
+};

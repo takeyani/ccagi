@@ -14,7 +14,7 @@ export async function POST(request: Request) {
 
     const { data: affiliate } = await getSupabase()
       .from("affiliates")
-      .select("*")
+      .select("code,name,bio,avatar_url,is_creator")
       .eq("code", code)
       .eq("is_creator", true)
       .single();

@@ -11,7 +11,7 @@ export default function Ecosystem() {
         </h2>
         <p className="text-gray-400 text-center text-sm max-w-2xl mx-auto mb-12">
           従来のECは「買い手」と「売り手」が固定されていました。
-          このプラットフォームでは、メーカー・代理店・クリエイター・バイヤー、
+          このプラットフォームでは、メーカー・販売代理店・クリエイター・バイヤー、
           すべての参加者が「売る側」にもなれる環境を構築しています。
         </p>
 
@@ -22,10 +22,10 @@ export default function Ecosystem() {
               icon: "🏭",
               color: "from-blue-600 to-blue-700",
               sells: "自社商品を直接出品",
-              gets: "クリエイター・代理店が自動で販路を広げてくれる。購買AIに発見されるので営業不要。",
+              gets: "クリエイター・販売代理店が自動で販路を広げてくれる。購買AIに発見されるので営業不要。",
             },
             {
-              role: "代理店",
+              role: "販売代理店",
               icon: "🏢",
               color: "from-purple-600 to-purple-700",
               sells: "メーカー商品を独自価格で販売",

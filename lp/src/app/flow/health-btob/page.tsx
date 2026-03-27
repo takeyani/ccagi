@@ -20,6 +20,7 @@ const documents = [
   { name: "請求書", desc: "納品後の支払い請求。インボイス番号・消費税区分を明記", icon: "💴" },
   { name: "納品書", desc: "商品引渡し明細。ロット番号・賞味期限を記載して照合に使用", icon: "📦" },
   { name: "成分規格書", desc: "商品の成分情報。取引先への品質保証として提供", icon: "🧪" },
+  { name: "発注書", desc: "購入企業からの正式発注。ロット番号・数量・納期を確定", icon: "📋" },
 ];
 
 const features = [
@@ -194,6 +195,7 @@ export default function HealthBtoBPage() {
             <Link href="/flow/general-btob" className="bg-white border border-gray-200 rounded-lg px-4 py-2 text-sm font-medium text-gray-700 hover:border-rose-400 transition">一般商材 BtoB</Link>
             <Link href="/flow/general-btoc" className="bg-white border border-gray-200 rounded-lg px-4 py-2 text-sm font-medium text-gray-700 hover:border-rose-400 transition">一般商材 BtoC</Link>
             <Link href="/flow/health-btoc" className="bg-white border border-gray-200 rounded-lg px-4 py-2 text-sm font-medium text-gray-700 hover:border-rose-400 transition">健康食品・化粧品 BtoC</Link>
+            <Link href="/awards" className="bg-white border border-gray-200 rounded-lg px-4 py-2 text-sm font-medium text-gray-700 hover:border-amber-400 transition">🏆 アワード</Link>
           </div>
           <Link href="/flow" className="mt-4 inline-block text-sm text-rose-600 hover:text-rose-800">
             ← 業務フロー全体へ戻る

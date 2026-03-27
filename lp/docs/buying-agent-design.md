@@ -5,7 +5,7 @@
 | 文書ID | DES-BUYING-AGENT-001 |
 | バージョン | 1.2 |
 | 作成日 | 2026-03-03 |
-| 更新日 | 2026-03-06 |
+| 更新日 | 2026-03-17 |
 | ステータス | 実装済み |
 | 対応要件 | REQ-BUYING-AGENT-001 v1.2 |
 | 関連文書 | REQ-SYSTEM-001（システム全体要件）, DES-EMBED-001（埋め込みウィジェット設計） |
@@ -141,7 +141,7 @@ agent_inquiries (id, agent_result_id, buyer_id, partner_id,
 | spec_requirements | jsonb | NO | '[]' | | 成分・特徴条件の配列 |
 | certification_weight | integer | NO | 80 | CHECK 0-100 | 認証スコア重み |
 | proof_chain_weight | integer | NO | 60 | CHECK 0-100 | 証明チェーン重み |
-| preferred_partner_type | text | YES | | CHECK ('メーカー','代理店') | パートナー種別フィルタ |
+| preferred_partner_type | text | YES | | CHECK ('メーカー','販売代理店') | パートナー種別フィルタ |
 | require_in_stock | boolean | NO | true | | 在庫あり必須 |
 | min_total_score | numeric(5,2) | YES | | | 最低総合スコア |
 | status | text | NO | '有効' | CHECK ('有効','一時停止') | エージェントステータス |

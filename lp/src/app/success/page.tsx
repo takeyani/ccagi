@@ -45,23 +45,15 @@ export default async function SuccessPage({
         );
       }
 
-      // ロット在庫デクリメント（冪等性保証）
+      // ロット購入記録（冪等性保証） ※在庫はチェックアウト時に予約済み
       const lotId = session.metadata?.lot_id;
       if (lotId) {
-        const { error: insertError } = await getSupabase()
+        await getSupabase()
           .from("lot_purchases")
           .insert({
             lot_id: lotId,
             stripe_session_id: session_id,
           });
-
-        // insertが成功 = 初回処理 → 在庫デクリメント
-        // insertが失敗 = 重複 → スキップ（冪等性）
-        if (!insertError) {
-          await getSupabase().rpc("decrement_lot_stock", {
-            p_lot_id: lotId,
-          });
-        }
       }
 
       // オークション落札決済の場合
@@ -88,6 +80,48 @@ export default async function SuccessPage({
             .from("agent_results")
             .update({ status: "購入済み" })
             .eq("id", winningBid.agent_result_id);
+        }
+      }
+      // ステップメール登録（フォールバック - webhook が主）
+      const customerEmail = session.customer_details?.email;
+      if (customerEmail) {
+        try {
+          const { enrollInCampaign } = await import("@/lib/step-mail");
+          await enrollInCampaign({
+            email: customerEmail,
+            name: session.customer_details?.name ?? undefined,
+            metadata: {
+              stripe_session_id: session_id,
+              lot_id: lotId ?? "",
+              auction_id: auctionId ?? "",
+              amount: String(session.amount_total ?? 0),
+            },
+            triggerEvent: auctionId ? "auction_won" : "purchase",
+          });
+        } catch (mailErr) {
+          console.error("Step mail enrollment error:", mailErr);
+        }
+      }
+
+      // メーカー紹介者報酬（フォールバック）
+      if (lotId && session.amount_total) {
+        try {
+          const { calculateMakerReferralCommission } = await import(
+            "@/lib/maker-referral"
+          );
+          const { data: purchase } = await getSupabase()
+            .from("lot_purchases")
+            .select("id")
+            .eq("stripe_session_id", session_id)
+            .single();
+          if (purchase) {
+            await calculateMakerReferralCommission(
+              purchase.id,
+              session.amount_total
+            );
+          }
+        } catch (refErr) {
+          console.error("Maker referral error:", refErr);
         }
       }
     } catch (err) {

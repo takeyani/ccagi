@@ -61,6 +61,19 @@ export async function POST(request: Request) {
         );
       }
 
+      // Atomically reserve stock
+      const { data: reserved, error: reserveError } = await getSupabase().rpc(
+        "reserve_lot_stock",
+        { p_lot_id: lotId, p_session_id: "" }
+      );
+
+      if (reserveError || !reserved) {
+        return NextResponse.json(
+          { error: "在庫が確保できませんでした" },
+          { status: 400 }
+        );
+      }
+
       const { data: product } = await getSupabase()
         .from("products")
         .select("*")

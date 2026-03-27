@@ -63,6 +63,7 @@ export default function Pricing() {
           <p className="mt-2 text-gray-500 text-xs">
             獲得ポイントはプラットフォーム内の全商品の購入に利用可能
           </p>
+          <Link href="/affiliate" className="text-xs text-indigo-600 hover:text-indigo-800 mt-1 inline-block">アフィリエイト登録ページへ →</Link>
         </div>
 
         <div className="mt-10 bg-white rounded-2xl border border-gray-200 p-6 max-w-2xl mx-auto shadow-sm">

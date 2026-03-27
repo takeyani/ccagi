@@ -7,12 +7,9 @@ export default function ReferralPage() {
           <a href="/ccagi" className="text-xl font-bold tracking-tight">
             CCAGI
           </a>
-          <a
-            href="#contact"
-            className="rounded-full bg-gray-900 px-5 py-2 text-sm font-medium text-white hover:bg-gray-700 transition"
-          >
-            お問い合わせ
-          </a>
+          <span className="text-sm text-gray-500">
+            詳細は紹介者にお尋ねください
+          </span>
         </div>
       </header>
 
@@ -156,7 +153,11 @@ export default function ReferralPage() {
                     <td className="py-4 px-6 text-center">
                       <span
                         className={`font-bold text-lg ${
-                          row.second ? "text-amber-500" : "text-gray-300"
+                          row.second === "確認中"
+                            ? "text-gray-400 text-sm"
+                            : row.second
+                            ? "text-amber-500"
+                            : "text-gray-300"
                         }`}
                       >
                         {row.second || "-"}
@@ -350,23 +351,12 @@ export default function ReferralPage() {
           <h2 className="text-3xl font-bold mb-4">
             CCAGIパートナーになりませんか？
           </h2>
-          <p className="text-amber-100 mb-8">
+          <p className="text-amber-100 mb-4">
             まずはワークショップから。30万円の受講で紹介パートナーとしての活動が始められます。
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="mailto:contact@example.com?subject=CCAGIワークショップ申込"
-              className="rounded-full bg-white text-amber-700 px-8 py-3 font-semibold hover:bg-amber-50 transition"
-            >
-              ワークショップに申し込む
-            </a>
-            <a
-              href="mailto:contact@example.com?subject=CCAGI認定パートナー問合せ"
-              className="rounded-full border border-white/40 px-8 py-3 font-semibold hover:bg-white/10 transition"
-            >
-              認定パートナーについて聞く
-            </a>
-          </div>
+          <p className="text-amber-200/80 text-sm">
+            詳細・お申し込みについては、あなたの紹介者にお尋ねください。
+          </p>
         </div>
       </section>
 
@@ -375,8 +365,6 @@ export default function ReferralPage() {
         <a href="/ccagi" className="text-gray-500 hover:text-gray-700">
           CCAGI トップページ
         </a>
-        <span className="mx-2">&middot;</span>
-        &copy; {new Date().getFullYear()} CCAGI. All rights reserved.
       </footer>
     </div>
   );
@@ -409,7 +397,7 @@ const tiers = [
     features: [
       { text: "CCAGI製品の利用権", included: true },
       { text: "直接紹介フィー 15%", included: true },
-      { text: "2次紹介フィー 5%", included: true },
+      { text: "2次紹介フィー（確認中）", included: true },
       { text: "3次紹介フィー", included: false },
     ],
   },
@@ -444,7 +432,7 @@ const feeTable = [
     name: "ユーザー",
     price: "CCAGI購入",
     direct: "15%",
-    second: "5%",
+    second: "確認中",
     third: null,
   },
   {

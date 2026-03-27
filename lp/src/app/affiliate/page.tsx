@@ -95,12 +95,19 @@ export default function AffiliatePage() {
           </div>
         </div>
 
-        {/* 多段階紹介（紹介者チェーン） */}
+        {/* グループ紹介（1段階のみ） */}
         <div className="mt-6 rounded-2xl bg-white p-6 shadow-sm border border-gray-200">
-          <h3 className="font-bold text-gray-900 text-sm mb-4">多段階紹介（紹介者チェーン）</h3>
+          <h3 className="font-bold text-gray-900 text-sm mb-2">グループ紹介フィー</h3>
+          <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 mb-4">
+            <p className="text-xs text-amber-800">
+              <span className="font-bold">1段階のみの紹介制度です。</span>
+              連鎖販売（マルチレベル）ではありません。紹介者が直接紹介した相手の売上に対してのみフィーが発生します。
+            </p>
+          </div>
           <p className="text-xs text-gray-500 mb-4">
-            あなたがインフルエンサーを紹介し、そのインフルエンサーが商品を売った場合、
-            あなたにも紹介フィーが還元されます。
+            あなたがインフルエンサーやメーカーをプラットフォームに紹介した場合、
+            「グループ紹介フィー」として、紹介先の売上に対してポイントが還元されます。
+            これは通常の紹介ポイント（2%）とは<span className="font-bold">別枠</span>のフィーです。
           </p>
           <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-4 mb-4">
             <div className="flex items-center justify-between text-center text-sm">
@@ -109,13 +116,19 @@ export default function AffiliatePage() {
                 <p className="text-xs font-bold text-purple-700">あなた</p>
                 <p className="text-[10px] text-purple-500">紹介者</p>
               </div>
-              <div className="text-gray-400 text-xs">紹介→</div>
+              <div className="text-center">
+                <div className="text-gray-400 text-xs">紹介→</div>
+                <div className="text-[10px] text-purple-600 font-bold mt-0.5">グループ紹介フィー</div>
+              </div>
               <div>
                 <div className="w-12 h-12 mx-auto bg-pink-100 rounded-full flex items-center justify-center text-xl mb-1">🎤</div>
                 <p className="text-xs font-bold text-pink-700">インフルエンサー</p>
                 <p className="text-[10px] text-pink-500">クリエイター</p>
               </div>
-              <div className="text-gray-400 text-xs">販売→</div>
+              <div className="text-center">
+                <div className="text-gray-400 text-xs">販売→</div>
+                <div className="text-[10px] text-pink-600 font-bold mt-0.5">卸値との差額</div>
+              </div>
               <div>
                 <div className="w-12 h-12 mx-auto bg-emerald-100 rounded-full flex items-center justify-center text-xl mb-1">🛒</div>
                 <p className="text-xs font-bold text-emerald-700">バイヤー</p>
@@ -124,23 +137,27 @@ export default function AffiliatePage() {
             </div>
           </div>
           <div className="bg-gray-50 rounded-lg p-3">
-            <p className="text-xs font-bold text-gray-700 mb-2">フィーの分配例（食品カテゴリー 12%の場合）</p>
+            <p className="text-xs font-bold text-gray-700 mb-2">フィーの構造（食品12%の場合）</p>
             <div className="space-y-2">
+              <div className="flex items-center justify-between text-xs border-b pb-1">
+                <span className="text-gray-500 font-bold">項目</span>
+                <span className="text-gray-500 font-bold">割合</span>
+              </div>
               <div className="flex items-center justify-between text-xs">
-                <span className="text-gray-600">インフルエンサー（クリエイター）の利益</span>
+                <span className="text-gray-600">クリエイターの利益</span>
                 <span className="font-bold text-pink-600">販売価格 - 卸値</span>
               </div>
               <div className="flex items-center justify-between text-xs">
-                <span className="text-gray-600">あなた（紹介者）のポイント</span>
+                <span className="text-gray-600">紹介ポイント（通常）</span>
+                <span className="font-bold text-amber-600">売上の 2%</span>
+              </div>
+              <div className="flex items-center justify-between text-xs bg-purple-50 rounded p-1 -mx-1">
+                <span className="text-purple-700 font-bold">グループ紹介フィー（別枠）</span>
                 <span className="font-bold text-purple-600">売上の 0.5%</span>
               </div>
               <div className="flex items-center justify-between text-xs">
-                <span className="text-gray-600">インフルエンサーの紹介ポイント</span>
-                <span className="font-bold text-amber-600">売上の 1.5%</span>
-              </div>
-              <div className="flex items-center justify-between text-xs">
                 <span className="text-gray-600">プラットフォーム</span>
-                <span className="font-bold text-gray-600">売上の 10%</span>
+                <span className="font-bold text-gray-600">売上の 9.5%</span>
               </div>
               <div className="border-t pt-1 flex items-center justify-between text-xs">
                 <span className="font-bold text-gray-900">合計手数料</span>
@@ -148,8 +165,75 @@ export default function AffiliatePage() {
               </div>
             </div>
             <p className="text-[10px] text-gray-400 mt-2">
-              ※ 紹介者チェーンが存在する場合、2%の紹介ポイントを紹介者とクリエイターで分配します。分配率はカテゴリーや契約条件で調整可能。
+              ※ グループ紹介フィーは1段階のみ。紹介者→紹介先の直接関係に対してのみ発生します。紹介先がさらに別の人を紹介しても、元の紹介者にフィーは発生しません。
             </p>
+          </div>
+        </div>
+
+        {/* アフィリエイト機能の詳細 */}
+        <div className="mt-6 rounded-2xl bg-white p-6 shadow-sm border border-gray-200">
+          <h3 className="font-bold text-gray-900 text-sm mb-4">アフィリエイト機能の詳細</h3>
+
+          <div className="space-y-4">
+            <div>
+              <p className="text-xs font-bold text-indigo-600 mb-2">掲載される媒体（アフィリエイターの活動場所）</p>
+              <div className="grid grid-cols-2 gap-2">
+                {[
+                  { name: "Instagram", desc: "ストーリー・フィード・リール" },
+                  { name: "YouTube", desc: "概要欄・カード・エンドスクリーン" },
+                  { name: "TikTok", desc: "プロフィール・動画説明" },
+                  { name: "X (Twitter)", desc: "ポスト・スレッド" },
+                  { name: "ブログ / note", desc: "記事内リンク・バナー" },
+                  { name: "LINE", desc: "公式アカウント・リッチメッセージ" },
+                  { name: "自社サイト", desc: "iframeウィジェット埋め込み" },
+                  { name: "メルマガ", desc: "ニュースレター内リンク" },
+                ].map((m) => (
+                  <div key={m.name} className="bg-gray-50 rounded-lg p-2">
+                    <p className="text-xs font-bold text-gray-900">{m.name}</p>
+                    <p className="text-[10px] text-gray-400">{m.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <p className="text-xs font-bold text-indigo-600 mb-2">アフィリエイターの種類</p>
+              <div className="space-y-2">
+                {[
+                  { type: "インフルエンサー", desc: "SNSフォロワーを持つ個人。LP作成→SNSで拡散→フォロワーが購入" },
+                  { type: "映像クリエイター", desc: "YouTube等で商品レビュー動画を制作。概要欄にLPリンクを設置" },
+                  { type: "ブロガー・ライター", desc: "SEO記事や比較記事で商品を紹介。検索流入からの購入を獲得" },
+                  { type: "法人代理店", desc: "自社の取引先ネットワークを活用して商品を紹介・販売" },
+                  { type: "個人の紹介者", desc: "知人のメーカーやインフルエンサーをプラットフォームに紹介（グループ紹介フィー）" },
+                ].map((a) => (
+                  <div key={a.type} className="flex items-start gap-2 text-xs">
+                    <span className="text-indigo-500 mt-0.5">-</span>
+                    <div>
+                      <span className="font-bold text-gray-900">{a.type}：</span>
+                      <span className="text-gray-600">{a.desc}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <p className="text-xs font-bold text-indigo-600 mb-2">メーカーによるアフィリエイター管理</p>
+              <div className="space-y-1.5">
+                {[
+                  "販売許可の承認/拒否：クリエイターからのリクエストをメーカーが審査",
+                  "販売価格の上限・下限設定：ブランド価値を守る価格レンジを指定",
+                  "掲載内容の確認：作成されたLPの内容を事前に確認可能",
+                  "許可の取り消し：規約違反やブランドイメージに反する場合は許可を無効化",
+                  "成果レポート：どのクリエイターがどれだけ売ったかをリアルタイムで確認",
+                ].map((item) => (
+                  <p key={item} className="text-xs text-gray-600 flex items-start gap-2">
+                    <span className="text-green-500 mt-0.5">&#10003;</span>
+                    {item}
+                  </p>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
 

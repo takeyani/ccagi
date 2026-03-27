@@ -14,9 +14,25 @@ export async function POST(request: Request) {
       );
     }
 
-    if (!is_buy_now && (!amount || amount <= 0)) {
+    // Input validation
+    if (!is_buy_now && (!amount || amount <= 0 || !Number.isInteger(amount))) {
       return NextResponse.json(
         { error: "入札金額を正しく入力してください" },
+        { status: 400 }
+      );
+    }
+
+    if (typeof bidder_name !== "string" || bidder_name.length > 100) {
+      return NextResponse.json(
+        { error: "入札者名は100文字以内で入力してください" },
+        { status: 400 }
+      );
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (typeof bidder_email !== "string" || !emailRegex.test(bidder_email)) {
+      return NextResponse.json(
+        { error: "有効なメールアドレスを入力してください" },
         { status: 400 }
       );
     }
@@ -62,7 +78,11 @@ export async function POST(request: Request) {
       })().catch((err) => console.error("auto_rebid error:", err));
     }
 
-    return NextResponse.json(result);
+    return NextResponse.json({
+      success: result.success,
+      amount: result.amount,
+      status: result.status,
+    });
   } catch (err) {
     console.error("Bid API error:", err);
     return NextResponse.json(
