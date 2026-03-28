@@ -75,10 +75,10 @@ export async function POST(request: Request) {
       );
     }
 
-    // ロットの商品情報を取得
+    // ロットの商品情報を取得（partner_id含む）
     const { data: lot } = await getSupabase()
       .from("lots")
-      .select("product_id")
+      .select("product_id, products(partner_id)")
       .eq("id", auction.lot_id)
       .single();
 
@@ -115,6 +115,9 @@ export async function POST(request: Request) {
         auction_id: auction.id,
         lot_id: auction.lot_id,
         product_id: lot.product_id,
+        partner_id: (lot as Record<string, unknown>).products
+          ? ((lot as Record<string, unknown>).products as Record<string, string>)?.partner_id || ""
+          : "",
       },
       customer_email: email,
       success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/success?session_id={CHECKOUT_SESSION_ID}`,

@@ -3,6 +3,7 @@ import Stripe from "stripe";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { enrollInCampaign } from "@/lib/step-mail";
 import { calculateMakerReferralCommission } from "@/lib/maker-referral";
+import { transferToPartner, calculateFees } from "@/lib/stripe-connect";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -130,6 +131,67 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
     // 5. メーカー紹介者報酬
     if (purchaseId && session.amount_total) {
       await calculateMakerReferralCommission(purchaseId, session.amount_total);
+    }
+
+    // 6. メーカーへの自動送金（Stripe Connect）
+    const partnerId = session.metadata?.partner_id;
+    if (partnerId && session.amount_total && session.amount_total > 0) {
+      try {
+        // パートナーのStripe Connect情報を取得
+        const { data: partner } = await supabase
+          .from("partners")
+          .select("id, company_name, stripe_account_id, stripe_connect_status")
+          .eq("id", partnerId)
+          .single();
+
+        if (partner?.stripe_account_id && partner.stripe_connect_status === "connected") {
+          // アフィリエイト報酬率を取得（デフォルト2%）
+          const affiliateRate = affiliateCode ? 2 : 0;
+          const fees = calculateFees(session.amount_total, affiliateRate);
+
+          // 送金実行
+          const { transferId } = await transferToPartner({
+            stripeAccountId: partner.stripe_account_id,
+            amount: fees.netAmount,
+            stripeSessionId: sessionId,
+            description: `売上送金: ${partner.company_name} (${lotId || auctionId || "direct"})`,
+          });
+
+          // 送金記録を保存
+          await supabase.from("partner_payouts").insert({
+            partner_id: partnerId,
+            stripe_session_id: sessionId,
+            stripe_transfer_id: transferId,
+            lot_purchase_id: purchaseId || null,
+            gross_amount: fees.grossAmount,
+            platform_fee: fees.platformFee,
+            affiliate_commission: fees.affiliateCommission,
+            net_amount: fees.netAmount,
+            status: "transferred",
+            transferred_at: new Date().toISOString(),
+          });
+
+          console.log(`Partner payout: ¥${fees.netAmount} → ${partner.company_name} (${transferId})`);
+        } else {
+          // Stripe Connect未設定の場合はpendingで記録
+          if (session.amount_total > 0) {
+            const fees = calculateFees(session.amount_total, affiliateCode ? 2 : 0);
+            await supabase.from("partner_payouts").insert({
+              partner_id: partnerId,
+              stripe_session_id: sessionId,
+              lot_purchase_id: purchaseId || null,
+              gross_amount: fees.grossAmount,
+              platform_fee: fees.platformFee,
+              affiliate_commission: fees.affiliateCommission,
+              net_amount: fees.netAmount,
+              status: "pending",
+            });
+          }
+        }
+      } catch (payoutErr) {
+        console.error("Partner payout error:", payoutErr);
+        // 送金失敗しても決済自体は成功させる
+      }
     }
   } catch (err) {
     console.error("Webhook processing error:", err);

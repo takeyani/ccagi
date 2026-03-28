@@ -95,6 +95,9 @@ export async function POST(request: Request) {
 
       metadata.lot_id = lot.id;
       metadata.product_id = product.id;
+      if (product.partner_id) {
+        metadata.partner_id = product.partner_id;
+      }
     } else {
       // 従来のトップページ経由の購入
       priceId = process.env.STRIPE_PRICE_ID!;

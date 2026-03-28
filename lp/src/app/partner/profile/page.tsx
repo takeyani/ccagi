@@ -1,5 +1,6 @@
 import { requirePartnerId } from "@/lib/auth";
 import { updatePartnerProfile } from "./actions";
+import { StripeConnectSection } from "@/components/partner/StripeConnectSection";
 
 export default async function PartnerProfilePage() {
   const { partnerId, supabase } = await requirePartnerId();
@@ -105,6 +106,9 @@ export default async function PartnerProfilePage() {
             </button>
           </form>
         </div>
+
+        {/* Stripe Connect 売上受取設定 */}
+        <StripeConnectSection partnerId={partnerId} partner={partner} />
 
         {/* Read-only info */}
         <div className="bg-white rounded-2xl border shadow-sm p-6">
