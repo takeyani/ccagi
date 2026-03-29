@@ -24,7 +24,7 @@
 | バックエンド | Next.js Server Actions, Server Components, API Routes |
 | データベース | PostgreSQL (Supabase), Row Level Security |
 | 認証 | Supabase Auth + user_profiles ロール管理 |
-| 決済 | Stripe Checkout |
+| 決済 | Stripe Checkout + Stripe Connect（メーカー自動送金） |
 | ファイル管理 | Supabase Storage |
 
 ### 1.3 ユーザーロール
@@ -54,6 +54,11 @@
 | 10 | アフィリエイト | (本書 §10) | 紹介コード・クリエイター連携 |
 | 11 | ランキング | (本書 §11) | パートナー/商品ランキング |
 | 12 | アワード | (本書 §12) | デイリー/週間/月間の自動表彰、カテゴリ×指標マトリクス、ロール別ランキング |
+| 13 | Stripe Connect | (本書 §18) | メーカーへの自動売上送金、手数料計算、送金記録 |
+| 14 | 記事LP | (本書 §19) | SNSバイラル投稿風テンプレート、9種のテンプレート |
+| 15 | マーケティング | (本書 §20) | ダッシュボード、アナリティクス、レポート |
+| 16 | EC連携コネクタ | (本書 §21) | 8プラットフォーム対応、最大7並列同期 |
+| 17 | モバイル対応 | (本書 §22) | レスポンシブデザイン、モバイルナビゲーション |
 
 ---
 
@@ -530,7 +535,291 @@ CollectionFilterConditions = {
 
 ---
 
-## 17. 関連文書
+## 18. Stripe Connect パートナーペイアウト管理
+
+### 18.1 概要
+
+メーカー（パートナー）が商品を販売した際、プラットフォーム手数料を差し引いた利益分が自動でメーカーのStripeアカウントに送金される。
+
+### 18.2 アーキテクチャ
+
+```
+購入者がCheckout → Stripe決済 → Webhook受信
+  → partner_id特定（product.partner_id経由）
+  → パートナーのstripe_account_id確認
+    → 接続済み: Stripe Transfer APIで即時送金
+    → 未接続: partner_payoutsにpendingで記録
+```
+
+### 18.3 手数料計算
+
+| 項目 | 計算式 |
+|------|--------|
+| 売上総額 | Stripe決済金額 |
+| プラットフォーム手数料 | 売上総額 × 12% |
+| アフィリエイト報酬 | 売上総額 × 2%（アフィリエイト経由の場合） |
+| メーカー受取額 | 売上総額 − 手数料 − アフィリエイト報酬 |
+
+### 18.4 Stripe Connectオンボーディング
+
+| ステップ | 内容 |
+|---------|------|
+| 1. 接続開始 | パートナープロフィール → 「Stripeアカウントを接続する」 |
+| 2. Stripe画面 | Stripe hosted onboarding で本人確認・口座登録 |
+| 3. 完了確認 | `/partner/stripe/complete` で charges_enabled/payouts_enabled を検証 |
+| 4. ステータス更新 | partners.stripe_connect_status を "connected" に更新 |
+
+### 18.5 データベース
+
+```
+partners テーブル（追加カラム）:
+  stripe_account_id text          -- Stripe Connect アカウントID
+  stripe_connect_status text      -- not_connected | pending | connected | disabled
+  stripe_onboarding_completed_at timestamptz
+
+partner_payouts テーブル:
+  id, partner_id, stripe_session_id, stripe_transfer_id,
+  gross_amount, platform_fee, affiliate_commission, net_amount,
+  status (pending | transferred | failed | refunded),
+  lot_purchase_id, transferred_at, error_message, created_at
+```
+
+### 18.6 APIルート
+
+| メソッド | パス | 説明 |
+|---------|------|------|
+| GET | `/api/stripe-connect?partner_id=xxx` | Connectステータス・売上サマリー取得 |
+| POST | `/api/stripe-connect` | オンボーディング開始・URL再生成 |
+
+### 18.7 パートナーUI
+
+パートナープロフィール（`/partner/profile`）に「売上受取設定」セクション:
+- 接続ステータス表示（未接続/設定中/接続済み）
+- 売上サマリー（総売上/手数料/受取済/未送金）
+- Stripeダッシュボードへのリンク
+
+---
+
+## 19. 記事LP（SNSバイラルテンプレート）
+
+### 19.1 概要
+
+Threads・X(Twitter)・Instagram等のSNSでバズっている投稿形式を再現した記事LPを作成し、商品の認知拡大・コンバージョン向上を実現する。
+
+### 19.2 テンプレート一覧
+
+| ID | テンプレート名 | 特徴 |
+|----|--------------|------|
+| threads_viral | Threads風バイラル | 短文連投形式、エンゲージメント表示 |
+| twitter_thread | X(Twitter)スレッド風 | データ・事例ベースの説得型 |
+| instagram_story | Instagramストーリー風 | ビジュアル重視のカード型 |
+| note_article | note記事風 | 長文マークダウン、目次付き |
+| listicle | リスト型記事 | 「○選」形式、スキャンしやすい |
+| comparison | 比較記事 | A vs B形式、客観データ比較 |
+| how_to | ハウツー記事 | ステップバイステップ手順 |
+| case_study | 事例紹介 | 導入事例ストーリー、数値実績 |
+| custom | カスタム | 自由構成 |
+
+### 19.3 記事専用ブロック
+
+| ブロック | 説明 |
+|---------|------|
+| article_header | タイトル・著者・日付・読了時間・カバー画像 |
+| article_body | スレッド形式/マークダウン/カードリスト（3モード） |
+| sns_embed | SNS投稿の埋め込み表示（Threads/X/Instagram/TikTok/YouTube） |
+| author_profile | 著者プロフィール（カード/インライン/バナー） |
+| related_articles | 関連記事一覧（グリッド/リスト/カルーセル） |
+
+### 19.4 マーケティング用ブロック
+
+| ブロック | 説明 |
+|---------|------|
+| viral_cta | シェアボタン＋CTAボタン（フローティング/インライン/スティッキー） |
+| social_proof | カウンター/ティッカー/バッジ（アニメーション対応） |
+| countdown_timer | カウントダウンタイマー（デジタル/フリップ/円形） |
+| ab_variant | A/Bテストのバリアント分岐 |
+| popup_trigger | スクロール/時間/離脱意図トリガーのポップアップ |
+
+### 19.5 データベース
+
+```
+article_lp_designs テーブル:
+  id, affiliate_id, slug, title, description, cover_image_url,
+  category, tags[], template_type, design_config (jsonb),
+  theme (jsonb), seo_config (jsonb), analytics_config (jsonb),
+  is_published, published_at, views_count, share_count,
+  conversion_count, created_at, updated_at
+  UNIQUE(affiliate_id, slug)
+```
+
+### 19.6 APIルート
+
+| メソッド | パス | 説明 |
+|---------|------|------|
+| GET | `/api/articles` | 記事LP一覧（フィルタ: affiliate_id, category, published） |
+| POST | `/api/articles` | 記事LP作成（テンプレート自動適用） |
+
+### 19.7 管理画面
+
+`/admin/articles` で記事LPの一覧・作成・統計サマリー（総記事数/公開中/閲覧数/CV数）を管理。
+
+---
+
+## 20. マーケティングダッシュボード・分析・レポート
+
+### 20.1 概要
+
+LP・記事・商品の販売パフォーマンスを一元管理し、データドリブンなマーケティング施策を支援する。
+
+### 20.2 KPI指標
+
+| 指標 | 説明 |
+|------|------|
+| 総閲覧数 | LP + 記事LP の合計ページビュー |
+| 総シェア数 | SNSシェア回数 |
+| コンバージョン数 | 購入・フォーム送信等の目標達成数 |
+| CVR | コンバージョン率（CV / 閲覧数 × 100） |
+| 総売上 | 期間内の売上合計（円） |
+| 報酬合計 | アフィリエイト報酬合計 |
+| CPA | 顧客獲得単価 |
+| ROAS | 広告費用対効果 |
+
+### 20.3 分析軸
+
+| 軸 | 内容 |
+|----|------|
+| テンプレート別 | 各テンプレートの閲覧/シェア/CV/CVR |
+| カテゴリ別 | 記事カテゴリごとのパフォーマンス |
+| 期間別 | 日次/週次/月次/キャンペーン単位 |
+| リファラー別 | 流入元ドメイントップ10 |
+| デバイス別 | PC/モバイル/タブレットの割合 |
+
+### 20.4 レポートAPI
+
+| メソッド | パス | 説明 |
+|---------|------|------|
+| GET | `/api/marketing/reports` | 期間別レポート（KPI/テンプレート別/カテゴリ別/トップ記事） |
+| GET | `/api/marketing/analytics` | コンテンツ別アナリティクス（イベント集計/日別/リファラー） |
+| POST | `/api/marketing/analytics` | イベント記録（page_view/click/scroll/conversion/share） |
+
+### 20.5 データベース
+
+```
+marketing_events テーブル:
+  id, event_type, content_id, content_type,
+  metadata (jsonb: user_agent, referer, timestamp),
+  created_at
+```
+
+### 20.6 管理画面
+
+`/admin/marketing` でマーケティングダッシュボードを表示:
+- KPIカード8種（閲覧/シェア/CV/CVR/売上/報酬/公開LP数/公開記事数）
+- テンプレート別パフォーマンス
+- カテゴリ別パフォーマンス
+- トップ記事TOP10（タイトル/閲覧/シェア/CV/CVR）
+
+---
+
+## 21. ECプラットフォーム連携コネクタ
+
+### 21.1 概要
+
+外部ECプラットフォームの受注データを自動取得し、ステップメールキャンペーンへの登録やCRM連携を行う。最大7並列で同期実行。
+
+### 21.2 対応プラットフォーム
+
+| コネクタ | 認証方式 | API |
+|---------|---------|-----|
+| ネクストエンジン | OAuth2 | REST API v1 |
+| Shopify | OAuth2 | Admin REST API 2024-01 |
+| BASE | OAuth2 | BASE API v1 |
+| STORES.jp | OAuth2 | STORES API v1 |
+| MakeShop | APIキー認証 | MakeShop API v1 |
+| カラーミーショップ | OAuth2 | ColorMe API v1 |
+| 楽天市場 | サービスシークレット＋ライセンスキー | RMS API v2 |
+| Yahoo!ショッピング | OAuth2 (Yahoo! ID連携) | Shopping WebService V1 |
+
+### 21.3 同期フロー
+
+```
+ECプラットフォーム → コネクタがfetchNewOrders()
+  → EcOrder共通形式に変換
+  → mapToStepMailEvent()でイベント変換
+  → enrollInCampaign()でステップメール登録
+  → last_synced_at更新 + 同期ログ記録
+```
+
+### 21.4 並列実行
+
+`syncAllConnectors()` は `Promise.allSettled` で最大7並列バッチ実行。1コネクタの失敗が他に影響しない。
+
+### 21.5 APIルート
+
+| メソッド | パス | 説明 |
+|---------|------|------|
+| GET | `/api/ec-connectors` | コネクタ一覧 |
+| POST | `/api/ec-connectors/[connectorType]/sync` | 手動同期 |
+| GET | `/api/ec-connectors/[connectorType]/callback` | OAuthコールバック |
+| GET | `/api/cron/step-mail` | 定期同期（全コネクタ＋メール配信） |
+
+### 21.6 データベース
+
+```
+ec_connectors テーブル:
+  id, connector_type (unique), name, credentials (jsonb),
+  settings (jsonb), is_active, last_synced_at,
+  sync_interval_minutes, created_at, updated_at
+
+ec_connector_sync_logs テーブル:
+  id, connector_id, orders_fetched, events_created,
+  errors[], synced_at
+```
+
+### 21.7 管理画面
+
+`/admin/ec-connectors` で接続済み/利用可能なコネクタの管理、手動同期トリガー、同期状況の確認。
+
+---
+
+## 22. モバイルレスポンシブデザイン
+
+### 22.1 方針
+
+モバイルファーストのレスポンシブデザイン。Tailwind CSSのブレークポイントを使用。
+
+| ブレークポイント | 幅 | 対応デバイス |
+|---------------|-----|------------|
+| (default) | 0px〜 | スマートフォン |
+| sm: | 640px〜 | 大型スマートフォン |
+| md: | 768px〜 | タブレット |
+| lg: | 1024px〜 | デスクトップ |
+
+### 22.2 管理画面のモバイル対応
+
+| 要素 | デスクトップ | モバイル |
+|------|------------|---------|
+| サイドバー | 常時表示（w-64） | ハンバーガーメニュー（スライドイン） |
+| KPIカード | 4列グリッド | 1-2列グリッド |
+| データテーブル | フル表示 | 横スクロール対応 |
+| モーダル | 中央表示 | フルスクリーン |
+| パディング | p-8 | p-4 |
+
+### 22.3 パートナー画面のモバイル対応
+
+- プロフィール: 2カラム → 1カラム（md:grid-cols-2）
+- Stripe Connect: 売上サマリー4列 → 2列
+- 帳票一覧: テーブル横スクロール対応
+
+### 22.4 公開ページのモバイル対応
+
+- LP/記事LP: ブロックが自動で1カラムに
+- 商品詳細: 画像/情報が縦積み
+- フロー図: 凡例グリッドが1列に展開
+
+---
+
+## 23. 関連文書
 
 | 文書ID | タイトル | 概要 |
 |--------|---------|------|

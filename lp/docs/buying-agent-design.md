@@ -3,11 +3,11 @@
 | 項目 | 内容 |
 |------|------|
 | 文書ID | DES-BUYING-AGENT-001 |
-| バージョン | 1.2 |
+| バージョン | 1.3 |
 | 作成日 | 2026-03-03 |
-| 更新日 | 2026-03-17 |
+| 更新日 | 2026-03-29 |
 | ステータス | 実装済み |
-| 対応要件 | REQ-BUYING-AGENT-001 v1.2 |
+| 対応要件 | REQ-BUYING-AGENT-001 v1.3 |
 | 関連文書 | REQ-SYSTEM-001（システム全体要件）, DES-EMBED-001（埋め込みウィジェット設計） |
 
 ---
@@ -989,3 +989,55 @@ Props: { resultId: string, lotPrice: number, lotStock: number }
 | T-32 | パートナーが承諾 | partner_status='承諾'、rejection_reason は null |
 | T-33 | バイヤー側に辞退理由が表示される | 結果ページ・注文リストに辞退理由が表示 |
 | T-34 | パートナー引合い一覧に希望価格カラム | 希望価格が表示される |
+
+---
+
+## 10. 決済・売上送金設計
+
+### 10.1 Stripe Connect 連携
+
+購買エージェント経由の購入でも、通常の商品購入と同じ Stripe Connect フローが適用される。
+
+#### 10.1.1 データフロー
+
+```
+checkout/route.ts
+  → product.partner_id を metadata に付与
+  → Stripe Checkout Session 作成
+
+webhooks/stripe/route.ts（checkout.session.completed）
+  → metadata.partner_id 取得
+  → partners テーブルから stripe_account_id 取得
+  → calculateFees(grossAmount, affiliateRate)
+    → platformFee = grossAmount × 12%
+    → affiliateCommission = grossAmount × affiliateRate%
+    → netAmount = grossAmount - platformFee - affiliateCommission
+  → stripe_connect_status === "connected" の場合:
+    → transferToPartner() で Stripe Transfer API 実行
+    → partner_payouts に status="transferred" で記録
+  → 未接続の場合:
+    → partner_payouts に status="pending" で記録
+```
+
+#### 10.1.2 関連ファイル
+
+| ファイル | 役割 |
+|---------|------|
+| `src/lib/stripe-connect.ts` | Connect アカウント作成・認証・送金・手数料計算 |
+| `src/app/api/stripe-connect/route.ts` | Connect API（ステータス取得・オンボーディング） |
+| `src/app/api/checkout/route.ts` | Checkout に partner_id 付与 |
+| `src/app/api/webhooks/stripe/route.ts` | 決済完了時の自動送金処理 |
+| `src/components/partner/StripeConnectSection.tsx` | パートナー向け Stripe 設定 UI |
+
+### 10.2 モバイル対応設計
+
+管理画面はレスポンシブデザインを採用。
+
+| 画面 | デスクトップ | モバイル |
+|------|------------|---------|
+| 管理サイドバー | w-64 固定表示 | ハンバーガーメニュー（MobileMenuButton） |
+| KPI グリッド | 4列 | 1-2列 |
+| テーブル | フル表示 | 横スクロール |
+| プロフィール | 2カラム | 1カラム |
+
+関連コンポーネント: `src/components/admin/MobileMenuButton.tsx`
