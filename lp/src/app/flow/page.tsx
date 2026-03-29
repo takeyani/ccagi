@@ -384,7 +384,7 @@ function FlowDiagram() {
       </div>
 
       {/* 凡例 */}
-      <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-3 text-xs text-gray-500">
+      <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs text-gray-500">
         {connections.map((c, i) => (
           <div key={i} className="flex items-center gap-2">
             <span className="w-5 h-0.5 bg-gray-400 shrink-0" />
@@ -1344,7 +1344,7 @@ export default function FlowPage() {
         <p className="text-gray-500 text-sm text-center mb-10">
           メーカー・販売代理店・バイヤーが利用できるプラットフォーム機能
         </p>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
           <FeatureCard icon="📦" title="商品・在庫管理" description="商品登録、ロット管理、在庫のリアルタイム追跡" />
           <FeatureCard icon="🔐" title="プルーフチェーン" description="5層の信頼性証明で商品の品質を保証" />
           <FeatureCard icon="🤖" title="購入エージェント" description="バイヤーの自動検索＆5因子スコアリング" />

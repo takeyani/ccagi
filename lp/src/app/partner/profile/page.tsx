@@ -16,7 +16,7 @@ export default async function PartnerProfilePage() {
   return (
     <div>
       <h1 className="text-2xl font-bold mb-6">プロフィール</h1>
-      <div className="grid grid-cols-2 gap-6 max-w-4xl">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl">
         {/* Editable info */}
         <div className="bg-white rounded-2xl border shadow-sm p-6">
           <h2 className="font-semibold mb-4">会社情報</h2>

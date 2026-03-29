@@ -1,6 +1,7 @@
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { LogoutButton } from "@/components/auth/LogoutButton";
 import { Sidebar } from "@/components/admin/Sidebar";
+import { MobileMenuButton } from "@/components/admin/MobileMenuButton";
 import { NotificationBell } from "@/components/shared/NotificationBell";
 
 const navItems = [
@@ -70,22 +71,26 @@ export default async function AdminLayout({
     .eq("user_id", user!.id)
     .eq("is_read", false);
 
+  const displayName = profile?.display_name ?? user!.email ?? "";
+
   return (
     <div className="flex min-h-screen">
-      <aside className="w-64 bg-gray-900 text-white flex flex-col">
+      {/* モバイル用ハンバーガーメニュー */}
+      <MobileMenuButton items={navItems} displayName={displayName} />
+
+      {/* デスクトップ用サイドバー */}
+      <aside className="hidden md:flex w-64 bg-gray-900 text-white flex-col">
         <div className="p-4 border-b border-gray-700">
           <h2 className="text-lg font-bold">管理ダッシュボード</h2>
-          <p className="text-sm text-gray-400 mt-1">
-            {profile?.display_name ?? user!.email}
-          </p>
+          <p className="text-sm text-gray-400 mt-1">{displayName}</p>
         </div>
         <Sidebar items={navItems} />
         <div className="p-4 border-t border-gray-700">
           <LogoutButton />
         </div>
       </aside>
-      <div className="flex-1 flex flex-col">
-        <header className="bg-white border-b px-8 py-3 flex items-center justify-end">
+      <div className="flex-1 flex flex-col min-w-0">
+        <header className="bg-white border-b px-4 md:px-8 py-3 flex items-center justify-end">
           <NotificationBell
             notifications={notifications ?? []}
             unreadCount={unreadCount ?? 0}
@@ -93,7 +98,7 @@ export default async function AdminLayout({
             notificationsPath="/admin/groupware/notifications"
           />
         </header>
-        <main className="flex-1 bg-gray-50 p-8">{children}</main>
+        <main className="flex-1 bg-gray-50 p-4 md:p-8">{children}</main>
       </div>
     </div>
   );

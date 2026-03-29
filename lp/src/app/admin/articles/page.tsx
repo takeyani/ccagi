@@ -84,7 +84,7 @@ export default function ArticlesAdminPage() {
         </div>
 
         {/* 統計サマリー */}
-        <div className="grid grid-cols-4 gap-4 mb-8">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
           {[
             { label: "総記事数", value: articles.length, icon: "📝" },
             { label: "公開中", value: articles.filter((a) => a.is_published).length, icon: "🌐" },
@@ -169,7 +169,7 @@ export default function ArticlesAdminPage() {
               {/* テンプレート選択 */}
               <div className="mb-6">
                 <label className="block text-sm font-medium text-gray-700 mb-2">テンプレート</label>
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {ARTICLE_TEMPLATES.map((t) => (
                     <button
                       key={t.id}

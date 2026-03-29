@@ -107,7 +107,7 @@ export default function MarketingDashboardPage() {
         </div>
 
         {/* KPI カード */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           {[
             { label: "総閲覧数", value: formatNumber(s?.total_views || 0), icon: "👁️", color: "blue" },
             { label: "総シェア", value: formatNumber(s?.total_shares || 0), icon: "🔄", color: "purple" },

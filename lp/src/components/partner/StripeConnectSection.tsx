@@ -65,7 +65,7 @@ export function StripeConnectSection({
           </div>
 
           {payoutSummary && (
-            <div className="grid grid-cols-4 gap-4 mb-4">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-4">
               <div className="bg-gray-50 rounded-lg p-3">
                 <div className="text-xs text-gray-500">総売上</div>
                 <div className="text-lg font-bold">¥{(payoutSummary.total_gross || 0).toLocaleString()}</div>
