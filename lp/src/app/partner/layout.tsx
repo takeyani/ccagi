@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { LogoutButton } from "@/components/auth/LogoutButton";
 import { PartnerSidebar } from "@/components/partner/Sidebar";
@@ -43,18 +44,46 @@ export default async function PartnerLayout({
   const {
     data: { user },
   } = await supabase.auth.getUser();
+
+  if (!user) {
+    redirect("/login");
+  }
+
   const { data: profile } = await supabase
     .from("user_profiles")
     .select("display_name, partner_id")
-    .eq("id", user!.id)
+    .eq("id", user.id)
     .single();
 
+  // partner_id がない場合、自動でパートナーを作成
+  let partnerId = profile?.partner_id;
+  if (!partnerId && profile) {
+    const displayName = profile.display_name || user.email?.split("@")[0] || "パートナー";
+    const { data: newPartner } = await supabase
+      .from("partners")
+      .insert({
+        company_name: displayName,
+        partner_type: "メーカー",
+        certification_status: "未認証",
+      })
+      .select("id")
+      .single();
+
+    if (newPartner) {
+      partnerId = newPartner.id;
+      await supabase
+        .from("user_profiles")
+        .update({ partner_id: newPartner.id })
+        .eq("id", user.id);
+    }
+  }
+
   let companyName = "";
-  if (profile?.partner_id) {
+  if (partnerId) {
     const { data: partner } = await supabase
       .from("partners")
       .select("company_name")
-      .eq("id", profile.partner_id)
+      .eq("id", partnerId)
       .single();
     companyName = partner?.company_name ?? "";
   }
@@ -63,14 +92,14 @@ export default async function PartnerLayout({
   const { data: notifications } = await supabase
     .from("notifications")
     .select("id, title, body, link, is_read, created_at")
-    .eq("user_id", user!.id)
+    .eq("user_id", user.id)
     .order("created_at", { ascending: false })
     .limit(10);
 
   const { count: unreadCount } = await supabase
     .from("notifications")
     .select("*", { count: "exact", head: true })
-    .eq("user_id", user!.id)
+    .eq("user_id", user.id)
     .eq("is_read", false);
 
   return (
