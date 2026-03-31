@@ -52,7 +52,8 @@ export default async function AuthorizationsPage() {
   }
 
   // 代理店の場合: 承認申請可能な商品一覧
-  let availableProducts: { id: string; name: string; partners: { company_name: string } | null }[] = [];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let availableProducts: { id: string; name: string; partners: any }[] = [];
   if (!isManufacturer) {
     const { data: p } = await supabase
       .from("products")
@@ -173,7 +174,7 @@ export default async function AuthorizationsPage() {
                 <option value="">選択してください</option>
                 {availableProducts.map((p) => (
                   <option key={p.id} value={p.id}>
-                    {p.name} ({p.partners?.company_name})
+                    {p.name} ({p.partners?.[0]?.company_name ?? p.partners?.company_name})
                   </option>
                 ))}
               </select>
