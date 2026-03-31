@@ -14,9 +14,9 @@ const features = [
   },
   {
     icon: "📦",
-    title: "ロット・在庫単位の掲載",
+    title: "箱・ケース・パレット単位で販売",
     description:
-      "賞味期限・製造日が一致した在庫単位で商品を掲載。バイヤーは箱単位（1箱〜）で柔軟に購入可能。",
+      "個単位はもちろん、箱（24個入）やケース、パレット単位での販売に対応。最小注文数も設定可能で、BtoB取引にも最適。",
   },
   {
     icon: "🤖",
@@ -34,7 +34,43 @@ const features = [
     icon: "💳",
     title: "Stripe決済連携",
     description:
-      "セキュアなStripe決済でスムーズに取引完了。クレジットカード情報は安全に保護されます。",
+      "セキュアなStripe決済でスムーズに取引完了。Stripe Connectによるメーカーへの自動送金にも対応。",
+  },
+  {
+    icon: "🔐",
+    title: "商品承認フロー",
+    description:
+      "メーカーが代理店やクリエイターに販売・LP作成の権限を付与。代理店側からの承認リクエストにも対応する双方向フロー。",
+  },
+  {
+    icon: "🔑",
+    title: "Google / メール認証",
+    description:
+      "Googleアカウントまたはメール・パスワードで簡単ログイン。メーカー・代理店・バイヤー・クリエイターそれぞれ専用の画面を用意。",
+  },
+  {
+    icon: "📊",
+    title: "LPアクセス分析",
+    description:
+      "商品ページやクリエイターLPの閲覧数・コンバージョンをリアルタイムで分析。マーケティング施策の効果を可視化。",
+  },
+  {
+    icon: "📨",
+    title: "ステップメール",
+    description:
+      "購入後やサインアップ後に自動でフォローメールを配信。リピート購入やエンゲージメントを促進します。",
+  },
+  {
+    icon: "🔨",
+    title: "オークション機能",
+    description:
+      "即決価格付きオークションで在庫を効率的に販売。自動入札やAIエージェント入札にも対応。",
+  },
+  {
+    icon: "🏢",
+    title: "グループウェア",
+    description:
+      "お知らせ・メッセージ・タスク管理・ファイル共有・カレンダー・活動ログなど、パートナー間のコラボレーション機能を完備。",
   },
 ];
 
@@ -43,7 +79,7 @@ export default function Features() {
     <section className="bg-white py-20">
       <div className="mx-auto max-w-5xl px-6">
         <h2 className="text-center text-3xl font-bold text-gray-900 sm:text-4xl">
-          選ばれる6つの理由
+          選ばれる理由
         </h2>
         <p className="mt-4 text-center text-gray-600">
           成果報酬型だから、リスクゼロで始められます
