@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { getAuthorizations, approveAuthorization, rejectAuthorization, requestAuthorization, grantAuthorization } from "./actions";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { requirePartnerId } from "@/lib/auth";
@@ -71,10 +72,10 @@ export default async function AuthorizationsPage() {
         <section>
           <h2 className="text-lg font-semibold mb-4">受信した承認リクエスト</h2>
           <div className="bg-white rounded-xl border divide-y">
-            {incoming.filter((a: Record<string, unknown>) => a.status === "申請中").map((auth: Record<string, unknown>) => (
+            {incoming.filter((a: any) => a.status === "申請中").map((auth: any) => (
               <div key={auth.id as string} className="p-4 flex items-center justify-between">
                 <div>
-                  <p className="font-medium">{(auth.products as Record<string, unknown>)?.name as string}</p>
+                  <p className="font-medium">{(auth.products as any)?.name as string}</p>
                   <p className="text-sm text-gray-500">
                     {auth.authorized_party_type as string} | {auth.requested_by as string}からの申請
                   </p>
@@ -102,7 +103,7 @@ export default async function AuthorizationsPage() {
                 </div>
               </div>
             ))}
-            {incoming.filter((a: Record<string, unknown>) => a.status === "申請中").length === 0 && (
+            {incoming.filter((a: any) => a.status === "申請中").length === 0 && (
               <p className="p-4 text-gray-500 text-sm">承認待ちのリクエストはありません</p>
             )}
           </div>
@@ -206,10 +207,10 @@ export default async function AuthorizationsPage() {
             </thead>
             <tbody className="divide-y">
               {[...incoming, ...outgoing]
-                .filter((v, i, a) => a.findIndex((t: Record<string, unknown>) => t.id === v.id) === i)
-                .map((auth: Record<string, unknown>) => (
+                .filter((v, i, a) => a.findIndex((t: any) => t.id === v.id) === i)
+                .map((auth: any) => (
                 <tr key={auth.id as string}>
-                  <td className="px-4 py-3">{(auth.products as Record<string, unknown>)?.name as string}</td>
+                  <td className="px-4 py-3">{(auth.products as any)?.name as string}</td>
                   <td className="px-4 py-3">{auth.authorized_party_type as string}</td>
                   <td className="px-4 py-3">{auth.requested_by as string}</td>
                   <td className="px-4 py-3">
