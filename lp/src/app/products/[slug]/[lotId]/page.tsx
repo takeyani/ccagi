@@ -7,7 +7,8 @@ import { SurveySection } from "@/components/surveys/SurveySection";
 import { BoardSection } from "@/components/boards/BoardSection";
 import { QuestionSection } from "@/components/questions/QuestionSection";
 import { LPViewTracker } from "@/components/LPViewTracker";
-import type { Product, Lot, Partner, Auction, Tag } from "@/lib/types";
+import type { Product, Lot, Partner, Auction, Tag, CategoryTemplate } from "@/lib/types";
+import { CATEGORY_TEMPLATES } from "@/lib/types";
 
 type Props = {
   params: Promise<{ slug: string; lotId: string }>;
@@ -152,6 +153,30 @@ export default async function LotPage({ params }: Props) {
             {product.description}
           </p>
         )}
+
+        {/* カテゴリ固有情報 */}
+        {product.category_template_id && product.custom_fields && Object.keys(product.custom_fields).length > 0 && (() => {
+          const tmpl = (CATEGORY_TEMPLATES as Record<string, CategoryTemplate>)[product.category_template_id];
+          if (!tmpl) return null;
+          const fields = tmpl.product_fields;
+          return (
+            <div className="mt-6 rounded-xl border bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-800 mb-3">{tmpl.name} 情報</h3>
+              <div className="grid grid-cols-2 gap-2 text-sm">
+                {fields.map((f) => {
+                  const val = product.custom_fields?.[f.field];
+                  if (!val) return null;
+                  return (
+                    <div key={f.field} className="flex justify-between border-b pb-1">
+                      <span className="text-gray-500">{f.label}</span>
+                      <span className="font-medium text-gray-900">{String(val)}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })()}
 
         {/* タグバッジ */}
         {productTagList.length > 0 && (

@@ -55,6 +55,8 @@ export type Product = {
   min_order_quantity: number | null;
   min_order_amount: number | null;
   order_notes: string | null;
+  category_template_id: string | null;
+  custom_fields: Record<string, string | number | boolean | null> | null;
   created_at: string;
   updated_at: string;
 };
@@ -221,6 +223,72 @@ export const CATEGORY_TEMPLATES: Record<string, CategoryTemplate> = {
       { field: "manufacture_date", label: "製造日", required: true, type: "date" },
       { field: "inspection_date", label: "検査日", required: false, type: "date" },
       { field: "inspection_result", label: "検査成績", required: false, type: "text" },
+    ],
+  },
+  hotel: {
+    id: "hotel",
+    name: "ホテル・宿泊施設",
+    description: "部屋タイプ・設備・チェックイン情報など宿泊施設固有の項目",
+    commission_rate: 10,
+    referral_rate: 2,
+    platform_rate: 8,
+    product_fields: [
+      { field: "room_type", label: "部屋タイプ", required: true, type: "select", options: ["シングル", "ダブル", "ツイン", "スイート", "和室", "ドミトリー", "その他"] },
+      { field: "max_guests", label: "最大宿泊人数", required: true, type: "number" },
+      { field: "amenities", label: "アメニティ・設備", required: false, type: "text" },
+      { field: "address", label: "所在地", required: true, type: "text" },
+      { field: "access", label: "アクセス", required: false, type: "text" },
+      { field: "check_in_time", label: "チェックイン時間", required: true, type: "text" },
+      { field: "check_out_time", label: "チェックアウト時間", required: true, type: "text" },
+      { field: "cancellation_policy", label: "キャンセルポリシー", required: true, type: "text" },
+      { field: "meal_included", label: "食事付き", required: false, type: "select", options: ["なし", "朝食付き", "朝夕食付き", "3食付き"] },
+      { field: "parking", label: "駐車場", required: false, type: "select", options: ["なし", "無料", "有料"] },
+    ],
+    lot_fields: [
+      { field: "available_date", label: "宿泊可能日", required: true, type: "date" },
+      { field: "available_rooms", label: "空室数", required: true, type: "number" },
+      { field: "plan_name", label: "プラン名", required: false, type: "text" },
+    ],
+  },
+  event: {
+    id: "event",
+    name: "イベント・チケット",
+    description: "開催日時・会場・席種などイベント固有の項目",
+    commission_rate: 10,
+    referral_rate: 2,
+    platform_rate: 8,
+    product_fields: [
+      { field: "event_date", label: "開催日", required: true, type: "date" },
+      { field: "event_time", label: "開催時間", required: true, type: "text" },
+      { field: "end_time", label: "終了時間", required: false, type: "text" },
+      { field: "venue", label: "会場名", required: true, type: "text" },
+      { field: "venue_address", label: "会場住所", required: true, type: "text" },
+      { field: "venue_access", label: "会場アクセス", required: false, type: "text" },
+      { field: "organizer", label: "主催者", required: true, type: "text" },
+      { field: "capacity", label: "定員", required: false, type: "number" },
+      { field: "age_restriction", label: "年齢制限", required: false, type: "text" },
+      { field: "cancellation_policy", label: "キャンセルポリシー", required: true, type: "text" },
+    ],
+    lot_fields: [
+      { field: "seat_type", label: "席種", required: false, type: "select", options: ["自由席", "指定席", "VIP席", "立見", "オンライン"] },
+      { field: "ticket_type", label: "チケット種別", required: false, type: "select", options: ["一般", "早割", "学生", "グループ", "招待"] },
+    ],
+  },
+  general: {
+    id: "general",
+    name: "一般商品",
+    description: "カテゴリに当てはまらない一般的な商品",
+    commission_rate: 12,
+    referral_rate: 2,
+    platform_rate: 10,
+    product_fields: [
+      { field: "brand", label: "ブランド", required: false, type: "text" },
+      { field: "model_number", label: "型番", required: false, type: "text" },
+      { field: "warranty", label: "保証期間", required: false, type: "text" },
+      { field: "country_of_origin", label: "原産国", required: false, type: "text" },
+    ],
+    lot_fields: [
+      { field: "condition", label: "商品状態", required: false, type: "select", options: ["新品", "未使用", "中古美品", "中古良品", "ジャンク"] },
     ],
   },
 };

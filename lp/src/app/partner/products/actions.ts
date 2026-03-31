@@ -42,7 +42,20 @@ function extractProductFields(formData: FormData) {
     product_page_url: str("product_page_url"),
     is_active: formData.get("is_active") === "on",
     is_new_or_renewal: formData.get("is_new_or_renewal") === "on",
+    category_template_id: str("category_template_id"),
+    custom_fields: extractCustomFields(formData),
   };
+}
+
+function extractCustomFields(formData: FormData): Record<string, string | number | boolean | null> {
+  const fields: Record<string, string | number | boolean | null> = {};
+  for (const [key, value] of formData.entries()) {
+    if (key.startsWith("cf_")) {
+      const fieldName = key.slice(3);
+      fields[fieldName] = (value as string) || null;
+    }
+  }
+  return Object.keys(fields).length > 0 ? fields : null as unknown as Record<string, string | number | boolean | null>;
 }
 
 export async function createPartnerProduct(formData: FormData) {

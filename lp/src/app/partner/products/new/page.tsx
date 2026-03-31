@@ -2,6 +2,7 @@ import Link from "next/link";
 import { createPartnerProduct } from "../actions";
 import { getSupabase } from "@/lib/supabase";
 import { ProductAttributes } from "@/components/ProductAttributes";
+import { CategoryFields } from "@/components/CategoryFields";
 import type { Tag } from "@/lib/types";
 
 const TAG_TYPE_ORDER = ["生産者", "メーカー", "カテゴリ", "キーワード"] as const;
@@ -80,6 +81,14 @@ export default async function NewPartnerProductPage() {
                 <label className={labelClass}>カテゴリ③</label>
                 <input name="category3" className={inputClass} placeholder="小分類" />
               </div>
+            </div>
+          </div>
+
+          {/* カテゴリ別固有フィールド */}
+          <div className="border-t pt-4">
+            <h3 className={sectionTitle}>商品タイプ別情報</h3>
+            <div className="grid grid-cols-2 gap-4">
+              <CategoryFields fieldType="product_fields" />
             </div>
           </div>
 
