@@ -1,4 +1,5 @@
 import { createServerClient } from "@supabase/ssr";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { cookies } from "next/headers";
 import { NextResponse, type NextRequest } from "next/server";
 
@@ -41,12 +42,13 @@ export async function GET(request: NextRequest) {
           .single();
 
         if (!existing) {
+          const admin = createAdminClient();
           const displayName =
             user.user_metadata?.full_name ??
             user.user_metadata?.name ??
             user.email?.split("@")[0] ??
             "ユーザー";
-          await supabase.from("user_profiles").upsert({
+          await admin.from("user_profiles").upsert({
             id: user.id,
             display_name: displayName,
             role: "partner",

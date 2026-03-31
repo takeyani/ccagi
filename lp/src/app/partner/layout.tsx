@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { LogoutButton } from "@/components/auth/LogoutButton";
 import { PartnerSidebar } from "@/components/partner/Sidebar";
 import { NotificationBell } from "@/components/shared/NotificationBell";
@@ -55,11 +56,12 @@ export default async function PartnerLayout({
     .eq("id", user.id)
     .single();
 
-  // partner_id がない場合、自動でパートナーを作成
+  // partner_id がない場合、admin権限でパートナーを自動作成
   let partnerId = profile?.partner_id;
   if (!partnerId && profile) {
+    const admin = createAdminClient();
     const displayName = profile.display_name || user.email?.split("@")[0] || "パートナー";
-    const { data: newPartner } = await supabase
+    const { data: newPartner } = await admin
       .from("partners")
       .insert({
         company_name: displayName,
@@ -71,7 +73,7 @@ export default async function PartnerLayout({
 
     if (newPartner) {
       partnerId = newPartner.id;
-      await supabase
+      await admin
         .from("user_profiles")
         .update({ partner_id: newPartner.id })
         .eq("id", user.id);
