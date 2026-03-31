@@ -2,8 +2,11 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getSupabase } from "@/lib/supabase";
 import LotPurchaseButton from "@/components/LotPurchaseButton";
+import RecurringPurchaseForm from "@/components/RecurringPurchaseForm";
 import { SurveySection } from "@/components/surveys/SurveySection";
 import { BoardSection } from "@/components/boards/BoardSection";
+import { QuestionSection } from "@/components/questions/QuestionSection";
+import { LPViewTracker } from "@/components/LPViewTracker";
 import type { Product, Lot, Partner, Auction, Tag } from "@/lib/types";
 
 type Props = {
@@ -93,6 +96,7 @@ export default async function LotPage({ params }: Props) {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <LPViewTracker productId={product.id} lotId={lot.id} partnerId={product.partner_id ?? undefined} />
       <div className="mx-auto max-w-3xl px-6 py-16">
         {/* Header */}
         <nav className="mb-8">
@@ -170,7 +174,13 @@ export default async function LotPage({ params }: Props) {
             <span className="text-5xl font-extrabold text-gray-900">
               &yen;{formattedPrice}
             </span>
-            <span className="text-gray-500">（税込）</span>
+            <span className="text-gray-500">
+              /{lot.selling_unit ?? "個"}
+              {lot.selling_unit !== "個" && lot.units_per_case && (
+                <>（{lot.units_per_case}個入）</>
+              )}
+              （税込）
+            </span>
           </div>
 
           <div className="mt-6 space-y-2 text-sm text-gray-600">
@@ -181,9 +191,27 @@ export default async function LotPage({ params }: Props) {
             <div className="flex justify-between border-b pb-2">
               <span>在庫数</span>
               <span className="font-medium text-gray-900">
-                {lot.stock > 0 ? `残り ${lot.stock} 個` : "在庫なし"}
+                {lot.stock > 0 ? `残り ${lot.stock} ${lot.selling_unit ?? "個"}` : "在庫なし"}
               </span>
             </div>
+            {lot.selling_unit && lot.selling_unit !== "個" && (
+              <div className="flex justify-between border-b pb-2">
+                <span>販売単位</span>
+                <span className="font-medium text-gray-900">
+                  {lot.selling_unit}
+                  {lot.units_per_case && `（${lot.units_per_case}個入）`}
+                  {lot.cases_per_pallet && ` / パレット${lot.cases_per_pallet}${lot.selling_unit}`}
+                </span>
+              </div>
+            )}
+            {lot.min_order_units > 1 && (
+              <div className="flex justify-between border-b pb-2">
+                <span>最小注文数</span>
+                <span className="font-medium text-gray-900">
+                  {lot.min_order_units}{lot.selling_unit ?? "個"}〜
+                </span>
+              </div>
+            )}
             {lot.expiration_date && (
               <div className="flex justify-between border-b pb-2">
                 <span>賞味期限</span>
@@ -192,6 +220,16 @@ export default async function LotPage({ params }: Props) {
                 </span>
               </div>
             )}
+            <div className="flex justify-between border-b pb-2">
+              <span>配送</span>
+              <span className="font-medium text-gray-900">
+                {lot.shipping_method === "メーカー無料"
+                  ? "送料無料（メーカー負担）"
+                  : lot.shipping_method === "配送会社手配"
+                  ? `配送会社手配（送料 ¥${lot.shipping_fee.toLocaleString("ja-JP")}）`
+                  : `購入者指定（送料 ¥${lot.shipping_fee.toLocaleString("ja-JP")}）`}
+              </span>
+            </div>
             <div className="flex justify-between pb-2">
               <span>ステータス</span>
               <span
@@ -216,11 +254,14 @@ export default async function LotPage({ params }: Props) {
               オークション開催中 →
             </Link>
           ) : canPurchase ? (
-            <LotPurchaseButton
-              lotId={lot.id}
-              disabled={false}
-              statusLabel={statusLabel}
-            />
+            <>
+              <LotPurchaseButton
+                lotId={lot.id}
+                disabled={false}
+                statusLabel={statusLabel}
+              />
+              <RecurringPurchaseForm lotId={lot.id} price={price} />
+            </>
           ) : (
             <div className="mt-6 space-y-3">
               <button
@@ -238,6 +279,16 @@ export default async function LotPage({ params }: Props) {
             </div>
           )}
         </div>
+
+        {/* メーカー・生産者への質問 */}
+        {product.partner_id && partner && (
+          <QuestionSection
+            productId={product.id}
+            lotId={lot.id}
+            partnerId={product.partner_id}
+            partnerName={partner.company_name}
+          />
+        )}
 
         {/* アンケート */}
         <SurveySection targetType="lot" targetId={lot.id} productId={product.id} />

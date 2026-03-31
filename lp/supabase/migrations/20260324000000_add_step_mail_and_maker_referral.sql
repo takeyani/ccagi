@@ -1,5 +1,14 @@
 -- ステップメール & メーカー紹介者報酬 マイグレーション
 
+-- 0. handle_updated_at ヘルパー関数（存在しない場合のみ作成）
+create or replace function public.handle_updated_at()
+returns trigger as $$
+begin
+  new.updated_at = now();
+  return new;
+end;
+$$ language plpgsql;
+
 -- 1. ステップメールキャンペーン
 create table public.step_mail_campaigns (
   id uuid primary key default uuid_generate_v4(),

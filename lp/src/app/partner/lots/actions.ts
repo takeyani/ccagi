@@ -30,6 +30,13 @@ export async function createPartnerLot(formData: FormData) {
       ? Number(formData.get("purchase_price"))
       : null,
     memo: (formData.get("memo") as string) || null,
+    wholesale_price: formData.get("wholesale_price") ? Number(formData.get("wholesale_price")) : null,
+    shipping_method: (formData.get("shipping_method") as string) || "メーカー無料",
+    shipping_fee: formData.get("shipping_fee") ? Number(formData.get("shipping_fee")) : 0,
+    selling_unit: (formData.get("selling_unit") as string) || "個",
+    units_per_case: formData.get("units_per_case") ? Number(formData.get("units_per_case")) : null,
+    cases_per_pallet: formData.get("cases_per_pallet") ? Number(formData.get("cases_per_pallet")) : null,
+    min_order_units: formData.get("min_order_units") ? Number(formData.get("min_order_units")) : 1,
   });
 
   if (error) throw new Error(error.message);
@@ -66,6 +73,13 @@ export async function updatePartnerLot(id: string, formData: FormData) {
         ? Number(formData.get("purchase_price"))
         : null,
       memo: (formData.get("memo") as string) || null,
+      wholesale_price: formData.get("wholesale_price") ? Number(formData.get("wholesale_price")) : null,
+      shipping_method: (formData.get("shipping_method") as string) || "メーカー無料",
+      shipping_fee: formData.get("shipping_fee") ? Number(formData.get("shipping_fee")) : 0,
+      selling_unit: (formData.get("selling_unit") as string) || "個",
+      units_per_case: formData.get("units_per_case") ? Number(formData.get("units_per_case")) : null,
+      cases_per_pallet: formData.get("cases_per_pallet") ? Number(formData.get("cases_per_pallet")) : null,
+      min_order_units: formData.get("min_order_units") ? Number(formData.get("min_order_units")) : 1,
       updated_at: new Date().toISOString(),
     })
     .eq("id", id);

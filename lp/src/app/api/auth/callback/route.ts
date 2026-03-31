@@ -28,6 +28,55 @@ export async function GET(request: NextRequest) {
 
     const { error } = await supabase.auth.exchangeCodeForSession(code);
     if (!error) {
+      // OAuth ユーザーの user_profiles を自動作成
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      if (user) {
+        const { data: existing } = await supabase
+          .from("user_profiles")
+          .select("id")
+          .eq("id", user.id)
+          .single();
+
+        if (!existing) {
+          const displayName =
+            user.user_metadata?.full_name ??
+            user.user_metadata?.name ??
+            user.email?.split("@")[0] ??
+            "ユーザー";
+          await supabase.from("user_profiles").upsert({
+            id: user.id,
+            display_name: displayName,
+            role: "partner",
+          });
+        }
+      }
+
+      // ロール判定してリダイレクト
+      if (next !== "/") {
+        return NextResponse.redirect(`${origin}${next}`);
+      }
+
+      const {
+        data: { user: currentUser },
+      } = await supabase.auth.getUser();
+      if (currentUser) {
+        const { data: profile } = await supabase
+          .from("user_profiles")
+          .select("role")
+          .eq("id", currentUser.id)
+          .single();
+
+        if (profile?.role === "admin") {
+          return NextResponse.redirect(`${origin}/admin`);
+        } else if (profile?.role === "buyer") {
+          return NextResponse.redirect(`${origin}/buyer`);
+        } else {
+          return NextResponse.redirect(`${origin}/partner`);
+        }
+      }
+
       return NextResponse.redirect(`${origin}${next}`);
     }
   }

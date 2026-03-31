@@ -95,6 +95,12 @@ export async function POST(request: Request) {
 
       metadata.lot_id = lot.id;
       metadata.product_id = product.id;
+      metadata.shipping_method = lot.shipping_method;
+      metadata.shipping_fee = String(lot.shipping_fee);
+      metadata.selling_unit = lot.selling_unit ?? "個";
+      if (lot.units_per_case) {
+        metadata.units_per_case = String(lot.units_per_case);
+      }
       if (product.partner_id) {
         metadata.partner_id = product.partner_id;
       }

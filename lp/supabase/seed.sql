@@ -97,12 +97,12 @@ VALUES
 -- ========================================
 
 -- 管理者ユーザー
-INSERT INTO auth.users (instance_id, id, aud, role, email, encrypted_password, email_confirmed_at, raw_app_meta_data, raw_user_meta_data, created_at, updated_at, confirmation_token)
+INSERT INTO auth.users (instance_id, id, aud, role, email, encrypted_password, email_confirmed_at, raw_app_meta_data, raw_user_meta_data, created_at, updated_at, confirmation_token, email_change, email_change_token_new, email_change_token_current, phone_change, phone_change_token, recovery_token, reauthentication_token)
 VALUES
   ('00000000-0000-0000-0000-000000000000', 'e1000000-0000-0000-0000-000000000099',
    'authenticated', 'authenticated', 'admin@example.com',
    crypt('password123', gen_salt('bf')), now(),
-   '{"provider":"email","providers":["email"]}', '{}', now(), now(), '');
+   '{"provider":"email","providers":["email"]}', '{}', now(), now(), '', '', '', '', '', '', '', '');
 
 INSERT INTO auth.identities (id, user_id, provider_id, provider, identity_data, last_sign_in_at, created_at, updated_at)
 VALUES
@@ -113,12 +113,12 @@ INSERT INTO public.user_profiles (id, role, partner_id, display_name)
 VALUES ('e1000000-0000-0000-0000-000000000099', 'admin', NULL, '管理者');
 
 -- パートナーユーザー（株式会社サンプルフーズ）
-INSERT INTO auth.users (instance_id, id, aud, role, email, encrypted_password, email_confirmed_at, raw_app_meta_data, raw_user_meta_data, created_at, updated_at, confirmation_token)
+INSERT INTO auth.users (instance_id, id, aud, role, email, encrypted_password, email_confirmed_at, raw_app_meta_data, raw_user_meta_data, created_at, updated_at, confirmation_token, email_change, email_change_token_new, email_change_token_current, phone_change, phone_change_token, recovery_token, reauthentication_token)
 VALUES
   ('00000000-0000-0000-0000-000000000000', 'e1000000-0000-0000-0000-000000000010',
    'authenticated', 'authenticated', 'partner@sample-foods.co.jp',
    crypt('password123', gen_salt('bf')), now(),
-   '{"provider":"email","providers":["email"]}', '{}', now(), now(), '');
+   '{"provider":"email","providers":["email"]}', '{}', now(), now(), '', '', '', '', '', '', '', '');
 
 INSERT INTO auth.identities (id, user_id, provider_id, provider, identity_data, last_sign_in_at, created_at, updated_at)
 VALUES
@@ -129,13 +129,30 @@ INSERT INTO public.user_profiles (id, role, partner_id, display_name)
 VALUES
   ('e1000000-0000-0000-0000-000000000010', 'partner', 'a1000000-0000-0000-0000-000000000001', '田中太郎');
 
+-- 代理店ユーザー（合同会社ヘルシーライフ）
+INSERT INTO auth.users (instance_id, id, aud, role, email, encrypted_password, email_confirmed_at, raw_app_meta_data, raw_user_meta_data, created_at, updated_at, confirmation_token, email_change, email_change_token_new, email_change_token_current, phone_change, phone_change_token, recovery_token, reauthentication_token)
+VALUES
+  ('00000000-0000-0000-0000-000000000000', 'e1000000-0000-0000-0000-000000000020',
+   'authenticated', 'authenticated', 'dealer@healthy-life.co.jp',
+   crypt('password123', gen_salt('bf')), now(),
+   '{"provider":"email","providers":["email"]}', '{}', now(), now(), '', '', '', '', '', '', '', '');
+
+INSERT INTO auth.identities (id, user_id, provider_id, provider, identity_data, last_sign_in_at, created_at, updated_at)
+VALUES
+  ('e1000000-0000-0000-0000-000000000020', 'e1000000-0000-0000-0000-000000000020', 'e1000000-0000-0000-0000-000000000020', 'email',
+   '{"sub":"e1000000-0000-0000-0000-000000000020","email":"dealer@healthy-life.co.jp"}', now(), now(), now());
+
+INSERT INTO public.user_profiles (id, role, partner_id, display_name)
+VALUES
+  ('e1000000-0000-0000-0000-000000000020', 'partner', 'a1000000-0000-0000-0000-000000000002', '鈴木花子');
+
 -- バイヤー1: 佐藤一郎
-INSERT INTO auth.users (instance_id, id, aud, role, email, encrypted_password, email_confirmed_at, raw_app_meta_data, raw_user_meta_data, created_at, updated_at, confirmation_token)
+INSERT INTO auth.users (instance_id, id, aud, role, email, encrypted_password, email_confirmed_at, raw_app_meta_data, raw_user_meta_data, created_at, updated_at, confirmation_token, email_change, email_change_token_new, email_change_token_current, phone_change, phone_change_token, recovery_token, reauthentication_token)
 VALUES
   ('00000000-0000-0000-0000-000000000000', 'e1000000-0000-0000-0000-000000000001',
    'authenticated', 'authenticated', 'buyer1@example.com',
    crypt('password123', gen_salt('bf')), now(),
-   '{"provider":"email","providers":["email"]}', '{}', now(), now(), '');
+   '{"provider":"email","providers":["email"]}', '{}', now(), now(), '', '', '', '', '', '', '', '');
 
 INSERT INTO auth.identities (id, user_id, provider_id, provider, identity_data, last_sign_in_at, created_at, updated_at)
 VALUES
@@ -146,12 +163,12 @@ INSERT INTO public.user_profiles (id, role, partner_id, display_name)
 VALUES ('e1000000-0000-0000-0000-000000000001', 'buyer', NULL, '佐藤一郎');
 
 -- バイヤー2: 山田次郎
-INSERT INTO auth.users (instance_id, id, aud, role, email, encrypted_password, email_confirmed_at, raw_app_meta_data, raw_user_meta_data, created_at, updated_at, confirmation_token)
+INSERT INTO auth.users (instance_id, id, aud, role, email, encrypted_password, email_confirmed_at, raw_app_meta_data, raw_user_meta_data, created_at, updated_at, confirmation_token, email_change, email_change_token_new, email_change_token_current, phone_change, phone_change_token, recovery_token, reauthentication_token)
 VALUES
   ('00000000-0000-0000-0000-000000000000', 'e1000000-0000-0000-0000-000000000002',
    'authenticated', 'authenticated', 'buyer2@example.com',
    crypt('password123', gen_salt('bf')), now(),
-   '{"provider":"email","providers":["email"]}', '{}', now(), now(), '');
+   '{"provider":"email","providers":["email"]}', '{}', now(), now(), '', '', '', '', '', '', '', '');
 
 INSERT INTO auth.identities (id, user_id, provider_id, provider, identity_data, last_sign_in_at, created_at, updated_at)
 VALUES
@@ -162,12 +179,12 @@ INSERT INTO public.user_profiles (id, role, partner_id, display_name)
 VALUES ('e1000000-0000-0000-0000-000000000002', 'buyer', NULL, '山田次郎');
 
 -- バイヤー3: 高橋三郎
-INSERT INTO auth.users (instance_id, id, aud, role, email, encrypted_password, email_confirmed_at, raw_app_meta_data, raw_user_meta_data, created_at, updated_at, confirmation_token)
+INSERT INTO auth.users (instance_id, id, aud, role, email, encrypted_password, email_confirmed_at, raw_app_meta_data, raw_user_meta_data, created_at, updated_at, confirmation_token, email_change, email_change_token_new, email_change_token_current, phone_change, phone_change_token, recovery_token, reauthentication_token)
 VALUES
   ('00000000-0000-0000-0000-000000000000', 'e1000000-0000-0000-0000-000000000003',
    'authenticated', 'authenticated', 'buyer3@example.com',
    crypt('password123', gen_salt('bf')), now(),
-   '{"provider":"email","providers":["email"]}', '{}', now(), now(), '');
+   '{"provider":"email","providers":["email"]}', '{}', now(), now(), '', '', '', '', '', '', '', '');
 
 INSERT INTO auth.identities (id, user_id, provider_id, provider, identity_data, last_sign_in_at, created_at, updated_at)
 VALUES
@@ -266,3 +283,38 @@ SELECT public.run_buying_agent('ba000000-0000-0000-0000-000000000003');
 
 -- JWT claims リセット
 SELECT set_config('request.jwt.claims', '', true);
+
+-- ========================================
+-- 商品承認シードデータ
+-- ========================================
+
+-- サンプルフーズ → ヘルシーライフ(代理店): プロテインバー販売承認
+INSERT INTO public.product_authorizations (product_id, partner_id, authorized_party_type, authorized_party_id, status, requested_by, authorized_actions)
+VALUES
+  ('b1000000-0000-0000-0000-000000000001', 'a1000000-0000-0000-0000-000000000001', '代理店', 'a1000000-0000-0000-0000-000000000002', '承認済み', 'メーカー', '{販売,LP作成,価格設定}');
+
+-- サンプルフーズ → クリエイター太郎: プロテインバーLP作成承認
+INSERT INTO public.product_authorizations (product_id, partner_id, authorized_party_type, authorized_party_id, status, requested_by, authorized_actions)
+VALUES
+  ('b1000000-0000-0000-0000-000000000001', 'a1000000-0000-0000-0000-000000000001', 'クリエイター', 'f1000000-0000-0000-0000-000000000001', '承認済み', 'メーカー', '{LP作成}');
+
+-- クリエイター太郎 → サンプルフーズ: 青汁LP作成申請中
+INSERT INTO public.product_authorizations (product_id, partner_id, authorized_party_type, authorized_party_id, status, requested_by, authorized_actions)
+VALUES
+  ('b1000000-0000-0000-0000-000000000002', 'a1000000-0000-0000-0000-000000000001', 'クリエイター', 'f1000000-0000-0000-0000-000000000001', '申請中', 'クリエイター', '{LP作成}');
+
+-- ========================================
+-- ロット販売単位シードデータ
+-- ========================================
+
+-- PB-2026-001: 箱単位(24個入)
+UPDATE public.lots SET selling_unit = '箱', units_per_case = 24, min_order_units = 1
+WHERE id = 'c1000000-0000-0000-0000-000000000001';
+
+-- PB-2026-002: 個単位(最小5個)
+UPDATE public.lots SET selling_unit = '個', min_order_units = 5
+WHERE id = 'c1000000-0000-0000-0000-000000000002';
+
+-- AJ-2026-001: ケース単位(12個入)
+UPDATE public.lots SET selling_unit = 'ケース', units_per_case = 12, min_order_units = 1
+WHERE id = 'c1000000-0000-0000-0000-000000000004';

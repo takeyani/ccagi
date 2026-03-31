@@ -237,8 +237,30 @@ export type Lot = {
   purchase_date: string | null;
   purchase_price: number | null;
   memo: string | null;
+  wholesale_price: number | null;
+  shipping_method: "メーカー無料" | "配送会社手配" | "ユーザー指定";
+  shipping_fee: number;
+  selling_unit: "個" | "箱" | "ケース" | "パレット";
+  units_per_case: number | null;
+  cases_per_pallet: number | null;
+  min_order_units: number;
   category_template_id: string | null;
   custom_fields: Record<string, string | number | boolean | null> | null;
+  created_at: string;
+  updated_at: string;
+};
+
+export type ProductAuthorization = {
+  id: string;
+  product_id: string;
+  partner_id: string;
+  authorized_party_type: "代理店" | "クリエイター";
+  authorized_party_id: string;
+  status: "申請中" | "承認済み" | "却下" | "取消";
+  requested_by: "メーカー" | "代理店" | "クリエイター";
+  request_message: string | null;
+  response_message: string | null;
+  authorized_actions: string[];
   created_at: string;
   updated_at: string;
 };
@@ -248,6 +270,24 @@ export type LotPurchase = {
   lot_id: string;
   stripe_session_id: string;
   created_at: string;
+};
+
+export type RecurringOrder = {
+  id: string;
+  lot_id: string;
+  product_id: string;
+  partner_id: string | null;
+  customer_name: string;
+  customer_email: string;
+  frequency: "毎週" | "隔週" | "毎月" | "隔月";
+  quantity: number;
+  next_delivery_date: string;
+  status: "有効" | "一時停止" | "解約";
+  stripe_session_id: string | null;
+  total_deliveries: number;
+  affiliate_code: string | null;
+  created_at: string;
+  updated_at: string;
 };
 
 export type Auction = {
@@ -1090,4 +1130,77 @@ export type MakerReferralPayout = {
   commission_amount: number;
   status: "pending" | "approved" | "paid" | "cancelled";
   calculated_at: string;
+};
+
+// ====== ASPアフィリエイト ======
+
+export type AspAdvertiser = {
+  id: string;
+  name: string;
+  domain: string;
+  api_key: string;
+  api_secret: string;
+  commission_rate: number;
+  cookie_days: number;
+  status: "有効" | "審査中" | "停止";
+  contact_email: string;
+  webhook_url: string | null;
+  created_at: string;
+  updated_at: string;
+};
+
+export type AspProgram = {
+  id: string;
+  advertiser_id: string;
+  name: string;
+  description: string | null;
+  landing_url: string;
+  commission_type: "成果報酬" | "クリック報酬" | "リード報酬";
+  commission_amount: number;
+  commission_rate: number | null;
+  status: "募集中" | "停止" | "終了";
+  created_at: string;
+  updated_at: string;
+};
+
+export type AspConversion = {
+  id: string;
+  program_id: string;
+  affiliate_code: string;
+  click_id: string;
+  order_id: string | null;
+  amount: number;
+  commission: number;
+  status: "発生" | "承認" | "却下" | "支払済み";
+  converted_at: string;
+  approved_at: string | null;
+  created_at: string;
+};
+
+export type AspClick = {
+  id: string;
+  program_id: string;
+  affiliate_code: string;
+  click_id: string;
+  referrer_url: string | null;
+  landing_url: string | null;
+  ip_address: string | null;
+  user_agent: string | null;
+  created_at: string;
+};
+
+// ====== 商品Q&A ======
+
+export type ProductQuestion = {
+  id: string;
+  product_id: string;
+  lot_id: string | null;
+  partner_id: string;
+  questioner_name: string;
+  questioner_email: string | null;
+  question: string;
+  answer: string | null;
+  status: "未回答" | "回答済み";
+  answered_at: string | null;
+  created_at: string;
 };

@@ -78,6 +78,16 @@ export default async function NewLotPage() {
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
+                卸価格（代理店向け）
+              </label>
+              <input
+                name="wholesale_price"
+                type="number"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
                 賞味期限
               </label>
               <input
@@ -103,6 +113,31 @@ export default async function NewLotPage() {
               <input
                 name="purchase_price"
                 type="number"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                配送方法
+              </label>
+              <select
+                name="shipping_method"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+              >
+                <option value="メーカー無料">メーカー無料</option>
+                <option value="配送会社手配">配送会社手配</option>
+                <option value="ユーザー指定">ユーザー指定</option>
+              </select>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                送料（円）
+              </label>
+              <input
+                name="shipping_fee"
+                type="number"
+                defaultValue={0}
+                min={0}
                 className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
               />
             </div>

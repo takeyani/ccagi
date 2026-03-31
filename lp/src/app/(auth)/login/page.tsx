@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import Link from "next/link";
 import { LoginForm } from "@/components/auth/LoginForm";
+import { OAuthButtons } from "@/components/auth/OAuthButtons";
 
 export const metadata = { title: "ログイン" };
 
@@ -12,6 +13,7 @@ export default function LoginPage() {
         <Suspense fallback={<div className="text-center text-gray-400 py-4">読み込み中...</div>}>
           <LoginForm />
         </Suspense>
+        <OAuthButtons />
         <p className="text-center text-sm text-gray-500 mt-4">
           アカウントをお持ちでないですか？{" "}
           <Link

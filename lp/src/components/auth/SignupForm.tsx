@@ -17,27 +17,43 @@ export function SignupForm() {
     setError("");
     setLoading(true);
 
-    const supabase = createSupabaseBrowserClient();
-    const { data, error: authError } = await supabase.auth.signUp({
-      email,
-      password,
-      options: { data: { display_name: displayName } },
-    });
-
-    if (authError) {
-      setError(authError.message);
-      setLoading(false);
-      return;
-    }
-
-    if (data.user) {
-      // user_profiles にレコード作成（デフォルト: partner）
-      await supabase.from("user_profiles").upsert({
-        id: data.user.id,
-        display_name: displayName,
-        role: "partner",
+    try {
+      const supabase = createSupabaseBrowserClient();
+      const { data, error: authError } = await supabase.auth.signUp({
+        email,
+        password,
+        options: { data: { display_name: displayName } },
       });
-      router.push("/partner");
+
+      if (authError) {
+        setError(authError.message);
+        setLoading(false);
+        return;
+      }
+
+      if (data.user) {
+        const { error: profileError } = await supabase
+          .from("user_profiles")
+          .upsert({
+            id: data.user.id,
+            display_name: displayName,
+            role: "partner",
+          });
+
+        if (profileError) {
+          setError("プロフィールの作成に失敗しました。再度お試しください。");
+          setLoading(false);
+          return;
+        }
+
+        router.push("/partner");
+      } else {
+        setError("登録に失敗しました。再度お試しください。");
+        setLoading(false);
+      }
+    } catch {
+      setError("予期しないエラーが発生しました。");
+      setLoading(false);
     }
   }
 

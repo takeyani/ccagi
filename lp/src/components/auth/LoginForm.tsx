@@ -50,6 +50,9 @@ export function LoginForm() {
       } else {
         router.push("/partner");
       }
+    } else {
+      setError("ログインに失敗しました。再度お試しください。");
+      setLoading(false);
     }
   }
 
