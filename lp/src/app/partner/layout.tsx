@@ -106,7 +106,7 @@ export default async function PartnerLayout({
 
   return (
     <div className="flex min-h-screen">
-      <aside className="w-64 bg-white border-r flex flex-col">
+      <aside className="w-64 bg-white border-r flex flex-col sticky top-0 h-screen overflow-y-auto">
         <div className="p-4 border-b">
           <h2 className="text-lg font-bold text-gray-900">取引先ポータル</h2>
           <p className="text-sm text-gray-500 mt-1">
