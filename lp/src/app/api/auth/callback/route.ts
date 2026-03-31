@@ -27,6 +27,7 @@ export async function GET(request: NextRequest) {
     );
 
     const { error } = await supabase.auth.exchangeCodeForSession(code);
+    console.log("OAuth callback - code present, exchange result:", error ? error.message : "success");
     if (!error) {
       // OAuth ユーザーの user_profiles を自動作成
       const {
@@ -81,5 +82,12 @@ export async function GET(request: NextRequest) {
     }
   }
 
-  return NextResponse.redirect(`${origin}/login`);
+  // デバッグ: エラー時はクエリパラメータでエラー内容を表示
+  const loginUrl = new URL("/login", origin);
+  if (!code) {
+    loginUrl.searchParams.set("error", "no_code");
+  } else {
+    loginUrl.searchParams.set("error", "exchange_failed");
+  }
+  return NextResponse.redirect(loginUrl.toString());
 }
