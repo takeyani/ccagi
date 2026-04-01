@@ -5,7 +5,7 @@
 | 文書ID | REQ-SYSTEM-001 |
 | バージョン | 2.0 |
 | 作成日 | 2026-03-06 |
-| 更新日 | 2026-03-31 |
+| 更新日 | 2026-04-02 |
 | ステータス | 実装済み |
 
 ---
@@ -29,12 +29,27 @@
 
 ### 1.3 ユーザーロール
 
-| ロール | ポータルパス | 説明 |
-|--------|------------|------|
-| admin | `/admin/*` | システム管理。全データの閲覧・編集 |
-| partner | `/partner/*` | パートナー（メーカー/販売代理店）。商品・在庫・帳票・証明管理 |
-| buyer | `/buyer/*` | バイヤー。購買エージェント・注文管理 |
-| (public) | `/`, `/c/*`, `/products/*` 等 | 非認証ユーザー。商品閲覧・購入・アンケート回答 |
+| ロール | ポータルパス | 新規登録 | 説明 |
+|--------|------------|---------|------|
+| admin | `/admin/*` | バックエンドで設定 | システム管理。全データの閲覧・編集 |
+| partner (メーカー) | `/partner/*` | `/signup?role=maker` | メーカー。商品・在庫・帳票・証明管理 |
+| partner (代理店) | `/partner/*` | `/signup?role=agent` | 販売代理店。承認取得後に販売 |
+| buyer | `/buyer/*` | `/signup?role=buyer` | バイヤー。購買エージェント・注文管理 |
+| creator | `/creator/*` | `/affiliate`（チェックボックス） | クリエイター（is_creator=true）。LP作成・コレクション管理 |
+| 紹介者 | なし | `/affiliate` | アフィリエイトリンクで紹介。コード発行のみ |
+| (public) | `/`, `/c/*`, `/products/*` 等 | − | 非認証ユーザー。商品閲覧・購入・アンケート回答 |
+
+### 1.4 新規登録フロー
+
+サインアップページ（`/signup`）でロール選択（メーカー/代理店/バイヤー）を行い、選択に応じて以下を自動作成：
+
+| 選択 | user_profiles.role | partners.partner_type | リダイレクト先 |
+|------|-------------------|----------------------|--------------|
+| メーカー | partner | メーカー | `/partner` |
+| 販売代理店 | partner | 代理店 | `/partner` |
+| バイヤー | buyer | −（作成しない） | `/buyer` |
+
+クリエイター・紹介者は `/affiliate` から登録（Supabase Auth不要、コードベース認証）。
 
 ---
 
@@ -63,6 +78,7 @@
 | 19 | 定期購入 | (本書 §24) | 毎週/隔週/毎月/隔月の定期注文管理 |
 | 20 | ASPアフィリエイト | (本書 §25) | 外部サイト連携ASPサービス |
 | 21 | LPアクセス分析 | (本書 §26) | 流入元・流出・PV・CVR分析ダッシュボード |
+| 22 | ステップメール | (本書 §27) | 自動配信メールキャンペーン、購入トリガー、APIキー管理 |
 
 ---
 
@@ -468,6 +484,21 @@ CollectionFilterConditions = {
 | GET | `/api/asp/programs` | ASP 募集中プログラム一覧 |
 | GET | `/api/asp/tracking.js` | ASP 外部サイト埋め込みトラッキングスクリプト |
 | GET/POST | `/api/marketing/analytics` | LPアクセス分析 イベント記録/取得 |
+| GET | `/api/marketing/reports` | マーケティングレポート（期間別集計） |
+| GET | `/api/stripe-connect?partner_id=xxx` | Stripe Connectステータス・売上サマリー |
+| POST | `/api/stripe-connect` | Stripe Connectオンボーディング開始 |
+| GET | `/api/articles` | 記事LP一覧 |
+| POST | `/api/articles` | 記事LP作成 |
+| GET | `/api/ec-connectors` | EC連携コネクタ一覧 |
+| POST | `/api/ec-connectors/[type]/sync` | EC手動同期 |
+| GET | `/api/ec-connectors/[type]/callback` | EC OAuthコールバック |
+| GET/POST | `/api/step-mail/campaigns` | ステップメールキャンペーン管理 |
+| GET/PUT | `/api/step-mail/campaigns/[id]` | キャンペーン詳細・更新 |
+| POST | `/api/step-mail/enroll` | ステップメール登録 |
+| POST | `/api/step-mail/events` | ステップメールイベント送信 |
+| GET | `/api/step-mail/unsubscribe` | 配信停止 |
+| GET/POST | `/api/step-mail/api-keys` | ステップメールAPIキー管理 |
+| GET | `/api/cron/step-mail` | Cronジョブ（メール配信 + EC同期） |
 
 ---
 
@@ -864,17 +895,6 @@ ec_connector_sync_logs テーブル:
 
 ---
 
-## 23. 関連文書
-
-| 文書ID | タイトル | 概要 |
-|--------|---------|------|
-| REQ-BUYING-AGENT-001 | 購買エージェント機能 要件定義書 | 購買エージェントの詳細要件 |
-| DES-BUYING-AGENT-001 | 購買エージェント機能 設計書 | 購買エージェントの詳細設計 |
-| REQ-EMBED-001 | EC埋め込みウィジェット 要件定義書 | 埋め込みウィジェットの要件 |
-| DES-EMBED-001 | EC埋め込みウィジェット 設計書 | 埋め込みウィジェットの詳細設計 |
-
----
-
 ## 23. 商品Q&A（メーカー・生産者への質問）
 
 ### 23.1 概要
@@ -946,6 +966,7 @@ ec_connector_sync_logs テーブル:
 | `/admin/recurring` | 管理者定期購入一覧 |
 | `/admin/recurring/[id]` | 詳細・ステータス変更 |
 | `/partner/recurring` | パートナー定期購入一覧 |
+| `/partner/recurring/[id]` | パートナー定期購入詳細・ステータス変更 |
 
 ---
 
@@ -1025,3 +1046,70 @@ LPViewTrackerコンポーネントをロットLPに埋め込み、ページビ�
 |------|------|
 | `/admin/lp-analytics` | 管理者LPアクセス分析ダッシュボード（全商品） |
 | `/partner/lp-analytics` | パートナーLPアクセス分析（自社商品のみ） |
+
+---
+
+## 27. ステップメール
+
+### 27.1 概要
+
+購入完了やイベント発生をトリガーにして、自動配信メールシーケンスを実行するステップメール機能。EC連携コネクタと統合し、外部EC注文もトリガーとして利用可能。
+
+### 27.2 データモデル
+
+| テーブル | 概要 |
+|---------|------|
+| step_mail_campaigns | キャンペーン定義（名前、トリガーイベント、ステータス） |
+| step_mail_steps | 配信ステップ（件名、本文、配信間隔、順序） |
+| step_mail_enrollments | ユーザー登録（メール、キャンペーン、現在ステップ、次回配信日） |
+| step_mail_logs | 配信ログ（送信結果、エラー） |
+| step_mail_events | 外部イベント受信ログ |
+| step_mail_api_keys | 外部システム連携用APIキー |
+
+### 27.3 フロー
+
+```
+トリガーイベント発生（購入完了/EC注文/手動登録）
+  → enrollInCampaign() でキャンペーンに登録
+  → step_mail_enrollments レコード作成
+  ↓
+Cronジョブ（GET /api/cron/step-mail）
+  → 配信対象ユーザーを取得（next_send_at <= now）
+  → メール配信（Resend経由）
+  → 次ステップへ進行 or キャンペーン完了
+  → EC連携コネクタの全同期も実行
+```
+
+### 27.4 画面
+
+| パス | 概要 |
+|------|------|
+| `/admin/step-mail` | キャンペーン一覧 |
+| `/admin/step-mail/new` | キャンペーン新規作成 |
+| `/admin/step-mail/[id]` | キャンペーン詳細・ステップ編集 |
+| `/admin/step-mail/[id]/enrollments` | 登録者一覧 |
+| `/admin/step-mail/api-keys` | APIキー管理 |
+
+### 27.5 APIルート
+
+| メソッド | パス | 説明 |
+|---------|------|------|
+| GET/POST | `/api/step-mail/campaigns` | キャンペーン一覧/作成 |
+| GET/PUT | `/api/step-mail/campaigns/[id]` | キャンペーン詳細/更新 |
+| POST | `/api/step-mail/enroll` | ステップメール登録 |
+| POST | `/api/step-mail/events` | 外部イベント受信 |
+| GET | `/api/step-mail/unsubscribe` | 配信停止 |
+| GET/POST | `/api/step-mail/api-keys` | APIキー管理 |
+| GET | `/api/cron/step-mail` | Cronジョブ（メール配信 + EC同期） |
+
+---
+
+## 28. 関連文書
+
+| 文書ID | タイトル | 概要 |
+|--------|---------|------|
+| REQ-BUYING-AGENT-001 | 購買エージェント機能 要件定義書 | 購買エージェントの詳細要件 |
+| DES-BUYING-AGENT-001 | 購買エージェント機能 設計書 | 購買エージェントの詳細設計 |
+| REQ-EMBED-001 | EC埋め込みウィジェット 要件定義書 | 埋め込みウィジェットの要件 |
+| DES-EMBED-001 | EC埋め込みウィジェット 設計書 | 埋め込みウィジェットの詳細設計 |
+| GUIDE-ONBOARDING-001 | オンボーディングガイド | 環境構築・セットアップ手順 |
