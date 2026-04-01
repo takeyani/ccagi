@@ -22,8 +22,8 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "event_type is required" }, { status: 400 });
   }
 
-  const contentId = article_id || design_id;
-  const contentType = article_id ? "article" : "design";
+  const contentId = article_id || design_id || metadata?.lot_id || null;
+  const contentType = metadata?.content_type || (article_id ? "article" : "design");
 
   // イベント記録
   await supabase.from("marketing_events").insert({
@@ -113,8 +113,14 @@ export async function GET(request: Request) {
     dailyBreakdown[date][e.event_type] = (dailyBreakdown[date][e.event_type] || 0) + 1;
 
     // リファラー集計
-    const referer = (e.metadata as Record<string, string>)?.referer || "direct";
-    const domain = referer === "direct" ? "direct" : new URL(referer).hostname;
+    const meta = e.metadata as Record<string, string>;
+    const referer = meta?.referrer || meta?.referer || "direct";
+    let domain = "direct";
+    try {
+      if (referer !== "direct" && referer !== "(direct)" && referer.startsWith("http")) {
+        domain = new URL(referer).hostname;
+      }
+    } catch { /* invalid URL */ }
     referrerBreakdown[domain] = (referrerBreakdown[domain] || 0) + 1;
   });
 

@@ -89,6 +89,23 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
       purchaseId = purchase?.id;
     }
 
+    // 2.5. LPアナリティクス - コンバージョンイベント記録
+    if (lotId) {
+      await supabase.from("marketing_events").insert({
+        event_type: "conversion",
+        content_id: lotId,
+        content_type: "lot_lp",
+        metadata: {
+          product_id: session.metadata?.product_id || null,
+          lot_id: lotId,
+          partner_id: session.metadata?.partner_id || null,
+          stripe_session_id: sessionId,
+          amount: session.amount_total,
+          timestamp: new Date().toISOString(),
+        },
+      });
+    }
+
     // 3. オークション落札処理
     if (auctionId) {
       await supabase
