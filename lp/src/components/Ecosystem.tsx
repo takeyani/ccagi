@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Ecosystem() {
   return (
     <section className="bg-slate-900 text-white py-20">
@@ -23,6 +25,7 @@ export default function Ecosystem() {
               color: "from-blue-600 to-blue-700",
               sells: "自社商品を直接出品",
               gets: "クリエイター・販売代理店が自動で販路を広げてくれる。購買AIに発見されるので営業不要。",
+              cta: { label: "メーカー登録", href: "/signup?role=maker" },
             },
             {
               role: "販売代理店",
@@ -30,6 +33,7 @@ export default function Ecosystem() {
               color: "from-purple-600 to-purple-700",
               sells: "メーカー商品を独自価格で販売",
               gets: "在庫リスクなしで商品を扱える。LP作成ツールで独自の販売チャネルを構築。",
+              cta: { label: "代理店登録", href: "/signup?role=agent" },
             },
             {
               role: "クリエイター",
@@ -37,6 +41,7 @@ export default function Ecosystem() {
               color: "from-pink-500 to-pink-600",
               sells: "メーカー許可を得てLPで販売",
               gets: "仕入れ不要。卸値に利益を乗せて売るだけ。SNSのフォロワーを収益に変える。",
+              cta: { label: "クリエイター登録", href: "/affiliate" },
             },
             {
               role: "バイヤー",
@@ -44,14 +49,15 @@ export default function Ecosystem() {
               color: "from-emerald-600 to-emerald-700",
               sells: "購入品を所有権履歴付きで再出品",
               gets: "L4プルーフで正規ルートが証明された状態で転売可能。信頼の連鎖が途切れない。",
+              cta: { label: "バイヤー登録", href: "/signup?role=buyer" },
             },
           ].map((item) => (
-            <div key={item.role} className="bg-slate-800 border border-slate-700 rounded-2xl overflow-hidden">
+            <div key={item.role} className="bg-slate-800 border border-slate-700 rounded-2xl overflow-hidden flex flex-col">
               <div className={`bg-gradient-to-r ${item.color} px-4 py-3 flex items-center gap-2`}>
                 <span className="text-xl">{item.icon}</span>
                 <span className="font-bold text-sm">{item.role}</span>
               </div>
-              <div className="p-4 space-y-3">
+              <div className="p-4 space-y-3 flex-1">
                 <div>
                   <p className="text-[10px] font-bold text-blue-400 mb-0.5">何を売れるか</p>
                   <p className="text-xs text-gray-300">{item.sells}</p>
@@ -60,6 +66,14 @@ export default function Ecosystem() {
                   <p className="text-[10px] font-bold text-emerald-400 mb-0.5">参入するメリット</p>
                   <p className="text-xs text-gray-400">{item.gets}</p>
                 </div>
+              </div>
+              <div className="px-4 pb-4">
+                <Link
+                  href={item.cta.href}
+                  className={`block w-full text-center text-xs font-bold py-2 rounded-lg transition bg-gradient-to-r ${item.color} hover:opacity-90`}
+                >
+                  {item.cta.label} &rarr;
+                </Link>
               </div>
             </div>
           ))}

@@ -37,7 +37,7 @@ export async function GET(request: NextRequest) {
       if (user) {
         const { data: existing } = await supabase
           .from("user_profiles")
-          .select("id")
+          .select("id, role")
           .eq("id", user.id)
           .single();
 
@@ -48,11 +48,31 @@ export async function GET(request: NextRequest) {
             user.user_metadata?.name ??
             user.email?.split("@")[0] ??
             "ユーザー";
+
+          // signup_role パラメータからロール判定
+          const signupRole = user.user_metadata?.signup_role;
+          const role = signupRole === "buyer" ? "buyer" : "partner";
+          const partnerType =
+            signupRole === "agent" ? "代理店" : "メーカー";
+
           await admin.from("user_profiles").upsert({
             id: user.id,
             display_name: displayName,
-            role: "partner",
+            role,
           });
+
+          // パートナーの場合はpartnerレコードも作成
+          if (role === "partner") {
+            await admin.from("partners").upsert(
+              {
+                user_id: user.id,
+                company_name: displayName,
+                partner_type: partnerType,
+                certification_status: "未認証",
+              },
+              { onConflict: "user_id" }
+            );
+          }
         }
       }
 

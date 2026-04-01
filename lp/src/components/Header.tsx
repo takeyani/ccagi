@@ -7,7 +7,13 @@ export default function Header() {
         <Link href="/" className="text-lg font-bold text-white">
           単品決済ロットLP
         </Link>
-        <nav className="flex items-center gap-4">
+        <nav className="flex items-center gap-3">
+          <Link
+            href="/affiliate"
+            className="text-xs font-medium text-white/70 hover:text-white transition hidden sm:inline"
+          >
+            クリエイター / 紹介者
+          </Link>
           <Link
             href="/login"
             className="text-sm font-medium text-white/90 hover:text-white transition"

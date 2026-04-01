@@ -1,10 +1,40 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 
+const ROLES = [
+  {
+    value: "maker",
+    label: "メーカー",
+    icon: "🏭",
+    desc: "自社商品を出品・販売する",
+    role: "partner",
+    partnerType: "メーカー",
+  },
+  {
+    value: "agent",
+    label: "販売代理店",
+    icon: "🏢",
+    desc: "メーカー商品を仕入れて販売する",
+    role: "partner",
+    partnerType: "代理店",
+  },
+  {
+    value: "buyer",
+    label: "バイヤー",
+    icon: "🛒",
+    desc: "商品を購入・再販する",
+    role: "buyer",
+    partnerType: null,
+  },
+] as const;
+
 export function SignupForm() {
+  const searchParams = useSearchParams();
+  const initialRole = searchParams.get("role") ?? "";
+  const [selectedRole, setSelectedRole] = useState(initialRole);
   const [displayName, setDisplayName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -15,14 +45,31 @@ export function SignupForm() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError("");
+
+    if (!selectedRole) {
+      setError("登録するアカウントの種類を選択してください。");
+      return;
+    }
+
     setLoading(true);
+    const roleDef = ROLES.find((r) => r.value === selectedRole);
+    if (!roleDef) {
+      setError("不正なロールです。");
+      setLoading(false);
+      return;
+    }
 
     try {
       const supabase = createSupabaseBrowserClient();
       const { data, error: authError } = await supabase.auth.signUp({
         email,
         password,
-        options: { data: { display_name: displayName } },
+        options: {
+          data: {
+            display_name: displayName,
+            signup_role: roleDef.value,
+          },
+        },
       });
 
       if (authError) {
@@ -37,7 +84,7 @@ export function SignupForm() {
           .upsert({
             id: data.user.id,
             display_name: displayName,
-            role: "partner",
+            role: roleDef.role,
           });
 
         if (profileError) {
@@ -46,7 +93,23 @@ export function SignupForm() {
           return;
         }
 
-        router.push("/partner");
+        if (roleDef.role === "partner" && roleDef.partnerType) {
+          await supabase.from("partners").upsert(
+            {
+              user_id: data.user.id,
+              company_name: displayName,
+              partner_type: roleDef.partnerType,
+              certification_status: "未認証",
+            },
+            { onConflict: "user_id" }
+          );
+        }
+
+        if (roleDef.role === "buyer") {
+          router.push("/buyer");
+        } else {
+          router.push("/partner");
+        }
       } else {
         setError("登録に失敗しました。再度お試しください。");
         setLoading(false);
@@ -58,18 +121,46 @@ export function SignupForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-5">
       {error && (
         <div className="bg-red-50 text-red-600 text-sm p-3 rounded-lg">
           {error}
         </div>
       )}
+
+      {/* ロール選択 */}
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          アカウントの種類
+        </label>
+        <div className="grid grid-cols-3 gap-2">
+          {ROLES.map((r) => (
+            <button
+              key={r.value}
+              type="button"
+              onClick={() => setSelectedRole(r.value)}
+              className={`flex flex-col items-center gap-1 p-3 rounded-xl border-2 transition text-center ${
+                selectedRole === r.value
+                  ? "border-indigo-600 bg-indigo-50 ring-1 ring-indigo-600"
+                  : "border-gray-200 hover:border-gray-300 bg-white"
+              }`}
+            >
+              <span className="text-2xl">{r.icon}</span>
+              <span className="text-xs font-bold text-gray-900">{r.label}</span>
+              <span className="text-[10px] text-gray-500 leading-tight">{r.desc}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+
       <div>
         <label
           htmlFor="displayName"
           className="block text-sm font-medium text-gray-700 mb-1"
         >
-          表示名
+          {selectedRole === "maker" || selectedRole === "agent"
+            ? "会社名 / 屋号"
+            : "表示名"}
         </label>
         <input
           id="displayName"
@@ -78,7 +169,11 @@ export function SignupForm() {
           value={displayName}
           onChange={(e) => setDisplayName(e.target.value)}
           className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-          placeholder="山田太郎"
+          placeholder={
+            selectedRole === "maker" || selectedRole === "agent"
+              ? "株式会社○○"
+              : "山田太郎"
+          }
         />
       </div>
       <div>
@@ -118,7 +213,7 @@ export function SignupForm() {
       </div>
       <button
         type="submit"
-        disabled={loading}
+        disabled={loading || !selectedRole}
         className="w-full bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 disabled:opacity-50 font-medium"
       >
         {loading ? "登録中..." : "新規登録"}
