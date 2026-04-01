@@ -35,6 +35,14 @@ export function SignupForm() {
   const searchParams = useSearchParams();
   const initialRole = searchParams.get("role") ?? "";
   const [selectedRole, setSelectedRole] = useState(initialRole);
+
+  // アフィリエイト紹介コードをlocalStorage/URLから取得
+  const getRefCode = () => {
+    const urlRef = searchParams.get("ref");
+    if (urlRef) return urlRef;
+    if (typeof window !== "undefined") return localStorage.getItem("affiliate_ref");
+    return null;
+  };
   const [displayName, setDisplayName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -94,12 +102,25 @@ export function SignupForm() {
         }
 
         if (roleDef.role === "partner" && roleDef.partnerType) {
+          const refCode = getRefCode();
+          let referredByAffiliateId: string | null = null;
+
+          if (refCode) {
+            const { data: affiliate } = await supabase
+              .from("affiliates")
+              .select("id")
+              .eq("code", refCode)
+              .single();
+            referredByAffiliateId = affiliate?.id ?? null;
+          }
+
           await supabase.from("partners").upsert(
             {
               user_id: data.user.id,
               company_name: displayName,
               partner_type: roleDef.partnerType,
               certification_status: "未認証",
+              ...(referredByAffiliateId ? { referred_by_affiliate_id: referredByAffiliateId } : {}),
             },
             { onConflict: "user_id" }
           );

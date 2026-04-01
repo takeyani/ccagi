@@ -10,6 +10,8 @@ export default function Footer() {
           <Link href="/privacy" className="transition hover:text-gray-700">プライバシーポリシー</Link>
           <Link href="/request" className="transition hover:text-gray-700">制作リクエスト</Link>
           <Link href="/affiliate" className="transition hover:text-gray-700">アフィリエイト</Link>
+          <Link href="/guide/start" className="transition hover:text-gray-700">はじめてガイド</Link>
+          <Link href="/guide/referral" className="transition hover:text-gray-700">紹介ガイド</Link>
           <Link href="/t" className="transition hover:text-gray-700">タグで探す</Link>
         </div>
       </div>

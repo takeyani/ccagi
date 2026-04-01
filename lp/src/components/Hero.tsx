@@ -24,10 +24,18 @@ export default function Hero() {
             無料で始める
           </Link>
           <Link
-            href="/flow"
+            href="/guide/start"
             className="inline-block rounded-full border-2 border-white px-8 py-4 text-lg font-bold text-white transition hover:bg-white/10"
           >
+            はじめてガイド
+          </Link>
+        </div>
+        <div className="mt-4 flex justify-center gap-6">
+          <Link href="/flow" className="text-sm text-white/70 hover:text-white transition underline underline-offset-4">
             業務フローを見る
+          </Link>
+          <Link href="/guide/referral" className="text-sm text-white/70 hover:text-white transition underline underline-offset-4">
+            紹介して報酬を得る
           </Link>
         </div>
       </div>
