@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getAuthorizations, approveAuthorization, rejectAuthorization, requestAuthorization, grantAuthorization } from "./actions";
-import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { requirePartnerId } from "@/lib/auth";
 
 export const metadata = { title: "商品承認管理" };
@@ -14,8 +13,7 @@ const statusBadge: Record<string, string> = {
 
 export default async function AuthorizationsPage() {
   const { incoming, outgoing } = await getAuthorizations();
-  const supabase = await createSupabaseServerClient();
-  const partnerId = await requirePartnerId();
+  const { partnerId, supabase } = await requirePartnerId();
 
   // 自社パートナー情報
   const { data: myPartner } = await supabase

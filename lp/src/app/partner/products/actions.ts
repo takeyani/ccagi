@@ -47,15 +47,14 @@ function extractProductFields(formData: FormData) {
   };
 }
 
-function extractCustomFields(formData: FormData): Record<string, string | number | boolean | null> {
+function extractCustomFields(formData: FormData): Record<string, string | number | boolean | null> | null {
   const fields: Record<string, string | number | boolean | null> = {};
   for (const [key, value] of formData.entries()) {
     if (key.startsWith("cf_")) {
-      const fieldName = key.slice(3);
-      fields[fieldName] = (value as string) || null;
+      fields[key.slice(3)] = (value as string) || null;
     }
   }
-  return Object.keys(fields).length > 0 ? fields : null as unknown as Record<string, string | number | boolean | null>;
+  return Object.keys(fields).length > 0 ? fields : null;
 }
 
 export async function createPartnerProduct(formData: FormData) {

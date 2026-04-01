@@ -3,9 +3,9 @@
 | 項目 | 内容 |
 |------|------|
 | 文書ID | REQ-SYSTEM-001 |
-| バージョン | 1.1 |
+| バージョン | 2.0 |
 | 作成日 | 2026-03-06 |
-| 更新日 | 2026-03-17 |
+| 更新日 | 2026-03-31 |
 | ステータス | 実装済み |
 
 ---
@@ -59,6 +59,10 @@
 | 15 | マーケティング | (本書 §20) | ダッシュボード、アナリティクス、レポート |
 | 16 | EC連携コネクタ | (本書 §21) | 8プラットフォーム対応、最大7並列同期 |
 | 17 | モバイル対応 | (本書 §22) | レスポンシブデザイン、モバイルナビゲーション |
+| 18 | 商品Q&A | (本書 §23) | メーカー・生産者への質問→回答フロー |
+| 19 | 定期購入 | (本書 §24) | 毎週/隔週/毎月/隔月の定期注文管理 |
+| 20 | ASPアフィリエイト | (本書 §25) | 外部サイト連携ASPサービス |
+| 21 | LPアクセス分析 | (本書 §26) | 流入元・流出・PV・CVR分析ダッシュボード |
 
 ---
 
@@ -70,7 +74,7 @@
 |------------|-------------|--------|
 | Partner | company_name, certification_status, partner_type, invoice_registration_number | admin |
 | Product | name, slug, base_price, image_url, is_active, min_order_quantity | admin, partner |
-| Lot | lot_number, stock, price, expiration_date, status(販売中/売切れ/期限切れ) | admin, partner |
+| Lot | lot_number, stock, price, wholesale_price, selling_unit(個/箱/ケース/パレット), units_per_case, cases_per_pallet, min_order_units, shipping_method, shipping_fee, expiration_date, status(販売中/売切れ/期限切れ) | admin, partner |
 | Tag | name, slug, tag_type(生産者/メーカー/カテゴリ/キーワード), is_active | admin |
 | ProductTag | product_id, tag_id | admin |
 | ProductAttribute | attribute_name, attribute_value | admin |
@@ -85,7 +89,10 @@
 | `/admin/tags`, `/admin/tags/new`, `/admin/tags/[id]` | タグCRUD |
 | `/partner/products`, `/partner/products/new`, `/partner/products/[id]` | パートナー商品管理 |
 | `/partner/lots`, `/partner/lots/new`, `/partner/lots/[id]` | パートナーロット管理 |
-| `/products/[slug]/[lotId]` | 公開商品詳細ページ（Stripe購入） |
+| `/partner/wholesale` | 卸価格一覧（メーカー: 自社管理、代理店: メーカー卸価格参照） |
+| `/partner/authorizations` | 商品承認（クリエイター販売許可の承認/拒否） |
+| `/admin/authorizations` | 管理者商品承認管理 |
+| `/products/[slug]/[lotId]` | 公開商品詳細ページ（Stripe購入・定期購入・Q&A） |
 | `/t`, `/t/[slug]` | タグ別商品一覧 |
 
 ### 3.3 決済フロー
@@ -94,9 +101,13 @@
 購入ボタン → POST /api/checkout (lot_id, affiliate_ref)
   → reserve_lot_stock RPC で在庫を原子的に予約（FOR UPDATE ロック）
   → 在庫不足の場合はエラー返却
-  → Stripe Checkout Session 作成
+  → Stripe Checkout Session 作成（metadata: lot_id, product_id, shipping_method, shipping_fee, partner_id）
   → 成功: /success → lot_purchases 記録（冪等性保証）
   → キャンセル: /cancel
+
+定期購入ボタン → POST /api/recurring (lot_id, frequency, customer_name, customer_email)
+  → 初回Stripe決済 → recurring_orders レコード作成
+  → 次回配送日を自動計算（頻度に基づく）
 ```
 
 ---
@@ -287,6 +298,26 @@ CollectionFilterConditions = {
 
 画面: `/boards/[threadId]`, `/admin/boards/*`
 
+### 9.3 商品Q&A
+
+| テーブル | 概要 |
+|---------|------|
+| product_questions | 商品/ロット紐づけ質問、メーカー回答。ステータス: 未回答→回答済み |
+
+**フロー:**
+1. 購入者がロットLPの「メーカー・生産者に質問する」から質問投稿
+2. パートナー画面「商品Q&A」に未回答として表示
+3. パートナーが回答を入力 → ステータスが「回答済み」に
+4. 回答済みQ&AがロットLP上に公開表示
+
+**画面:**
+
+| パス | 概要 |
+|------|------|
+| `/partner/questions`, `/partner/questions/[id]` | パートナー質問管理・回答 |
+| `/admin/questions`, `/admin/questions/[id]` | 管理者Q&A管理 |
+| ロットLP内 QuestionSection | 公開Q&A表示 + 質問フォーム |
+
 ---
 
 ## 10. アフィリエイト
@@ -305,6 +336,7 @@ CollectionFilterConditions = {
 | `/affiliate` | アフィリエイト登録 |
 | `/admin/affiliates` | アフィリエイト管理 |
 | `/admin/creator-designs` | クリエイターデザインモデレーション |
+| `/affiliate/asp` | ASPプログラム一覧（アフィリエイター向け） |
 
 ---
 
@@ -429,6 +461,13 @@ CollectionFilterConditions = {
 | POST | `/api/files/upload` | ファイルアップロード |
 | POST | `/api/requests` | 入荷リクエスト |
 | POST | `/api/auth/callback` | 認証コールバック |
+| POST | `/api/questions` | 商品Q&A 質問投稿 |
+| POST | `/api/recurring` | 定期購入 初回決済＋スケジュール登録 |
+| POST | `/api/asp/click` | ASP クリック記録 |
+| POST | `/api/asp/conversion` | ASP コンバージョン記録（APIキー認証） |
+| GET | `/api/asp/programs` | ASP 募集中プログラム一覧 |
+| GET | `/api/asp/tracking.js` | ASP 外部サイト埋め込みトラッキングスクリプト |
+| GET/POST | `/api/marketing/analytics` | LPアクセス分析 イベント記録/取得 |
 
 ---
 
@@ -719,6 +758,12 @@ marketing_events テーブル:
 - カテゴリ別パフォーマンス
 - トップ記事TOP10（タイトル/閲覧/シェア/CV/CVR）
 
+### 20.7 ロットLPアクセストラッキング
+
+ロットLP（`/products/[slug]/[lotId]`）にアクセストラッカー（LPViewTracker）を埋め込み、`marketing_events` テーブルに `content_type = "lot_lp"` でイベントを記録。
+
+記録データ: referrer, user_agent, page_path, product_id, lot_id, partner_id
+
 ---
 
 ## 21. ECプラットフォーム連携コネクタ
@@ -827,3 +872,156 @@ ec_connector_sync_logs テーブル:
 | DES-BUYING-AGENT-001 | 購買エージェント機能 設計書 | 購買エージェントの詳細設計 |
 | REQ-EMBED-001 | EC埋め込みウィジェット 要件定義書 | 埋め込みウィジェットの要件 |
 | DES-EMBED-001 | EC埋め込みウィジェット 設計書 | 埋め込みウィジェットの詳細設計 |
+
+---
+
+## 23. 商品Q&A（メーカー・生産者への質問）
+
+### 23.1 概要
+
+購入者が商品・サービスについてメーカーや生産者に直接質問でき、回答済みのQ&AがロットLP上に公開される。
+
+### 23.2 データモデル
+
+| フィールド | 型 | 説明 |
+|-----------|------|------|
+| product_id | uuid | 対象商品 |
+| lot_id | uuid | 対象ロット（任意） |
+| partner_id | uuid | 回答するパートナー |
+| questioner_name | text | 質問者名 |
+| questioner_email | text | 質問者メール（任意） |
+| question | text | 質問内容 |
+| answer | text | 回答内容 |
+| status | text | 未回答/回答済み |
+
+### 23.3 画面
+
+| パス | 概要 |
+|------|------|
+| ロットLP内 QuestionSection | 回答済みQ&A一覧 + 質問フォーム |
+| `/partner/questions` | パートナー質問一覧 |
+| `/partner/questions/[id]` | 質問詳細・回答入力 |
+| `/admin/questions` | 管理者Q&A一覧 |
+| `/admin/questions/[id]` | 管理者Q&A詳細・削除 |
+
+---
+
+## 24. 定期購入
+
+### 24.1 概要
+
+サブスクリプション（Stripe Subscription）ではなく、指定頻度で繰り返し注文・決済を行う定期購入機能。初回はStripe Checkoutで決済し、以降は次回配送日に基づくスケジュール管理。
+
+### 24.2 データモデル
+
+| フィールド | 型 | 説明 |
+|-----------|------|------|
+| lot_id | uuid | 対象ロット |
+| product_id | uuid | 対象商品 |
+| partner_id | uuid | パートナー |
+| customer_name | text | 顧客名 |
+| customer_email | text | 顧客メール |
+| frequency | text | 毎週/隔週/毎月/隔月 |
+| quantity | integer | 数量 |
+| next_delivery_date | date | 次回配送日 |
+| status | text | 有効/一時停止/解約 |
+| total_deliveries | integer | 累計配送回数 |
+
+### 24.3 フロー
+
+```
+ロットLP「定期購入で申し込む」
+  → 頻度・名前・メール入力
+  → POST /api/recurring
+  → 初回Stripe決済
+  → recurring_orders レコード作成（next_delivery_date 自動計算）
+  → 管理画面/パートナー画面で管理（有効/一時停止/解約）
+```
+
+### 24.4 画面
+
+| パス | 概要 |
+|------|------|
+| ロットLP内 RecurringPurchaseForm | 定期購入申し込みフォーム |
+| `/admin/recurring` | 管理者定期購入一覧 |
+| `/admin/recurring/[id]` | 詳細・ステータス変更 |
+| `/partner/recurring` | パートナー定期購入一覧 |
+
+---
+
+## 25. ASPアフィリエイトサービス
+
+### 25.1 概要
+
+本プラットフォームがASP（アフィリエイト・サービス・プロバイダー）として機能し、外部サイトとのアフィリエイト連携を提供する。広告主（外部サイト）がプログラムを登録し、既存のアフィリエイターがプログラムに参加して成果報酬を得る。
+
+### 25.2 データモデル
+
+| テーブル | 概要 |
+|---------|------|
+| asp_advertisers | 広告主（外部サイト）。APIキー・ドメイン・報酬率 |
+| asp_programs | 案件。報酬タイプ（成果報酬/クリック報酬/リード報酬）・金額/率 |
+| asp_clicks | クリックログ。click_id・referrer・IP・UA |
+| asp_conversions | コンバージョン。click_id紐づけ・金額・コミッション・ステータス（発生→承認→支払済み） |
+
+### 25.3 外部サイト連携フロー
+
+```
+1. 管理画面で広告主登録 → APIキー自動発行
+2. 広告主サイトにトラッキングJS埋め込み（GET /api/asp/tracking.js）
+3. アフィリエイターが紹介リンク付きで誘導（?ref=CODE）
+4. クリック記録 → Cookie保存 → click_id発行
+5. 購入完了時に広告主がコンバージョンAPI呼び出し（POST /api/asp/conversion）
+6. コミッション自動計算 → 管理画面で承認・支払管理
+```
+
+### 25.4 画面
+
+| パス | 概要 |
+|------|------|
+| `/admin/asp` | ASPダッシュボード（広告主/プログラム/コンバージョン一覧） |
+| `/admin/asp/advertisers/new` | 広告主新規登録 |
+| `/affiliate/asp` | アフィリエイター向けプログラム一覧・紹介リンク取得 |
+
+### 25.5 APIルート
+
+| メソッド | パス | 説明 |
+|---------|------|------|
+| POST | `/api/asp/click` | クリック記録・click_id発行 |
+| POST | `/api/asp/conversion` | コンバージョン記録（X-Api-Key認証） |
+| GET | `/api/asp/programs` | 募集中プログラム一覧 |
+| GET | `/api/asp/tracking.js` | 外部サイト埋め込み用トラッキングスクリプト |
+
+---
+
+## 26. LPアクセス分析
+
+### 26.1 概要
+
+ロットLP（`/products/[slug]/[lotId]`）のアクセス状況を分析するダッシュボード。流入元・流出・PV・CVRを可視化し、マーケティング施策の効果測定を支援する。
+
+### 26.2 トラッキング方式
+
+LPViewTrackerコンポーネントをロットLPに埋め込み、ページビューイベントを `marketing_events` テーブルに記録。
+
+記録データ: content_type("lot_lp"), referrer, user_agent, page_path, product_id, lot_id, partner_id
+
+### 26.3 分析指標
+
+| 指標 | 説明 |
+|------|------|
+| 総PV | 期間内のページビュー合計 |
+| 流入元数 | ユニークな流入ドメイン数 |
+| CV数 | コンバージョン（購入完了）数 |
+| CVR | コンバージョン率 |
+| 流入経路 | 直接/検索/SNS/アフィリエイト/その他の分類 |
+| 流入元TOP10 | リファラードメインランキング |
+| 商品別PV | 商品ごとのPVランキング |
+| 日別PV推移 | 日次のPV数グラフ |
+
+### 26.4 画面
+
+| パス | 概要 |
+|------|------|
+| `/admin/lp-analytics` | 管理者LPアクセス分析ダッシュボード（全商品） |
+| `/partner/lp-analytics` | パートナーLPアクセス分析（自社商品のみ） |

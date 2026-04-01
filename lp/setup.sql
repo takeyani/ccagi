@@ -149,6 +149,9 @@ create table public.lots (
   purchase_date date,
   purchase_price integer,
   memo text,
+  wholesale_price integer,
+  shipping_method text not null default 'メーカー無料' check (shipping_method in ('メーカー無料', '配送会社手配', 'ユーザー指定')),
+  shipping_fee integer not null default 0,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
   unique (product_id, lot_number)
@@ -165,6 +168,35 @@ create table public.lot_purchases (
   created_at timestamptz not null default now()
 );
 create index idx_lot_purchases_lot_id on public.lot_purchases (lot_id);
+
+-- ========================================
+-- 定期購入
+-- ========================================
+create table public.recurring_orders (
+  id uuid primary key default uuid_generate_v4(),
+  lot_id uuid not null references public.lots (id),
+  product_id uuid not null references public.products (id),
+  partner_id uuid references public.partners (id),
+  customer_name text not null,
+  customer_email text not null,
+  frequency text not null check (frequency in ('毎週', '隔週', '毎月', '隔月')),
+  quantity integer not null default 1,
+  next_delivery_date date not null,
+  status text not null default '有効' check (status in ('有効', '一時停止', '解約')),
+  stripe_session_id text,
+  total_deliveries integer not null default 0,
+  affiliate_code text,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+create index idx_recurring_orders_lot on public.recurring_orders (lot_id);
+create index idx_recurring_orders_status on public.recurring_orders (status);
+create index idx_recurring_orders_next on public.recurring_orders (next_delivery_date);
+
+alter table public.recurring_orders enable row level security;
+create policy "Allow public insert recurring" on public.recurring_orders for insert with check (true);
+create policy "Allow public select own recurring" on public.recurring_orders for select using (true);
+create policy "Admin can manage recurring" on public.recurring_orders for all using (public.is_admin());
 
 -- ========================================
 -- RLS（商品・ロットは公開SELECT許可）
@@ -1789,4 +1821,114 @@ create policy "Admin can manage step_mail_logs" on public.step_mail_logs for all
 create policy "Admin can manage step_mail_api_keys" on public.step_mail_api_keys for all using (public.is_admin());
 create policy "Admin can manage step_mail_events" on public.step_mail_events for all using (public.is_admin());
 create policy "Admin can manage maker_referral_commissions" on public.maker_referral_commissions for all using (public.is_admin());
+
+-- ========================================
+-- ASPアフィリエイトサービス（外部サイト連携）
+-- ========================================
+
+-- ASP広告主（外部サイト）
+create table public.asp_advertisers (
+  id uuid primary key default uuid_generate_v4(),
+  name text not null,
+  domain text not null,
+  api_key text unique not null,
+  api_secret text not null,
+  commission_rate numeric(5,2) not null default 5.00,
+  cookie_days integer not null default 30,
+  status text not null default '有効' check (status in ('有効', '審査中', '停止')),
+  contact_email text not null,
+  webhook_url text,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+create index idx_asp_advertisers_api_key on public.asp_advertisers (api_key);
+
+-- ASP案件（プログラム）
+create table public.asp_programs (
+  id uuid primary key default uuid_generate_v4(),
+  advertiser_id uuid not null references public.asp_advertisers (id) on delete cascade,
+  name text not null,
+  description text,
+  landing_url text not null,
+  commission_type text not null default '成果報酬' check (commission_type in ('成果報酬', 'クリック報酬', 'リード報酬')),
+  commission_amount integer not null default 0,
+  commission_rate numeric(5,2),
+  status text not null default '募集中' check (status in ('募集中', '停止', '終了')),
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+create index idx_asp_programs_advertiser on public.asp_programs (advertiser_id);
+
+-- ASPコンバージョン
+create table public.asp_conversions (
+  id uuid primary key default uuid_generate_v4(),
+  program_id uuid not null references public.asp_programs (id),
+  affiliate_code text not null references public.affiliates (code),
+  click_id text unique not null,
+  order_id text,
+  amount integer not null default 0,
+  commission integer not null default 0,
+  status text not null default '発生' check (status in ('発生', '承認', '却下', '支払済み')),
+  converted_at timestamptz not null default now(),
+  approved_at timestamptz,
+  created_at timestamptz not null default now()
+);
+create index idx_asp_conversions_program on public.asp_conversions (program_id);
+create index idx_asp_conversions_affiliate on public.asp_conversions (affiliate_code);
+create index idx_asp_conversions_click on public.asp_conversions (click_id);
+
+-- ASPクリックログ
+create table public.asp_clicks (
+  id uuid primary key default uuid_generate_v4(),
+  program_id uuid not null references public.asp_programs (id),
+  affiliate_code text not null,
+  click_id text unique not null,
+  referrer_url text,
+  landing_url text,
+  ip_address text,
+  user_agent text,
+  created_at timestamptz not null default now()
+);
+create index idx_asp_clicks_click_id on public.asp_clicks (click_id);
+
+alter table public.asp_advertisers enable row level security;
+alter table public.asp_programs enable row level security;
+alter table public.asp_conversions enable row level security;
+alter table public.asp_clicks enable row level security;
+create policy "Admin can manage asp_advertisers" on public.asp_advertisers for all using (public.is_admin());
+create policy "Admin can manage asp_programs" on public.asp_programs for all using (public.is_admin());
+create policy "Admin can manage asp_conversions" on public.asp_conversions for all using (public.is_admin());
+create policy "Admin can manage asp_clicks" on public.asp_clicks for all using (public.is_admin());
+create policy "Public can select active programs" on public.asp_programs for select using (status = '募集中');
+create policy "Public can insert clicks" on public.asp_clicks for insert with check (true);
+create policy "Public can insert conversions" on public.asp_conversions for insert with check (true);
 create policy "Admin can manage maker_referral_payouts" on public.maker_referral_payouts for all using (public.is_admin());
+
+-- ========================================
+-- 商品Q&A（メーカー・生産者への質問）
+-- ========================================
+
+create table public.product_questions (
+  id uuid primary key default uuid_generate_v4(),
+  product_id uuid not null references public.products (id) on delete cascade,
+  lot_id uuid references public.lots (id) on delete set null,
+  partner_id uuid not null references public.partners (id),
+  questioner_name text not null,
+  questioner_email text,
+  question text not null,
+  answer text,
+  status text not null default '未回答' check (status in ('未回答', '回答済み')),
+  answered_at timestamptz,
+  created_at timestamptz not null default now()
+);
+
+create index idx_product_questions_product on public.product_questions (product_id);
+create index idx_product_questions_partner on public.product_questions (partner_id);
+create index idx_product_questions_status on public.product_questions (status);
+
+alter table public.product_questions enable row level security;
+create policy "Allow public select answered" on public.product_questions for select using (status = '回答済み');
+create policy "Allow public insert" on public.product_questions for insert with check (true);
+create policy "Allow partner select own" on public.product_questions for select using (true);
+create policy "Allow partner update own" on public.product_questions for update using (true);
+create policy "Admin can manage product_questions" on public.product_questions for all using (public.is_admin());

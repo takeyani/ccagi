@@ -17,6 +17,8 @@ export async function createProduct(formData: FormData) {
       base_price: Number(formData.get("base_price")),
       slug: formData.get("slug") as string,
       is_active: formData.get("is_active") === "on",
+      category_template_id: (formData.get("category_template_id") as string) || null,
+      custom_fields: extractCustomFields(formData),
     })
     .select("id")
     .single();
@@ -60,6 +62,8 @@ export async function updateProduct(id: string, formData: FormData) {
       base_price: Number(formData.get("base_price")),
       slug: formData.get("slug") as string,
       is_active: formData.get("is_active") === "on",
+      category_template_id: (formData.get("category_template_id") as string) || null,
+      custom_fields: extractCustomFields(formData),
       updated_at: new Date().toISOString(),
     })
     .eq("id", id);
@@ -91,6 +95,16 @@ export async function updateProduct(id: string, formData: FormData) {
 
   revalidatePath("/admin/products");
   redirect("/admin/products");
+}
+
+function extractCustomFields(formData: FormData): Record<string, string | number | boolean | null> | null {
+  const fields: Record<string, string | number | boolean | null> = {};
+  for (const [key, value] of formData.entries()) {
+    if (key.startsWith("cf_")) {
+      fields[key.slice(3)] = (value as string) || null;
+    }
+  }
+  return Object.keys(fields).length > 0 ? fields : null;
 }
 
 export async function deleteProduct(id: string) {

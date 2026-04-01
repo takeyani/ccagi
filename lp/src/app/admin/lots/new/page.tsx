@@ -141,6 +141,56 @@ export default async function NewLotPage() {
                 className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
               />
             </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                販売単位
+              </label>
+              <select
+                name="selling_unit"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+              >
+                <option value="個">個</option>
+                <option value="箱">箱</option>
+                <option value="ケース">ケース</option>
+                <option value="パレット">パレット</option>
+              </select>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                1箱あたりの個数
+              </label>
+              <input
+                name="units_per_case"
+                type="number"
+                min={1}
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                placeholder="例: 24"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                1パレットあたりの箱数
+              </label>
+              <input
+                name="cases_per_pallet"
+                type="number"
+                min={1}
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                placeholder="例: 40"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                最小注文単位数
+              </label>
+              <input
+                name="min_order_units"
+                type="number"
+                defaultValue={1}
+                min={1}
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+              />
+            </div>
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">

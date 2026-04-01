@@ -39,9 +39,15 @@ export default async function PartnerLotsPage() {
     },
     {
       key: "price",
-      label: "価格",
+      label: "販売価格",
       render: (l: { price: number | null }) =>
         l.price ? `¥${l.price.toLocaleString()}` : "-",
+    },
+    {
+      key: "wholesale_price",
+      label: "卸価格",
+      render: (l: { wholesale_price: number | null }) =>
+        l.wholesale_price ? `¥${l.wholesale_price.toLocaleString()}` : "-",
     },
     { key: "expiration_date", label: "賞味期限" },
   ];
