@@ -7,7 +7,7 @@ export default function Header() {
         <Link href="/" className="text-lg font-bold text-white">
           単品決済ロットLP
         </Link>
-        <nav className="flex items-center gap-3">
+        <nav className="flex items-center gap-3" aria-label="メインナビゲーション">
           <Link
             href="/affiliate"
             className="text-xs font-medium text-white/70 hover:text-white transition hidden sm:inline"

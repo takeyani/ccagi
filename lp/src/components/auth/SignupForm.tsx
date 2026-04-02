@@ -50,6 +50,7 @@ export function SignupForm() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
   const router = useRouter();
 
   async function handleSubmit(e: React.FormEvent) {
@@ -133,11 +134,14 @@ export function SignupForm() {
           );
         }
 
-        if (roleDef.role === "buyer") {
-          router.push("/buyer");
-        } else {
-          router.push("/partner");
-        }
+        setSuccess(true);
+        setTimeout(() => {
+          if (roleDef.role === "buyer") {
+            router.push("/buyer");
+          } else {
+            router.push("/partner");
+          }
+        }, 1500);
       } else {
         setError("登録に失敗しました。再度お試しください。");
         setLoading(false);
@@ -146,6 +150,20 @@ export function SignupForm() {
       setError("予期しないエラーが発生しました。");
       setLoading(false);
     }
+  }
+
+  if (success) {
+    return (
+      <div className="text-center space-y-4 py-4">
+        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
+          <svg className="h-8 w-8 text-green-600" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+          </svg>
+        </div>
+        <p className="text-sm font-medium text-gray-900">アカウントが作成されました</p>
+        <p className="text-xs text-gray-500">ダッシュボードに移動します...</p>
+      </div>
+    );
   }
 
   return (
