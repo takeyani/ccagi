@@ -79,6 +79,7 @@
 | 20 | ASPアフィリエイト | (本書 §25) | 外部サイト連携ASPサービス |
 | 21 | LPアクセス分析 | (本書 §26) | 流入元・流出・PV・CVR分析ダッシュボード |
 | 22 | ステップメール | (本書 §27) | 自動配信メールキャンペーン、購入トリガー、APIキー管理 |
+| 23 | 非財務インサイト | (本書 §28) | 感謝・感動・選択理由のアンケート収集、RAGデータベース |
 
 ---
 
@@ -1149,7 +1150,57 @@ Cronジョブ（GET /api/cron/step-mail）
 
 ---
 
-## 28. 関連文書
+## 28. 非財務インサイト（感謝・感動・選択理由）
+
+### 28.1 概要
+
+商品・サービスに対する顧客の「感謝」「感動」「選択理由」を収集し、非財務情報としてRAGデータベースに蓄積する。売上データ（財務情報）だけでは捉えられない顧客の本質的な価値観や動機を可視化する。
+
+### 28.2 収集カテゴリ
+
+| カテゴリ | アイコン | 質問内容 |
+|---------|--------|---------|
+| gratitude（感謝） | 🙏 | この商品・サービスを通じて、感謝していることは何ですか？ |
+| emotion（感動） | ✨ | この商品・サービスで感動した体験やエピソードがあれば教えてください |
+| choice_reason（選択理由） | 💡 | 数ある選択肢の中から、この商品・サービスを選んだ理由は何ですか？ |
+
+### 28.3 データモデル
+
+```
+non_financial_insights テーブル:
+  id, source_type (survey/review/inquiry/interview/manual),
+  source_id, category (gratitude/emotion/choice_reason/goal/other),
+  partner_id, product_id, customer_segment, content, summary,
+  tags[], sentiment_score, metadata (jsonb),
+  embedding (vector(1536) — pgvector有効化時),
+  created_at, updated_at
+```
+
+### 28.4 RAGデータベース
+
+- pgvector拡張によるベクトル検索（Supabase Pro + pgvector有効化時）
+- embedding列にOpenAI ada-002ベクトルを格納
+- IVFFLATインデックスによる高速類似検索
+- 非財務集計ビュー（`non_financial_summary`）でカテゴリ別集計
+
+### 28.5 画面
+
+| パス | 概要 |
+|------|------|
+| ロットLP内 NonFinancialSurvey | 商品ページ内の非財務アンケートフォーム |
+| `/partner/non-financial` | パートナー向けインサイトダッシュボード（自社商品分） |
+| `/admin/non-financial` | 管理者向け全体インサイト一覧 |
+
+### 28.6 APIルート
+
+| メソッド | パス | 説明 |
+|---------|------|------|
+| POST | `/api/non-financial` | インサイト記録 |
+| GET | `/api/non-financial` | インサイト取得・集計（partner_id/product_id/categoryフィルタ） |
+
+---
+
+## 29. 関連文書
 
 | 文書ID | タイトル | 概要 |
 |--------|---------|------|
