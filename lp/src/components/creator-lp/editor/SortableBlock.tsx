@@ -11,9 +11,12 @@ type Props = {
   isSelected: boolean;
   onSelect: () => void;
   onRemove: () => void;
+  onDuplicate?: () => void;
+  onMoveUp?: () => void;
+  onMoveDown?: () => void;
 };
 
-export function SortableBlock({ block, isSelected, onSelect, onRemove }: Props) {
+export function SortableBlock({ block, isSelected, onSelect, onRemove, onDuplicate, onMoveUp, onMoveDown }: Props) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
     useSortable({ id: block.id });
 
@@ -37,7 +40,7 @@ export function SortableBlock({ block, isSelected, onSelect, onRemove }: Props) 
           : "border-gray-200 hover:border-gray-300"
       }`}
     >
-      {/* Drag handle + controls */}
+      {/* Drag handle + label */}
       <div className="absolute -top-3 left-2 flex items-center gap-1">
         <button
           {...attributes}
@@ -51,16 +54,45 @@ export function SortableBlock({ block, isSelected, onSelect, onRemove }: Props) 
         </span>
       </div>
 
-      {/* Delete button */}
-      <button
-        onClick={(e) => {
-          e.stopPropagation();
-          onRemove();
-        }}
-        className="absolute -top-3 right-2 rounded bg-red-100 px-1.5 py-0.5 text-xs text-red-600 opacity-0 group-hover:opacity-100 transition hover:bg-red-200"
-      >
-        削除
-      </button>
+      {/* Action buttons */}
+      <div className="absolute -top-3 right-2 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition">
+        {onMoveUp && (
+          <button
+            onClick={(e) => { e.stopPropagation(); onMoveUp(); }}
+            className="rounded bg-gray-100 px-1.5 py-0.5 text-xs text-gray-600 hover:bg-gray-200"
+            title="上へ移動"
+          >
+            &uarr;
+          </button>
+        )}
+        {onMoveDown && (
+          <button
+            onClick={(e) => { e.stopPropagation(); onMoveDown(); }}
+            className="rounded bg-gray-100 px-1.5 py-0.5 text-xs text-gray-600 hover:bg-gray-200"
+            title="下へ移動"
+          >
+            &darr;
+          </button>
+        )}
+        {onDuplicate && (
+          <button
+            onClick={(e) => { e.stopPropagation(); onDuplicate(); }}
+            className="rounded bg-blue-100 px-1.5 py-0.5 text-xs text-blue-600 hover:bg-blue-200"
+            title="複製"
+          >
+            複製
+          </button>
+        )}
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            onRemove();
+          }}
+          className="rounded bg-red-100 px-1.5 py-0.5 text-xs text-red-600 hover:bg-red-200"
+        >
+          削除
+        </button>
+      </div>
 
       {/* Block preview */}
       <div className="mt-2 text-sm text-gray-500">
