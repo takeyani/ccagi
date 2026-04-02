@@ -5,7 +5,7 @@
 | 文書ID | REQ-SYSTEM-001 |
 | バージョン | 2.0 |
 | 作成日 | 2026-03-06 |
-| 更新日 | 2026-04-02 |
+| 更新日 | 2026-04-03 |
 | ステータス | 実装済み |
 
 ---
@@ -205,6 +205,35 @@ hero, product_info, lot_details, image, text, features, testimonial, faq, cta, d
 hero, image, text, features, testimonial, faq, cta, divider, collection_grid, collection_filter_bar
 
 **テーマ (LPTheme)**: primary_color, secondary_color, bg_color, font
+
+### 6.3.1 LPテンプレートプリセット（5種）
+
+新規デザイン作成時にテンプレート選択画面を表示。ワンクリックで定番ブロック構成とテーマカラーを適用。
+
+| ID | テンプレート名 | ブロック構成 |
+|----|------------|-----------|
+| standard | スタンダード | hero → product_info → features → lot_details → faq → cta |
+| minimal | ミニマル | text → divider → product_info → lot_details |
+| sales | セールス特化 | hero(赤) → product_info → features → testimonial×2 → lot_details → cta |
+| storytelling | ストーリー型 | hero(緑) → text → image → text → product_info → lot_details |
+| health | 健康食品・サプリ | hero(青) → product_info → features → testimonial → faq → lot_details → cta |
+
+### 6.3.2 テーマプリセット（7種）
+
+ワンクリックで配色を切替。カスタムカラーも手動設定可能。
+
+プリセット: インディゴ / ブラック / レッド / グリーン / ブルー / ピンク / ゴールド
+
+### 6.3.3 エディター操作機能
+
+| 機能 | 説明 |
+|------|------|
+| ドラッグ&ドロップ | @dnd-kitによるブロック並べ替え |
+| ブロック複製 | 選択中ブロックの直下にコピーを追加 |
+| ブロック上下移動 | ↑↓ボタンでワンクリック移動 |
+| ブロック削除 | hover時に削除ボタン表示 |
+| リアルタイム編集 | プロパティパネルで即時反映 |
+| プレビュー | フルスクリーンプレビューモード |
 
 ### 6.4 コレクションフィルタ条件
 

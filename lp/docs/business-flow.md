@@ -124,6 +124,12 @@ partners 作成（partner_type: 代理店, certification_status: 未認証）
   ↓
 クリエイターダッシュボード
   ├─ デザイン作成(/creator/designs/new)
+  │     ├─ 商品・ロット選択
+  │     └─ テンプレート選択（5種: スタンダード/ミニマル/セールス特化/ストーリー型/健康食品）
+  ├─ LP編集(/creator/designs/[id]/edit)
+  │     ├─ ブロック追加・並べ替え・複製・削除
+  │     ├─ テーマプリセット切替（7色）
+  │     └─ プレビュー確認 → 保存
   ├─ コレクション作成(/creator/collections/new)
   ├─ アクセス分析(/creator/analytics)
   └─ プロフィール管理(/creator/profile)
