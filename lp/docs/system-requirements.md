@@ -336,7 +336,7 @@ CollectionFilterConditions = {
 
 ---
 
-## 10. アフィリエイト
+## 10. アフィリエイト・紹介制度
 
 ### 10.1 機能
 
@@ -344,13 +344,29 @@ CollectionFilterConditions = {
 - Stripe Checkout metadata にアフィリエイトコード付与
 - クリエイター（is_creator=true）はLP作成・コレクション管理が可能
 - アフィリエイト登録API: `POST /api/affiliates/register`
+- メーカー/代理店のサインアップ時に `?ref=` からアフィリエイトIDを `partners.referred_by_affiliate_id` に保存
+- メーカー紹介報酬: 紹介先メーカーの売上に対して1%が継続的に発生（`maker_referral_commissions`, `maker_referral_payouts`）
 
-### 10.2 画面
+### 10.2 紹介報酬体系
+
+| 紹介先 | 報酬率 | 報酬対象 | 発生条件 |
+|--------|--------|---------|---------|
+| メーカー | 1% | メーカーの全売上 | `/signup?role=maker&ref=CODE` から登録 |
+| 代理店 | 1% | 代理店の全売上 | `/signup?role=agent&ref=CODE` から登録 |
+| クリエイター | 0.5% | クリエイターの売上 | グループ紹介フィー（別枠） |
+| 一般購入者 | 2% | 購入金額 | `?ref=CODE` リンクから購入 |
+
+※ 1段階のみの紹介制度。連鎖販売（マルチレベル）ではない。
+
+### 10.3 画面
 
 | パス | 概要 |
 |------|------|
-| `/affiliate` | アフィリエイト登録 |
+| `/affiliate` | アフィリエイト・クリエイター登録 |
+| `/guide/referral` | 紹介ガイド（メーカー/代理店/クリエイター紹介の手順・報酬） |
+| `/guide/start` | はじめてガイド（一般ユーザー向け利用パターン別案内） |
 | `/admin/affiliates` | アフィリエイト管理 |
+| `/admin/maker-referrals` | メーカー紹介者報酬管理 |
 | `/admin/creator-designs` | クリエイターデザインモデレーション |
 | `/affiliate/asp` | ASPプログラム一覧（アフィリエイター向け） |
 

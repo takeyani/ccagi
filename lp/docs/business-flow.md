@@ -25,11 +25,17 @@
   ├─ ヘッダー「新規登録」→ /signup（ロール選択: メーカー/代理店/バイヤー）
   ├─ ヘッダー「ログイン」→ /login
   ├─ ヘッダー「クリエイター / 紹介者」→ /affiliate
+  ├─ Hero「はじめてガイド」→ /guide/start
+  ├─ Hero「紹介して報酬を得る」→ /guide/referral
   └─ エコシステムセクション → 各ロール別CTA
        ├─ メーカー登録 → /signup?role=maker
        ├─ 代理店登録 → /signup?role=agent
        ├─ クリエイター登録 → /affiliate
        └─ バイヤー登録 → /signup?role=buyer
+
+一般ユーザー向けガイド:
+  /guide/start    → やりたいこと別の始め方案内（購入/紹介/クリエイター/メーカー/代理店）
+  /guide/referral → 紹介の仕方・報酬体系ガイド（メーカー1%/代理店1%/クリエイター0.5%/購入者2%）
 ```
 
 ---
@@ -43,6 +49,8 @@
   ↓
 user_profiles 作成（role: partner）
 partners 作成（partner_type: メーカー, certification_status: 未認証）
+  ※ ?ref= パラメータがある場合 → referred_by_affiliate_id に紹介者を記録
+  ※ 紹介者には以降の売上に対して1%の継続報酬が発生
   ↓
 パートナーダッシュボード(/partner)
   ↓
