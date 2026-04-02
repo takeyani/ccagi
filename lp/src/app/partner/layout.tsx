@@ -27,6 +27,7 @@ const navItems = [
   { href: "/partner/proofs/delivery", label: "配送証明", icon: "🚚" },
   { href: "/partner/lp-analytics", label: "LPアクセス分析", icon: "📊" },
   { href: "/partner/step-mail", label: "ステップメール", icon: "📧" },
+  { href: "/partner/non-financial", label: "非財務インサイト", icon: "🙏" },
   { href: "/partner/profile", label: "プロフィール", icon: "🏢" },
   { href: "/partner/members", label: "メンバー", icon: "👥" },
   { href: "/partner/groupware/announcements", label: "お知らせ", icon: "📢" },

@@ -1932,3 +1932,54 @@ create policy "Allow public insert" on public.product_questions for insert with 
 create policy "Allow partner select own" on public.product_questions for select using (true);
 create policy "Allow partner update own" on public.product_questions for update using (true);
 create policy "Admin can manage product_questions" on public.product_questions for all using (public.is_admin());
+
+-- ========================================
+-- 非財務情報RAGデータベース
+-- ========================================
+
+-- pgvector拡張（Supabase Proで利用可能）
+-- create extension if not exists vector with schema extensions;
+
+create table public.non_financial_insights (
+  id uuid primary key default uuid_generate_v4(),
+  source_type text not null check (source_type in ('survey', 'review', 'inquiry', 'interview', 'manual')),
+  source_id uuid,
+  category text not null check (category in ('gratitude', 'emotion', 'choice_reason', 'goal', 'other')),
+  partner_id uuid references public.partners(id),
+  product_id uuid references public.products(id),
+  customer_segment text,
+  content text not null,
+  summary text,
+  tags text[] default '{}',
+  sentiment_score numeric(3,2),
+  metadata jsonb default '{}',
+  -- embedding vector(1536), -- OpenAI ada-002 / Supabase Pro + pgvector有効化時にアンコメント
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+create index idx_nfi_category on public.non_financial_insights (category);
+create index idx_nfi_partner on public.non_financial_insights (partner_id);
+create index idx_nfi_product on public.non_financial_insights (product_id);
+create index idx_nfi_source on public.non_financial_insights (source_type, source_id);
+create index idx_nfi_tags on public.non_financial_insights using gin (tags);
+-- create index idx_nfi_embedding on public.non_financial_insights using ivfflat (embedding vector_cosine_ops) with (lists = 100);
+
+alter table public.non_financial_insights enable row level security;
+create policy "Allow admin full access nfi" on public.non_financial_insights for all using (public.is_admin());
+create policy "Allow partner select own nfi" on public.non_financial_insights for select using (
+  partner_id in (select id from public.partners where user_id = auth.uid())
+);
+create policy "Allow public insert nfi" on public.non_financial_insights for insert with check (true);
+
+-- 非財務集計ビュー
+create or replace view public.non_financial_summary as
+select
+  partner_id,
+  product_id,
+  category,
+  count(*) as total_count,
+  avg(sentiment_score) as avg_sentiment,
+  max(created_at) as latest_at
+from public.non_financial_insights
+group by partner_id, product_id, category;

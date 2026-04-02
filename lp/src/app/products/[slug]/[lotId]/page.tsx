@@ -5,6 +5,7 @@ import { getSupabase } from "@/lib/supabase";
 import LotPurchaseButton from "@/components/LotPurchaseButton";
 import RecurringPurchaseForm from "@/components/RecurringPurchaseForm";
 import { SurveySection } from "@/components/surveys/SurveySection";
+import { NonFinancialSurvey } from "@/components/surveys/NonFinancialSurvey";
 import { BoardSection } from "@/components/boards/BoardSection";
 import { QuestionSection } from "@/components/questions/QuestionSection";
 import { LPViewTracker } from "@/components/LPViewTracker";
@@ -354,6 +355,9 @@ export default async function LotPage({ params }: Props) {
             partnerName={partner.company_name}
           />
         )}
+
+        {/* 非財務アンケート（感謝・感動・選択理由） */}
+        <NonFinancialSurvey productId={product.id} partnerId={product.partner_id ?? undefined} lotId={lot.id} />
 
         {/* アンケート */}
         <SurveySection targetType="lot" targetId={lot.id} productId={product.id} />
