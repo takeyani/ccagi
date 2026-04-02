@@ -4,6 +4,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { LogoutButton } from "@/components/auth/LogoutButton";
 import { PartnerSidebar } from "@/components/partner/Sidebar";
 import { NotificationBell } from "@/components/shared/NotificationBell";
+import { MobileMenu } from "@/components/shared/MobileMenu";
 
 const navItems = [
   { href: "/partner", label: "ダッシュボード", icon: "📊" },
@@ -104,14 +105,15 @@ export default async function PartnerLayout({
     .eq("user_id", user.id)
     .eq("is_read", false);
 
+  const displayName = companyName || profile?.display_name || user!.email || "";
+
   return (
     <div className="flex min-h-screen">
-      <aside className="w-64 bg-white border-r flex flex-col sticky top-0 h-screen overflow-y-auto">
+      <MobileMenu items={navItems} title="取引先ポータル" displayName={displayName} />
+      <aside className="hidden md:flex w-64 bg-white border-r flex-col sticky top-0 h-screen overflow-y-auto">
         <div className="p-4 border-b">
           <h2 className="text-lg font-bold text-gray-900">取引先ポータル</h2>
-          <p className="text-sm text-gray-500 mt-1">
-            {companyName || profile?.display_name || user!.email}
-          </p>
+          <p className="text-sm text-gray-500 mt-1">{displayName}</p>
         </div>
         <PartnerSidebar items={navItems} />
         <div className="p-4 border-t">
@@ -119,7 +121,7 @@ export default async function PartnerLayout({
         </div>
       </aside>
       <div className="flex-1 flex flex-col">
-        <header className="bg-white border-b px-8 py-3 flex items-center justify-end">
+        <header className="bg-white border-b px-4 md:px-8 py-3 flex items-center justify-end">
           <NotificationBell
             notifications={notifications ?? []}
             unreadCount={unreadCount ?? 0}
@@ -127,7 +129,7 @@ export default async function PartnerLayout({
             notificationsPath="/partner/groupware/notifications"
           />
         </header>
-        <main className="flex-1 bg-gray-50 p-8">{children}</main>
+        <main className="flex-1 bg-gray-50 p-4 md:p-8">{children}</main>
       </div>
     </div>
   );

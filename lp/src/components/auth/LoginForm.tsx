@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
+import Link from "next/link";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 
 export function LoginForm() {
@@ -74,6 +75,7 @@ export function LoginForm() {
           id="email"
           type="email"
           required
+          autoComplete="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
@@ -94,7 +96,13 @@ export function LoginForm() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+          autoComplete="current-password"
         />
+        <div className="text-right mt-1">
+          <Link href="/forgot-password" className="text-xs text-indigo-600 hover:text-indigo-800">
+            パスワードを忘れた方
+          </Link>
+        </div>
       </div>
       <button
         type="submit"

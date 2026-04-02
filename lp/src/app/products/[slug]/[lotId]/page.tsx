@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import type { Metadata } from "next";
 import { getSupabase } from "@/lib/supabase";
 import LotPurchaseButton from "@/components/LotPurchaseButton";
 import RecurringPurchaseForm from "@/components/RecurringPurchaseForm";
@@ -13,6 +14,45 @@ import { CATEGORY_TEMPLATES } from "@/lib/types";
 type Props = {
   params: Promise<{ slug: string; lotId: string }>;
 };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug, lotId } = await params;
+  const { data: product } = await getSupabase()
+    .from("products")
+    .select("name, description, image_url, base_price")
+    .eq("slug", slug)
+    .eq("is_active", true)
+    .single();
+
+  if (!product) return { title: "商品が見つかりません" };
+
+  const { data: lot } = await getSupabase()
+    .from("lots")
+    .select("price, lot_number")
+    .eq("id", lotId)
+    .single();
+
+  const price = lot?.price ?? product.base_price;
+  const title = `${product.name}${price ? ` - ¥${price.toLocaleString()}` : ""}`;
+  const description = product.description?.slice(0, 160) || `${product.name}の商品ページ`;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      ...(product.image_url ? { images: [{ url: product.image_url }] } : {}),
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      ...(product.image_url ? { images: [product.image_url] } : {}),
+    },
+  };
+}
 
 export default async function LotPage({ params }: Props) {
   const { slug, lotId } = await params;
