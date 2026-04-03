@@ -45,6 +45,7 @@ const navItems = [
   { href: "/admin/articles", label: "記事LP", icon: "📰" },
   { href: "/admin/lp-analytics", label: "LPアクセス分析", icon: "📊" },
   { href: "/admin/marketing", label: "マーケティング", icon: "📈" },
+  { href: "/admin/non-financial", label: "非財務インサイト", icon: "🙏" },
 ];
 
 export default async function AdminLayout({

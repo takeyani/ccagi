@@ -37,32 +37,18 @@ export default async function TagDetailPage({ params }: Props) {
 
   if (!tag) notFound();
 
-  // タグに紐づく商品を取得
+  // タグに紐づく商品を取得（product_tags → products を結合クエリで取得）
   const { data: productTags } = await getSupabase()
     .from("product_tags")
-    .select("product_id")
-    .eq("tag_id", tag.id);
+    .select("product_id, products!inner(*, partners(company_name))")
+    .eq("tag_id", tag.id)
+    .eq("products.is_active", true);
 
-  const productIds = (productTags ?? []).map(
-    (pt: { product_id: string }) => pt.product_id
-  );
+  const products = (productTags ?? [])
+    .map((pt: Record<string, unknown>) => pt.products as Product & { partners: { company_name: string } | null })
+    .filter(Boolean);
 
-  let products: (Product & {
-    partners: { company_name: string } | null;
-  })[] = [];
-
-  if (productIds.length > 0) {
-    const { data } = await getSupabase()
-      .from("products")
-      .select("*, partners(company_name)")
-      .in("id", productIds)
-      .eq("is_active", true)
-      .order("created_at", { ascending: false });
-
-    products = (data ?? []) as typeof products;
-  }
-
-  // 各商品のロット情報を取得
+  // 各商品のロット情報を一括取得
   const allProductIds = products.map((p) => p.id);
   let lotsMap: Record<string, Lot[]> = {};
 

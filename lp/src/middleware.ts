@@ -48,17 +48,19 @@ export async function middleware(request: NextRequest) {
 
   const role = profile?.role;
 
-  // partner が /admin/* にアクセス → /partner へ
+  // partner が /admin/* にアクセス → 自ポータルへ（アクセス拒否通知付き）
   if (pathname.startsWith("/admin") && role !== "admin") {
-    if (role === "buyer") {
-      return NextResponse.redirect(new URL("/buyer", request.url));
-    }
-    return NextResponse.redirect(new URL("/partner", request.url));
+    const dest = role === "buyer" ? "/buyer" : "/partner";
+    const url = new URL(dest, request.url);
+    url.searchParams.set("denied", "admin");
+    return NextResponse.redirect(url);
   }
 
-  // buyer が /partner/* にアクセス → /buyer へ
+  // buyer が /partner/* にアクセス → /buyer へ（アクセス拒否通知付き）
   if (pathname.startsWith("/partner") && role === "buyer") {
-    return NextResponse.redirect(new URL("/buyer", request.url));
+    const url = new URL("/buyer", request.url);
+    url.searchParams.set("denied", "partner");
+    return NextResponse.redirect(url);
   }
 
   return response;

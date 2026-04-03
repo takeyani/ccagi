@@ -1,8 +1,10 @@
+import { Suspense } from "react";
 import { requirePartnerId } from "@/lib/auth";
 import { PartnerStatsCard } from "@/components/partner/StatsCard";
 import { DocumentStatusSummary } from "@/components/shared/DocumentStatusSummary";
 import { ActivityLogList } from "@/components/shared/ActivityLogList";
 import { DeadlineList } from "@/components/shared/DeadlineList";
+import { AccessDeniedBanner } from "@/components/shared/AccessDeniedBanner";
 import type { ActivityLog } from "@/lib/types";
 
 export default async function PartnerDashboardPage() {
@@ -155,10 +157,11 @@ export default async function PartnerDashboardPage() {
 
   return (
     <div>
+      <Suspense><AccessDeniedBanner /></Suspense>
       <h1 className="text-2xl font-bold mb-6">ダッシュボード</h1>
 
       {/* Row 1: KPIカード */}
-      <div className="grid grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
         <PartnerStatsCard
           label="今月の売上"
           value={`¥${monthlySales.toLocaleString()}`}
