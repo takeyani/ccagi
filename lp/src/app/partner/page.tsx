@@ -22,6 +22,10 @@ export default async function PartnerDashboardPage() {
     { data: upcomingQuotes },
     { data: upcomingInvoices },
     { data: upcomingTasks },
+    { count: productCount },
+    { count: activeLotCount },
+    { count: recurringCount },
+    { count: insightCount },
   ] = await Promise.all([
     // 今月入金済み請求書
     supabase
@@ -97,6 +101,29 @@ export default async function PartnerDashboardPage() {
       .in("status", ["未着手", "進行中"])
       .lte("due_date", new Date(Date.now() + 7 * 86400000).toISOString().split("T")[0])
       .order("due_date"),
+    // 商品数
+    supabase
+      .from("products")
+      .select("*", { count: "exact", head: true })
+      .eq("partner_id", partnerId)
+      .eq("is_active", true),
+    // 販売中ロット数
+    supabase
+      .from("lots")
+      .select("*, products!inner(partner_id)", { count: "exact", head: true })
+      .eq("products.partner_id", partnerId)
+      .eq("status", "販売中"),
+    // 定期購入数
+    supabase
+      .from("recurring_orders")
+      .select("*", { count: "exact", head: true })
+      .eq("partner_id", partnerId)
+      .eq("status", "有効"),
+    // 非財務インサイト数
+    supabase
+      .from("non_financial_insights")
+      .select("*", { count: "exact", head: true })
+      .eq("partner_id", partnerId),
   ]);
 
   const monthlySales = paidInvoices?.reduce((s, i) => s + (i.total ?? 0), 0) ?? 0;
@@ -162,34 +189,25 @@ export default async function PartnerDashboardPage() {
 
       {/* Row 1: KPIカード */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-        <PartnerStatsCard
-          label="今月の売上"
-          value={`¥${monthlySales.toLocaleString()}`}
-        />
-        <PartnerStatsCard
-          label="未回収請求"
-          value={uncollectedCount}
-          sub={uncollectedAmount > 0 ? `¥${uncollectedAmount.toLocaleString()}` : undefined}
-        />
-        <PartnerStatsCard
-          label="未対応引合い"
-          value={newInquiryCount}
-        />
-        <PartnerStatsCard
-          label="承認待ち"
-          value={pendingApprovalCount}
-        />
+        <PartnerStatsCard label="今月の売上" value={`¥${monthlySales.toLocaleString()}`} />
+        <PartnerStatsCard label="未回収請求" value={uncollectedCount} sub={uncollectedAmount > 0 ? `¥${uncollectedAmount.toLocaleString()}` : undefined} />
+        <PartnerStatsCard label="未対応引合い" value={newInquiryCount} />
+        <PartnerStatsCard label="承認待ち" value={pendingApprovalCount} />
+        <PartnerStatsCard label="商品数" value={productCount ?? 0} />
+        <PartnerStatsCard label="販売中ロット" value={activeLotCount ?? 0} />
+        <PartnerStatsCard label="定期購入（有効）" value={recurringCount ?? 0} />
+        <PartnerStatsCard label="非財務インサイト" value={insightCount ?? 0} />
       </div>
 
       {/* Row 2: 帳票ステータスサマリー */}
-      <div className="grid grid-cols-3 gap-4 mb-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         <DocumentStatusSummary title="見積書" statuses={quoteStatuses} />
         <DocumentStatusSummary title="請求書" statuses={invoiceStatuses} />
         <DocumentStatusSummary title="納品書" statuses={slipStatuses} />
       </div>
 
       {/* Row 3: 活動ログ + 期限リスト */}
-      <div className="grid grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="bg-white rounded-xl border shadow-sm p-6">
           <h2 className="font-semibold mb-4">直近の活動</h2>
           <ActivityLogList logs={(activityLogs ?? []) as ActivityLog[]} />
