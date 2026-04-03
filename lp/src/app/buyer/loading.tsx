@@ -1,0 +1,5 @@
+import { DashboardSkeleton } from "@/components/shared/SkeletonCard";
+
+export default function BuyerLoading() {
+  return <DashboardSkeleton />;
+}
