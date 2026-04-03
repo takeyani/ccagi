@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
+import Script from "next/script";
 import { Geist, Geist_Mono } from "next/font/google";
 import AffiliateTracker from "@/components/AffiliateTracker";
 import "./globals.css";
+
+const GA_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,6 +41,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
+      {GA_ID && (
+        <>
+          <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} strategy="afterInteractive" />
+          <Script id="ga4" strategy="afterInteractive">{`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_ID}');
+          `}</Script>
+        </>
+      )}
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
