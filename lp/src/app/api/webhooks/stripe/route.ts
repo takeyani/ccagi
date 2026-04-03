@@ -59,7 +59,7 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
         .eq("code", affiliateCode)
         .single();
 
-      const commissionRate = affiliate?.commission_rate ?? 10;
+      const commissionRate = affiliate?.commission_rate ?? 2;
       const commission = Math.round(
         (session.amount_total * commissionRate) / 100
       );
@@ -148,6 +148,40 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
     // 5. メーカー紹介者報酬
     if (purchaseId && session.amount_total) {
       await calculateMakerReferralCommission(purchaseId, session.amount_total);
+    }
+
+    // 5.5. クリエイター紹介フィー（0.5%）
+    // アフィリエイト（クリエイター）が販売した場合、そのクリエイターを紹介した人に0.5%
+    if (affiliateCode && session.amount_total) {
+      try {
+        const { data: sellerAffiliate } = await supabase
+          .from("affiliates")
+          .select("id, is_creator, referred_by_affiliate_id")
+          .eq("code", affiliateCode)
+          .single();
+
+        if (sellerAffiliate?.is_creator && sellerAffiliate.referred_by_affiliate_id) {
+          const groupFee = Math.round(session.amount_total * 0.005); // 0.5%
+          if (groupFee > 0) {
+            const { data: referrer } = await supabase
+              .from("affiliates")
+              .select("code")
+              .eq("id", sellerAffiliate.referred_by_affiliate_id)
+              .single();
+
+            if (referrer) {
+              await supabase.from("referrals").insert({
+                affiliate_code: referrer.code,
+                stripe_session_id: `${sessionId}_group`,
+                amount: session.amount_total,
+                commission: groupFee,
+              });
+            }
+          }
+        }
+      } catch (groupErr) {
+        console.error("Group referral fee error:", groupErr);
+      }
     }
 
     // 6. メーカーへの自動送金（Stripe Connect）

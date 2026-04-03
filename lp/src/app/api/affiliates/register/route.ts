@@ -10,9 +10,18 @@ function generateCode(name: string): string {
   return `${base || "ref"}-${rand}`;
 }
 
+async function lookupAffiliateId(refCode: string): Promise<string | null> {
+  const { data } = await getSupabase()
+    .from("affiliates")
+    .select("id")
+    .eq("code", refCode)
+    .single();
+  return data?.id ?? null;
+}
+
 export async function POST(request: Request) {
   try {
-    const { name, email } = await request.json();
+    const { name, email, is_creator, ref } = await request.json();
 
     if (!name || !email) {
       return NextResponse.json(
@@ -51,7 +60,13 @@ export async function POST(request: Request) {
 
     const { data, error } = await getSupabase()
       .from("affiliates")
-      .insert({ name, email, code })
+      .insert({
+        name,
+        email,
+        code,
+        is_creator: !!is_creator,
+        ...(ref ? { referred_by_affiliate_id: await lookupAffiliateId(ref) } : {}),
+      })
       .select("code")
       .single();
 

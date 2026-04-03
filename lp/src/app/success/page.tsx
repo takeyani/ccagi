@@ -29,7 +29,7 @@ export default async function SuccessPage({
           .eq("code", affiliateCode)
           .single();
 
-        const commissionRate = affiliate?.commission_rate ?? 10;
+        const commissionRate = affiliate?.commission_rate ?? 2;
         const commission = Math.round(
           (session.amount_total * commissionRate) / 100
         );

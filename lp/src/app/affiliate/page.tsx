@@ -23,7 +23,12 @@ export default function AffiliatePage() {
       const res = await fetch("/api/affiliates/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, is_creator: isCreator }),
+        body: JSON.stringify({
+          name,
+          email,
+          is_creator: isCreator,
+          ref: typeof window !== "undefined" ? localStorage.getItem("affiliate_ref") : null,
+        }),
       });
       const data = await res.json();
 

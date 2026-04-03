@@ -6,8 +6,9 @@ create table public.affiliates (
   name text not null,
   email text not null unique,
   code text not null unique,
-  commission_rate numeric(5,2) not null default 10.00,
+  commission_rate numeric(5,2) not null default 2.00,
   is_creator boolean not null default false,
+  referred_by_affiliate_id uuid,
   avatar_url text,
   bio text,
   created_at timestamptz not null default now()
