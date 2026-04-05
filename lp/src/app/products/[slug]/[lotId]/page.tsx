@@ -325,6 +325,9 @@ export default async function LotPage({ params }: Props) {
                 lotId={lot.id}
                 disabled={false}
                 statusLabel={statusLabel}
+                minOrderUnits={lot.min_order_units}
+                maxStock={lot.stock}
+                sellingUnit={lot.selling_unit ?? undefined}
               />
               <RecurringPurchaseForm lotId={lot.id} price={price} />
             </>
