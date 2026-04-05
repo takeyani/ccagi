@@ -115,17 +115,35 @@
 ### 3.3 決済フロー
 
 ```
-購入ボタン → POST /api/checkout (lot_id, affiliate_ref)
-  → reserve_lot_stock RPC で在庫を原子的に予約（FOR UPDATE ロック）
-  → 在庫不足の場合はエラー返却
-  → Stripe Checkout Session 作成（metadata: lot_id, product_id, shipping_method, shipping_fee, partner_id）
+購入ボタン → POST /api/checkout (lot_id, quantity, affiliate_ref)
+  → 在庫チェック（販売中 & stock >= quantity & 期限内）
+  → 最小注文数チェック（quantity >= min_order_units）
+  → reserve_lot_stock RPC で在庫を数量分 原子的に予約（p_quantity対応、FOR UPDATE ロック）
+  → Stripe Checkout Session 作成
+      line_items: quantity = 購入数量（販売単位ごと）
+      metadata: lot_id, product_id, selling_unit, quantity, shipping_method, shipping_fee, partner_id
   → 成功: /success → lot_purchases 記録（冪等性保証）
   → キャンセル: /cancel
 
-定期購入ボタン → POST /api/recurring (lot_id, frequency, customer_name, customer_email)
-  → 初回Stripe決済 → recurring_orders レコード作成
+定期購入ボタン → POST /api/recurring (lot_id, frequency, quantity, customer_name, customer_email)
+  → 在庫を数量分 原子的に予約（初回分）
+  → 初回Stripe決済（quantity反映） → recurring_orders レコード作成
   → 次回配送日を自動計算（頻度に基づく）
 ```
+
+### 3.4 販売単位と数量購入
+
+| 販売単位 | 購入UI | 在庫管理 | Stripe決済 |
+|---------|--------|---------|-----------|
+| 個 | ±ボタンで個数選択 | 個単位でデクリメント | quantity=N |
+| 箱 | ±ボタンで箱数選択 | 箱単位でデクリメント | quantity=N |
+| ケース | ±ボタンでケース数選択 | ケース単位でデクリメント | quantity=N |
+| パレット | ±ボタンでパレット数選択 | パレット単位でデクリメント | quantity=N |
+
+- `min_order_units`: 最小注文数（1以上）。APIで検証
+- `units_per_case`: 1箱/ケースあたりの個数（表示用）
+- `cases_per_pallet`: 1パレットあたりのケース数（表示用）
+- `reserve_lot_stock(p_lot_id, p_session_id, p_quantity)`: 数量対応の原子的在庫予約RPC
 
 ---
 

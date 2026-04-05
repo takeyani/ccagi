@@ -160,15 +160,16 @@ LP公開
 ```
 商品ページ閲覧(/products/[slug]/[lotId])
   ├─ 商品情報・カテゴリ固有情報表示
-  ├─ 販売単位（箱/ケース等）・最小注文数確認
+  ├─ 販売単位（個/箱/ケース/パレット）・最小注文数確認
+  ├─ 数量選択（±ボタン、最小注文数〜在庫上限）
   ├─ メーカー認証バッジ確認
   ├─ Q&A・アンケート参加
   ├─ 非財務アンケート（感謝・感動・選択理由）
   └─ 定期購入フォーム（毎週/隔週/毎月/隔月）
   ↓
-「今すぐ購入する」ボタン → 決済フローへ
+「今すぐ購入する（○箱）」ボタン → 決済フロー（数量反映）
  or
-「定期購入で申し込む」→ 定期購入フローへ
+「定期購入で申し込む」→ 定期購入フロー（数量反映）
 ```
 
 ## フロー7: AIエージェント購入（バイヤー）
@@ -204,14 +205,16 @@ AIが条件に合う商品を自動検索・5軸スコアリング
 ## フロー8: 決済フロー（単品購入）
 
 ```
-購入ボタンクリック
+購入ボタンクリック（数量選択: ±ボタンで個/箱/ケース/パレット単位）
   ↓
-POST /api/checkout
-  ├─ ロット在庫チェック（販売中 & 在庫 > 0 & 期限内）
-  ├─ reserve_lot_stock RPC で在庫を原子的に予約
+POST /api/checkout (lot_id, quantity, ref)
+  ├─ ロット在庫チェック（販売中 & 在庫 >= 数量 & 期限内）
+  ├─ 最小注文数チェック（quantity >= min_order_units）
+  ├─ reserve_lot_stock RPC で在庫を数量分 原子的に予約（p_quantity対応）
   ├─ アフィリエイトコード検証
   └─ Stripe Checkout Session 作成
-      ├─ メタデータ: lot_id, product_id, partner_id, selling_unit, shipping情報
+      ├─ line_items: quantity = 購入数量（販売単位ごと）
+      ├─ メタデータ: lot_id, product_id, partner_id, selling_unit, quantity, shipping情報
       └─ 成功URL / キャンセルURL
   ↓
 Stripe決済画面
