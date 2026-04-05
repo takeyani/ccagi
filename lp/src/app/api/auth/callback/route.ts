@@ -65,12 +65,12 @@ export async function GET(request: NextRequest) {
           if (role === "partner") {
             await admin.from("partners").upsert(
               {
-                user_id: user.id,
+                auth_user_id: user.id,
                 company_name: displayName,
                 partner_type: partnerType,
                 certification_status: "未認証",
               },
-              { onConflict: "user_id" }
+              { onConflict: "auth_user_id" }
             );
           }
         }

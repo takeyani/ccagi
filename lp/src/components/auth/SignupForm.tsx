@@ -124,13 +124,13 @@ export function SignupForm() {
 
           await supabase.from("partners").upsert(
             {
-              user_id: data.user.id,
+              auth_user_id: data.user.id,
               company_name: displayName,
               partner_type: roleDef.partnerType,
               certification_status: "未認証",
               ...(referredByAffiliateId ? { referred_by_affiliate_id: referredByAffiliateId } : {}),
             },
-            { onConflict: "user_id" }
+            { onConflict: "auth_user_id" }
           );
         }
 
