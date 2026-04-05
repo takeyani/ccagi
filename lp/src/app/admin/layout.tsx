@@ -86,12 +86,12 @@ export default async function AdminLayout({
 
       {/* デスクトップ用サイドバー */}
       <aside className="hidden md:flex w-64 bg-gray-900 text-white flex-col">
-        <div className="p-4 border-b border-gray-700">
-          <h2 className="text-lg font-bold">管理ダッシュボード</h2>
+        <div className="p-4 border-b border-gray-800">
+          <h2 className="text-lg font-bold tracking-wide">管理ダッシュボード</h2>
           <p className="text-sm text-gray-400 mt-1">{displayName}</p>
         </div>
         <Sidebar items={navItems} />
-        <div className="p-4 border-t border-gray-700">
+        <div className="p-4 border-t border-gray-800">
           <LogoutButton />
         </div>
       </aside>

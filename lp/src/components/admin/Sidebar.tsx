@@ -18,10 +18,10 @@ export function Sidebar({ items }: { items: NavItem[] }) {
           <Link
             key={item.href}
             href={item.href}
-            className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors ${
+            className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-all duration-200 ${
               isActive
-                ? "bg-indigo-600 text-white"
-                : "text-gray-300 hover:bg-gray-800 hover:text-white"
+                ? "bg-indigo-600/90 text-white shadow-sm"
+                : "text-gray-400 hover:bg-gray-800 hover:text-gray-100"
             }`}
           >
             <span>{item.icon}</span>

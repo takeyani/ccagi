@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Ecosystem() {
   return (
-    <section className="bg-slate-900 text-white py-20">
+    <section className="bg-gray-900 text-white py-20">
       <div className="mx-auto max-w-5xl px-6">
         <p className="text-sm font-medium text-blue-400 tracking-wider mb-3 text-center">
           NOT JUST BUYING — EVERYONE CAN SELL
@@ -52,7 +52,7 @@ export default function Ecosystem() {
               cta: { label: "バイヤー登録", href: "/signup?role=buyer" },
             },
           ].map((item) => (
-            <div key={item.role} className="bg-slate-800 border border-slate-700 rounded-2xl overflow-hidden flex flex-col">
+            <div key={item.role} className="bg-gray-800 border border-gray-700 rounded-2xl overflow-hidden flex flex-col">
               <div className={`bg-gradient-to-r ${item.color} px-4 py-3 flex items-center gap-2`}>
                 <span className="text-xl">{item.icon}</span>
                 <span className="font-bold text-sm">{item.role}</span>
