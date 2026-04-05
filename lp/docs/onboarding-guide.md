@@ -96,6 +96,7 @@ STRIPE_WEBHOOK_SECRET=whsec_実際の値
 | `STRIPE_SECRET_KEY` | Stripe シークレットキー | 手動 |
 | `STRIPE_WEBHOOK_SECRET` | Stripe Webhook シークレット | 手動 |
 | `NEXT_PUBLIC_BASE_URL` | アプリのベースURL（省略時 localhost:3000） | 任意 |
+| `CRON_SECRET` | Cronジョブ認証用Bearer トークン | 手動（本番必須） |
 
 ---
 
@@ -188,7 +189,7 @@ src/components/   → 機能別コンポーネント
   shared/         → 共通コンポーネント
   auth/           → 認証
 src/lib/          → ユーティリティ
-  types.ts        → 全型定義（690行）
+  types.ts        → 全型定義（1,300行）
   auth.ts         → 認証ヘルパー
   supabase/       → Supabase クライアント（client/server/admin）
   creator-lp/     → LP関連ユーティリティ
@@ -225,7 +226,7 @@ VALUES ('ユーザーのUUID', 'buyer', 'テストバイヤー');
 
 | ファイル | 文書ID | 内容 |
 |---------|--------|------|
-| `docs/system-requirements.md` | REQ-SYSTEM-001 | システム全体要件定義（全11モジュール） |
+| `docs/system-requirements.md` | REQ-SYSTEM-001 | システム全体要件定義（全25モジュール） |
 | `docs/buying-agent-requirements.md` | REQ-BUYING-AGENT-001 | 購買エージェント要件定義 |
 | `docs/buying-agent-design.md` | DES-BUYING-AGENT-001 | 購買エージェント設計書 |
 | `docs/embed-requirements.md` | REQ-EMBED-001 | EC埋め込みウィジェット要件定義 |
