@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { OAuthButtons } from "@/components/auth/OAuthButtons";
 
 export default function AffiliatePage() {
   const [name, setName] = useState("");
@@ -243,9 +244,24 @@ export default function AffiliatePage() {
         </div>
 
         {!result ? (
+          <div className="mt-8 rounded-2xl bg-white p-8 shadow-lg">
+            <p className="text-sm font-medium text-gray-700 text-center mb-4">Googleアカウントで簡単登録</p>
+            <OAuthButtons redirectTo="/affiliate" label="Googleで登録" />
+            <div className="relative my-6">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-gray-300" />
+              </div>
+              <div className="relative flex justify-center text-sm">
+                <span className="px-2 bg-white text-gray-500">またはメールで登録</span>
+              </div>
+            </div>
+          </div>
+        ) : null}
+
+        {!result ? (
           <form
             onSubmit={handleSubmit}
-            className="mt-8 rounded-2xl bg-white p-8 shadow-lg"
+            className="rounded-2xl bg-white px-8 pb-8 -mt-4 shadow-lg"
           >
             <div className="space-y-5">
               <div>

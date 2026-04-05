@@ -3,16 +3,19 @@
 import { useState } from "react";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 
-export function OAuthButtons() {
+export function OAuthButtons({ redirectTo, label }: { redirectTo?: string; label?: string } = {}) {
   const [loading, setLoading] = useState(false);
 
   async function handleGoogleLogin() {
     setLoading(true);
     const supabase = createSupabaseBrowserClient();
+    const callbackUrl = redirectTo
+      ? `${window.location.origin}/api/auth/callback?redirect=${encodeURIComponent(redirectTo)}`
+      : `${window.location.origin}/api/auth/callback`;
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: `${window.location.origin}/api/auth/callback`,
+        redirectTo: callbackUrl,
       },
     });
     if (error) {
@@ -54,7 +57,7 @@ export function OAuthButtons() {
             fill="#EA4335"
           />
         </svg>
-        {loading ? "接続中..." : "Googleでログイン"}
+        {loading ? "接続中..." : (label ?? "Googleでログイン")}
       </button>
     </div>
   );
