@@ -340,6 +340,27 @@ RAGデータベースに蓄積 → AI分析・レポート生成（pgvector有�
   └─ 非財務インサイト（全パートナーの感謝・感動・選択理由）
 ```
 
+## フロー14: パートナーのステップメール管理
+
+```
+パートナーダッシュボード(/partner)
+  ↓
+ステップメール(/partner/step-mail)
+  ├─ キャンペーン一覧（ステップ数・登録者数・ステータス表示）
+  └─ 新規作成(/partner/step-mail/new)
+       ├─ テンプレート選択（購入お礼メール3通 / フォローアップ3通）
+       ├─ カスタム差出人名設定
+       ├─ トリガーイベント（購入完了/問い合わせ/カスタム）
+       └─ ステップ追加・編集（件名/本文/遅延時間）
+  ↓
+テンプレート変数で自動パーソナライズ
+  ├─ {{user_name}} — 顧客名
+  ├─ {{user_email}} — 顧客メール
+  └─ {{unsubscribe_url}} — 配信停止リンク
+  ↓
+Cronジョブが自動配信（GET /api/cron/step-mail）
+```
+
 ---
 
 ## 対応カテゴリ（11種）
@@ -378,6 +399,7 @@ RAGデータベースに蓄積 → AI分析・レポート生成（pgvector有�
 | メール/パスワード | メーカー・代理店・バイヤー | `/signup` でロール選択 | Supabase Auth |
 | Google OAuth | メーカー・代理店・バイヤー | `/signup` でロール選択 → OAuth | Supabase + Google Cloud |
 | クリエイターコード | クリエイターのみ | `/affiliate` でコード発行 | affiliates.code で認証 |
+| パスワードリセット | メール/パスワードユーザー | `/forgot-password` → メール → `/reset-password` | Supabase Auth |
 
 ---
 

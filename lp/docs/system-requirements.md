@@ -480,10 +480,12 @@ CollectionFilterConditions = {
   YES → 認証チェック
     未認証 → /login?redirect=pathname
     認証済み → ロール判定
-      /admin/* → admin以外は自ロールポータルへリダイレクト
-      /partner/* → buyer は /buyer へリダイレクト
+      /admin/* → admin以外は自ロールポータルへリダイレクト（?denied=admin付き）
+      /partner/* → buyer は /buyer へリダイレクト（?denied=partner付き）
       /buyer/* → 認証済みなら許可
 ```
+
+アクセス拒否時はリダイレクト先でAccessDeniedBannerコンポーネントが5秒間通知を表示。
 
 ### 14.2 認証関数
 
@@ -500,6 +502,16 @@ CollectionFilterConditions = {
 | partner_invitations | 招待メール送信、トークン管理 |
 
 画面: `/partner/members`, `/(auth)/invite`
+
+### 14.4 パスワードリセット
+
+| パス | 概要 |
+|------|------|
+| `/forgot-password` | メールアドレス入力 → Supabase resetPasswordForEmail でリセットリンク送信 |
+| `/reset-password` | 新しいパスワード入力（8文字以上+英字+数字バリデーション） |
+| `/login` | 「パスワードを忘れた方」リンクあり |
+
+パスワード要件: 8文字以上、英字と数字を含む。サインアップ・リセット両方でリアルタイムバリデーション表示。
 
 ---
 
@@ -1135,6 +1147,8 @@ Cronジョブ（GET /api/cron/step-mail）
 | `/admin/step-mail/[id]` | キャンペーン詳細・ステップ編集 |
 | `/admin/step-mail/[id]/enrollments` | 登録者一覧 |
 | `/admin/step-mail/api-keys` | APIキー管理 |
+| `/partner/step-mail` | パートナー向けキャンペーン一覧 |
+| `/partner/step-mail/new` | パートナー向けキャンペーン作成（テンプレート2種付き） |
 
 ### 27.5 APIルート
 
@@ -1200,7 +1214,50 @@ non_financial_insights テーブル:
 
 ---
 
-## 29. 関連文書
+## 29. プラットフォーム改善基盤
+
+### 29.1 UX改善
+
+| 機能 | 説明 | ファイル |
+|------|------|---------|
+| モバイルメニュー | パートナー/バイヤーにハンバーガーメニュー追加、md:以下でスライドイン | `components/shared/MobileMenu.tsx` |
+| スケルトンローディング | ダッシュボード遷移時のloading.tsx + DashboardSkeleton | `components/shared/SkeletonCard.tsx` |
+| ステータスバッジ統一 | 30+ステータスに対応した統一バッジコンポーネント | `components/shared/StatusBadge.tsx` |
+| アクセス拒否通知 | 権限外アクセス時に5秒間バナー表示 | `components/shared/AccessDeniedBanner.tsx` |
+| サインアップ成功UI | 登録完了時にチェックマーク + 自動リダイレクト | `components/auth/SignupForm.tsx` |
+| 購入数量選択 | ±ボタン付き数量入力、最小注文数・在庫上限対応 | `components/LotPurchaseButton.tsx` |
+| DataTableバッチ選択 | チェックボックス全選択/個別選択 + バッチアクションバー | `components/admin/DataTable.tsx` |
+
+### 29.2 SEO・アナリティクス
+
+| 機能 | 説明 |
+|------|------|
+| OGタグ/Twitterカード | 商品ページにgenerateMetadata追加。画像・価格・説明を自動生成 |
+| サイト名テンプレート | 全ページタイトルに「| 単品決済ロットLP」を自動付与 |
+| GA4対応 | `NEXT_PUBLIC_GA_MEASUREMENT_ID`設定時にgtag自動挿入。未設定なら非表示 |
+
+### 29.3 セキュリティ・インフラ
+
+| 機能 | 説明 | ファイル |
+|------|------|---------|
+| パスワードバリデーション | 8文字+英字+数字、リアルタイム表示 | `components/auth/SignupForm.tsx`, `ResetPasswordForm.tsx` |
+| autocomplete属性 | 全フォームにemail/password autocomplete追加 | 各Formコンポーネント |
+| レート制限ヘルパー | メモリベース簡易レート制限（API保護用） | `lib/rate-limit.ts` |
+| 監査ログヘルパー | create/update/delete/approve等の操作記録 | `lib/audit-log.ts` |
+| APIエラーヘルパー | エラーコード付きレスポンス（NOT_FOUND, VALIDATION_ERROR等） | `lib/api-error.ts` |
+| ダークモード無効化 | 管理画面がlight前提のため、prefers-color-scheme darkを無効化 | `globals.css` |
+
+### 29.4 ダッシュボードKPI
+
+| ポータル | KPI数 | 主要指標 |
+|---------|-------|---------|
+| パートナー | 8指標 | 売上/未回収請求/引合い/承認待ち/商品数/ロット数/定期購入/非財務インサイト |
+| バイヤー | 5指標 | エージェント数/未確認結果/購入済み/注文数/自動入札 + 最近の結果一覧 + クイックアクション |
+| 管理者 | 既存KPI | 売上/オークション/パートナー/商品 |
+
+---
+
+## 30. 関連文書
 
 | 文書ID | タイトル | 概要 |
 |--------|---------|------|
