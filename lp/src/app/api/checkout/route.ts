@@ -14,6 +14,7 @@ export async function POST(request: Request) {
     const body = await request.json().catch(() => ({}));
     const ref = body.ref as string | undefined;
     const lotId = body.lot_id as string | undefined;
+    const requestedQty = Math.max(1, parseInt(body.quantity, 10) || 1);
 
     const metadata: Record<string, string> = {};
 
@@ -54,6 +55,20 @@ export async function POST(request: Request) {
         );
       }
 
+      if (lot.stock < requestedQty) {
+        return NextResponse.json(
+          { error: `在庫が不足しています（残り${lot.stock}${lot.selling_unit ?? "個"}）` },
+          { status: 400 }
+        );
+      }
+
+      if (lot.min_order_units && requestedQty < lot.min_order_units) {
+        return NextResponse.json(
+          { error: `最小注文数は${lot.min_order_units}${lot.selling_unit ?? "個"}です` },
+          { status: 400 }
+        );
+      }
+
       if (lot.expiration_date && new Date(lot.expiration_date) < new Date()) {
         return NextResponse.json(
           { error: "このロットは販売期間が終了しています" },
@@ -64,7 +79,7 @@ export async function POST(request: Request) {
       // Atomically reserve stock
       const { data: reserved, error: reserveError } = await getSupabase().rpc(
         "reserve_lot_stock",
-        { p_lot_id: lotId, p_session_id: "" }
+        { p_lot_id: lotId, p_session_id: "", p_quantity: requestedQty }
       );
 
       if (reserveError || !reserved) {
@@ -104,6 +119,7 @@ export async function POST(request: Request) {
       if (product.partner_id) {
         metadata.partner_id = product.partner_id;
       }
+      metadata.quantity = String(requestedQty);
     } else {
       // 従来のトップページ経由の購入
       priceId = process.env.STRIPE_PRICE_ID!;
@@ -115,7 +131,7 @@ export async function POST(request: Request) {
       line_items: [
         {
           price: priceId,
-          quantity: 1,
+          quantity: requestedQty,
         },
       ],
       metadata,

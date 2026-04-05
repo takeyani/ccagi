@@ -58,9 +58,10 @@ export async function POST(request: Request) {
     }
 
     // 在庫確保（初回分）
+    const qty = Math.max(1, parseInt(quantity, 10) || 1);
     const { data: reserved, error: reserveError } = await getSupabase().rpc(
       "reserve_lot_stock",
-      { p_lot_id: lot_id, p_session_id: "" }
+      { p_lot_id: lot_id, p_session_id: "", p_quantity: qty }
     );
 
     if (reserveError || !reserved) {

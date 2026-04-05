@@ -1672,7 +1672,7 @@ as $$
 $$;
 
 -- 在庫予約RPC（チェックアウト時に仮予約）
-create or replace function public.reserve_lot_stock(p_lot_id uuid, p_session_id text)
+create or replace function public.reserve_lot_stock(p_lot_id uuid, p_session_id text, p_quantity integer default 1)
 returns boolean
 language plpgsql
 security definer
@@ -1680,7 +1680,10 @@ as $$
 declare
   v_stock integer;
   v_status text;
+  v_qty integer;
 begin
+  v_qty := greatest(p_quantity, 1);
+
   select stock, status into v_stock, v_status
   from public.lots
   where id = p_lot_id
@@ -1690,14 +1693,14 @@ begin
     return false;
   end if;
 
-  if v_status <> '販売中' or v_stock <= 0 then
+  if v_status <> '販売中' or v_stock < v_qty then
     return false;
   end if;
 
-  -- 在庫を仮デクリメント
+  -- 在庫を数量分デクリメント
   update public.lots
-  set stock = stock - 1,
-      status = case when stock - 1 = 0 then '売切れ' else status end,
+  set stock = stock - v_qty,
+      status = case when stock - v_qty = 0 then '売切れ' else status end,
       updated_at = now()
   where id = p_lot_id;
 
