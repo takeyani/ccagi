@@ -346,6 +346,12 @@ RAGデータベースに蓄積 → AI分析・レポート生成（pgvector有�
 ## フロー14: エージェントの自動実行
 
 ```
+Cronスケジュール（vercel.json 登録済み）
+  ├─ /api/cron/step-mail    … 毎日 0:00 UTC
+  ├─ /api/cron/agents       … 6時間ごと（UTC 0,6,12,18時）
+  └─ /api/cron/sales-agent  … 毎日 8:00 UTC
+  ※ 全エンドポイント CRON_SECRET Bearer認証必須
+
 購買エージェント自動実行（GET /api/cron/agents）
   ├─ 有効な購買エージェントを最大20件取得
   ├─ 各エージェントに対して run_buying_agent RPC を実行

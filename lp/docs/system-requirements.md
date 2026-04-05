@@ -576,7 +576,9 @@ CollectionFilterConditions = {
 | POST | `/api/step-mail/events` | ステップメールイベント送信 |
 | GET | `/api/step-mail/unsubscribe` | 配信停止 |
 | GET/POST | `/api/step-mail/api-keys` | ステップメールAPIキー管理 |
-| GET | `/api/cron/step-mail` | Cronジョブ（メール配信 + EC同期） |
+| GET | `/api/cron/step-mail` | Cronジョブ（メール配信 + EC同期）— 毎日 0:00 UTC |
+| GET | `/api/cron/agents` | 購買エージェント自動実行 — 6時間ごと |
+| GET | `/api/cron/sales-agent` | 販売エージェント自動モニタリング — 毎日 8:00 UTC |
 
 ---
 
@@ -1293,10 +1295,13 @@ KPI: 販売中ロット数 / 未対応引合い / 過去30日販売 / 在庫ア�
 
 ### 31.3 Cron自動モニタリング
 
-| エンドポイント | 概要 |
-|--------------|------|
-| `GET /api/cron/agents` | 購買エージェント自動実行（有効なエージェントを最大20件/バッチで実行） |
-| `GET /api/cron/sales-agent` | 販売エージェント自動モニタリング |
+| エンドポイント | 概要 | スケジュール |
+|--------------|------|------------|
+| `GET /api/cron/step-mail` | メール配信 + EC同期 | 毎日 0:00（UTC） |
+| `GET /api/cron/agents` | 購買エージェント自動実行（有効なエージェントを最大20件/バッチで実行） | 6時間ごと（UTC 0,6,12,18時） |
+| `GET /api/cron/sales-agent` | 販売エージェント自動モニタリング | 毎日 8:00（UTC） |
+
+全cronエンドポイントは `CRON_SECRET` による Bearer認証必須。vercel.json に登録済み。
 
 販売エージェントCronの処理:
 
