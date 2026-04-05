@@ -25,6 +25,7 @@ const navItems = [
   { href: "/partner/proofs/product", label: "商品証明", icon: "🧪" },
   { href: "/partner/proofs/inventory", label: "在庫証明", icon: "📍" },
   { href: "/partner/proofs/delivery", label: "配送証明", icon: "🚚" },
+  { href: "/partner/sales-agent", label: "販売エージェント", icon: "🤖" },
   { href: "/partner/lp-analytics", label: "LPアクセス分析", icon: "📊" },
   { href: "/partner/step-mail", label: "ステップメール", icon: "📧" },
   { href: "/partner/non-financial", label: "非財務インサイト", icon: "🙏" },
