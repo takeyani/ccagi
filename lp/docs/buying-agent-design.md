@@ -3,9 +3,9 @@
 | 項目 | 内容 |
 |------|------|
 | 文書ID | DES-BUYING-AGENT-001 |
-| バージョン | 1.3 |
+| バージョン | 1.4 |
 | 作成日 | 2026-03-03 |
-| 更新日 | 2026-03-29 |
+| 更新日 | 2026-04-06 |
 | ステータス | 実装済み |
 | 対応要件 | REQ-BUYING-AGENT-001 v1.3 |
 | 関連文書 | REQ-SYSTEM-001（システム全体要件）, DES-EMBED-001（埋め込みウィジェット設計） |
@@ -1041,3 +1041,60 @@ webhooks/stripe/route.ts（checkout.session.completed）
 | プロフィール | 2カラム | 1カラム |
 
 関連コンポーネント: `src/components/admin/MobileMenuButton.tsx`
+
+---
+
+## 11. Cron自動実行設計
+
+### 11.1 概要
+
+購買エージェントをVercel Cronで定期的に自動実行し、バイヤーが手動実行しなくても最新のマッチング結果を取得できるようにする。
+
+### 11.2 エンドポイント
+
+`GET /api/cron/agents`
+
+| 項目 | 内容 |
+|------|------|
+| ランタイム | Node.js |
+| 認証 | `Authorization: Bearer ${CRON_SECRET}` |
+| スケジュール | 6時間ごと（UTC 0,6,12,18時） |
+| 登録先 | `vercel.json` |
+
+### 11.3 処理フロー
+
+```
+GET /api/cron/agents
+  │
+  ├── 1. CRON_SECRET による Bearer認証チェック
+  │     └── 不一致 → 401 Unauthorized
+  │
+  ├── 2. 有効な購買エージェントを全件取得
+  │     └── buying_agents WHERE status = '有効'
+  │
+  ├── 3. 最大20件/バッチに制限（agents.slice(0, 20)）
+  │
+  ├── 4. 各エージェントに対して run_buying_agent RPC を実行
+  │     ├── 成功 → matchCount を記録
+  │     └── 失敗 → error を記録（他のエージェントは継続）
+  │
+  └── 5. レスポンス返却
+        ├── totalAgents: 有効エージェント総数
+        ├── executed: 今回実行した件数
+        ├── results: 各エージェントの実行結果
+        └── timestamp: 実行日時
+```
+
+### 11.4 関連ファイル
+
+| ファイル | 役割 |
+|---------|------|
+| `src/app/api/cron/agents/route.ts` | Cronエンドポイント実装 |
+| `supabase/migrations/*_add_buying_agents.sql` | `run_buying_agent` RPC定義 |
+| `vercel.json` | Cronスケジュール登録 |
+
+### 11.5 運用上の注意
+
+- エージェント数が20件を超える場合、超過分は次回バッチで実行される
+- 個別エージェントのエラーは全体を停止させない（他のエージェントは継続実行）
+- `CRON_SECRET` 環境変数がVercel本番環境に設定されていること

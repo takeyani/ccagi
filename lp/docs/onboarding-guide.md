@@ -3,9 +3,9 @@
 | 項目 | 内容 |
 |------|------|
 | 文書ID | GUIDE-ONBOARDING-001 |
-| バージョン | 1.0 |
+| バージョン | 1.1 |
 | 作成日 | 2026-03-06 |
-| 更新日 | 2026-03-06 |
+| 更新日 | 2026-04-06 |
 
 ---
 
@@ -118,6 +118,8 @@ npm run dev           # 開発サーバー起動
 npm run build         # プロダクションビルド
 npm run lint          # ESLint 実行
 npx tsc --noEmit      # TypeScript 型チェック
+npm run test          # テスト実行（Vitest）
+npm run test:watch    # テスト監視モード
 npm run dev:local     # setup + dev を一括実行
 
 # Supabase
@@ -140,6 +142,7 @@ npm run supabase:status  # 状態確認
 | 認証 | Supabase Auth | - |
 | 決済 | Stripe | 20.x |
 | D&D | @dnd-kit | 6.x / 10.x |
+| テスト | Vitest | 4.x |
 | 言語 | TypeScript | 5.x |
 
 ---
