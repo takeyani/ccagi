@@ -11,7 +11,7 @@ const mockRpc = vi.fn();
 const mockSingle = vi.fn();
 const mockEq = vi.fn(() => ({ single: mockSingle }));
 const mockSelect = vi.fn(() => ({ eq: mockEq }));
-const mockFrom = vi.fn(() => ({ select: mockSelect }));
+const mockFrom: ReturnType<typeof vi.fn> = vi.fn((_table?: string) => ({ select: mockSelect }));
 const mockSupabase = { from: mockFrom, rpc: mockRpc };
 
 vi.mock("@/lib/supabase", () => ({
