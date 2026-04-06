@@ -404,13 +404,25 @@ export default function AffiliatePage() {
           </div>
         )}
 
-        <div className="mt-6 text-center">
-          <Link
-            href="/"
-            className="text-sm text-indigo-600 transition hover:text-indigo-800"
-          >
-            &larr; トップページに戻る
-          </Link>
+        <div className="mt-6 space-y-3">
+          <div className="flex items-center justify-center gap-2 p-3 rounded-lg border border-indigo-200 bg-indigo-50">
+            <span className="text-sm">🏭🏢🛒</span>
+            <div className="text-left">
+              <p className="text-xs font-medium text-indigo-700">メーカー・代理店・バイヤーの方</p>
+              <div className="flex gap-2 mt-0.5">
+                <Link href="/login" className="text-[10px] text-indigo-600 hover:text-indigo-800 font-medium underline">ログイン</Link>
+                <Link href="/signup" className="text-[10px] text-indigo-600 hover:text-indigo-800 font-medium underline">新規登録</Link>
+              </div>
+            </div>
+          </div>
+          <div className="text-center">
+            <Link
+              href="/"
+              className="text-sm text-gray-500 transition hover:text-gray-700"
+            >
+              &larr; トップページに戻る
+            </Link>
+          </div>
         </div>
       </div>
     </div>

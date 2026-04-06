@@ -17,25 +17,36 @@ export default function LoginPage() {
           <LoginForm />
         </Suspense>
         <OAuthButtons />
-        <div className="mt-6 pt-4 border-t text-center space-y-2">
-          <p className="text-sm text-gray-500">
-            アカウントをお持ちでないですか？{" "}
-            <Link
-              href="/signup"
-              className="text-indigo-600 hover:text-indigo-800"
-            >
-              新規登録
-            </Link>
-          </p>
-          <p className="text-sm text-gray-500">
-            クリエイター・紹介者の方は{" "}
-            <Link
-              href="/affiliate"
-              className="text-pink-600 hover:text-pink-800 font-medium"
-            >
-              こちら
-            </Link>
-          </p>
+
+        <div className="mt-6 pt-4 border-t">
+          <p className="text-sm font-medium text-gray-700 text-center mb-3">アカウントをお持ちでない方</p>
+          <div className="grid grid-cols-3 gap-2 mb-3">
+            {[
+              { icon: "🏭", label: "メーカー", href: "/signup?role=maker" },
+              { icon: "🏢", label: "代理店", href: "/signup?role=agent" },
+              { icon: "🛒", label: "バイヤー", href: "/signup?role=buyer" },
+            ].map((r) => (
+              <Link
+                key={r.label}
+                href={r.href}
+                className="flex flex-col items-center gap-1 p-3 rounded-lg border border-gray-200 hover:border-indigo-300 hover:bg-indigo-50 transition-all text-center"
+              >
+                <span className="text-xl">{r.icon}</span>
+                <span className="text-xs font-medium text-gray-700">{r.label}</span>
+                <span className="text-[10px] text-indigo-600">新規登録</span>
+              </Link>
+            ))}
+          </div>
+          <Link
+            href="/affiliate"
+            className="flex items-center justify-center gap-2 p-3 rounded-lg border border-pink-200 bg-pink-50 hover:bg-pink-100 transition-all"
+          >
+            <span className="text-lg">🎨</span>
+            <div className="text-left">
+              <p className="text-xs font-medium text-pink-700">クリエイター・紹介者の方</p>
+              <p className="text-[10px] text-pink-500">アフィリエイト登録はこちら</p>
+            </div>
+          </Link>
         </div>
       </div>
     </div>
