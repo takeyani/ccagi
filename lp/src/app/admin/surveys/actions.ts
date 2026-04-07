@@ -75,7 +75,8 @@ export async function updateSurvey(id: string, formData: FormData) {
   if (error) throw new Error(error.message);
 
   // 既存質問を削除して再挿入
-  await supabase.from("survey_questions").delete().eq("survey_id", id);
+  const { error: deleteError } = await supabase.from("survey_questions").delete().eq("survey_id", id);
+  if (deleteError) throw new Error(deleteError.message);
 
   let questions: {
     question_text: string;

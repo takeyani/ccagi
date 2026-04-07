@@ -156,7 +156,8 @@ export async function updateQuote(id: string, formData: FormData) {
   if (error) throw new Error(error.message);
 
   // 明細を削除→再挿入
-  await supabase.from("quote_items").delete().eq("quote_id", id);
+  const { error: deleteError } = await supabase.from("quote_items").delete().eq("quote_id", id);
+  if (deleteError) throw new Error(deleteError.message);
   const { error: itemsError } = await supabase
     .from("quote_items")
     .insert(items.map((it) => ({ ...it, quote_id: id })));

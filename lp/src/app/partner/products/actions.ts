@@ -110,7 +110,8 @@ export async function updatePartnerProduct(id: string, formData: FormData) {
   if (error) throw new Error(error.message);
 
   // タグ同期: 既存削除 → 再INSERT
-  await supabase.from("product_tags").delete().eq("product_id", id);
+  const { error: tagDeleteError } = await supabase.from("product_tags").delete().eq("product_id", id);
+  if (tagDeleteError) throw new Error(tagDeleteError.message);
   const tagIds = formData.getAll("tag_ids") as string[];
   if (tagIds.length > 0) {
     const { error: tagError } = await supabase.from("product_tags").insert(
@@ -120,7 +121,8 @@ export async function updatePartnerProduct(id: string, formData: FormData) {
   }
 
   // 商品属性同期: 既存削除 → 再INSERT
-  await supabase.from("product_attributes").delete().eq("product_id", id);
+  const { error: attrDeleteError } = await supabase.from("product_attributes").delete().eq("product_id", id);
+  if (attrDeleteError) throw new Error(attrDeleteError.message);
   let attrs: { label: string; value: string }[] = [];
   try {
     attrs = JSON.parse((formData.get("product_attributes") as string) || "[]");
