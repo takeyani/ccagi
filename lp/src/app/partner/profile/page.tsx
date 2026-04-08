@@ -29,7 +29,7 @@ export default async function PartnerProfilePage() {
                 name="company_name"
                 required
                 defaultValue={partner.company_name}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -39,7 +39,7 @@ export default async function PartnerProfilePage() {
               <input
                 name="contact_name"
                 defaultValue={partner.contact_name ?? ""}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -49,7 +49,7 @@ export default async function PartnerProfilePage() {
               <input
                 name="phone"
                 defaultValue={partner.phone ?? ""}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -59,7 +59,7 @@ export default async function PartnerProfilePage() {
               <input
                 name="postal_code"
                 defaultValue={partner.postal_code ?? ""}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -69,7 +69,7 @@ export default async function PartnerProfilePage() {
               <input
                 name="address"
                 defaultValue={partner.address ?? ""}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <hr className="my-2" />
@@ -83,7 +83,7 @@ export default async function PartnerProfilePage() {
                 defaultValue={partner.invoice_registration_number ?? ""}
                 placeholder="T1234567890123"
                 pattern="^T\d{13}$"
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
               <p className="text-xs text-gray-400 mt-1">T + 13桁の数字</p>
             </div>
@@ -95,12 +95,12 @@ export default async function PartnerProfilePage() {
                 name="invoice_registration_date"
                 type="date"
                 defaultValue={partner.invoice_registration_date ?? ""}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <button
               type="submit"
-              className="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 font-medium"
+              className="bg-orange-600 text-white px-6 py-2 rounded-lg hover:bg-orange-700 font-medium"
             >
               更新
             </button>

@@ -76,7 +76,7 @@ export default async function StockRequestPage({ params }: Props) {
         <nav className="mb-8">
           <Link
             href={`/products/${slug}/${lotId}`}
-            className="text-sm text-indigo-600 hover:text-indigo-800"
+            className="text-sm text-orange-600 hover:text-orange-800"
           >
             &larr; 商品ページに戻る
           </Link>
@@ -119,7 +119,7 @@ export default async function StockRequestPage({ params }: Props) {
               <input
                 name="requester_name"
                 required
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
                 placeholder="山田太郎"
               />
             </div>
@@ -132,7 +132,7 @@ export default async function StockRequestPage({ params }: Props) {
                 name="requester_email"
                 type="email"
                 required
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
                 placeholder="taro@example.com"
               />
             </div>
@@ -150,7 +150,7 @@ export default async function StockRequestPage({ params }: Props) {
                 name="quantity"
                 type="number"
                 min={product.min_order_quantity ?? 1}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
                 placeholder={String(product.min_order_quantity ?? 1)}
               />
             </div>
@@ -168,7 +168,7 @@ export default async function StockRequestPage({ params }: Props) {
                 name="preferred_price"
                 type="number"
                 min={product.min_order_amount ?? 0}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
                 placeholder={`¥${(product.min_order_amount ?? price).toLocaleString()}`}
               />
             </div>
@@ -180,7 +180,7 @@ export default async function StockRequestPage({ params }: Props) {
               <textarea
                 name="notes"
                 rows={3}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
                 placeholder="納期の希望やその他の要望"
               />
             </div>

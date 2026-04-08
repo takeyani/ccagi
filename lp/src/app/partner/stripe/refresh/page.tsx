@@ -30,7 +30,7 @@ export default function StripeRefreshPage() {
         </p>
         <button
           onClick={handleRetry}
-          className="bg-indigo-600 text-white px-6 py-2.5 rounded-lg hover:bg-indigo-700 font-medium"
+          className="bg-orange-600 text-white px-6 py-2.5 rounded-lg hover:bg-orange-700 font-medium"
         >
           もう一度設定する
         </button>

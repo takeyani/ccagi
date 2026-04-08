@@ -59,8 +59,8 @@ export function DataTable({
     <div className="bg-white rounded-2xl border shadow-sm overflow-hidden">
       {/* バッチアクションバー */}
       {hasBatch && someChecked && (
-        <div className="bg-indigo-50 border-b border-indigo-200 px-4 py-2 flex items-center justify-between">
-          <span className="text-sm text-indigo-700 font-medium">
+        <div className="bg-orange-50 border-b border-orange-200 px-4 py-2 flex items-center justify-between">
+          <span className="text-sm text-orange-700 font-medium">
             {selectedIds.size}件を選択中
           </span>
           <div className="flex gap-2">
@@ -71,7 +71,7 @@ export function DataTable({
                 className={`px-3 py-1 rounded-lg text-xs font-medium transition ${
                   action.variant === "danger"
                     ? "bg-red-600 text-white hover:bg-red-700"
-                    : "bg-indigo-600 text-white hover:bg-indigo-700"
+                    : "bg-orange-600 text-white hover:bg-orange-700"
                 }`}
               >
                 {action.label}
@@ -97,7 +97,7 @@ export function DataTable({
                     type="checkbox"
                     checked={allChecked}
                     onChange={toggleAll}
-                    className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                    className="rounded border-gray-300 text-orange-600 focus:ring-orange-500"
                     aria-label="全て選択"
                   />
                 </th>
@@ -130,7 +130,7 @@ export function DataTable({
                 return (
                   <tr
                     key={id}
-                    className={`border-b last:border-0 hover:bg-gray-50 ${checked ? "bg-indigo-50/50" : ""}`}
+                    className={`border-b last:border-0 hover:bg-gray-50 ${checked ? "bg-orange-50/50" : ""}`}
                   >
                     {hasBatch && (
                       <td className="px-4 py-3">
@@ -138,7 +138,7 @@ export function DataTable({
                           type="checkbox"
                           checked={checked}
                           onChange={() => toggleOne(id)}
-                          className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                          className="rounded border-gray-300 text-orange-600 focus:ring-orange-500"
                           aria-label={`${id}を選択`}
                         />
                       </td>
@@ -154,7 +154,7 @@ export function DataTable({
                       <td className="px-4 py-3">
                         <Link
                           href={editHref(item)}
-                          className="text-indigo-600 hover:text-indigo-800 text-sm"
+                          className="text-orange-600 hover:text-orange-800 text-sm"
                         >
                           編集
                         </Link>

@@ -159,7 +159,7 @@ export function SurveyForm({ survey, questions }: Props) {
                   type="button"
                   className={`w-10 h-10 rounded-full border text-sm font-medium transition ${
                     answers[q.id]?.answer_text === String(n)
-                      ? "bg-indigo-600 text-white border-indigo-600"
+                      ? "bg-orange-600 text-white border-orange-600"
                       : "bg-white text-gray-700 hover:bg-gray-100"
                   }`}
                   onClick={() =>
@@ -204,7 +204,7 @@ export function SurveyForm({ survey, questions }: Props) {
       <button
         type="submit"
         disabled={submitting}
-        className="w-full rounded-full bg-indigo-600 py-3 text-sm font-semibold text-white transition hover:bg-indigo-700 disabled:opacity-50"
+        className="w-full rounded-full bg-orange-600 py-3 text-sm font-semibold text-white transition hover:bg-orange-700 disabled:opacity-50"
       >
         {submitting ? "送信中..." : "回答を送信する"}
       </button>

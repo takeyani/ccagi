@@ -52,7 +52,7 @@ export default async function InquiryDetailPage({
         <h1 className="text-2xl font-bold">引合い詳細</h1>
         <Link
           href="/partner/inquiries"
-          className="text-indigo-600 hover:text-indigo-800 text-sm font-medium"
+          className="text-orange-600 hover:text-orange-800 text-sm font-medium"
         >
           ← 引合い一覧に戻る
         </Link>
@@ -204,7 +204,7 @@ export default async function InquiryDetailPage({
         <div className="bg-white rounded-xl border shadow-sm p-6 mb-4">
           <Link
             href={`/partner/quotes/new?inquiry_id=${id}`}
-            className="bg-indigo-600 text-white px-5 py-2 rounded-lg hover:bg-indigo-700 text-sm font-medium"
+            className="bg-orange-600 text-white px-5 py-2 rounded-lg hover:bg-orange-700 text-sm font-medium"
           >
             見積書を作成
           </Link>
@@ -222,7 +222,7 @@ export default async function InquiryDetailPage({
               <textarea
                 name="response_notes"
                 rows={3}
-                className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
                 placeholder="取引先としてのコメントを入力..."
               />
             </div>

@@ -16,7 +16,7 @@ export default function NewTagPage() {
               <input
                 name="name"
                 required
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -26,7 +26,7 @@ export default function NewTagPage() {
               <input
                 name="slug"
                 required
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -37,7 +37,7 @@ export default function NewTagPage() {
                 name="tag_type"
                 required
                 defaultValue="キーワード"
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               >
                 {TAG_TYPES.map((t) => (
                   <option key={t} value={t}>
@@ -54,7 +54,7 @@ export default function NewTagPage() {
                 name="sort_order"
                 type="number"
                 defaultValue={0}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
           </div>
@@ -65,7 +65,7 @@ export default function NewTagPage() {
             <textarea
               name="description"
               rows={3}
-              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
             />
           </div>
           <div>
@@ -74,7 +74,7 @@ export default function NewTagPage() {
             </label>
             <input
               name="image_url"
-              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
             />
           </div>
           <label className="flex items-center gap-2">
@@ -83,7 +83,7 @@ export default function NewTagPage() {
           </label>
           <button
             type="submit"
-            className="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 font-medium"
+            className="bg-orange-600 text-white px-6 py-2 rounded-lg hover:bg-orange-700 font-medium"
           >
             作成
           </button>

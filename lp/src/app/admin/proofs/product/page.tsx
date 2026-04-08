@@ -55,7 +55,7 @@ export default async function AdminProductProofsPage() {
                   )}
                   {p.spec_data && (
                     <details className="mt-2">
-                      <summary className="text-xs text-indigo-600 cursor-pointer">
+                      <summary className="text-xs text-orange-600 cursor-pointer">
                         スペックデータを表示
                       </summary>
                       <pre className="text-xs bg-gray-50 p-2 rounded mt-1 overflow-auto max-h-40">
@@ -68,7 +68,7 @@ export default async function AdminProductProofsPage() {
                       href={p.document_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-xs text-indigo-600 hover:underline mt-1 inline-block"
+                      className="text-xs text-orange-600 hover:underline mt-1 inline-block"
                     >
                       書類を確認
                     </a>

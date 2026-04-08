@@ -24,7 +24,7 @@ export default async function PartnerInventoryProofsPage() {
 
   return (
     <div>
-      <Link href="/partner/proofs" className="text-sm text-indigo-600 hover:text-indigo-800 mb-4 inline-block">← 証明チェーンに戻る</Link>
+      <Link href="/partner/proofs" className="text-sm text-orange-600 hover:text-orange-800 mb-4 inline-block">← 証明チェーンに戻る</Link>
       <h1 className="text-2xl font-bold mb-2">在庫証明</h1>
       <p className="text-sm text-gray-500 mb-6">
         倉庫情報の登録・在庫の実地検証を行ってください
@@ -100,7 +100,7 @@ export default async function PartnerInventoryProofsPage() {
               <select
                 name="lot_id"
                 required
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               >
                 <option value="">-- 選択 --</option>
                 {lots?.map((l) => {
@@ -122,7 +122,7 @@ export default async function PartnerInventoryProofsPage() {
                 name="verified_stock"
                 type="number"
                 required
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -132,7 +132,7 @@ export default async function PartnerInventoryProofsPage() {
               <select
                 name="verification_method"
                 required
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               >
                 <option value="目視">目視</option>
                 <option value="バーコード">バーコード</option>
@@ -146,7 +146,7 @@ export default async function PartnerInventoryProofsPage() {
               </label>
               <input
                 name="warehouse_code"
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
                 placeholder="WH-001"
               />
             </div>
@@ -156,7 +156,7 @@ export default async function PartnerInventoryProofsPage() {
               </label>
               <input
                 name="warehouse_name"
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
                 placeholder="東京第一倉庫"
               />
             </div>
@@ -166,7 +166,7 @@ export default async function PartnerInventoryProofsPage() {
               </label>
               <input
                 name="location_detail"
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
                 placeholder="A-3-2"
               />
             </div>
@@ -178,7 +178,7 @@ export default async function PartnerInventoryProofsPage() {
             <input
               name="photo_url"
               type="url"
-              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
             />
           </div>
           <div>
@@ -188,12 +188,12 @@ export default async function PartnerInventoryProofsPage() {
             <textarea
               name="notes"
               rows={2}
-              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
             />
           </div>
           <button
             type="submit"
-            className="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 font-medium"
+            className="bg-orange-600 text-white px-6 py-2 rounded-lg hover:bg-orange-700 font-medium"
           >
             検証を記録
           </button>

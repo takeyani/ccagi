@@ -65,7 +65,7 @@ export default async function EditProductPage({
                 name="name"
                 required
                 defaultValue={product.name}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -76,7 +76,7 @@ export default async function EditProductPage({
                 name="slug"
                 required
                 defaultValue={product.slug}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -86,7 +86,7 @@ export default async function EditProductPage({
               <select
                 name="partner_id"
                 defaultValue={product.partner_id ?? ""}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               >
                 <option value="">-- 選択 --</option>
                 {partners?.map((p) => (
@@ -105,7 +105,7 @@ export default async function EditProductPage({
                 type="number"
                 required
                 defaultValue={product.base_price}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
           </div>
@@ -117,7 +117,7 @@ export default async function EditProductPage({
               name="description"
               rows={3}
               defaultValue={product.description ?? ""}
-              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
             />
           </div>
           <div>
@@ -127,7 +127,7 @@ export default async function EditProductPage({
             <input
               name="image_url"
               defaultValue={product.image_url ?? ""}
-              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
             />
           </div>
           <label className="flex items-center gap-2">
@@ -188,7 +188,7 @@ export default async function EditProductPage({
 
           <button
             type="submit"
-            className="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 font-medium"
+            className="bg-orange-600 text-white px-6 py-2 rounded-lg hover:bg-orange-700 font-medium"
           >
             更新
           </button>

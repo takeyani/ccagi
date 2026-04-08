@@ -57,7 +57,7 @@ export function NewThreadForm({ targetType, targetId }: Props) {
     return (
       <button
         onClick={() => setOpen(true)}
-        className="w-full rounded-xl border-2 border-dashed border-gray-300 py-3 text-sm font-medium text-gray-500 hover:border-indigo-400 hover:text-indigo-600 transition"
+        className="w-full rounded-xl border-2 border-dashed border-gray-300 py-3 text-sm font-medium text-gray-500 hover:border-orange-400 hover:text-orange-600 transition"
       >
         新しいスレッドを作成
       </button>
@@ -116,7 +116,7 @@ export function NewThreadForm({ targetType, targetId }: Props) {
         <button
           type="submit"
           disabled={submitting}
-          className="rounded-full bg-indigo-600 px-6 py-2 text-sm font-semibold text-white transition hover:bg-indigo-700 disabled:opacity-50"
+          className="rounded-full bg-orange-600 px-6 py-2 text-sm font-semibold text-white transition hover:bg-orange-700 disabled:opacity-50"
         >
           {submitting ? "作成中..." : "作成する"}
         </button>

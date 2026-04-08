@@ -87,7 +87,7 @@ export default async function PartnerWholesalePage() {
                   </td>
                   <td className="px-4 py-3 text-right">
                     {wholesalePrice ? (
-                      <span className="font-bold text-indigo-600">
+                      <span className="font-bold text-orange-600">
                         &yen;{wholesalePrice.toLocaleString()}
                       </span>
                     ) : (
@@ -116,7 +116,7 @@ export default async function PartnerWholesalePage() {
                     <td className="px-4 py-3 text-center">
                       <Link
                         href={`/partner/lots/${lot.id}`}
-                        className="text-indigo-600 hover:text-indigo-800 text-sm font-medium hover:underline"
+                        className="text-orange-600 hover:text-orange-800 text-sm font-medium hover:underline"
                       >
                         編集
                       </Link>

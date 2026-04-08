@@ -13,7 +13,7 @@ export default function NewAnnouncementPage() {
             <input
               name="title"
               required
-              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
             />
           </div>
           <div>
@@ -24,7 +24,7 @@ export default function NewAnnouncementPage() {
               name="body"
               required
               rows={6}
-              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
             />
           </div>
           <label className="flex items-center gap-2">
@@ -33,7 +33,7 @@ export default function NewAnnouncementPage() {
           </label>
           <button
             type="submit"
-            className="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 font-medium"
+            className="bg-orange-600 text-white px-6 py-2 rounded-lg hover:bg-orange-700 font-medium"
           >
             作成
           </button>

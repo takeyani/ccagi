@@ -57,7 +57,7 @@ export default function GeneralBtoBPage() {
       </header>
 
       {/* ヒーロー */}
-      <section className="bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 text-white py-20">
+      <section className="bg-gradient-to-br from-blue-900 via-blue-800 to-orange-900 text-white py-20">
         <div className="max-w-5xl mx-auto px-6 text-center">
           <div className="inline-block bg-blue-500/20 border border-blue-400/30 text-blue-300 text-xs font-bold px-4 py-1.5 rounded-full mb-4">
             一般商材 × BtoB
@@ -82,7 +82,7 @@ export default function GeneralBtoBPage() {
               <div key={u.role} className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
                 <h3 className="font-bold text-gray-900 mb-1">{u.role}</h3>
                 <p className="text-xs text-gray-500 mb-3">{u.examples}</p>
-                <p className="text-sm text-indigo-600 font-medium">{u.what}</p>
+                <p className="text-sm text-orange-600 font-medium">{u.what}</p>
               </div>
             ))}
           </div>
@@ -120,7 +120,7 @@ export default function GeneralBtoBPage() {
               <div key={p.layer} className="bg-white rounded-xl border border-gray-200 p-5 shadow-sm">
                 <div className="flex items-center gap-2 mb-2">
                   <span className="text-2xl">{p.icon}</span>
-                  <span className="text-xs font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full">{p.layer}</span>
+                  <span className="text-xs font-bold text-orange-600 bg-orange-50 px-2 py-0.5 rounded-full">{p.layer}</span>
                   <span className="font-bold text-gray-900 text-sm">{p.name}</span>
                 </div>
                 <div className="flex items-center gap-2 mb-2">
@@ -152,8 +152,8 @@ export default function GeneralBtoBPage() {
               </div>
             ))}
           </div>
-          <div className="mt-4 bg-indigo-50 border border-indigo-200 rounded-xl p-4">
-            <p className="text-xs text-indigo-700">
+          <div className="mt-4 bg-orange-50 border border-orange-200 rounded-xl p-4">
+            <p className="text-xs text-orange-700">
               <span className="font-bold">インボイス対応：</span>
               適格請求書発行事業者番号（T+13桁）を登録すると、すべての帳票にインボイス番号が自動反映されます。
             </p>
@@ -178,12 +178,12 @@ export default function GeneralBtoBPage() {
         <section className="bg-gray-100 rounded-2xl p-8 text-center">
           <h2 className="text-lg font-bold text-gray-900 mb-4">他のカテゴリー・取引形態</h2>
           <div className="flex flex-wrap justify-center gap-3">
-            <Link href="/flow/general-btoc" className="bg-white border border-gray-200 rounded-lg px-4 py-2 text-sm font-medium text-gray-700 hover:border-indigo-400 transition">一般商材 BtoC</Link>
-            <Link href="/flow/health-btob" className="bg-white border border-gray-200 rounded-lg px-4 py-2 text-sm font-medium text-gray-700 hover:border-indigo-400 transition">健康食品・化粧品 BtoB</Link>
-            <Link href="/flow/health-btoc" className="bg-white border border-gray-200 rounded-lg px-4 py-2 text-sm font-medium text-gray-700 hover:border-indigo-400 transition">健康食品・化粧品 BtoC</Link>
+            <Link href="/flow/general-btoc" className="bg-white border border-gray-200 rounded-lg px-4 py-2 text-sm font-medium text-gray-700 hover:border-orange-400 transition">一般商材 BtoC</Link>
+            <Link href="/flow/health-btob" className="bg-white border border-gray-200 rounded-lg px-4 py-2 text-sm font-medium text-gray-700 hover:border-orange-400 transition">健康食品・化粧品 BtoB</Link>
+            <Link href="/flow/health-btoc" className="bg-white border border-gray-200 rounded-lg px-4 py-2 text-sm font-medium text-gray-700 hover:border-orange-400 transition">健康食品・化粧品 BtoC</Link>
             <Link href="/awards" className="bg-white border border-gray-200 rounded-lg px-4 py-2 text-sm font-medium text-gray-700 hover:border-amber-400 transition">🏆 アワード</Link>
           </div>
-          <Link href="/flow" className="mt-4 inline-block text-sm text-indigo-600 hover:text-indigo-800">
+          <Link href="/flow" className="mt-4 inline-block text-sm text-orange-600 hover:text-orange-800">
             ← 業務フロー全体へ戻る
           </Link>
         </section>

@@ -63,7 +63,7 @@ export function PartnerSendMessage() {
       <select
         value={recipientId}
         onChange={(e) => setRecipientId(e.target.value)}
-        className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+        className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
         required
       >
         <option value="">-- 送信先を選択 --</option>
@@ -79,12 +79,12 @@ export function PartnerSendMessage() {
         placeholder="メッセージを入力..."
         rows={3}
         required
-        className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+        className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
       />
       <button
         type="submit"
         disabled={sending}
-        className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 text-sm font-medium disabled:opacity-50"
+        className="bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700 text-sm font-medium disabled:opacity-50"
       >
         {sending ? "送信中..." : "送信"}
       </button>

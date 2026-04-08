@@ -33,7 +33,7 @@ export async function QuestionSection({ productId, lotId, partnerId, partnerName
         >
           <div>
             <div className="flex items-center gap-2 mb-1">
-              <span className="inline-flex items-center rounded-full bg-indigo-100 px-2.5 py-0.5 text-xs font-medium text-indigo-800">
+              <span className="inline-flex items-center rounded-full bg-orange-100 px-2.5 py-0.5 text-xs font-medium text-orange-800">
                 Q
               </span>
               <span className="text-xs text-gray-400">

@@ -155,7 +155,7 @@ export default function CollectionSettingsPage() {
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 focus:outline-none"
+              className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 focus:outline-none"
             />
           </div>
 
@@ -168,7 +168,7 @@ export default function CollectionSettingsPage() {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               rows={3}
-              className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 focus:outline-none"
+              className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 focus:outline-none"
             />
           </div>
 
@@ -182,7 +182,7 @@ export default function CollectionSettingsPage() {
               value={coverImageUrl}
               onChange={(e) => setCoverImageUrl(e.target.value)}
               placeholder="https://..."
-              className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 focus:outline-none"
+              className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 focus:outline-none"
             />
           </div>
 
@@ -218,7 +218,7 @@ export default function CollectionSettingsPage() {
                   }
                   className={`rounded-full px-3 py-1 text-xs font-medium transition ${
                     selectedTagIds.includes(tag.id)
-                      ? "bg-indigo-600 text-white"
+                      ? "bg-orange-600 text-white"
                       : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                   }`}
                 >
@@ -244,7 +244,7 @@ export default function CollectionSettingsPage() {
                   [...e.target.selectedOptions].map((o) => o.value)
                 )
               }
-              className="w-full rounded-lg border border-gray-300 px-4 py-2 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 focus:outline-none"
+              className="w-full rounded-lg border border-gray-300 px-4 py-2 text-sm focus:border-orange-500 focus:ring-2 focus:ring-orange-200 focus:outline-none"
               size={Math.min(partners.length, 5)}
             >
               {partners.map((p) => (
@@ -265,7 +265,7 @@ export default function CollectionSettingsPage() {
               value={keyword}
               onChange={(e) => setKeyword(e.target.value)}
               placeholder="例: organic"
-              className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 focus:outline-none"
+              className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 focus:outline-none"
             />
           </div>
 
@@ -308,7 +308,7 @@ export default function CollectionSettingsPage() {
                 ))}
               </div>
               {selectedDesignIds.length > 0 && (
-                <p className="mt-1 text-xs text-indigo-600">
+                <p className="mt-1 text-xs text-orange-600">
                   {selectedDesignIds.length}件のLPを選択中
                 </p>
               )}
@@ -322,7 +322,7 @@ export default function CollectionSettingsPage() {
           <button
             onClick={handleSave}
             disabled={saving || !title.trim()}
-            className="flex-1 rounded-full bg-indigo-600 px-6 py-3 font-semibold text-white transition hover:bg-indigo-700 disabled:opacity-50"
+            className="flex-1 rounded-full bg-orange-600 px-6 py-3 font-semibold text-white transition hover:bg-orange-700 disabled:opacity-50"
           >
             {saving ? "保存中..." : "設定を保存"}
           </button>

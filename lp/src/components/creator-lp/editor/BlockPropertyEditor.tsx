@@ -195,7 +195,7 @@ function ListEditor({
           fields.forEach((f) => (newItem[f.key] = ""));
           onChange([...items, newItem]);
         }}
-        className="w-full rounded-lg border border-dashed py-1.5 text-sm text-gray-500 hover:border-indigo-300 hover:text-indigo-600"
+        className="w-full rounded-lg border border-dashed py-1.5 text-sm text-gray-500 hover:border-orange-300 hover:text-orange-600"
       >
         + 追加
       </button>

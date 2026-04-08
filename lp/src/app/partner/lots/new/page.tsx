@@ -12,7 +12,7 @@ export default async function NewPartnerLotPage() {
 
   return (
     <div>
-      <Link href="/partner/lots" className="text-sm text-indigo-600 hover:text-indigo-800 mb-4 inline-block">← ロット一覧に戻る</Link>
+      <Link href="/partner/lots" className="text-sm text-orange-600 hover:text-orange-800 mb-4 inline-block">← ロット一覧に戻る</Link>
       <h1 className="text-2xl font-bold mb-6">ロット 新規作成</h1>
       <div className="bg-white rounded-2xl border shadow-sm p-6 max-w-2xl">
         <form action={createPartnerLot} className="space-y-4">
@@ -24,7 +24,7 @@ export default async function NewPartnerLotPage() {
               <select
                 name="product_id"
                 required
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               >
                 <option value="">-- 選択 --</option>
                 {products?.map((p) => (
@@ -41,7 +41,7 @@ export default async function NewPartnerLotPage() {
               <input
                 name="lot_number"
                 required
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -53,7 +53,7 @@ export default async function NewPartnerLotPage() {
                 type="number"
                 required
                 defaultValue={0}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -62,7 +62,7 @@ export default async function NewPartnerLotPage() {
               </label>
               <select
                 name="status"
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               >
                 <option value="販売中">販売中</option>
                 <option value="売切れ">売切れ</option>
@@ -76,7 +76,7 @@ export default async function NewPartnerLotPage() {
               <input
                 name="price"
                 type="number"
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -86,7 +86,7 @@ export default async function NewPartnerLotPage() {
               <input
                 name="wholesale_price"
                 type="number"
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -96,7 +96,7 @@ export default async function NewPartnerLotPage() {
               <input
                 name="expiration_date"
                 type="date"
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -106,7 +106,7 @@ export default async function NewPartnerLotPage() {
               <input
                 name="purchase_date"
                 type="date"
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -116,7 +116,7 @@ export default async function NewPartnerLotPage() {
               <input
                 name="purchase_price"
                 type="number"
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -125,7 +125,7 @@ export default async function NewPartnerLotPage() {
               </label>
               <select
                 name="shipping_method"
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               >
                 <option value="メーカー無料">メーカー無料</option>
                 <option value="配送会社手配">配送会社手配</option>
@@ -141,7 +141,7 @@ export default async function NewPartnerLotPage() {
                 type="number"
                 defaultValue={0}
                 min={0}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -150,7 +150,7 @@ export default async function NewPartnerLotPage() {
               </label>
               <select
                 name="selling_unit"
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               >
                 <option value="個">個</option>
                 <option value="箱">箱</option>
@@ -166,7 +166,7 @@ export default async function NewPartnerLotPage() {
                 name="units_per_case"
                 type="number"
                 min={1}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
                 placeholder="例: 24"
               />
             </div>
@@ -178,7 +178,7 @@ export default async function NewPartnerLotPage() {
                 name="cases_per_pallet"
                 type="number"
                 min={1}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
                 placeholder="例: 40"
               />
             </div>
@@ -191,7 +191,7 @@ export default async function NewPartnerLotPage() {
                 type="number"
                 defaultValue={1}
                 min={1}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
           </div>
@@ -202,12 +202,12 @@ export default async function NewPartnerLotPage() {
             <textarea
               name="memo"
               rows={3}
-              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
             />
           </div>
           <button
             type="submit"
-            className="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 font-medium"
+            className="bg-orange-600 text-white px-6 py-2 rounded-lg hover:bg-orange-700 font-medium"
           >
             作成
           </button>

@@ -58,7 +58,7 @@ export default function PrivacyPage() {
     <div className="min-h-screen bg-gray-50">
       <div className="mx-auto max-w-3xl px-6 py-16">
         <nav className="mb-8">
-          <Link href="/" className="text-sm text-indigo-600 hover:text-indigo-800">&larr; トップページに戻る</Link>
+          <Link href="/" className="text-sm text-orange-600 hover:text-orange-800">&larr; トップページに戻る</Link>
         </nav>
 
         <h1 className="text-3xl font-bold text-gray-900 mb-2">プライバシーポリシー</h1>

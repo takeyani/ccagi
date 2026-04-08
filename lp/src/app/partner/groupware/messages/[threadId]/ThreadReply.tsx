@@ -51,12 +51,12 @@ export function ThreadReply({
         onChange={(e) => setBody(e.target.value)}
         placeholder="返信を入力..."
         required
-        className="flex-1 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+        className="flex-1 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
       />
       <button
         type="submit"
         disabled={sending}
-        className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 text-sm font-medium disabled:opacity-50"
+        className="bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700 text-sm font-medium disabled:opacity-50"
       >
         送信
       </button>

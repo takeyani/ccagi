@@ -14,7 +14,7 @@ export default function NewPartnerPage() {
               <input
                 name="company_name"
                 required
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -25,7 +25,7 @@ export default function NewPartnerPage() {
                 name="email"
                 type="email"
                 required
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -37,7 +37,7 @@ export default function NewPartnerPage() {
                 type="password"
                 required
                 minLength={8}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -46,7 +46,7 @@ export default function NewPartnerPage() {
               </label>
               <input
                 name="contact_name"
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -55,7 +55,7 @@ export default function NewPartnerPage() {
               </label>
               <input
                 name="phone"
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -64,7 +64,7 @@ export default function NewPartnerPage() {
               </label>
               <select
                 name="partner_type"
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               >
                 <option value="メーカー">メーカー</option>
                 <option value="代理店">代理店</option>
@@ -76,7 +76,7 @@ export default function NewPartnerPage() {
               </label>
               <input
                 name="postal_code"
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -85,7 +85,7 @@ export default function NewPartnerPage() {
               </label>
               <input
                 name="payment_terms"
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
           </div>
@@ -95,7 +95,7 @@ export default function NewPartnerPage() {
             </label>
             <input
               name="address"
-              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
             />
           </div>
           <div>
@@ -105,13 +105,13 @@ export default function NewPartnerPage() {
             <textarea
               name="memo"
               rows={3}
-              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
             />
           </div>
           <input type="hidden" name="parent_partner_id" value="" />
           <button
             type="submit"
-            className="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 font-medium"
+            className="bg-orange-600 text-white px-6 py-2 rounded-lg hover:bg-orange-700 font-medium"
           >
             作成
           </button>

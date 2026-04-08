@@ -14,7 +14,7 @@ export default async function PartnerEntityProofsPage() {
 
   return (
     <div>
-      <Link href="/partner/proofs" className="text-sm text-indigo-600 hover:text-indigo-800 mb-4 inline-block">← 証明チェーンに戻る</Link>
+      <Link href="/partner/proofs" className="text-sm text-orange-600 hover:text-orange-800 mb-4 inline-block">← 証明チェーンに戻る</Link>
       <h1 className="text-2xl font-bold mb-2">主体証明</h1>
       <p className="text-sm text-gray-500 mb-6">
         生産者署名・代理店署名・販売権証明を提出してください
@@ -53,7 +53,7 @@ export default async function PartnerEntityProofsPage() {
                 href={p.document_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs text-indigo-600 hover:underline mt-1 inline-block"
+                className="text-xs text-orange-600 hover:underline mt-1 inline-block"
               >
                 書類を確認
               </a>
@@ -77,7 +77,7 @@ export default async function PartnerEntityProofsPage() {
               <select
                 name="proof_type"
                 required
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               >
                 <option value="生産者署名">生産者署名</option>
                 <option value="代理店署名">代理店署名</option>
@@ -91,7 +91,7 @@ export default async function PartnerEntityProofsPage() {
               </label>
               <input
                 name="issuer"
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
                 placeholder="発行機関名"
               />
             </div>
@@ -102,7 +102,7 @@ export default async function PartnerEntityProofsPage() {
               <input
                 name="issued_at"
                 type="date"
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -112,7 +112,7 @@ export default async function PartnerEntityProofsPage() {
               <input
                 name="expires_at"
                 type="date"
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
           </div>
@@ -123,13 +123,13 @@ export default async function PartnerEntityProofsPage() {
             <input
               name="document_url"
               type="url"
-              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               placeholder="https://..."
             />
           </div>
           <button
             type="submit"
-            className="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 font-medium"
+            className="bg-orange-600 text-white px-6 py-2 rounded-lg hover:bg-orange-700 font-medium"
           >
             提出
           </button>

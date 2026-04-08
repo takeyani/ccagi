@@ -139,7 +139,7 @@ export function CollectionEditor({ collection }: Props) {
       {/* Toolbar */}
       <div className="flex items-center justify-between border-b bg-white px-4 py-2">
         <div className="flex items-center gap-3">
-          <a href="/creator/collections" className="text-sm text-indigo-600 hover:text-indigo-800">← 一覧</a>
+          <a href="/creator/collections" className="text-sm text-orange-600 hover:text-orange-800">← 一覧</a>
           <h1 className="text-lg font-bold">コレクションエディター</h1>
         </div>
         <div className="flex items-center gap-3">
@@ -158,7 +158,7 @@ export function CollectionEditor({ collection }: Props) {
           <button
             onClick={handleSave}
             disabled={!isDirty || saving}
-            className="rounded-lg bg-indigo-600 px-4 py-1.5 text-sm font-semibold text-white hover:bg-indigo-700 disabled:opacity-50"
+            className="rounded-lg bg-orange-600 px-4 py-1.5 text-sm font-semibold text-white hover:bg-orange-700 disabled:opacity-50"
           >
             {saving ? "保存中..." : isDirty ? "保存する" : "保存済み"}
           </button>

@@ -14,7 +14,7 @@ export default function NewAdvertiserPage() {
               <input
                 name="name"
                 required
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
                 placeholder="株式会社サンプル"
               />
             </div>
@@ -25,7 +25,7 @@ export default function NewAdvertiserPage() {
               <input
                 name="domain"
                 required
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
                 placeholder="example.com"
               />
             </div>
@@ -37,7 +37,7 @@ export default function NewAdvertiserPage() {
                 name="contact_email"
                 type="email"
                 required
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -49,7 +49,7 @@ export default function NewAdvertiserPage() {
                 type="number"
                 step="0.01"
                 defaultValue={5}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -60,7 +60,7 @@ export default function NewAdvertiserPage() {
                 name="cookie_days"
                 type="number"
                 defaultValue={30}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -70,14 +70,14 @@ export default function NewAdvertiserPage() {
               <input
                 name="webhook_url"
                 type="url"
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
                 placeholder="https://..."
               />
             </div>
           </div>
           <button
             type="submit"
-            className="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 font-medium"
+            className="bg-orange-600 text-white px-6 py-2 rounded-lg hover:bg-orange-700 font-medium"
           >
             登録
           </button>

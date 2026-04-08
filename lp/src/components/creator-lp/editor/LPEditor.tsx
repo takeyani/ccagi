@@ -181,7 +181,7 @@ export function LPEditor({ design }: Props) {
       <div className="flex h-screen flex-col">
         <div className="flex items-center justify-between border-b bg-white px-4 py-2">
           <div className="flex items-center gap-3">
-            <a href="/creator/designs" className="text-sm text-indigo-600 hover:text-indigo-800">&larr; 一覧</a>
+            <a href="/creator/designs" className="text-sm text-orange-600 hover:text-orange-800">&larr; 一覧</a>
             <h1 className="text-lg font-bold">テンプレートを選択</h1>
           </div>
           <button
@@ -201,7 +201,7 @@ export function LPEditor({ design }: Props) {
                 <button
                   key={t.id}
                   onClick={() => applyTemplate(t.id)}
-                  className="text-left bg-white rounded-2xl border shadow-sm p-5 hover:border-indigo-400 hover:shadow-md transition group"
+                  className="text-left bg-white rounded-2xl border shadow-sm p-5 hover:border-orange-400 hover:shadow-md transition group"
                 >
                   <div className="flex items-center gap-2 mb-2">
                     <span className="text-2xl">{t.icon}</span>
@@ -234,7 +234,7 @@ export function LPEditor({ design }: Props) {
       {/* Toolbar */}
       <div className="flex items-center justify-between border-b bg-white px-4 py-2">
         <div className="flex items-center gap-3">
-          <a href="/creator/designs" className="text-sm text-indigo-600 hover:text-indigo-800">&larr; 一覧</a>
+          <a href="/creator/designs" className="text-sm text-orange-600 hover:text-orange-800">&larr; 一覧</a>
           <h1 className="text-lg font-bold">LP エディター</h1>
         </div>
         <div className="flex items-center gap-2">
@@ -260,7 +260,7 @@ export function LPEditor({ design }: Props) {
           <button
             onClick={handleSave}
             disabled={!isDirty || saving}
-            className="rounded-lg bg-indigo-600 px-4 py-1.5 text-sm font-semibold text-white hover:bg-indigo-700 disabled:opacity-50"
+            className="rounded-lg bg-orange-600 px-4 py-1.5 text-sm font-semibold text-white hover:bg-orange-700 disabled:opacity-50"
           >
             {saving ? "保存中..." : isDirty ? "保存する" : "保存済み"}
           </button>
@@ -277,7 +277,7 @@ export function LPEditor({ design }: Props) {
                 <button
                   key={p.name}
                   onClick={() => { setTheme(p.theme); setIsDirty(true); }}
-                  className="flex items-center gap-1.5 rounded-lg border bg-white px-3 py-1.5 text-xs hover:border-indigo-300 transition"
+                  className="flex items-center gap-1.5 rounded-lg border bg-white px-3 py-1.5 text-xs hover:border-orange-300 transition"
                 >
                   <span className="w-3 h-3 rounded-full" style={{ backgroundColor: p.theme.primary_color }} />
                   {p.name}
@@ -329,7 +329,7 @@ export function LPEditor({ design }: Props) {
               <p className="text-gray-400 text-sm mb-4">ブロックがまだありません</p>
               <button
                 onClick={() => setShowTemplates(true)}
-                className="rounded-lg bg-indigo-600 px-6 py-2 text-sm font-semibold text-white hover:bg-indigo-700"
+                className="rounded-lg bg-orange-600 px-6 py-2 text-sm font-semibold text-white hover:bg-orange-700"
               >
                 テンプレートから始める
               </button>

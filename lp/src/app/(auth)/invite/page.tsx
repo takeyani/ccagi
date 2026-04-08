@@ -88,14 +88,14 @@ export default async function InvitePage({
               type="password"
               required
               minLength={6}
-              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               placeholder="6文字以上"
             />
           </div>
 
           <button
             type="submit"
-            className="w-full bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 font-medium"
+            className="w-full bg-orange-600 text-white px-6 py-2 rounded-lg hover:bg-orange-700 font-medium"
           >
             登録してログイン
           </button>

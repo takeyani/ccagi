@@ -23,7 +23,7 @@ export default async function AdminDeliveryProofsPage() {
         </div>
         <Link
           href="/admin/proofs/delivery/new"
-          className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 text-sm font-medium"
+          className="bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700 text-sm font-medium"
         >
           新規作成
         </Link>
@@ -107,7 +107,7 @@ export default async function AdminDeliveryProofsPage() {
                         <input type="hidden" name="status" value="配達中" />
                         <button
                           type="submit"
-                          className="bg-indigo-600 text-white px-3 py-1 rounded text-xs hover:bg-indigo-700"
+                          className="bg-orange-600 text-white px-3 py-1 rounded text-xs hover:bg-orange-700"
                         >
                           配達中にする
                         </button>

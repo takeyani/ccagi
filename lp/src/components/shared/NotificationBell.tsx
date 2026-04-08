@@ -73,7 +73,7 @@ export function NotificationBell({
                   <button
                     type="button"
                     onClick={handleMarkAllRead}
-                    className="text-xs text-indigo-600 hover:text-indigo-800"
+                    className="text-xs text-orange-600 hover:text-orange-800"
                   >
                     すべて既読にする
                   </button>

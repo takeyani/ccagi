@@ -44,7 +44,7 @@ export function RankingFilter({ categories, basePath }: Props) {
             onClick={() => updateParams("period", p.value)}
             className={`px-3 py-1.5 rounded-md text-sm font-medium transition ${
               currentPeriod === p.value
-                ? "bg-indigo-600 text-white"
+                ? "bg-orange-600 text-white"
                 : "text-gray-600 hover:bg-gray-100"
             }`}
           >

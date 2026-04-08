@@ -83,7 +83,7 @@ export function NewPostForm({ threadId }: Props) {
       <button
         type="submit"
         disabled={submitting}
-        className="rounded-full bg-indigo-600 px-6 py-2 text-sm font-semibold text-white transition hover:bg-indigo-700 disabled:opacity-50"
+        className="rounded-full bg-orange-600 px-6 py-2 text-sm font-semibold text-white transition hover:bg-orange-700 disabled:opacity-50"
       >
         {submitting ? "投稿中..." : "投稿する"}
       </button>

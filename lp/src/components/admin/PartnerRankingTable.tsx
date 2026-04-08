@@ -25,7 +25,7 @@ export function PartnerRankingTable({ rankings }: { rankings: RankItem[] }) {
             </div>
             <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
               <div
-                className="h-full bg-indigo-500 rounded-full"
+                className="h-full bg-orange-500 rounded-full"
                 style={{ width: `${(r.total_sales / maxSales) * 100}%` }}
               />
             </div>

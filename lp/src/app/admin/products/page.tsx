@@ -47,7 +47,7 @@ export default async function AdminProductsPage() {
         <h1 className="text-2xl font-bold">商品管理</h1>
         <Link
           href="/admin/products/new"
-          className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 text-sm font-medium"
+          className="bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700 text-sm font-medium"
         >
           新規作成
         </Link>

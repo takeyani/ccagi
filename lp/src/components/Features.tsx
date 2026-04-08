@@ -90,7 +90,7 @@ export default function Features() {
               key={feature.title}
               className={`rounded-2xl p-8 text-center shadow-sm transition hover:shadow-md ${
                 i === 0
-                  ? "sm:col-span-2 lg:col-span-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white border-2 border-indigo-400 shadow-lg"
+                  ? "sm:col-span-2 lg:col-span-3 bg-gradient-to-r from-orange-600 to-purple-600 text-white border-2 border-orange-400 shadow-lg"
                   : "border border-gray-100 bg-gray-50"
               }`}
             >
@@ -98,7 +98,7 @@ export default function Features() {
               <h3 className={`font-semibold ${i === 0 ? "text-2xl" : "text-xl text-gray-900"}`}>
                 {feature.title}
               </h3>
-              <p className={`mt-3 leading-relaxed ${i === 0 ? "text-indigo-100 text-lg" : "text-gray-600"}`}>
+              <p className={`mt-3 leading-relaxed ${i === 0 ? "text-orange-100 text-lg" : "text-gray-600"}`}>
                 {feature.description}
               </p>
             </div>

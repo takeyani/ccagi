@@ -97,7 +97,7 @@ export default function NewDesignPage() {
               value={selectedProductId}
               onChange={(e) => setSelectedProductId(e.target.value)}
               required
-              className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 focus:outline-none"
+              className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 focus:outline-none"
             >
               <option value="">-- 商品を選択してください --</option>
               {products.map((p) => (
@@ -117,7 +117,7 @@ export default function NewDesignPage() {
                 value={selectedLotId}
                 onChange={(e) => setSelectedLotId(e.target.value)}
                 required
-                className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 focus:outline-none"
+                className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 focus:outline-none"
               >
                 <option value="">-- ロットを選択してください --</option>
                 {lots.map((l) => (
@@ -136,7 +136,7 @@ export default function NewDesignPage() {
         <button
           type="submit"
           disabled={loading || !selectedProductId || !selectedLotId}
-          className="mt-6 w-full rounded-full bg-indigo-600 px-6 py-3 font-semibold text-white transition hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="mt-6 w-full rounded-full bg-orange-600 px-6 py-3 font-semibold text-white transition hover:bg-orange-700 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {loading ? "作成中..." : "デザインを作成してエディターを開く"}
         </button>

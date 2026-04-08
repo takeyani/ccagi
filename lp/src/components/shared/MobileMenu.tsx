@@ -27,7 +27,7 @@ export function MobileMenu({
     <>
       <button
         onClick={() => setOpen(!open)}
-        className="md:hidden fixed top-3 left-3 z-50 bg-indigo-600 text-white p-2 rounded-lg shadow-lg"
+        className="md:hidden fixed top-3 left-3 z-50 bg-orange-600 text-white p-2 rounded-lg shadow-lg"
         aria-label="メニュー"
       >
         {open ? (
@@ -66,7 +66,7 @@ export function MobileMenu({
                 href={item.href}
                 className={`flex items-center gap-2 rounded-lg px-3 py-2 text-sm transition ${
                   isActive
-                    ? "bg-indigo-50 text-indigo-700 font-medium"
+                    ? "bg-orange-50 text-orange-700 font-medium"
                     : "text-gray-600 hover:bg-gray-50"
                 }`}
               >

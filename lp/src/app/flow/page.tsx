@@ -374,7 +374,7 @@ function FlowDiagram() {
           <div className="flex items-center gap-2 text-[10px] text-gray-600">
             <span className="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded font-medium">バイヤー</span>
             <span className="text-gray-400">→ LP閲覧 →</span>
-            <span className="bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded font-medium">Stripe決済</span>
+            <span className="bg-orange-100 text-orange-700 px-2 py-0.5 rounded font-medium">Stripe決済</span>
             <span className="text-gray-400">→ 注文 →</span>
             <span className="bg-blue-100 text-blue-700 px-2 py-0.5 rounded font-medium">メーカー出荷</span>
             <span className="text-gray-400">→</span>
@@ -1238,9 +1238,9 @@ export default function FlowPage() {
 
         {/* カテゴリー別の手数料率 */}
         <div className="mt-10 bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
-          <div className="px-6 py-4 bg-gradient-to-r from-indigo-600 to-purple-600">
+          <div className="px-6 py-4 bg-gradient-to-r from-orange-600 to-purple-600">
             <h3 className="font-bold text-white text-sm text-center">カテゴリー別の手数料（成果報酬）</h3>
-            <p className="text-indigo-200 text-xs text-center mt-1">売れた時だけ発生。カテゴリーごとに最適な料率を設定</p>
+            <p className="text-orange-200 text-xs text-center mt-1">売れた時だけ発生。カテゴリーごとに最適な料率を設定</p>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
@@ -1265,7 +1265,7 @@ export default function FlowPage() {
                 ].map((row) => (
                   <tr key={row.cat} className="border-b last:border-0">
                     <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">{row.cat}</td>
-                    <td className="text-center px-3 py-3 font-bold text-indigo-600">{row.rate}</td>
+                    <td className="text-center px-3 py-3 font-bold text-orange-600">{row.rate}</td>
                     <td className="text-center px-3 py-3 text-amber-600">{row.referral}</td>
                     <td className="text-center px-3 py-3 text-gray-600">{row.platform}</td>
                     <td className="px-3 py-3 text-xs text-gray-500">{row.reason}</td>
@@ -1282,7 +1282,7 @@ export default function FlowPage() {
 
       {/* カテゴリー別システム紹介 */}
       <section className="max-w-5xl mx-auto px-6 mb-20">
-        <p className="text-sm font-medium text-indigo-600 tracking-wider mb-3 text-center">
+        <p className="text-sm font-medium text-orange-600 tracking-wider mb-3 text-center">
           CATEGORY × BUSINESS TYPE
         </p>
         <h2 className="text-2xl font-extrabold text-gray-900 mb-2 text-center">

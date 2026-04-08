@@ -26,7 +26,7 @@ export default async function PartnerQuestionDetailPage({ params }: Props) {
     <div>
       <Link
         href="/partner/questions"
-        className="text-sm text-indigo-600 hover:text-indigo-800 mb-4 inline-block"
+        className="text-sm text-orange-600 hover:text-orange-800 mb-4 inline-block"
       >
         &larr; 質問一覧に戻る
       </Link>
@@ -60,7 +60,7 @@ export default async function PartnerQuestionDetailPage({ params }: Props) {
         {/* 質問内容 */}
         <div className="rounded-xl bg-gray-50 p-4">
           <div className="flex items-center gap-2 mb-2">
-            <span className="inline-flex items-center rounded-full bg-indigo-100 px-2.5 py-0.5 text-xs font-medium text-indigo-800">
+            <span className="inline-flex items-center rounded-full bg-orange-100 px-2.5 py-0.5 text-xs font-medium text-orange-800">
               Q
             </span>
             <span className="text-sm font-medium text-gray-900">質問内容</span>
@@ -98,13 +98,13 @@ export default async function PartnerQuestionDetailPage({ params }: Props) {
               required
               rows={5}
               defaultValue={q.answer ?? ""}
-              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm"
+              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500 text-sm"
               placeholder="お客様の質問に回答してください"
             />
           </div>
           <button
             type="submit"
-            className="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 font-medium text-sm"
+            className="bg-orange-600 text-white px-6 py-2 rounded-lg hover:bg-orange-700 font-medium text-sm"
           >
             {q.answer ? "回答を更新" : "回答を送信"}
           </button>

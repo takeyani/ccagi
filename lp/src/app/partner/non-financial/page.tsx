@@ -44,8 +44,8 @@ export default async function PartnerNonFinancialPage() {
         ))}
       </div>
 
-      <div className="bg-indigo-50 border border-indigo-200 rounded-xl p-4 mb-6">
-        <p className="text-sm text-indigo-800">
+      <div className="bg-orange-50 border border-orange-200 rounded-xl p-4 mb-6">
+        <p className="text-sm text-orange-800">
           合計 <span className="font-bold">{total}</span> 件のインサイトが収集されています。
           このデータはRAGデータベースに蓄積され、AI分析やレポート生成に活用できます。
         </p>

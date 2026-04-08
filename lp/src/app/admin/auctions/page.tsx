@@ -77,7 +77,7 @@ export default async function AdminAuctionsPage({
               href={s ? `/admin/auctions?status=${s}` : "/admin/auctions"}
               className={`px-3 py-1 rounded-lg text-sm ${
                 (status ?? "") === s
-                  ? "bg-indigo-600 text-white"
+                  ? "bg-orange-600 text-white"
                   : "bg-white border text-gray-600 hover:bg-gray-50"
               }`}
             >

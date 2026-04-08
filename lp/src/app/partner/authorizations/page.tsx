@@ -155,7 +155,7 @@ export default async function AuthorizationsPage() {
                 ))}
               </div>
             </fieldset>
-            <button type="submit" className="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700">
+            <button type="submit" className="bg-orange-600 text-white px-6 py-2 rounded-lg hover:bg-orange-700">
               承認を付与
             </button>
           </form>
@@ -182,7 +182,7 @@ export default async function AuthorizationsPage() {
               <label className="block text-sm font-medium text-gray-700 mb-1">メッセージ（任意）</label>
               <textarea name="message" rows={3} className="w-full border rounded-lg px-3 py-2" placeholder="承認をお願いする理由..." />
             </div>
-            <button type="submit" className="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700">
+            <button type="submit" className="bg-orange-600 text-white px-6 py-2 rounded-lg hover:bg-orange-700">
               承認リクエスト送信
             </button>
           </form>

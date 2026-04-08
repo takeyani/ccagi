@@ -22,7 +22,7 @@ export default function SignupPage() {
             アカウントをお持ちですか？{" "}
             <Link
               href="/login"
-              className="text-indigo-600 hover:text-indigo-800"
+              className="text-orange-600 hover:text-orange-800"
             >
               ログイン
             </Link>

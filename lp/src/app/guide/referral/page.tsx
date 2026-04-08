@@ -20,24 +20,24 @@ export default function ReferralGuidePage() {
             アフィリエイト登録をして紹介リンクを発行するだけで、誰でも紹介者になれます。
             紹介先がプラットフォームに登録・販売を開始すると、売上に対して報酬が発生します。
           </p>
-          <div className="bg-indigo-50 rounded-xl p-6">
+          <div className="bg-orange-50 rounded-xl p-6">
             <div className="flex items-center justify-between text-center text-sm">
               <div>
-                <div className="w-14 h-14 mx-auto bg-indigo-100 rounded-full flex items-center justify-center text-2xl mb-2">👤</div>
-                <p className="text-xs font-bold text-indigo-700">あなた</p>
-                <p className="text-[10px] text-indigo-500">紹介者</p>
+                <div className="w-14 h-14 mx-auto bg-orange-100 rounded-full flex items-center justify-center text-2xl mb-2">👤</div>
+                <p className="text-xs font-bold text-orange-700">あなた</p>
+                <p className="text-[10px] text-orange-500">紹介者</p>
               </div>
-              <div className="text-indigo-400 text-xl">&rarr;</div>
+              <div className="text-orange-400 text-xl">&rarr;</div>
               <div>
                 <div className="w-14 h-14 mx-auto bg-blue-100 rounded-full flex items-center justify-center text-2xl mb-2">🏭</div>
                 <p className="text-xs font-bold text-blue-700">メーカー</p>
               </div>
-              <div className="text-indigo-400 text-xl">&rarr;</div>
+              <div className="text-orange-400 text-xl">&rarr;</div>
               <div>
                 <div className="w-14 h-14 mx-auto bg-purple-100 rounded-full flex items-center justify-center text-2xl mb-2">🏢</div>
                 <p className="text-xs font-bold text-purple-700">代理店</p>
               </div>
-              <div className="text-indigo-400 text-xl">&rarr;</div>
+              <div className="text-orange-400 text-xl">&rarr;</div>
               <div>
                 <div className="w-14 h-14 mx-auto bg-pink-100 rounded-full flex items-center justify-center text-2xl mb-2">🎨</div>
                 <p className="text-xs font-bold text-pink-700">クリエイター</p>
@@ -49,12 +49,12 @@ export default function ReferralGuidePage() {
         {/* Step 1: 紹介者になる */}
         <section className="bg-white rounded-2xl border shadow-sm p-8 mb-8">
           <div className="flex items-center gap-3 mb-4">
-            <span className="flex-shrink-0 w-8 h-8 bg-indigo-600 text-white rounded-full flex items-center justify-center text-sm font-bold">1</span>
+            <span className="flex-shrink-0 w-8 h-8 bg-orange-600 text-white rounded-full flex items-center justify-center text-sm font-bold">1</span>
             <h2 className="text-lg font-bold text-gray-900">紹介者になる（共通）</h2>
           </div>
           <ol className="space-y-3 text-sm text-gray-700 ml-11">
             <li>
-              <Link href="/affiliate" className="text-indigo-600 hover:underline font-medium">アフィリエイト登録ページ</Link>
+              <Link href="/affiliate" className="text-orange-600 hover:underline font-medium">アフィリエイト登録ページ</Link>
               で名前・メールアドレスを入力
             </li>
             <li>アフィリエイトコードと紹介リンクが発行されます</li>
@@ -199,12 +199,12 @@ export default function ReferralGuidePage() {
         <div className="text-center space-y-4">
           <Link
             href="/affiliate"
-            className="inline-block rounded-full bg-indigo-600 px-8 py-3 text-sm font-bold text-white shadow hover:bg-indigo-700 transition"
+            className="inline-block rounded-full bg-orange-600 px-8 py-3 text-sm font-bold text-white shadow hover:bg-orange-700 transition"
           >
             紹介者として登録する &rarr;
           </Link>
           <div className="flex justify-center gap-4">
-            <Link href="/guide/start" className="text-sm text-indigo-600 hover:underline">
+            <Link href="/guide/start" className="text-sm text-orange-600 hover:underline">
               はじめての方はこちら
             </Link>
             <Link href="/" className="text-sm text-gray-500 hover:text-gray-700">

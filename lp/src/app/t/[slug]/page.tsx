@@ -75,7 +75,7 @@ export default async function TagDetailPage({ params }: Props) {
       <div className="mx-auto max-w-5xl px-6 py-16">
         {/* パンくず */}
         <nav className="mb-8 flex items-center gap-2 text-sm text-gray-500">
-          <Link href="/t" className="text-indigo-600 hover:text-indigo-800">
+          <Link href="/t" className="text-orange-600 hover:text-orange-800">
             タグ一覧
           </Link>
           <span>/</span>
@@ -85,7 +85,7 @@ export default async function TagDetailPage({ params }: Props) {
         {/* タグヘッダ */}
         <div className="mb-10">
           <div className="flex items-center gap-3 mb-2">
-            <span className="inline-block px-2 py-0.5 rounded text-xs font-medium bg-indigo-100 text-indigo-700">
+            <span className="inline-block px-2 py-0.5 rounded text-xs font-medium bg-orange-100 text-orange-700">
               {tag.tag_type}
             </span>
             <h1 className="text-3xl font-bold text-gray-900">{tag.name}</h1>
@@ -148,7 +148,7 @@ export default async function TagDetailPage({ params }: Props) {
                           <Link
                             key={lot.id}
                             href={`/products/${product.slug}/${lot.id}`}
-                            className="inline-block rounded-lg bg-indigo-50 px-3 py-1 text-xs font-medium text-indigo-700 hover:bg-indigo-100 transition"
+                            className="inline-block rounded-lg bg-orange-50 px-3 py-1 text-xs font-medium text-orange-700 hover:bg-orange-100 transition"
                           >
                             {lot.lot_number}
                           </Link>

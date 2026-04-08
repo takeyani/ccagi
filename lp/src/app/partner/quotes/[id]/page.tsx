@@ -103,7 +103,7 @@ export default async function QuoteDetailPage({
           </Link>
           <Link
             href="/partner/quotes"
-            className="text-indigo-600 hover:text-indigo-800 text-sm font-medium py-2"
+            className="text-orange-600 hover:text-orange-800 text-sm font-medium py-2"
           >
             ← 一覧に戻る
           </Link>
@@ -166,7 +166,7 @@ export default async function QuoteDetailPage({
                   name="buyer_company_name"
                   required
                   defaultValue={q.buyer_company_name}
-                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
                 />
               </div>
               <div>
@@ -176,7 +176,7 @@ export default async function QuoteDetailPage({
                 <input
                   name="buyer_contact_name"
                   defaultValue={q.buyer_contact_name ?? ""}
-                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
                 />
               </div>
               <div>
@@ -186,7 +186,7 @@ export default async function QuoteDetailPage({
                 <input
                   name="buyer_postal_code"
                   defaultValue={q.buyer_postal_code ?? ""}
-                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
                 />
               </div>
               <div>
@@ -196,7 +196,7 @@ export default async function QuoteDetailPage({
                 <input
                   name="buyer_address"
                   defaultValue={q.buyer_address ?? ""}
-                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
                 />
               </div>
             </div>
@@ -213,7 +213,7 @@ export default async function QuoteDetailPage({
                   name="subject"
                   required
                   defaultValue={q.subject}
-                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
                 />
               </div>
               <div>
@@ -225,7 +225,7 @@ export default async function QuoteDetailPage({
                   type="date"
                   required
                   defaultValue={q.issue_date}
-                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
                 />
               </div>
               <div>
@@ -236,7 +236,7 @@ export default async function QuoteDetailPage({
                   name="valid_until"
                   type="date"
                   defaultValue={q.valid_until ?? ""}
-                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
                 />
               </div>
               <div>
@@ -246,7 +246,7 @@ export default async function QuoteDetailPage({
                 <input
                   name="payment_terms"
                   defaultValue={q.payment_terms ?? ""}
-                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
                 />
               </div>
             </div>
@@ -265,14 +265,14 @@ export default async function QuoteDetailPage({
               name="notes"
               rows={3}
               defaultValue={q.notes ?? ""}
-              className="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500"
+              className="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-orange-500"
             />
           </div>
 
           <div className="flex items-center justify-between">
             <button
               type="submit"
-              className="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 font-medium"
+              className="bg-orange-600 text-white px-6 py-2 rounded-lg hover:bg-orange-700 font-medium"
             >
               更新
             </button>

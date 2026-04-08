@@ -20,8 +20,8 @@ export function PartnerSidebar({ items }: { items: NavItem[] }) {
             href={item.href}
             className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-all duration-200 ${
               isActive
-                ? "text-indigo-600 bg-indigo-50 font-medium border-l-2 border-indigo-600"
-                : "text-gray-600 hover:text-indigo-600 hover:bg-gray-50"
+                ? "text-orange-600 bg-orange-50 font-medium border-l-2 border-orange-600"
+                : "text-gray-600 hover:text-orange-600 hover:bg-gray-50"
             }`}
           >
             <span>{item.icon}</span>

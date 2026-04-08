@@ -133,7 +133,7 @@ export default async function AuctionPage({ params, searchParams }: Props) {
         <nav className="mb-8 flex gap-4">
           <Link
             href={`/products/${slug}/${lotId}`}
-            className="text-sm text-indigo-600 hover:text-indigo-800"
+            className="text-sm text-orange-600 hover:text-orange-800"
           >
             &larr; ロットページに戻る
           </Link>
@@ -179,11 +179,11 @@ export default async function AuctionPage({ params, searchParams }: Props) {
         )}
 
         {/* オークション情報カード */}
-        <div className="mt-8 rounded-2xl border-2 border-indigo-600 bg-white p-8 shadow-xl">
+        <div className="mt-8 rounded-2xl border-2 border-orange-600 bg-white p-8 shadow-xl">
           {/* ステータスバナー */}
           {isActive && (
-            <div className="mb-6 rounded-lg bg-indigo-50 p-3 text-center">
-              <span className="text-sm font-semibold text-indigo-700">オークション開催中</span>
+            <div className="mb-6 rounded-lg bg-orange-50 p-3 text-center">
+              <span className="text-sm font-semibold text-orange-700">オークション開催中</span>
             </div>
           )}
           {isSold && (

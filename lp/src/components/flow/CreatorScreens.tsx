@@ -73,13 +73,13 @@ export function LPEditorScreen() {
             {/* プレビューエリア */}
             <div className="flex-1 bg-white border border-gray-200 rounded-lg overflow-hidden">
               {/* ヒーロー（背景画像付き） */}
-              <div className="bg-indigo-600 text-white p-3 text-center relative overflow-hidden">
+              <div className="bg-orange-600 text-white p-3 text-center relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-b from-black/30 to-black/60" />
                 <div className="absolute top-0.5 right-1 text-[7px] text-white/60 z-10">🖼️ 背景画像設定済み</div>
                 <div className="relative z-10">
-                  <div className="text-[8px] text-indigo-200 mb-0.5">HERO ブロック</div>
+                  <div className="text-[8px] text-orange-200 mb-0.5">HERO ブロック</div>
                   <div className="text-xs font-bold">京都の本格有機抹茶</div>
-                  <div className="text-[9px] text-indigo-200">石臼挽き・カテキン豊富</div>
+                  <div className="text-[9px] text-orange-200">石臼挽き・カテキン豊富</div>
                 </div>
               </div>
               {/* 画像ブロック */}
@@ -133,7 +133,7 @@ export function LPEditorScreen() {
                 </div>
               </div>
               {/* CTA */}
-              <div className="p-2 bg-indigo-50 text-center">
+              <div className="p-2 bg-orange-50 text-center">
                 <div className="text-[8px] text-gray-400 mb-0.5">CTA ブロック</div>
                 <MockButton label="今すぐ購入する" primary />
               </div>
@@ -215,16 +215,16 @@ export function CollectionScreen() {
 export function PublicLPScreen() {
   return (
     <ScreenMockup title="ccagi.app/c/yamada/matcha-special">
-      <div className="bg-indigo-700 text-white p-4 text-center">
-        <div className="text-[9px] text-indigo-200 tracking-wider mb-1">SPECIAL SELECTION</div>
+      <div className="bg-orange-700 text-white p-4 text-center">
+        <div className="text-[9px] text-orange-200 tracking-wider mb-1">SPECIAL SELECTION</div>
         <div className="text-base font-bold mb-1">京都の本格有機抹茶</div>
-        <div className="text-[10px] text-indigo-200 mb-2">石臼挽き・カテキン豊富・有機JAS認証</div>
+        <div className="text-[10px] text-orange-200 mb-2">石臼挽き・カテキン豊富・有機JAS認証</div>
         <MockButton label="今すぐ購入する →" primary />
       </div>
       <div className="p-3">
         <div className="grid grid-cols-3 gap-2 mb-2 text-center">
           {["⭐ 有機JAS認証", "🍵 宇治産100%", "📦 即日発送"].map((f) => (
-            <div key={f} className="bg-indigo-50 rounded-lg p-1.5 text-[9px] text-indigo-700 font-medium">{f}</div>
+            <div key={f} className="bg-orange-50 rounded-lg p-1.5 text-[9px] text-orange-700 font-medium">{f}</div>
           ))}
         </div>
         <div className="bg-gray-50 rounded-lg p-2 mb-2">
@@ -260,7 +260,7 @@ export function AnalyticsScreen() {
               {[30, 45, 38, 52, 60, 48, 55, 70, 65, 80, 75, 90, 85, 95, 88, 72, 78, 82, 90, 95, 100, 92, 88, 85, 78, 82, 90, 95, 88, 92].map((v, i) => (
                 <div
                   key={i}
-                  className="flex-1 bg-indigo-400 rounded-t-sm min-w-0"
+                  className="flex-1 bg-orange-400 rounded-t-sm min-w-0"
                   style={{ height: `${v}%` }}
                 />
               ))}

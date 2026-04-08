@@ -42,7 +42,7 @@ export default async function PartnerSalesAgentPage() {
       {/* KPI */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
         <div className="bg-white rounded-xl border shadow-sm p-4 text-center">
-          <p className="text-2xl font-bold text-indigo-600">{activeLots}</p>
+          <p className="text-2xl font-bold text-orange-600">{activeLots}</p>
           <p className="text-xs text-gray-500">販売中ロット</p>
         </div>
         <div className="bg-white rounded-xl border shadow-sm p-4 text-center">
@@ -71,7 +71,7 @@ export default async function PartnerSalesAgentPage() {
                   <span className="text-red-700">{product.name} / {lot.lot_number as string}</span>
                   <div className="flex items-center gap-3">
                     <span className="font-bold text-red-800">残り {lot.stock as number}{lot.selling_unit as string ?? "個"}</span>
-                    <Link href={`/partner/lots/${lot.id}`} className="text-indigo-600 hover:underline text-xs">補充</Link>
+                    <Link href={`/partner/lots/${lot.id}`} className="text-orange-600 hover:underline text-xs">補充</Link>
                   </div>
                 </div>
               );
@@ -85,7 +85,7 @@ export default async function PartnerSalesAgentPage() {
         <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6">
           <div className="flex items-center justify-between mb-2">
             <h2 className="text-sm font-bold text-amber-800">未対応の引合い</h2>
-            <Link href="/partner/inquiries" className="text-indigo-600 hover:underline text-xs">すべて見る</Link>
+            <Link href="/partner/inquiries" className="text-orange-600 hover:underline text-xs">すべて見る</Link>
           </div>
           <div className="space-y-2">
             {(newInquiries ?? []).slice(0, 5).map((inq: Record<string, unknown>) => {
@@ -96,7 +96,7 @@ export default async function PartnerSalesAgentPage() {
                   <div className="flex items-center gap-3">
                     {inq.buyer_price ? <span className="text-xs text-gray-500">希望: ¥{Number(inq.buyer_price).toLocaleString()}</span> : null}
                     {inq.buyer_quantity ? <span className="text-xs text-gray-500">数量: {String(inq.buyer_quantity)}</span> : null}
-                    <Link href={`/partner/inquiries/${inq.id}`} className="text-indigo-600 hover:underline text-xs">対応</Link>
+                    <Link href={`/partner/inquiries/${inq.id}`} className="text-orange-600 hover:underline text-xs">対応</Link>
                   </div>
                 </div>
               );
@@ -135,7 +135,7 @@ export default async function PartnerSalesAgentPage() {
                   <td className="px-4 py-2 text-gray-600">{lot.selling_unit as string ?? "個"}</td>
                   <td className="px-4 py-2 text-gray-500 text-xs">{(lot.expiration_date as string) ?? "-"}</td>
                   <td className="px-4 py-2">
-                    <Link href={`/partner/lots/${lot.id}`} className="text-indigo-600 hover:underline text-xs">編集</Link>
+                    <Link href={`/partner/lots/${lot.id}`} className="text-orange-600 hover:underline text-xs">編集</Link>
                   </td>
                 </tr>
               );

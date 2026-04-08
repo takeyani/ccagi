@@ -17,11 +17,11 @@ export function ProductAttributes({
   );
 
   const ringClass =
-    accentColor === "teal" ? "focus:ring-teal-500" : "focus:ring-indigo-500";
+    accentColor === "teal" ? "focus:ring-teal-500" : "focus:ring-orange-500";
   const btnClass =
     accentColor === "teal"
       ? "text-teal-600 hover:text-teal-800"
-      : "text-indigo-600 hover:text-indigo-800";
+      : "text-orange-600 hover:text-orange-800";
 
   function addRow() {
     setAttrs([...attrs, { label: ATTRIBUTE_LABELS[0], value: "" }]);

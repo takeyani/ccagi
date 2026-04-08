@@ -83,13 +83,13 @@ export function CreatorGate({ children }: Props) {
               value={code}
               onChange={(e) => setCode(e.target.value)}
               placeholder="your-code-xxxx"
-              className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 focus:outline-none"
+              className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 focus:outline-none"
             />
           </div>
           {error && <p className="mt-3 text-sm text-red-600">{error}</p>}
           <button
             type="submit"
-            className="mt-4 w-full rounded-full bg-indigo-600 px-6 py-3 font-semibold text-white transition hover:bg-indigo-700"
+            className="mt-4 w-full rounded-full bg-orange-600 px-6 py-3 font-semibold text-white transition hover:bg-orange-700"
           >
             ログイン
           </button>

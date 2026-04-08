@@ -75,7 +75,7 @@ export default function TrustProof() {
         </div>
 
         {/* 証明のフロー図 */}
-        <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-8 text-white">
+        <div className="bg-gradient-to-r from-blue-600 to-orange-600 rounded-2xl p-8 text-white">
           <h3 className="font-bold text-center mb-6">証明がつくることで生まれる信頼の循環</h3>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 text-sm">
             {[

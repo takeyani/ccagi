@@ -11,7 +11,7 @@ export default async function NewDeliverySlipPage() {
         <h1 className="text-2xl font-bold">納品書 新規作成</h1>
         <Link
           href="/partner/delivery-slips"
-          className="text-indigo-600 hover:text-indigo-800 text-sm font-medium"
+          className="text-orange-600 hover:text-orange-800 text-sm font-medium"
         >
           ← 一覧に戻る
         </Link>
@@ -28,7 +28,7 @@ export default async function NewDeliverySlipPage() {
               <input
                 name="buyer_company_name"
                 required
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -37,7 +37,7 @@ export default async function NewDeliverySlipPage() {
               </label>
               <input
                 name="buyer_contact_name"
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -46,7 +46,7 @@ export default async function NewDeliverySlipPage() {
               </label>
               <input
                 name="buyer_postal_code"
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -55,7 +55,7 @@ export default async function NewDeliverySlipPage() {
               </label>
               <input
                 name="buyer_address"
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
           </div>
@@ -71,7 +71,7 @@ export default async function NewDeliverySlipPage() {
               <input
                 name="subject"
                 required
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -83,7 +83,7 @@ export default async function NewDeliverySlipPage() {
                 type="date"
                 required
                 defaultValue={today}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -93,7 +93,7 @@ export default async function NewDeliverySlipPage() {
               <input
                 name="delivery_date"
                 type="date"
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
           </div>
@@ -111,13 +111,13 @@ export default async function NewDeliverySlipPage() {
           <textarea
             name="notes"
             rows={3}
-            className="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500"
+            className="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-orange-500"
           />
         </div>
 
         <button
           type="submit"
-          className="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 font-medium"
+          className="bg-orange-600 text-white px-6 py-2 rounded-lg hover:bg-orange-700 font-medium"
         >
           保存
         </button>

@@ -65,7 +65,7 @@ export function ProductCard({
         <h3 className="font-semibold text-gray-900 line-clamp-2">{product.name}</h3>
 
         {showPrice && hasPrice && (
-          <p className="mt-1 text-lg font-bold text-indigo-600">
+          <p className="mt-1 text-lg font-bold text-orange-600">
             ¥{lowestPrice.toLocaleString()}
             {lots.length > 1 && <span className="text-sm font-normal text-gray-500">〜</span>}
           </p>

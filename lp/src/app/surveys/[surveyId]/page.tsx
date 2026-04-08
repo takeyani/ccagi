@@ -33,7 +33,7 @@ export default async function SurveyPage({ params }: Props) {
         <nav className="mb-8">
           <Link
             href="/"
-            className="text-sm text-indigo-600 hover:text-indigo-800"
+            className="text-sm text-orange-600 hover:text-orange-800"
           >
             &larr; トップページに戻る
           </Link>

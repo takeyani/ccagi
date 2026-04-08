@@ -34,7 +34,7 @@ export default async function EditLotPage({
                 name="product_id"
                 required
                 defaultValue={lot.product_id}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               >
                 {products?.map((p) => (
                   <option key={p.id} value={p.id}>
@@ -51,7 +51,7 @@ export default async function EditLotPage({
                 name="lot_number"
                 required
                 defaultValue={lot.lot_number}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -63,7 +63,7 @@ export default async function EditLotPage({
                 type="number"
                 required
                 defaultValue={lot.stock}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -73,7 +73,7 @@ export default async function EditLotPage({
               <select
                 name="status"
                 defaultValue={lot.status}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               >
                 <option value="販売中">販売中</option>
                 <option value="売切れ">売切れ</option>
@@ -88,7 +88,7 @@ export default async function EditLotPage({
                 name="price"
                 type="number"
                 defaultValue={lot.price ?? ""}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -99,7 +99,7 @@ export default async function EditLotPage({
                 name="wholesale_price"
                 type="number"
                 defaultValue={lot.wholesale_price ?? ""}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -110,7 +110,7 @@ export default async function EditLotPage({
                 name="expiration_date"
                 type="date"
                 defaultValue={lot.expiration_date ?? ""}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -121,7 +121,7 @@ export default async function EditLotPage({
                 name="purchase_date"
                 type="date"
                 defaultValue={lot.purchase_date ?? ""}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -132,7 +132,7 @@ export default async function EditLotPage({
                 name="purchase_price"
                 type="number"
                 defaultValue={lot.purchase_price ?? ""}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -142,7 +142,7 @@ export default async function EditLotPage({
               <select
                 name="shipping_method"
                 defaultValue={lot.shipping_method ?? "メーカー無料"}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               >
                 <option value="メーカー無料">メーカー無料</option>
                 <option value="配送会社手配">配送会社手配</option>
@@ -158,7 +158,7 @@ export default async function EditLotPage({
                 type="number"
                 defaultValue={lot.shipping_fee ?? 0}
                 min={0}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -168,7 +168,7 @@ export default async function EditLotPage({
               <select
                 name="selling_unit"
                 defaultValue={lot.selling_unit ?? "個"}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               >
                 <option value="個">個</option>
                 <option value="箱">箱</option>
@@ -185,7 +185,7 @@ export default async function EditLotPage({
                 type="number"
                 min={1}
                 defaultValue={lot.units_per_case ?? ""}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
                 placeholder="例: 24"
               />
             </div>
@@ -198,7 +198,7 @@ export default async function EditLotPage({
                 type="number"
                 min={1}
                 defaultValue={lot.cases_per_pallet ?? ""}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
                 placeholder="例: 40"
               />
             </div>
@@ -211,7 +211,7 @@ export default async function EditLotPage({
                 type="number"
                 defaultValue={lot.min_order_units ?? 1}
                 min={1}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
           </div>
@@ -223,12 +223,12 @@ export default async function EditLotPage({
               name="memo"
               rows={3}
               defaultValue={lot.memo ?? ""}
-              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
             />
           </div>
           <button
             type="submit"
-            className="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 font-medium"
+            className="bg-orange-600 text-white px-6 py-2 rounded-lg hover:bg-orange-700 font-medium"
           >
             更新
           </button>

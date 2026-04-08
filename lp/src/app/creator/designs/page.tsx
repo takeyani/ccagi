@@ -57,7 +57,7 @@ export default function CreatorDesignsPage() {
         <h1 className="text-2xl font-bold">デザイン一覧</h1>
         <Link
           href="/creator/designs/new"
-          className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700"
+          className="rounded-lg bg-orange-600 px-4 py-2 text-sm font-semibold text-white hover:bg-orange-700"
         >
           + 新規作成
         </Link>
@@ -70,7 +70,7 @@ export default function CreatorDesignsPage() {
           <p>デザインがまだありません</p>
           <Link
             href="/creator/designs/new"
-            className="mt-4 inline-block rounded-lg bg-indigo-600 px-6 py-2 text-sm text-white hover:bg-indigo-700"
+            className="mt-4 inline-block rounded-lg bg-orange-600 px-6 py-2 text-sm text-white hover:bg-orange-700"
           >
             最初のデザインを作成
           </Link>
@@ -110,7 +110,7 @@ export default function CreatorDesignsPage() {
                     <div className="flex items-center gap-2 justify-end">
                       <Link
                         href={`/creator/designs/${d.id}/edit`}
-                        className="text-indigo-600 hover:text-indigo-800 text-xs"
+                        className="text-orange-600 hover:text-orange-800 text-xs"
                       >
                         編集
                       </Link>

@@ -17,7 +17,7 @@ export default async function AdminTagsPage() {
       key: "tag_type",
       label: "タイプ",
       render: (t: Tag) => (
-        <span className="inline-block px-2 py-0.5 rounded text-xs font-medium bg-indigo-100 text-indigo-700">
+        <span className="inline-block px-2 py-0.5 rounded text-xs font-medium bg-orange-100 text-orange-700">
           {t.tag_type}
         </span>
       ),
@@ -50,7 +50,7 @@ export default async function AdminTagsPage() {
         <h1 className="text-2xl font-bold">タグ管理</h1>
         <Link
           href="/admin/tags/new"
-          className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 text-sm font-medium"
+          className="bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700 text-sm font-medium"
         >
           新規作成
         </Link>

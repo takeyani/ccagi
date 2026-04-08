@@ -53,7 +53,7 @@ export default async function AdminCreatorDesignsPage() {
           <Link
             href={`/c/${code}/${slug}/${lotId}`}
             target="_blank"
-            className="text-indigo-600 hover:text-indigo-800 text-xs"
+            className="text-orange-600 hover:text-orange-800 text-xs"
           >
             プレビュー
           </Link>

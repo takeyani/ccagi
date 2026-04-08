@@ -91,7 +91,7 @@ export function LineItemsForm({ initialItems, showTaxBreakdown }: Props) {
                 <input
                   value={item.item_name}
                   onChange={(e) => updateItem(i, "item_name", e.target.value)}
-                  className="w-full px-1 py-0.5 border-0 focus:ring-1 focus:ring-indigo-400 rounded"
+                  className="w-full px-1 py-0.5 border-0 focus:ring-1 focus:ring-orange-400 rounded"
                   placeholder="品名"
                   required
                 />
@@ -102,14 +102,14 @@ export function LineItemsForm({ initialItems, showTaxBreakdown }: Props) {
                   min={1}
                   value={item.quantity}
                   onChange={(e) => updateItem(i, "quantity", Number(e.target.value))}
-                  className="w-full px-1 py-0.5 border-0 focus:ring-1 focus:ring-indigo-400 rounded text-right"
+                  className="w-full px-1 py-0.5 border-0 focus:ring-1 focus:ring-orange-400 rounded text-right"
                 />
               </td>
               <td className="border px-1 py-1">
                 <input
                   value={item.unit}
                   onChange={(e) => updateItem(i, "unit", e.target.value)}
-                  className="w-full px-1 py-0.5 border-0 focus:ring-1 focus:ring-indigo-400 rounded"
+                  className="w-full px-1 py-0.5 border-0 focus:ring-1 focus:ring-orange-400 rounded"
                 />
               </td>
               <td className="border px-1 py-1">
@@ -118,14 +118,14 @@ export function LineItemsForm({ initialItems, showTaxBreakdown }: Props) {
                   min={0}
                   value={item.unit_price}
                   onChange={(e) => updateItem(i, "unit_price", Number(e.target.value))}
-                  className="w-full px-1 py-0.5 border-0 focus:ring-1 focus:ring-indigo-400 rounded text-right"
+                  className="w-full px-1 py-0.5 border-0 focus:ring-1 focus:ring-orange-400 rounded text-right"
                 />
               </td>
               <td className="border px-1 py-1">
                 <select
                   value={item.tax_rate}
                   onChange={(e) => updateItem(i, "tax_rate", Number(e.target.value))}
-                  className="w-full px-1 py-0.5 border-0 focus:ring-1 focus:ring-indigo-400 rounded"
+                  className="w-full px-1 py-0.5 border-0 focus:ring-1 focus:ring-orange-400 rounded"
                 >
                   <option value={10}>10%</option>
                   <option value={8}>8%</option>
@@ -150,7 +150,7 @@ export function LineItemsForm({ initialItems, showTaxBreakdown }: Props) {
       <button
         type="button"
         onClick={addRow}
-        className="mt-2 text-indigo-600 hover:text-indigo-800 text-sm font-medium"
+        className="mt-2 text-orange-600 hover:text-orange-800 text-sm font-medium"
       >
         + 行を追加
       </button>

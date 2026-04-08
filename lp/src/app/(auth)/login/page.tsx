@@ -29,11 +29,11 @@ export default function LoginPage() {
               <Link
                 key={r.label}
                 href={r.href}
-                className="flex flex-col items-center gap-1 p-3 rounded-lg border border-gray-200 hover:border-indigo-300 hover:bg-indigo-50 transition-all text-center"
+                className="flex flex-col items-center gap-1 p-3 rounded-lg border border-gray-200 hover:border-orange-300 hover:bg-orange-50 transition-all text-center"
               >
                 <span className="text-xl">{r.icon}</span>
                 <span className="text-xs font-medium text-gray-700">{r.label}</span>
-                <span className="text-[10px] text-indigo-600">新規登録</span>
+                <span className="text-[10px] text-orange-600">新規登録</span>
               </Link>
             ))}
           </div>

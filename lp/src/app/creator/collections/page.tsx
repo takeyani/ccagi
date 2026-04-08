@@ -67,7 +67,7 @@ export default function CollectionsPage() {
         <h1 className="text-2xl font-bold">コレクション一覧</h1>
         <Link
           href="/creator/collections/new"
-          className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700 transition"
+          className="rounded-lg bg-orange-600 px-4 py-2 text-sm font-semibold text-white hover:bg-orange-700 transition"
         >
           新規コレクション
         </Link>
@@ -112,7 +112,7 @@ export default function CollectionsPage() {
                     <div className="flex items-center gap-2">
                       <Link
                         href={`/creator/collections/${c.id}/edit`}
-                        className="text-xs text-indigo-600 hover:underline"
+                        className="text-xs text-orange-600 hover:underline"
                       >
                         編集
                       </Link>

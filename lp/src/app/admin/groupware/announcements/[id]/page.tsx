@@ -33,7 +33,7 @@ export default async function EditAnnouncementPage({
               name="title"
               required
               defaultValue={announcement.title}
-              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
             />
           </div>
           <div>
@@ -45,7 +45,7 @@ export default async function EditAnnouncementPage({
               required
               rows={6}
               defaultValue={announcement.body}
-              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
             />
           </div>
           <label className="flex items-center gap-2">
@@ -58,7 +58,7 @@ export default async function EditAnnouncementPage({
           </label>
           <button
             type="submit"
-            className="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 font-medium"
+            className="bg-orange-600 text-white px-6 py-2 rounded-lg hover:bg-orange-700 font-medium"
           >
             更新
           </button>

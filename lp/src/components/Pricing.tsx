@@ -16,7 +16,7 @@ export default function Pricing() {
           <div className="rounded-2xl border border-gray-200 bg-white p-8 shadow-sm text-center">
             <div className="text-4xl mb-3">💰</div>
             <p className="text-sm font-semibold text-gray-500 mb-2">初期費用</p>
-            <div className="text-4xl font-extrabold text-indigo-600 mb-2">
+            <div className="text-4xl font-extrabold text-orange-600 mb-2">
               &yen;0
             </div>
             <p className="text-sm text-gray-500">
@@ -28,7 +28,7 @@ export default function Pricing() {
           <div className="rounded-2xl border border-gray-200 bg-white p-8 shadow-sm text-center">
             <div className="text-4xl mb-3">📊</div>
             <p className="text-sm font-semibold text-gray-500 mb-2">月額費用</p>
-            <div className="text-4xl font-extrabold text-indigo-600 mb-2">
+            <div className="text-4xl font-extrabold text-orange-600 mb-2">
               &yen;0
             </div>
             <p className="text-sm text-gray-500">
@@ -37,10 +37,10 @@ export default function Pricing() {
           </div>
 
           {/* 成果報酬 */}
-          <div className="rounded-2xl border-2 border-indigo-600 bg-white p-8 shadow-xl text-center">
+          <div className="rounded-2xl border-2 border-orange-600 bg-white p-8 shadow-xl text-center">
             <div className="text-4xl mb-3">🎯</div>
-            <p className="text-sm font-semibold text-indigo-600 mb-2">手数料</p>
-            <div className="text-4xl font-extrabold text-indigo-600 mb-2">
+            <p className="text-sm font-semibold text-orange-600 mb-2">手数料</p>
+            <div className="text-4xl font-extrabold text-orange-600 mb-2">
               12%
             </div>
             <p className="text-sm text-gray-500">
@@ -63,7 +63,7 @@ export default function Pricing() {
           <p className="mt-2 text-gray-500 text-xs">
             獲得ポイントはプラットフォーム内の全商品の購入に利用可能
           </p>
-          <Link href="/affiliate" className="text-xs text-indigo-600 hover:text-indigo-800 mt-1 inline-block">アフィリエイト登録ページへ →</Link>
+          <Link href="/affiliate" className="text-xs text-orange-600 hover:text-orange-800 mt-1 inline-block">アフィリエイト登録ページへ →</Link>
         </div>
 
         <div className="mt-10 bg-white rounded-2xl border border-gray-200 p-6 max-w-2xl mx-auto shadow-sm">
@@ -80,7 +80,7 @@ export default function Pricing() {
               "オークション・自動入札",
             ].map((feature) => (
               <div key={feature} className="flex items-center gap-2 text-sm text-gray-700">
-                <span className="text-indigo-600">&#10003;</span>
+                <span className="text-orange-600">&#10003;</span>
                 {feature}
               </div>
             ))}
@@ -90,7 +90,7 @@ export default function Pricing() {
         <div className="mt-10">
           <Link
             href="/signup"
-            className="inline-block rounded-full bg-indigo-600 px-8 py-4 text-lg font-bold text-white shadow-lg transition hover:bg-indigo-700"
+            className="inline-block rounded-full bg-orange-600 px-8 py-4 text-lg font-bold text-white shadow-lg transition hover:bg-orange-700"
           >
             無料で登録する
           </Link>

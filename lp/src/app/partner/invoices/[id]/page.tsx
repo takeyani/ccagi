@@ -110,7 +110,7 @@ export default async function InvoiceDetailPage({
           </Link>
           <Link
             href="/partner/invoices"
-            className="text-indigo-600 hover:text-indigo-800 text-sm font-medium py-2"
+            className="text-orange-600 hover:text-orange-800 text-sm font-medium py-2"
           >
             ← 一覧に戻る
           </Link>
@@ -193,7 +193,7 @@ export default async function InvoiceDetailPage({
                   name="buyer_company_name"
                   required
                   defaultValue={inv.buyer_company_name}
-                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
                 />
               </div>
               <div>
@@ -203,7 +203,7 @@ export default async function InvoiceDetailPage({
                 <input
                   name="buyer_contact_name"
                   defaultValue={inv.buyer_contact_name ?? ""}
-                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
                 />
               </div>
               <div>
@@ -213,7 +213,7 @@ export default async function InvoiceDetailPage({
                 <input
                   name="buyer_postal_code"
                   defaultValue={inv.buyer_postal_code ?? ""}
-                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
                 />
               </div>
               <div>
@@ -223,7 +223,7 @@ export default async function InvoiceDetailPage({
                 <input
                   name="buyer_address"
                   defaultValue={inv.buyer_address ?? ""}
-                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
                 />
               </div>
             </div>
@@ -240,7 +240,7 @@ export default async function InvoiceDetailPage({
                   name="subject"
                   required
                   defaultValue={inv.subject}
-                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
                 />
               </div>
               <div>
@@ -252,7 +252,7 @@ export default async function InvoiceDetailPage({
                   type="date"
                   required
                   defaultValue={inv.issue_date}
-                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
                 />
               </div>
               <div>
@@ -263,7 +263,7 @@ export default async function InvoiceDetailPage({
                   name="due_date"
                   type="date"
                   defaultValue={inv.due_date ?? ""}
-                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
                 />
               </div>
               <div>
@@ -273,7 +273,7 @@ export default async function InvoiceDetailPage({
                 <input
                   name="payment_terms"
                   defaultValue={inv.payment_terms ?? ""}
-                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
                 />
               </div>
             </div>
@@ -292,13 +292,13 @@ export default async function InvoiceDetailPage({
               name="notes"
               rows={3}
               defaultValue={inv.notes ?? ""}
-              className="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500"
+              className="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-orange-500"
             />
           </div>
 
           <button
             type="submit"
-            className="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 font-medium"
+            className="bg-orange-600 text-white px-6 py-2 rounded-lg hover:bg-orange-700 font-medium"
           >
             更新
           </button>

@@ -122,7 +122,7 @@ export default function CreatorDashboardPage() {
           <div className="flex gap-4">
             <Link
               href="/creator/designs/new"
-              className="rounded-lg bg-indigo-600 px-6 py-3 font-semibold text-white hover:bg-indigo-700 transition"
+              className="rounded-lg bg-orange-600 px-6 py-3 font-semibold text-white hover:bg-orange-700 transition"
             >
               新しいデザインを作成
             </Link>

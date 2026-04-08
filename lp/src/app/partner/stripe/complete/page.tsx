@@ -43,7 +43,7 @@ export default function StripeCompletePage() {
             </p>
             <a
               href="/partner/profile"
-              className="inline-block bg-indigo-600 text-white px-6 py-2.5 rounded-lg hover:bg-indigo-700 font-medium"
+              className="inline-block bg-orange-600 text-white px-6 py-2.5 rounded-lg hover:bg-orange-700 font-medium"
             >
               プロフィールに戻る
             </a>
@@ -59,7 +59,7 @@ export default function StripeCompletePage() {
             </p>
             <a
               href="/partner/profile"
-              className="inline-block bg-indigo-600 text-white px-6 py-2.5 rounded-lg hover:bg-indigo-700 font-medium"
+              className="inline-block bg-orange-600 text-white px-6 py-2.5 rounded-lg hover:bg-orange-700 font-medium"
             >
               プロフィールに戻る
             </a>

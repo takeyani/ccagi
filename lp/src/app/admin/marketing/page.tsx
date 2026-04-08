@@ -96,7 +96,7 @@ export default function MarketingDashboardPage() {
                 onClick={() => setPeriod(opt.value)}
                 className={`px-4 py-2 rounded-lg text-sm transition ${
                   period === opt.value
-                    ? "bg-indigo-600 text-white"
+                    ? "bg-orange-600 text-white"
                     : "bg-white text-gray-600 border border-gray-200 hover:bg-gray-50"
                 }`}
               >
@@ -151,7 +151,7 @@ export default function MarketingDashboardPage() {
                           <span className="text-gray-500">👁️ {formatNumber(perf.views)}</span>
                           <span className="text-gray-500">🔄 {formatNumber(perf.shares)}</span>
                           <span className="text-gray-500">🎯 {perf.conversions}</span>
-                          <span className="text-indigo-600 font-medium">CVR {cvr}%</span>
+                          <span className="text-orange-600 font-medium">CVR {cvr}%</span>
                         </div>
                       </div>
                     );
@@ -178,7 +178,7 @@ export default function MarketingDashboardPage() {
                           <span className="text-gray-500">{perf.count}件</span>
                           <span className="text-gray-500">👁️ {formatNumber(perf.views)}</span>
                           <span className="text-gray-500">🎯 {perf.conversions}</span>
-                          <span className="text-indigo-600 font-medium">CVR {cvr}%</span>
+                          <span className="text-orange-600 font-medium">CVR {cvr}%</span>
                         </div>
                       </div>
                     );
@@ -218,7 +218,7 @@ export default function MarketingDashboardPage() {
                         <td className="py-3 text-right">{formatNumber(article.views)}</td>
                         <td className="py-3 text-right">{formatNumber(article.shares)}</td>
                         <td className="py-3 text-right">{article.conversions}</td>
-                        <td className="py-3 text-right text-indigo-600 font-medium">{cvr}%</td>
+                        <td className="py-3 text-right text-orange-600 font-medium">{cvr}%</td>
                       </tr>
                     );
                   })}

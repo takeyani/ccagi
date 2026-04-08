@@ -78,7 +78,7 @@ export default function RequestPage() {
           <div className="mt-8">
             <Link
               href="/"
-              className="inline-block rounded-full bg-indigo-600 px-6 py-3 font-semibold text-white transition hover:bg-indigo-700"
+              className="inline-block rounded-full bg-orange-600 px-6 py-3 font-semibold text-white transition hover:bg-orange-700"
             >
               トップページに戻る
             </Link>
@@ -116,7 +116,7 @@ export default function RequestPage() {
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="mt-1 w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 focus:outline-none"
+                className="mt-1 w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 focus:outline-none"
                 placeholder="山田太郎"
               />
             </div>
@@ -134,7 +134,7 @@ export default function RequestPage() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="mt-1 w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 focus:outline-none"
+                className="mt-1 w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 focus:outline-none"
                 placeholder="example@email.com"
               />
             </div>
@@ -152,7 +152,7 @@ export default function RequestPage() {
                 rows={5}
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                className="mt-1 w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 focus:outline-none resize-vertical"
+                className="mt-1 w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 focus:outline-none resize-vertical"
                 placeholder="制作してほしい内容を詳しくお書きください"
               />
             </div>
@@ -169,7 +169,7 @@ export default function RequestPage() {
                 required
                 value={budget}
                 onChange={(e) => setBudget(e.target.value)}
-                className="mt-1 w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 focus:outline-none"
+                className="mt-1 w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 focus:outline-none"
               >
                 <option value="" disabled>
                   選択してください
@@ -195,7 +195,7 @@ export default function RequestPage() {
                 type="text"
                 value={deadline}
                 onChange={(e) => setDeadline(e.target.value)}
-                className="mt-1 w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 focus:outline-none"
+                className="mt-1 w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 focus:outline-none"
                 placeholder="例: 2週間以内、3月末まで"
               />
             </div>
@@ -208,7 +208,7 @@ export default function RequestPage() {
           <button
             type="submit"
             disabled={loading}
-            className="mt-6 w-full rounded-full bg-indigo-600 px-6 py-3 font-semibold text-white transition hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="mt-6 w-full rounded-full bg-orange-600 px-6 py-3 font-semibold text-white transition hover:bg-orange-700 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? "送信中..." : "依頼を送信する"}
           </button>
@@ -217,7 +217,7 @@ export default function RequestPage() {
         <div className="mt-6 text-center">
           <Link
             href="/"
-            className="text-sm text-indigo-600 transition hover:text-indigo-800"
+            className="text-sm text-orange-600 transition hover:text-orange-800"
           >
             &larr; トップページに戻る
           </Link>

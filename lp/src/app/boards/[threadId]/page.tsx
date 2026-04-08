@@ -61,7 +61,7 @@ export default async function ThreadPage({ params }: Props) {
         <nav className="mb-8">
           <Link
             href={backHref}
-            className="text-sm text-indigo-600 hover:text-indigo-800"
+            className="text-sm text-orange-600 hover:text-orange-800"
           >
             &larr; 戻る
           </Link>

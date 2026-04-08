@@ -36,7 +36,7 @@ export function SortableBlock({ block, isSelected, onSelect, onRemove, onDuplica
       onClick={onSelect}
       className={`group relative rounded-lg border bg-white p-4 transition cursor-pointer ${
         isSelected
-          ? "border-indigo-500 ring-2 ring-indigo-200"
+          ? "border-orange-500 ring-2 ring-orange-200"
           : "border-gray-200 hover:border-gray-300"
       }`}
     >
@@ -97,7 +97,7 @@ export function SortableBlock({ block, isSelected, onSelect, onRemove, onDuplica
       {/* Block preview */}
       <div className="mt-2 text-sm text-gray-500">
         {blockType === "hero" && (
-          <div className="rounded bg-gradient-to-r from-indigo-500 to-purple-500 p-4 text-center text-white">
+          <div className="rounded bg-gradient-to-r from-orange-500 to-purple-500 p-4 text-center text-white">
             <p className="font-bold">{(block.props.title as string) || "ヒーロー"}</p>
           </div>
         )}
@@ -138,7 +138,7 @@ export function SortableBlock({ block, isSelected, onSelect, onRemove, onDuplica
         )}
         {blockType === "cta" && (
           <div className="text-center">
-            <span className="inline-block rounded-full bg-indigo-100 px-4 py-1 text-sm text-indigo-700">
+            <span className="inline-block rounded-full bg-orange-100 px-4 py-1 text-sm text-orange-700">
               {(block.props.text as string) || "CTAボタン"}
             </span>
           </div>

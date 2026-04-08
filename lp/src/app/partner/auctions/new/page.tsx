@@ -25,7 +25,7 @@ export default async function NewPartnerAuctionPage() {
 
   return (
     <div>
-      <Link href="/partner/auctions" className="text-sm text-indigo-600 hover:text-indigo-800 mb-4 inline-block">← オークション一覧に戻る</Link>
+      <Link href="/partner/auctions" className="text-sm text-orange-600 hover:text-orange-800 mb-4 inline-block">← オークション一覧に戻る</Link>
       <h1 className="text-2xl font-bold mb-6">オークション出品</h1>
       <div className="bg-white rounded-2xl border shadow-sm p-6 max-w-2xl">
         <form action={createPartnerAuction} className="space-y-4">
@@ -37,7 +37,7 @@ export default async function NewPartnerAuctionPage() {
               <select
                 name="lot_id"
                 required
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               >
                 <option value="">-- 選択 --</option>
                 {availableLots.map((l) => {
@@ -59,7 +59,7 @@ export default async function NewPartnerAuctionPage() {
                 name="start_price"
                 type="number"
                 required
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -69,7 +69,7 @@ export default async function NewPartnerAuctionPage() {
               <input
                 name="buy_now_price"
                 type="number"
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -80,7 +80,7 @@ export default async function NewPartnerAuctionPage() {
                 name="min_bid_increment"
                 type="number"
                 defaultValue={100}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -91,13 +91,13 @@ export default async function NewPartnerAuctionPage() {
                 name="ends_at"
                 type="datetime-local"
                 required
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
           </div>
           <button
             type="submit"
-            className="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 font-medium"
+            className="bg-orange-600 text-white px-6 py-2 rounded-lg hover:bg-orange-700 font-medium"
           >
             出品
           </button>

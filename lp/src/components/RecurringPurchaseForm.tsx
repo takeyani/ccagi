@@ -61,7 +61,7 @@ export default function RecurringPurchaseForm({ lotId, price }: Props) {
     return (
       <button
         onClick={() => setOpen(true)}
-        className="mt-3 w-full rounded-full border-2 border-indigo-600 py-3 text-sm font-semibold text-indigo-600 transition hover:bg-indigo-50"
+        className="mt-3 w-full rounded-full border-2 border-orange-600 py-3 text-sm font-semibold text-orange-600 transition hover:bg-orange-50"
       >
         定期購入で申し込む
       </button>
@@ -71,7 +71,7 @@ export default function RecurringPurchaseForm({ lotId, price }: Props) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="mt-4 rounded-xl border bg-indigo-50 p-5 space-y-4"
+      className="mt-4 rounded-xl border bg-orange-50 p-5 space-y-4"
     >
       <h3 className="text-sm font-bold text-gray-900">
         定期購入のお申し込み
@@ -92,8 +92,8 @@ export default function RecurringPurchaseForm({ lotId, price }: Props) {
               onClick={() => setFrequency(f)}
               className={`rounded-lg border px-3 py-2 text-sm font-medium transition ${
                 frequency === f
-                  ? "border-indigo-600 bg-indigo-600 text-white"
-                  : "border-gray-300 bg-white text-gray-700 hover:border-indigo-400"
+                  ? "border-orange-600 bg-orange-600 text-white"
+                  : "border-gray-300 bg-white text-gray-700 hover:border-orange-400"
               }`}
             >
               {f}
@@ -144,7 +144,7 @@ export default function RecurringPurchaseForm({ lotId, price }: Props) {
         <button
           type="submit"
           disabled={loading}
-          className="flex-1 rounded-full bg-indigo-600 py-3 text-sm font-bold text-white transition hover:bg-indigo-700 disabled:opacity-50"
+          className="flex-1 rounded-full bg-orange-600 py-3 text-sm font-bold text-white transition hover:bg-orange-700 disabled:opacity-50"
         >
           {loading ? "処理中..." : "定期購入を開始する"}
         </button>

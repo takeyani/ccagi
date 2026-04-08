@@ -59,7 +59,7 @@ export default async function PartnerFilesPage() {
                     <a
                       href={f.file_path}
                       download
-                      className="text-indigo-600 hover:text-indigo-800 text-sm"
+                      className="text-orange-600 hover:text-orange-800 text-sm"
                     >
                       DL
                     </a>

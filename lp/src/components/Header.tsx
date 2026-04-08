@@ -24,7 +24,7 @@ export default function Header() {
           </Link>
           <Link
             href="/signup"
-            className="rounded-full bg-white px-4 py-2 text-sm font-bold text-indigo-600 shadow hover:bg-gray-100 transition"
+            className="rounded-full bg-white px-4 py-2 text-sm font-bold text-orange-600 shadow hover:bg-gray-100 transition"
           >
             新規登録
           </Link>

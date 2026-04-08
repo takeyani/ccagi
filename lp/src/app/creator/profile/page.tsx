@@ -72,7 +72,7 @@ export default function CreatorProfilePage() {
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 focus:outline-none"
+              className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 focus:outline-none"
             />
           </div>
 
@@ -84,7 +84,7 @@ export default function CreatorProfilePage() {
               value={bio}
               onChange={(e) => setBio(e.target.value)}
               rows={4}
-              className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 focus:outline-none"
+              className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 focus:outline-none"
               placeholder="クリエイターとしてのプロフィールを入力..."
             />
           </div>
@@ -98,7 +98,7 @@ export default function CreatorProfilePage() {
               value={avatarUrl}
               onChange={(e) => setAvatarUrl(e.target.value)}
               placeholder="https://..."
-              className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 focus:outline-none"
+              className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 focus:outline-none"
             />
           </div>
 
@@ -130,7 +130,7 @@ export default function CreatorProfilePage() {
         <button
           onClick={handleSave}
           disabled={saving}
-          className="mt-6 w-full rounded-full bg-indigo-600 px-6 py-3 font-semibold text-white transition hover:bg-indigo-700 disabled:opacity-50"
+          className="mt-6 w-full rounded-full bg-orange-600 px-6 py-3 font-semibold text-white transition hover:bg-orange-700 disabled:opacity-50"
         >
           {saving ? "保存中..." : "プロフィールを保存"}
         </button>

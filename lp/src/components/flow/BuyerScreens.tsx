@@ -52,7 +52,7 @@ export function AgentCreateScreen() {
             <MockFormField label="エージェント名" placeholder="有機食品エージェント" />
 
             {/* ハードフィルタ */}
-            <div className="text-[9px] font-bold text-indigo-600 mb-1 mt-2">ハードフィルタ（必須条件）</div>
+            <div className="text-[9px] font-bold text-orange-600 mb-1 mt-2">ハードフィルタ（必須条件）</div>
             <MockFormField label="キーワード" placeholder="有機 オーガニック 抹茶" />
             <div className="grid grid-cols-2 gap-2">
               <MockFormField label="最低価格" placeholder="¥1,000" />
@@ -178,15 +178,15 @@ export function AgentResultScreen() {
           </div>
           <div className="space-y-1.5">
             {/* 1位: 展開済み（詳細表示） */}
-            <div className="bg-white border border-indigo-200 rounded-lg p-2">
+            <div className="bg-white border border-orange-200 rounded-lg p-2">
               <div className="flex items-center gap-2 mb-1">
-                <div className="w-5 h-5 rounded-full bg-indigo-600 text-white flex items-center justify-center text-[9px] font-bold">1</div>
+                <div className="w-5 h-5 rounded-full bg-orange-600 text-white flex items-center justify-center text-[9px] font-bold">1</div>
                 <div className="flex-1">
                   <div className="text-[10px] font-bold text-gray-900">京都有機抹茶 100g</div>
                   <div className="text-[9px] text-gray-400">宇治園製茶</div>
                 </div>
                 <div className="text-right">
-                  <div className="text-sm font-bold text-indigo-600">92.4</div>
+                  <div className="text-sm font-bold text-orange-600">92.4</div>
                   <div className="text-[8px] text-gray-400">総合スコア</div>
                 </div>
               </div>
@@ -255,7 +255,7 @@ export function AgentResultScreen() {
             ].map((r) => (
               <div key={r.rank} className="bg-white border border-gray-200 rounded-lg p-2">
                 <div className="flex items-center gap-2 mb-1">
-                  <div className="w-5 h-5 rounded-full bg-indigo-600 text-white flex items-center justify-center text-[9px] font-bold">
+                  <div className="w-5 h-5 rounded-full bg-orange-600 text-white flex items-center justify-center text-[9px] font-bold">
                     {r.rank}
                   </div>
                   <div className="flex-1">
@@ -263,7 +263,7 @@ export function AgentResultScreen() {
                     <div className="text-[9px] text-gray-400">{r.seller} <MockBadge label="認証済み" color="green" /></div>
                   </div>
                   <div className="text-right">
-                    <div className="text-sm font-bold text-indigo-600">{r.score}</div>
+                    <div className="text-sm font-bold text-orange-600">{r.score}</div>
                     <div className="text-[8px] text-gray-400">総合スコア</div>
                   </div>
                 </div>
@@ -284,7 +284,7 @@ export function AgentResultScreen() {
                   ))}
                 </div>
                 <div className="text-right mt-1">
-                  <span className="text-[8px] text-indigo-500 cursor-pointer">▶ 認証・成分詳細を表示</span>
+                  <span className="text-[8px] text-orange-500 cursor-pointer">▶ 認証・成分詳細を表示</span>
                 </div>
               </div>
             ))}
@@ -303,9 +303,9 @@ export function InquiryCreateScreen() {
         <div className="flex-1 p-3 bg-gray-50">
           <div className="font-bold text-sm mb-2 text-gray-900">問い合わせ作成</div>
           <div className="bg-white border border-gray-200 rounded-lg p-3">
-            <div className="bg-indigo-50 rounded-lg p-2 mb-2 text-[10px]">
-              <div className="font-bold text-indigo-700">京都有機抹茶 100g</div>
-              <div className="text-indigo-500">宇治園製茶 ・ スコア: 92.4 ・ ¥3,500/個</div>
+            <div className="bg-orange-50 rounded-lg p-2 mb-2 text-[10px]">
+              <div className="font-bold text-orange-700">京都有機抹茶 100g</div>
+              <div className="text-orange-500">宇治園製茶 ・ スコア: 92.4 ・ ¥3,500/個</div>
             </div>
             <div className="grid grid-cols-2 gap-2">
               <MockFormField label="希望価格" placeholder="¥3,200" />

@@ -78,7 +78,7 @@ export default async function TagsIndexPage() {
         <nav className="mb-8">
           <Link
             href="/"
-            className="text-sm text-indigo-600 hover:text-indigo-800"
+            className="text-sm text-orange-600 hover:text-orange-800"
           >
             &larr; トップページに戻る
           </Link>
@@ -98,7 +98,7 @@ export default async function TagsIndexPage() {
                 tagsByType[type].length > 0 && (
                   <section key={type}>
                     <h2 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                      <span className="inline-block px-2 py-0.5 rounded text-xs font-medium bg-indigo-100 text-indigo-700">
+                      <span className="inline-block px-2 py-0.5 rounded text-xs font-medium bg-orange-100 text-orange-700">
                         {type}
                       </span>
                     </h2>
@@ -107,7 +107,7 @@ export default async function TagsIndexPage() {
                         <Link
                           key={tag.id}
                           href={`/t/${tag.slug}`}
-                          className="flex items-center justify-between rounded-xl border bg-white px-4 py-3 hover:border-indigo-300 hover:shadow-sm transition"
+                          className="flex items-center justify-between rounded-xl border bg-white px-4 py-3 hover:border-orange-300 hover:shadow-sm transition"
                         >
                           <span className="font-medium text-gray-800">
                             {tag.name}
@@ -131,7 +131,7 @@ export default async function TagsIndexPage() {
               {TAG_TYPE_ORDER.map((type) => (
                 <section key={type}>
                   <h2 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                    <span className="inline-block px-2 py-0.5 rounded text-xs font-medium bg-indigo-100 text-indigo-700">
+                    <span className="inline-block px-2 py-0.5 rounded text-xs font-medium bg-orange-100 text-orange-700">
                       {type}
                     </span>
                   </h2>

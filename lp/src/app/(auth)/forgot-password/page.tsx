@@ -13,7 +13,7 @@ export default function ForgotPasswordPage() {
         </p>
         <ForgotPasswordForm />
         <p className="text-center text-sm text-gray-500 mt-6">
-          <Link href="/login" className="text-indigo-600 hover:text-indigo-800">
+          <Link href="/login" className="text-orange-600 hover:text-orange-800">
             ログインに戻る
           </Link>
         </p>

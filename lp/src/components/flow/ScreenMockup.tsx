@@ -111,7 +111,7 @@ export function MockButton({ label, primary }: { label: string; primary?: boolea
   return (
     <span
       className={`inline-block px-2 py-1 rounded text-[10px] font-medium ${
-        primary ? "bg-indigo-600 text-white" : "bg-gray-100 text-gray-600 border border-gray-200"
+        primary ? "bg-orange-600 text-white" : "bg-gray-100 text-gray-600 border border-gray-200"
       }`}
     >
       {label}

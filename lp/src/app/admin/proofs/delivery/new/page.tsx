@@ -29,7 +29,7 @@ export default async function NewDeliveryPage() {
               </label>
               <select
                 name="lot_purchase_id"
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               >
                 <option value="">-- 選択 --</option>
                 {purchases?.map((p) => {
@@ -49,7 +49,7 @@ export default async function NewDeliveryPage() {
               </label>
               <select
                 name="ownership_record_id"
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               >
                 <option value="">-- 選択 --</option>
                 {ownerships?.map((o) => {
@@ -70,7 +70,7 @@ export default async function NewDeliveryPage() {
               </label>
               <input
                 name="carrier"
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
                 placeholder="ヤマト運輸、佐川急便、etc."
               />
             </div>
@@ -80,7 +80,7 @@ export default async function NewDeliveryPage() {
               </label>
               <input
                 name="tracking_number"
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -90,7 +90,7 @@ export default async function NewDeliveryPage() {
               <input
                 name="shipped_at"
                 type="datetime-local"
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -100,13 +100,13 @@ export default async function NewDeliveryPage() {
               <input
                 name="estimated_delivery"
                 type="datetime-local"
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
           </div>
           <button
             type="submit"
-            className="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 font-medium"
+            className="bg-orange-600 text-white px-6 py-2 rounded-lg hover:bg-orange-700 font-medium"
           >
             作成
           </button>

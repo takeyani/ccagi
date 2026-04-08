@@ -36,7 +36,7 @@ export function RankingTable({ items, valueLabel }: Props) {
         >
           <span
             className={`w-8 text-center font-bold ${
-              item.rank <= 3 ? "text-indigo-600" : "text-gray-400"
+              item.rank <= 3 ? "text-orange-600" : "text-gray-400"
             }`}
           >
             {item.rank}
@@ -57,7 +57,7 @@ export function RankingTable({ items, valueLabel }: Props) {
             </div>
             <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
               <div
-                className="h-full bg-indigo-500 rounded-full transition-all"
+                className="h-full bg-orange-500 rounded-full transition-all"
                 style={{ width: `${(item.value / maxValue) * 100}%` }}
               />
             </div>

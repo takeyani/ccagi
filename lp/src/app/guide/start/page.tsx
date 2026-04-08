@@ -172,12 +172,12 @@ export default function StartGuidePage() {
           <p className="text-sm text-gray-500">紹介して報酬を得たい方は</p>
           <Link
             href="/guide/referral"
-            className="inline-block rounded-full bg-indigo-600 px-8 py-3 text-sm font-bold text-white shadow hover:bg-indigo-700 transition"
+            className="inline-block rounded-full bg-orange-600 px-8 py-3 text-sm font-bold text-white shadow hover:bg-orange-700 transition"
           >
             紹介ガイドを見る &rarr;
           </Link>
           <div className="flex justify-center gap-4 mt-4">
-            <Link href="/flow" className="text-sm text-indigo-600 hover:underline">
+            <Link href="/flow" className="text-sm text-orange-600 hover:underline">
               業務フローを見る
             </Link>
             <Link href="/" className="text-sm text-gray-500 hover:text-gray-700">

@@ -20,7 +20,7 @@ export default async function NewTaskPage() {
             <input
               name="title"
               required
-              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
             />
           </div>
           <div>
@@ -30,7 +30,7 @@ export default async function NewTaskPage() {
             <textarea
               name="description"
               rows={3}
-              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
             />
           </div>
           <div className="grid grid-cols-2 gap-4">
@@ -40,7 +40,7 @@ export default async function NewTaskPage() {
               </label>
               <select
                 name="status"
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               >
                 <option value="未着手">未着手</option>
                 <option value="進行中">進行中</option>
@@ -54,7 +54,7 @@ export default async function NewTaskPage() {
               <select
                 name="priority"
                 defaultValue="中"
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               >
                 <option value="高">高</option>
                 <option value="中">中</option>
@@ -67,7 +67,7 @@ export default async function NewTaskPage() {
               </label>
               <select
                 name="assigned_to"
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               >
                 <option value="">-- 選択 --</option>
                 {users?.map((u) => (
@@ -83,7 +83,7 @@ export default async function NewTaskPage() {
               </label>
               <select
                 name="assigned_partner_id"
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               >
                 <option value="">-- 選択 --</option>
                 {partners?.map((p) => (
@@ -100,13 +100,13 @@ export default async function NewTaskPage() {
               <input
                 name="due_date"
                 type="date"
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
           </div>
           <button
             type="submit"
-            className="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 font-medium"
+            className="bg-orange-600 text-white px-6 py-2 rounded-lg hover:bg-orange-700 font-medium"
           >
             作成
           </button>

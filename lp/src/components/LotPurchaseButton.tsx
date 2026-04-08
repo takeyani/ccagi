@@ -102,7 +102,7 @@ export default function LotPurchaseButton({ lotId, disabled, statusLabel, minOrd
         <button
           onClick={handlePurchase}
           disabled={loading}
-          className="w-full rounded-full bg-indigo-600 px-8 py-4 text-lg font-bold text-white shadow-lg transition hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full rounded-full bg-orange-600 px-8 py-4 text-lg font-bold text-white shadow-lg transition hover:bg-orange-700 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {loading ? "処理中..." : `今すぐ購入する（${quantity}${sellingUnit}）`}
         </button>

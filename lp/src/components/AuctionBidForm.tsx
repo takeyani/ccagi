@@ -102,7 +102,7 @@ export default function AuctionBidForm({
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+          className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500"
           placeholder="山田太郎"
           disabled={loading}
           readOnly={!!buyerAuth}
@@ -117,7 +117,7 @@ export default function AuctionBidForm({
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+          className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500"
           placeholder="taro@example.com"
           disabled={loading}
           readOnly={!!buyerAuth}
@@ -136,7 +136,7 @@ export default function AuctionBidForm({
             onChange={(e) => setAmount(Number(e.target.value))}
             min={minAmount}
             step={minBidIncrement}
-            className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+            className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500"
             disabled={loading}
           />
         </div>
@@ -160,7 +160,7 @@ export default function AuctionBidForm({
       <button
         onClick={() => handleBid(false)}
         disabled={loading}
-        className="w-full rounded-full bg-indigo-600 py-3 font-semibold text-white transition hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-50"
+        className="w-full rounded-full bg-orange-600 py-3 font-semibold text-white transition hover:bg-orange-700 disabled:cursor-not-allowed disabled:opacity-50"
       >
         {loading ? "処理中..." : "入札する"}
       </button>

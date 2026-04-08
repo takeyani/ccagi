@@ -111,7 +111,7 @@ export default function NewPartnerCampaignPage() {
           <h1 className="text-2xl font-bold">キャンペーン作成</h1>
           <button
             onClick={() => setShowTemplates(false)}
-            className="text-sm text-indigo-600 hover:underline"
+            className="text-sm text-orange-600 hover:underline"
           >
             テンプレートなしで作成
           </button>
@@ -122,14 +122,14 @@ export default function NewPartnerCampaignPage() {
             <button
               key={t.id}
               onClick={() => applyTemplate(t.id)}
-              className="text-left bg-white rounded-2xl border shadow-sm p-6 hover:border-indigo-400 hover:shadow-md transition"
+              className="text-left bg-white rounded-2xl border shadow-sm p-6 hover:border-orange-400 hover:shadow-md transition"
             >
               <p className="font-bold text-gray-900 mb-1">{t.name}</p>
               <p className="text-xs text-gray-500 mb-3">{t.steps.length}通のメールが自動配信されます</p>
               <div className="space-y-1">
                 {t.steps.map((s) => (
                   <div key={s.step_number} className="flex items-center gap-2 text-xs text-gray-600">
-                    <span className="w-5 h-5 bg-indigo-100 text-indigo-700 rounded-full flex items-center justify-center text-[10px] font-bold">{s.step_number}</span>
+                    <span className="w-5 h-5 bg-orange-100 text-orange-700 rounded-full flex items-center justify-center text-[10px] font-bold">{s.step_number}</span>
                     <span>{s.delay_hours === 0 ? "即時" : s.delay_hours < 24 ? `${s.delay_hours}時間後` : `${Math.round(s.delay_hours / 24)}日後`}</span>
                     <span className="text-gray-400">-</span>
                     <span className="truncate">{s.subject}</span>
@@ -223,7 +223,7 @@ export default function NewPartnerCampaignPage() {
         </div>
 
         <div className="flex gap-3">
-          <button type="submit" disabled={saving} className="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 disabled:opacity-50 font-medium">
+          <button type="submit" disabled={saving} className="bg-orange-600 text-white px-6 py-2 rounded-lg hover:bg-orange-700 disabled:opacity-50 font-medium">
             {saving ? "保存中..." : "キャンペーンを作成"}
           </button>
           <button type="button" onClick={() => setShowTemplates(true)} className="border px-4 py-2 rounded-lg text-sm hover:bg-gray-50">

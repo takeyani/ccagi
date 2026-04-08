@@ -63,7 +63,7 @@ export default async function BuyerDashboardPage() {
       <div className="bg-white rounded-xl border shadow-sm p-6 mb-6">
         <div className="flex items-center justify-between mb-4">
           <h2 className="font-semibold">最近のエージェント結果</h2>
-          <Link href="/buyer/agents" className="text-sm text-indigo-600 hover:underline">すべて見る</Link>
+          <Link href="/buyer/agents" className="text-sm text-orange-600 hover:underline">すべて見る</Link>
         </div>
         {(recentResults && recentResults.length > 0) ? (
           <div className="space-y-2">
@@ -83,7 +83,7 @@ export default async function BuyerDashboardPage() {
                     <p className="text-xs text-gray-500">{agent?.name ?? "エージェント"}</p>
                   </div>
                   <div className="flex items-center gap-3">
-                    <span className="text-sm font-bold text-indigo-600">{(r.total_score as number)?.toFixed(1)}点</span>
+                    <span className="text-sm font-bold text-orange-600">{(r.total_score as number)?.toFixed(1)}点</span>
                     <span className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${statusColors[r.status as string] ?? "bg-gray-100 text-gray-600"}`}>
                       {r.status as string}
                     </span>
@@ -99,9 +99,9 @@ export default async function BuyerDashboardPage() {
 
       {/* クイックアクション */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <Link href="/buyer/agents/new" className="bg-indigo-50 border border-indigo-200 rounded-xl p-4 hover:bg-indigo-100 transition text-center">
+        <Link href="/buyer/agents/new" className="bg-orange-50 border border-orange-200 rounded-xl p-4 hover:bg-orange-100 transition text-center">
           <span className="text-2xl">🤖</span>
-          <p className="text-sm font-medium text-indigo-700 mt-1">新しいエージェント作成</p>
+          <p className="text-sm font-medium text-orange-700 mt-1">新しいエージェント作成</p>
         </Link>
         <Link href="/buyer/inquiries" className="bg-amber-50 border border-amber-200 rounded-xl p-4 hover:bg-amber-100 transition text-center">
           <span className="text-2xl">📋</span>

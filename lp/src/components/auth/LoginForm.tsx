@@ -95,7 +95,7 @@ export function LoginForm() {
           autoComplete="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
           placeholder="you@example.com"
         />
       </div>
@@ -112,11 +112,11 @@ export function LoginForm() {
           required
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
           autoComplete="current-password"
         />
         <div className="text-right mt-1">
-          <Link href="/forgot-password" className="text-xs text-indigo-600 hover:text-indigo-800">
+          <Link href="/forgot-password" className="text-xs text-orange-600 hover:text-orange-800">
             パスワードを忘れた方
           </Link>
         </div>
@@ -124,7 +124,7 @@ export function LoginForm() {
       <button
         type="submit"
         disabled={loading}
-        className="w-full bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 disabled:opacity-50 font-medium"
+        className="w-full bg-orange-600 text-white py-2 px-4 rounded-lg hover:bg-orange-700 disabled:opacity-50 font-medium"
       >
         {loading ? "ログイン中..." : "ログイン"}
       </button>

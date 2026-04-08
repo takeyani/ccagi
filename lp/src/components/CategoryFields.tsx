@@ -26,7 +26,7 @@ export function CategoryFields({ templateId, customFields, fieldType }: Props) {
             name="category_template_id"
             value={selectedTemplate}
             onChange={(e) => setSelectedTemplate(e.target.value)}
-            className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+            className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
           >
             <option value="">カテゴリを選択（任意）</option>
             {Object.values(templates).map((t) => (
@@ -56,7 +56,7 @@ export function CategoryFields({ templateId, customFields, fieldType }: Props) {
                       name={`cf_${field.field}`}
                       required={field.required}
                       defaultValue={(customFields?.[field.field] as string) ?? ""}
-                      className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                      className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
                     >
                       <option value="">選択してください</option>
                       {field.options.map((opt) => (
@@ -78,7 +78,7 @@ export function CategoryFields({ templateId, customFields, fieldType }: Props) {
                       type={field.type === "number" ? "number" : field.type === "date" ? "date" : "text"}
                       required={field.required}
                       defaultValue={(customFields?.[field.field] as string) ?? ""}
-                      className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                      className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
                     />
                   )}
                 </div>

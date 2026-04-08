@@ -32,7 +32,7 @@ export default async function PartnerQuestionsPage() {
                 <td className="px-4 py-3">
                   <Link
                     href={`/partner/questions/${q.id}`}
-                    className="text-indigo-600 hover:text-indigo-800 font-medium"
+                    className="text-orange-600 hover:text-orange-800 font-medium"
                   >
                     {q.products?.name}
                   </Link>

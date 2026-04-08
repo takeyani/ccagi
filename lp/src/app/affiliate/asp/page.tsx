@@ -39,7 +39,7 @@ export default function AspProgramsPage() {
     <div className="min-h-screen bg-gray-50">
       <div className="mx-auto max-w-4xl px-6 py-16">
         <nav className="mb-8">
-          <Link href="/affiliate" className="text-sm text-indigo-600 hover:text-indigo-800">
+          <Link href="/affiliate" className="text-sm text-orange-600 hover:text-orange-800">
             &larr; アフィリエイトトップに戻る
           </Link>
         </nav>
@@ -82,10 +82,10 @@ export default function AspProgramsPage() {
                     </p>
                   </div>
                   <div className="text-right">
-                    <span className="inline-flex rounded-full bg-indigo-100 px-3 py-1 text-sm font-bold text-indigo-800">
+                    <span className="inline-flex rounded-full bg-orange-100 px-3 py-1 text-sm font-bold text-orange-800">
                       {p.commission_type}
                     </span>
-                    <p className="text-lg font-bold text-indigo-600 mt-1">
+                    <p className="text-lg font-bold text-orange-600 mt-1">
                       {p.commission_rate
                         ? `${p.commission_rate}%`
                         : `¥${p.commission_amount.toLocaleString()}`}
@@ -109,7 +109,7 @@ export default function AspProgramsPage() {
                       />
                       <button
                         onClick={() => navigator.clipboard.writeText(getLink(p))}
-                        className="shrink-0 rounded bg-indigo-600 px-3 py-2 text-xs font-medium text-white hover:bg-indigo-700"
+                        className="shrink-0 rounded bg-orange-600 px-3 py-2 text-xs font-medium text-white hover:bg-orange-700"
                       >
                         コピー
                       </button>

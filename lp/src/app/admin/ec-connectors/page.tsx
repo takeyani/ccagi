@@ -230,7 +230,7 @@ export default function EcConnectorsPage() {
               <p className="text-sm text-gray-500 mb-4">{info.description}</p>
               <button
                 onClick={() => handleConnect(type)}
-                className="px-4 py-2 rounded text-sm bg-indigo-600 text-white hover:bg-indigo-700"
+                className="px-4 py-2 rounded text-sm bg-orange-600 text-white hover:bg-orange-700"
               >
                 接続する
               </button>

@@ -21,7 +21,7 @@ export default async function PartnerProductProofsPage() {
 
   return (
     <div>
-      <Link href="/partner/proofs" className="text-sm text-indigo-600 hover:text-indigo-800 mb-4 inline-block">← 証明チェーンに戻る</Link>
+      <Link href="/partner/proofs" className="text-sm text-orange-600 hover:text-orange-800 mb-4 inline-block">← 証明チェーンに戻る</Link>
       <h1 className="text-2xl font-bold mb-2">商品証明</h1>
       <p className="text-sm text-gray-500 mb-6">
         成分表・スペックシート・試験成績書・品質証明書を提出してください
@@ -53,7 +53,7 @@ export default async function PartnerProductProofsPage() {
               )}
               {p.spec_data && (
                 <details className="mt-2">
-                  <summary className="text-xs text-indigo-600 cursor-pointer">
+                  <summary className="text-xs text-orange-600 cursor-pointer">
                     スペックデータ
                   </summary>
                   <pre className="text-xs bg-gray-50 p-2 rounded mt-1 overflow-auto max-h-32">
@@ -81,7 +81,7 @@ export default async function PartnerProductProofsPage() {
               <select
                 name="product_id"
                 required
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               >
                 <option value="">-- 選択 --</option>
                 {products?.map((p) => (
@@ -98,7 +98,7 @@ export default async function PartnerProductProofsPage() {
               <select
                 name="proof_type"
                 required
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               >
                 <option value="成分表">成分表</option>
                 <option value="スペックシート">スペックシート</option>
@@ -112,7 +112,7 @@ export default async function PartnerProductProofsPage() {
               </label>
               <input
                 name="lab_name"
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -122,7 +122,7 @@ export default async function PartnerProductProofsPage() {
               <input
                 name="tested_at"
                 type="date"
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -132,7 +132,7 @@ export default async function PartnerProductProofsPage() {
               <input
                 name="valid_until"
                 type="date"
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
           </div>
@@ -143,7 +143,7 @@ export default async function PartnerProductProofsPage() {
             <input
               name="document_url"
               type="url"
-              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               placeholder="https://..."
             />
           </div>
@@ -154,13 +154,13 @@ export default async function PartnerProductProofsPage() {
             <textarea
               name="spec_data"
               rows={4}
-              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 font-mono text-xs"
+              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500 font-mono text-xs"
               placeholder='例: {"成分": "ビタミンC 1000mg", "内容量": "90粒"}'
             />
           </div>
           <button
             type="submit"
-            className="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 font-medium"
+            className="bg-orange-600 text-white px-6 py-2 rounded-lg hover:bg-orange-700 font-medium"
           >
             提出
           </button>

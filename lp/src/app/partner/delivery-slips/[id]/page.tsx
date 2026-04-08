@@ -67,7 +67,7 @@ export default async function DeliverySlipDetailPage({
           </Link>
           <Link
             href="/partner/delivery-slips"
-            className="text-indigo-600 hover:text-indigo-800 text-sm font-medium py-2"
+            className="text-orange-600 hover:text-orange-800 text-sm font-medium py-2"
           >
             ← 一覧に戻る
           </Link>
@@ -100,7 +100,7 @@ export default async function DeliverySlipDetailPage({
                   name="buyer_company_name"
                   required
                   defaultValue={ds.buyer_company_name}
-                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
                 />
               </div>
               <div>
@@ -110,7 +110,7 @@ export default async function DeliverySlipDetailPage({
                 <input
                   name="buyer_contact_name"
                   defaultValue={ds.buyer_contact_name ?? ""}
-                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
                 />
               </div>
               <div>
@@ -120,7 +120,7 @@ export default async function DeliverySlipDetailPage({
                 <input
                   name="buyer_postal_code"
                   defaultValue={ds.buyer_postal_code ?? ""}
-                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
                 />
               </div>
               <div>
@@ -130,7 +130,7 @@ export default async function DeliverySlipDetailPage({
                 <input
                   name="buyer_address"
                   defaultValue={ds.buyer_address ?? ""}
-                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
                 />
               </div>
             </div>
@@ -147,7 +147,7 @@ export default async function DeliverySlipDetailPage({
                   name="subject"
                   required
                   defaultValue={ds.subject}
-                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
                 />
               </div>
               <div>
@@ -159,7 +159,7 @@ export default async function DeliverySlipDetailPage({
                   type="date"
                   required
                   defaultValue={ds.issue_date}
-                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
                 />
               </div>
               <div>
@@ -170,7 +170,7 @@ export default async function DeliverySlipDetailPage({
                   name="delivery_date"
                   type="date"
                   defaultValue={ds.delivery_date ?? ""}
-                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
                 />
               </div>
             </div>
@@ -189,13 +189,13 @@ export default async function DeliverySlipDetailPage({
               name="notes"
               rows={3}
               defaultValue={ds.notes ?? ""}
-              className="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500"
+              className="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-orange-500"
             />
           </div>
 
           <button
             type="submit"
-            className="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 font-medium"
+            className="bg-orange-600 text-white px-6 py-2 rounded-lg hover:bg-orange-700 font-medium"
           >
             更新
           </button>

@@ -223,7 +223,7 @@ export default function CreatorFlowPage() {
       </header>
 
       {/* ヒーロー */}
-      <section className="bg-gradient-to-br from-pink-900 via-purple-900 to-indigo-900 text-white py-20">
+      <section className="bg-gradient-to-br from-pink-900 via-purple-900 to-orange-900 text-white py-20">
         <div className="max-w-5xl mx-auto px-6 text-center">
           <p className="text-sm font-medium text-pink-300 tracking-wider mb-3">CREATOR FLOW GUIDE</p>
           <h1 className="text-3xl md:text-4xl font-extrabold mb-4">
@@ -610,8 +610,8 @@ export default function CreatorFlowPage() {
               <h4 className="font-bold text-purple-400 text-sm mb-2">バイヤーからの信頼獲得</h4>
               <p className="text-xs text-gray-400">評価スコアや販売実績が見えることで、LP経由の購入コンバージョン率が向上します。</p>
             </div>
-            <div className="bg-indigo-950/50 border border-indigo-800/50 rounded-xl p-5">
-              <h4 className="font-bold text-indigo-400 text-sm mb-2">クリエイター同士の連携</h4>
+            <div className="bg-orange-950/50 border border-orange-800/50 rounded-xl p-5">
+              <h4 className="font-bold text-orange-400 text-sm mb-2">クリエイター同士の連携</h4>
               <p className="text-xs text-gray-400">得意ジャンルの異なるクリエイター同士でコラボLP作成。お互いのフォロワーにリーチ。</p>
             </div>
           </div>
@@ -625,7 +625,7 @@ export default function CreatorFlowPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 text-white py-16">
+      <section className="bg-gradient-to-r from-pink-600 via-purple-600 to-orange-600 text-white py-16">
         <div className="max-w-3xl mx-auto px-6 text-center">
           <h2 className="text-2xl font-extrabold mb-3">
             あなたの影響力を収益に変えよう

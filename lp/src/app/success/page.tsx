@@ -158,7 +158,7 @@ export default async function SuccessPage({
         <div className="mt-8">
           <Link
             href="/"
-            className="inline-block rounded-full bg-indigo-600 px-6 py-3 font-semibold text-white transition hover:bg-indigo-700"
+            className="inline-block rounded-full bg-orange-600 px-6 py-3 font-semibold text-white transition hover:bg-orange-700"
           >
             トップページに戻る
           </Link>

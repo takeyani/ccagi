@@ -45,7 +45,7 @@ export default async function EditPartnerPage({
                 name="company_name"
                 required
                 defaultValue={partner.company_name}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -56,7 +56,7 @@ export default async function EditPartnerPage({
                 name="email"
                 type="email"
                 defaultValue={partner.email ?? ""}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -66,7 +66,7 @@ export default async function EditPartnerPage({
               <input
                 name="contact_name"
                 defaultValue={partner.contact_name ?? ""}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -76,7 +76,7 @@ export default async function EditPartnerPage({
               <input
                 name="phone"
                 defaultValue={partner.phone ?? ""}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -86,7 +86,7 @@ export default async function EditPartnerPage({
               <select
                 name="partner_type"
                 defaultValue={partner.partner_type}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               >
                 <option value="メーカー">メーカー</option>
                 <option value="代理店">代理店</option>
@@ -99,7 +99,7 @@ export default async function EditPartnerPage({
               <select
                 name="certification_status"
                 defaultValue={partner.certification_status}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               >
                 <option value="未認証">未認証</option>
                 <option value="認証済み">認証済み</option>
@@ -113,7 +113,7 @@ export default async function EditPartnerPage({
               <input
                 name="certification_number"
                 defaultValue={partner.certification_number ?? ""}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -124,7 +124,7 @@ export default async function EditPartnerPage({
                 name="certification_expiry"
                 type="date"
                 defaultValue={partner.certification_expiry ?? ""}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -134,7 +134,7 @@ export default async function EditPartnerPage({
               <input
                 name="postal_code"
                 defaultValue={partner.postal_code ?? ""}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -144,7 +144,7 @@ export default async function EditPartnerPage({
               <input
                 name="payment_terms"
                 defaultValue={partner.payment_terms ?? ""}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
           </div>
@@ -155,7 +155,7 @@ export default async function EditPartnerPage({
             <input
               name="address"
               defaultValue={partner.address ?? ""}
-              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
             />
           </div>
           <div>
@@ -166,7 +166,7 @@ export default async function EditPartnerPage({
               name="memo"
               rows={3}
               defaultValue={partner.memo ?? ""}
-              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
             />
           </div>
           <input
@@ -177,7 +177,7 @@ export default async function EditPartnerPage({
           <div className="flex gap-3">
             <button
               type="submit"
-              className="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 font-medium"
+              className="bg-orange-600 text-white px-6 py-2 rounded-lg hover:bg-orange-700 font-medium"
             >
               更新
             </button>
@@ -234,7 +234,7 @@ export default async function EditPartnerPage({
                   name="email"
                   type="email"
                   required
-                  className="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-orange-500"
                 />
               </div>
               <div>
@@ -246,7 +246,7 @@ export default async function EditPartnerPage({
                   type="password"
                   required
                   minLength={6}
-                  className="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-orange-500"
                 />
               </div>
             </div>
@@ -256,13 +256,13 @@ export default async function EditPartnerPage({
               </label>
               <input
                 name="display_name"
-                className="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-orange-500"
                 placeholder="省略時はメールアドレスが使用されます"
               />
             </div>
             <button
               type="submit"
-              className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 text-sm font-medium"
+              className="bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700 text-sm font-medium"
             >
               追加
             </button>

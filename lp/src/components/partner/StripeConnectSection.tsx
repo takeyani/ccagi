@@ -90,7 +90,7 @@ export function StripeConnectSection({
               href={status.dashboard_url as string}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block text-sm text-indigo-600 hover:text-indigo-700 font-medium"
+              className="inline-block text-sm text-orange-600 hover:text-orange-700 font-medium"
             >
               Stripeダッシュボードを開く →
             </a>
@@ -108,7 +108,7 @@ export function StripeConnectSection({
           <button
             onClick={handleConnect}
             disabled={loading}
-            className="bg-indigo-600 text-white px-5 py-2 rounded-lg hover:bg-indigo-700 text-sm font-medium disabled:opacity-50"
+            className="bg-orange-600 text-white px-5 py-2 rounded-lg hover:bg-orange-700 text-sm font-medium disabled:opacity-50"
           >
             {loading ? "読み込み中..." : "設定を続ける"}
           </button>
@@ -125,7 +125,7 @@ export function StripeConnectSection({
           <button
             onClick={handleConnect}
             disabled={loading}
-            className="bg-indigo-600 text-white px-6 py-2.5 rounded-lg hover:bg-indigo-700 font-medium disabled:opacity-50"
+            className="bg-orange-600 text-white px-6 py-2.5 rounded-lg hover:bg-orange-700 font-medium disabled:opacity-50"
           >
             {loading ? "接続中..." : "Stripeアカウントを接続する"}
           </button>

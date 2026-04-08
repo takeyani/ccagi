@@ -136,7 +136,7 @@ export function CalendarGrid({
               <span
                 className={`text-xs font-medium ${
                   isToday
-                    ? "bg-indigo-600 text-white rounded-full w-6 h-6 inline-flex items-center justify-center"
+                    ? "bg-orange-600 text-white rounded-full w-6 h-6 inline-flex items-center justify-center"
                     : dayOfWeek === 0
                       ? "text-red-500"
                       : dayOfWeek === 6

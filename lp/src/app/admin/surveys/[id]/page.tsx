@@ -154,7 +154,7 @@ export default async function EditSurveyPage({ params }: Props) {
 
         <button
           type="submit"
-          className="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 text-sm font-medium"
+          className="bg-orange-600 text-white px-6 py-2 rounded-lg hover:bg-orange-700 text-sm font-medium"
         >
           更新する
         </button>

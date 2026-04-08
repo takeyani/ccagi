@@ -77,7 +77,7 @@ export default function ArticlesAdminPage() {
           </div>
           <button
             onClick={() => setShowCreateModal(true)}
-            className="bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 transition font-medium"
+            className="bg-orange-600 text-white px-6 py-3 rounded-lg hover:bg-orange-700 transition font-medium"
           >
             + 新規記事LP作成
           </button>
@@ -109,7 +109,7 @@ export default function ArticlesAdminPage() {
             <p className="text-gray-500 text-lg mb-4">まだ記事LPがありません</p>
             <button
               onClick={() => setShowCreateModal(true)}
-              className="text-indigo-600 hover:text-indigo-700 font-medium"
+              className="text-orange-600 hover:text-orange-700 font-medium"
             >
               最初の記事LPを作成する →
             </button>
@@ -176,7 +176,7 @@ export default function ArticlesAdminPage() {
                       onClick={() => setNewTemplate(t.id)}
                       className={`text-left p-4 rounded-xl border-2 transition ${
                         newTemplate === t.id
-                          ? "border-indigo-500 bg-indigo-50"
+                          ? "border-orange-500 bg-orange-50"
                           : "border-gray-200 hover:border-gray-300"
                       }`}
                     >
@@ -203,7 +203,7 @@ export default function ArticlesAdminPage() {
                   value={newTitle}
                   onChange={(e) => setNewTitle(e.target.value)}
                   placeholder="例: 知らないと損する○○の話"
-                  className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                 />
               </div>
 
@@ -215,7 +215,7 @@ export default function ArticlesAdminPage() {
                   onChange={(e) => setNewDescription(e.target.value)}
                   placeholder="記事の概要..."
                   rows={2}
-                  className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                 />
               </div>
 
@@ -244,7 +244,7 @@ export default function ArticlesAdminPage() {
                 <button
                   onClick={handleCreate}
                   disabled={!newTitle.trim() || creating}
-                  className="bg-indigo-600 text-white px-6 py-2.5 rounded-lg hover:bg-indigo-700 transition disabled:opacity-50 font-medium"
+                  className="bg-orange-600 text-white px-6 py-2.5 rounded-lg hover:bg-orange-700 transition disabled:opacity-50 font-medium"
                 >
                   {creating ? "作成中..." : "記事LPを作成"}
                 </button>

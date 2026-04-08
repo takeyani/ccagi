@@ -61,7 +61,7 @@ export default async function AdminEntityProofsPage() {
                       href={p.document_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-xs text-indigo-600 hover:underline mt-1 inline-block"
+                      className="text-xs text-orange-600 hover:underline mt-1 inline-block"
                     >
                       書類を確認
                     </a>

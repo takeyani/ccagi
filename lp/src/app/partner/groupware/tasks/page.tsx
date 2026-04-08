@@ -53,7 +53,7 @@ export default async function PartnerTasksPage() {
                     </select>
                     <button
                       type="submit"
-                      className="text-xs text-indigo-600 hover:text-indigo-800"
+                      className="text-xs text-orange-600 hover:text-orange-800"
                     >
                       変更
                     </button>

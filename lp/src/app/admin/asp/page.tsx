@@ -30,7 +30,7 @@ export default async function AdminAspPage() {
         <h1 className="text-2xl font-bold">ASPアフィリエイト管理</h1>
         <Link
           href="/admin/asp/advertisers/new"
-          className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 text-sm font-medium"
+          className="bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700 text-sm font-medium"
         >
           広告主を追加
         </Link>
@@ -48,7 +48,7 @@ export default async function AdminAspPage() {
         </div>
         <div className="bg-white rounded-xl border p-4">
           <p className="text-sm text-gray-500">総コミッション</p>
-          <p className="text-2xl font-bold text-indigo-600">&yen;{totalCommission.toLocaleString()}</p>
+          <p className="text-2xl font-bold text-orange-600">&yen;{totalCommission.toLocaleString()}</p>
         </div>
       </div>
 
@@ -151,7 +151,7 @@ export default async function AdminAspPage() {
                   <td className="px-4 py-3 text-gray-900">{c.asp_programs?.name ?? "-"}</td>
                   <td className="px-4 py-3 font-mono text-xs text-gray-700">{c.affiliate_code}</td>
                   <td className="px-4 py-3 text-right text-gray-900">&yen;{c.amount.toLocaleString()}</td>
-                  <td className="px-4 py-3 text-right text-indigo-600 font-medium">&yen;{c.commission.toLocaleString()}</td>
+                  <td className="px-4 py-3 text-right text-orange-600 font-medium">&yen;{c.commission.toLocaleString()}</td>
                   <td className="px-4 py-3">
                     <span className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium ${
                       c.status === "発生" ? "bg-blue-100 text-blue-800"

@@ -169,13 +169,13 @@ export default function ComparisonPage() {
       </header>
 
       {/* ヒーロー */}
-      <section className="bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-900 text-white py-20">
+      <section className="bg-gradient-to-br from-slate-900 via-orange-900 to-slate-900 text-white py-20">
         <div className="max-w-5xl mx-auto px-6 text-center">
-          <p className="text-sm font-medium text-indigo-300 tracking-wider mb-3">COMPARISON GUIDE</p>
+          <p className="text-sm font-medium text-orange-300 tracking-wider mb-3">COMPARISON GUIDE</p>
           <h1 className="text-3xl md:text-4xl font-extrabold mb-4">
             従来のEC販売と<br />何が違うのか？
           </h1>
-          <p className="text-indigo-200/80 max-w-2xl mx-auto leading-relaxed mb-6">
+          <p className="text-orange-200/80 max-w-2xl mx-auto leading-relaxed mb-6">
             Cross Infinityは、従来のECとはまったく異なるアプローチで
             BtoB取引を革新します。初期費用0円・成果報酬型で、
             リスクなく始められるマーケットプレイスです。
@@ -195,7 +195,7 @@ export default function ComparisonPage() {
           <div className="grid md:grid-cols-3 gap-6">
             {pricingPoints.map((p) => (
               <div key={p.title} className="text-center">
-                <div className="w-16 h-16 bg-indigo-50 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-3">
+                <div className="w-16 h-16 bg-orange-50 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-3">
                   {p.icon}
                 </div>
                 <h4 className="font-extrabold text-gray-900 text-lg mb-2">{p.title}</h4>
@@ -203,11 +203,11 @@ export default function ComparisonPage() {
               </div>
             ))}
           </div>
-          <div className="mt-8 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl p-6 text-center">
+          <div className="mt-8 bg-gradient-to-r from-orange-50 to-purple-50 rounded-xl p-6 text-center">
             <p className="text-lg font-extrabold text-gray-900 mb-1">
               従来のEC：初期費用 数十万円 + 月額 数万円 + 売上手数料
             </p>
-            <p className="text-lg font-extrabold text-indigo-600">
+            <p className="text-lg font-extrabold text-orange-600">
               Cross Infinity：初期費用 0円 + 月額 0円 + 成果報酬12%のみ
             </p>
             <p className="text-sm text-gray-500 mt-2">
@@ -220,7 +220,7 @@ export default function ComparisonPage() {
       {/* 比較表 */}
       <section id="comparison" className="max-w-5xl mx-auto px-6 mb-20">
         <div className="mb-10 text-center">
-          <span className="inline-block bg-indigo-100 text-indigo-700 text-xs font-bold px-3 py-1 rounded-full mb-3">
+          <span className="inline-block bg-orange-100 text-orange-700 text-xs font-bold px-3 py-1 rounded-full mb-3">
             COMPARISON TABLE
           </span>
           <h2 className="text-2xl font-extrabold text-gray-900 mb-2">従来EC vs Cross Infinity</h2>
@@ -237,9 +237,9 @@ export default function ComparisonPage() {
                     従来のEC販売
                   </span>
                 </th>
-                <th className="text-left px-5 py-4 font-bold text-indigo-600 w-2/5">
+                <th className="text-left px-5 py-4 font-bold text-orange-600 w-2/5">
                   <span className="flex items-center gap-2">
-                    <span className="w-3 h-3 rounded-full bg-indigo-500" />
+                    <span className="w-3 h-3 rounded-full bg-orange-500" />
                     Cross Infinity
                   </span>
                 </th>
@@ -247,10 +247,10 @@ export default function ComparisonPage() {
             </thead>
             <tbody>
               {comparisonRows.map((row, i) => (
-                <tr key={i} className={`border-b last:border-0 ${row.highlight ? "bg-indigo-50/50" : ""}`}>
+                <tr key={i} className={`border-b last:border-0 ${row.highlight ? "bg-orange-50/50" : ""}`}>
                   <td className="px-5 py-3 font-medium text-gray-900">{row.label}</td>
                   <td className="px-5 py-3 text-gray-500">{row.traditional}</td>
-                  <td className={`px-5 py-3 ${row.highlight ? "font-bold text-indigo-600" : "text-gray-700"}`}>
+                  <td className={`px-5 py-3 ${row.highlight ? "font-bold text-orange-600" : "text-gray-700"}`}>
                     {row.ours}
                   </td>
                 </tr>
@@ -263,7 +263,7 @@ export default function ComparisonPage() {
       {/* 優位性の詳細 */}
       <section id="advantages" className="bg-slate-900 text-white py-16 mb-20">
         <div className="max-w-5xl mx-auto px-6">
-          <p className="text-sm font-medium text-indigo-400 tracking-wider mb-3 text-center">
+          <p className="text-sm font-medium text-orange-400 tracking-wider mb-3 text-center">
             KEY ADVANTAGES
           </p>
           <h2 className="text-2xl font-extrabold text-center mb-3">
@@ -274,10 +274,10 @@ export default function ComparisonPage() {
           </p>
           <div className="grid md:grid-cols-2 gap-6">
             {advantages.map((a, i) => (
-              <div key={a.title} className={`rounded-xl p-6 ${i === 0 ? "md:col-span-2 bg-gradient-to-r from-indigo-600 to-purple-600 border-2 border-indigo-400 shadow-lg shadow-indigo-500/20" : "bg-slate-800 border border-slate-700"}`}>
+              <div key={a.title} className={`rounded-xl p-6 ${i === 0 ? "md:col-span-2 bg-gradient-to-r from-orange-600 to-purple-600 border-2 border-orange-400 shadow-lg shadow-orange-500/20" : "bg-slate-800 border border-slate-700"}`}>
                 <div className="text-2xl mb-3">{a.icon}</div>
                 <h4 className={`font-bold mb-2 ${i === 0 ? "text-lg text-white" : "text-sm"}`}>{a.title}</h4>
-                <p className={`leading-relaxed ${i === 0 ? "text-sm text-indigo-100" : "text-xs text-gray-400"}`}>{a.desc}</p>
+                <p className={`leading-relaxed ${i === 0 ? "text-sm text-orange-100" : "text-xs text-gray-400"}`}>{a.desc}</p>
               </div>
             ))}
           </div>
@@ -323,7 +323,7 @@ export default function ComparisonPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-16">
+      <section className="bg-gradient-to-r from-orange-600 to-purple-600 text-white py-16">
         <div className="max-w-3xl mx-auto px-6 text-center">
           <div className="inline-flex items-center gap-2 bg-white/20 rounded-full px-4 py-2 mb-6">
             <span className="text-xl">💰</span>
@@ -332,12 +332,12 @@ export default function ComparisonPage() {
           <h2 className="text-2xl font-extrabold mb-3">
             リスクゼロで始めましょう
           </h2>
-          <p className="text-indigo-100 text-sm mb-8">
+          <p className="text-orange-100 text-sm mb-8">
             初期費用も月額費用も不要。売上が発生して初めて手数料が発生する、
             完全成果報酬型のマーケットプレイスです。
           </p>
           <div className="flex justify-center gap-4 flex-wrap">
-            <Link href="/signup" className="bg-white text-indigo-700 font-bold px-6 py-3 rounded-lg hover:bg-indigo-50 text-sm transition">
+            <Link href="/signup" className="bg-white text-orange-700 font-bold px-6 py-3 rounded-lg hover:bg-orange-50 text-sm transition">
               無料で登録する
             </Link>
             <Link href="/flow" className="border border-white/50 text-white px-6 py-3 rounded-lg hover:bg-white/10 text-sm transition">

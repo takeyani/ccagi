@@ -47,7 +47,7 @@ export default async function ApprovalsPage() {
                       {a.status}
                     </span>
                   </div>
-                  <a href={entityLink(a)} className="text-indigo-600 hover:text-indigo-800 text-sm">
+                  <a href={entityLink(a)} className="text-orange-600 hover:text-orange-800 text-sm">
                     帳票を確認
                   </a>
                 </div>
@@ -93,7 +93,7 @@ export default async function ApprovalsPage() {
           <div key={a.id} className="px-6 py-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <a href={entityLink(a)} className="font-medium text-indigo-600 hover:text-indigo-800">
+                <a href={entityLink(a)} className="font-medium text-orange-600 hover:text-orange-800">
                   {entityLabel(a.entity_type)} {a.document_number}
                 </a>
                 <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${statusBadge[a.status]}`}>

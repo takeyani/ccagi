@@ -43,7 +43,7 @@ const categories: AwardCategory[] = [
   { id: "electronics", name: "家電・電子機器", icon: "📱", color: "text-blue-600", bgColor: "bg-blue-50", borderColor: "border-blue-200" },
   { id: "apparel", name: "洋服・ファッション", icon: "👕", color: "text-purple-600", bgColor: "bg-purple-50", borderColor: "border-purple-200" },
   { id: "service", name: "サービス・コンサル", icon: "💼", color: "text-teal-600", bgColor: "bg-teal-50", borderColor: "border-teal-200" },
-  { id: "digital", name: "映像・デジタル商品", icon: "🎬", color: "text-indigo-600", bgColor: "bg-indigo-50", borderColor: "border-indigo-200" },
+  { id: "digital", name: "映像・デジタル商品", icon: "🎬", color: "text-orange-600", bgColor: "bg-orange-50", borderColor: "border-orange-200" },
   { id: "industrial", name: "産業用・工業製品", icon: "🏭", color: "text-gray-600", bgColor: "bg-gray-50", borderColor: "border-gray-200" },
 ];
 
@@ -150,7 +150,7 @@ const tiers: AwardTier[] = [
   { rank: "1st", label: "ゴールド", icon: "🥇", color: "from-amber-400 to-yellow-500", benefit: "トップページ掲載 + 次月手数料1%OFF + ゴールドバッジ" },
   { rank: "2nd", label: "シルバー", icon: "🥈", color: "from-gray-300 to-gray-400", benefit: "カテゴリーページ掲載 + 次月手数料0.5%OFF + シルバーバッジ" },
   { rank: "3rd", label: "ブロンズ", icon: "🥉", color: "from-amber-600 to-orange-700", benefit: "ランキングページ掲載 + ブロンズバッジ" },
-  { rank: "TOP10", label: "ノミネート", icon: "🏅", color: "from-indigo-400 to-blue-500", benefit: "ランキングページ掲載 + ノミネートバッジ" },
+  { rank: "TOP10", label: "ノミネート", icon: "🏅", color: "from-orange-400 to-blue-500", benefit: "ランキングページ掲載 + ノミネートバッジ" },
 ];
 
 const months = [
@@ -170,7 +170,7 @@ function MetricCard({ metric }: { metric: AwardMetric }) {
           <p className="text-xs text-gray-500 leading-relaxed mb-2">{metric.description}</p>
           <div className="flex flex-wrap gap-1">
             {metric.targets.map((t) => (
-              <span key={t} className="text-[10px] bg-indigo-50 text-indigo-600 px-2 py-0.5 rounded-full font-medium">{t}</span>
+              <span key={t} className="text-[10px] bg-orange-50 text-orange-600 px-2 py-0.5 rounded-full font-medium">{t}</span>
             ))}
           </div>
         </div>

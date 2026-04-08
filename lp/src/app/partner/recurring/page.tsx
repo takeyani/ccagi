@@ -31,7 +31,7 @@ export default async function PartnerRecurringPage() {
             {(orders as (RecurringOrder & { products: { name: string }; lots: { lot_number: string } })[] | null)?.map((o) => (
               <tr key={o.id} className="hover:bg-gray-50">
                 <td className="px-4 py-3 font-medium text-gray-900">
-                  <Link href={`/partner/recurring/${o.id}`} className="text-indigo-600 hover:text-indigo-800 hover:underline">
+                  <Link href={`/partner/recurring/${o.id}`} className="text-orange-600 hover:text-orange-800 hover:underline">
                     {o.products?.name ?? "-"}
                   </Link>
                 </td>

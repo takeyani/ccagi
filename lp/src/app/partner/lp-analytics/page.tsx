@@ -84,11 +84,11 @@ export default async function PartnerLPAnalyticsPage() {
         </div>
         <div className="bg-white rounded-xl border p-4">
           <p className="text-sm text-gray-500">CV数</p>
-          <p className="text-2xl font-bold text-indigo-600">{totalCV}</p>
+          <p className="text-2xl font-bold text-orange-600">{totalCV}</p>
         </div>
         <div className="bg-white rounded-xl border p-4">
           <p className="text-sm text-gray-500">CVR</p>
-          <p className="text-2xl font-bold text-indigo-600">
+          <p className="text-2xl font-bold text-orange-600">
             {totalPV > 0 ? ((totalCV / totalPV) * 100).toFixed(1) : "0.0"}%
           </p>
         </div>
@@ -151,7 +151,7 @@ export default async function PartnerLPAnalyticsPage() {
                       <td className="px-3 py-2 w-48">
                         <div className="bg-gray-100 rounded-full h-2">
                           <div
-                            className="bg-indigo-500 rounded-full h-2"
+                            className="bg-orange-500 rounded-full h-2"
                             style={{ width: `${max > 0 ? (count / max) * 100 : 0}%` }}
                           />
                         </div>

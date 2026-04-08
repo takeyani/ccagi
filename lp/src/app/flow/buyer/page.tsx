@@ -183,7 +183,7 @@ export default function BuyerFlowPage() {
 
       {/* メーカーの参入意義 */}
       <section className="max-w-5xl mx-auto px-6 -mt-10 mb-8 relative z-10">
-        <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-8 shadow-lg text-white">
+        <div className="bg-gradient-to-r from-blue-600 to-orange-600 rounded-2xl p-8 shadow-lg text-white">
           <h3 className="text-center text-lg font-bold mb-2">メーカーはなぜこのプラットフォームで売りやすくなるのか？</h3>
           <p className="text-blue-200 text-sm text-center mb-6">従来の営業・ECでは難しかった「売れる仕組み」が自動で動きます</p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">

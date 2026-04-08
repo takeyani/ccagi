@@ -59,7 +59,7 @@ export default function AffiliatePage() {
           </h1>
           <p className="mt-3 text-gray-600">
             紹介リンクを共有して、売上の
-            <span className="font-bold text-indigo-600">2%</span>
+            <span className="font-bold text-orange-600">2%</span>
             をポイントとして獲得しましょう。獲得ポイントは全商品の購入に使えます。
           </p>
         </div>
@@ -75,7 +75,7 @@ export default function AffiliatePage() {
               { step: "4", text: "紹介先の売上発生時、12%の成果報酬のうち2%をポイント獲得" },
             ].map((item) => (
               <div key={item.step} className="flex items-start gap-3">
-                <span className="flex-shrink-0 w-6 h-6 bg-indigo-100 text-indigo-700 rounded-full flex items-center justify-center text-xs font-bold">{item.step}</span>
+                <span className="flex-shrink-0 w-6 h-6 bg-orange-100 text-orange-700 rounded-full flex items-center justify-center text-xs font-bold">{item.step}</span>
                 <p className="text-sm text-gray-700">{item.text}</p>
               </div>
             ))}
@@ -84,7 +84,7 @@ export default function AffiliatePage() {
             <p className="text-xs text-gray-500">報酬内訳</p>
             <div className="flex items-center justify-center gap-4 mt-2">
               <div className="text-center">
-                <p className="text-lg font-extrabold text-indigo-600">12%</p>
+                <p className="text-lg font-extrabold text-orange-600">12%</p>
                 <p className="text-xs text-gray-500">成果報酬</p>
               </div>
               <span className="text-gray-400">=</span>
@@ -167,7 +167,7 @@ export default function AffiliatePage() {
               </div>
               <div className="border-t pt-1 flex items-center justify-between text-xs">
                 <span className="font-bold text-gray-900">合計手数料</span>
-                <span className="font-bold text-indigo-600">12%</span>
+                <span className="font-bold text-orange-600">12%</span>
               </div>
             </div>
             <p className="text-[10px] text-gray-400 mt-2">
@@ -182,7 +182,7 @@ export default function AffiliatePage() {
 
           <div className="space-y-4">
             <div>
-              <p className="text-xs font-bold text-indigo-600 mb-2">掲載される媒体（アフィリエイターの活動場所）</p>
+              <p className="text-xs font-bold text-orange-600 mb-2">掲載される媒体（アフィリエイターの活動場所）</p>
               <div className="grid grid-cols-2 gap-2">
                 {[
                   { name: "Instagram", desc: "ストーリー・フィード・リール" },
@@ -203,7 +203,7 @@ export default function AffiliatePage() {
             </div>
 
             <div>
-              <p className="text-xs font-bold text-indigo-600 mb-2">アフィリエイターの種類</p>
+              <p className="text-xs font-bold text-orange-600 mb-2">アフィリエイターの種類</p>
               <div className="space-y-2">
                 {[
                   { type: "インフルエンサー", desc: "SNSフォロワーを持つ個人。LP作成→SNSで拡散→フォロワーが購入" },
@@ -213,7 +213,7 @@ export default function AffiliatePage() {
                   { type: "個人の紹介者", desc: "知人のメーカーやインフルエンサーをプラットフォームに紹介（グループ紹介フィー）" },
                 ].map((a) => (
                   <div key={a.type} className="flex items-start gap-2 text-xs">
-                    <span className="text-indigo-500 mt-0.5">-</span>
+                    <span className="text-orange-500 mt-0.5">-</span>
                     <div>
                       <span className="font-bold text-gray-900">{a.type}：</span>
                       <span className="text-gray-600">{a.desc}</span>
@@ -224,7 +224,7 @@ export default function AffiliatePage() {
             </div>
 
             <div>
-              <p className="text-xs font-bold text-indigo-600 mb-2">メーカーによるアフィリエイター管理</p>
+              <p className="text-xs font-bold text-orange-600 mb-2">メーカーによるアフィリエイター管理</p>
               <div className="space-y-1.5">
                 {[
                   "販売許可の承認/拒否：クリエイターからのリクエストをメーカーが審査",
@@ -277,7 +277,7 @@ export default function AffiliatePage() {
                   required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="mt-1 w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 focus:outline-none"
+                  className="mt-1 w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 focus:outline-none"
                   placeholder="山田太郎"
                 />
               </div>
@@ -294,7 +294,7 @@ export default function AffiliatePage() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="mt-1 w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 focus:outline-none"
+                  className="mt-1 w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 focus:outline-none"
                   placeholder="example@email.com"
                 />
               </div>
@@ -304,7 +304,7 @@ export default function AffiliatePage() {
                     type="checkbox"
                     checked={isCreator}
                     onChange={(e) => setIsCreator(e.target.checked)}
-                    className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                    className="rounded border-gray-300 text-orange-600 focus:ring-orange-500"
                   />
                   <span className="text-sm text-gray-700">
                     クリエイターとして登録する（LP作成機能を利用）
@@ -320,7 +320,7 @@ export default function AffiliatePage() {
             <button
               type="submit"
               disabled={loading}
-              className="mt-6 w-full rounded-full bg-indigo-600 px-6 py-3 font-semibold text-white transition hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="mt-6 w-full rounded-full bg-orange-600 px-6 py-3 font-semibold text-white transition hover:bg-orange-700 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? "登録中..." : "アフィリエイト登録する"}
             </button>
@@ -355,7 +355,7 @@ export default function AffiliatePage() {
                 <p className="text-sm font-medium text-gray-500">
                   アフィリエイトコード
                 </p>
-                <p className="mt-1 rounded-lg bg-gray-100 px-4 py-3 font-mono text-lg font-bold text-indigo-600">
+                <p className="mt-1 rounded-lg bg-gray-100 px-4 py-3 font-mono text-lg font-bold text-orange-600">
                   {result.code}
                 </p>
               </div>
@@ -374,7 +374,7 @@ export default function AffiliatePage() {
                     onClick={() =>
                       navigator.clipboard.writeText(referralLink)
                     }
-                    className="shrink-0 rounded-lg bg-indigo-600 px-4 py-3 text-sm font-medium text-white transition hover:bg-indigo-700"
+                    className="shrink-0 rounded-lg bg-orange-600 px-4 py-3 text-sm font-medium text-white transition hover:bg-orange-700"
                   >
                     コピー
                   </button>
@@ -385,16 +385,16 @@ export default function AffiliatePage() {
               </p>
 
               {isCreator && (
-                <div className="mt-4 rounded-lg border border-indigo-200 bg-indigo-50 p-4">
-                  <p className="text-sm font-medium text-indigo-900">
+                <div className="mt-4 rounded-lg border border-orange-200 bg-orange-50 p-4">
+                  <p className="text-sm font-medium text-orange-900">
                     クリエイターとして登録されました
                   </p>
-                  <p className="mt-1 text-sm text-indigo-700">
+                  <p className="mt-1 text-sm text-orange-700">
                     上記のコードを使って、クリエイターポータルからLP（ランディングページ）を作成できます。
                   </p>
                   <Link
                     href="/creator"
-                    className="mt-3 inline-block rounded-full bg-indigo-600 px-5 py-2 text-sm font-semibold text-white transition hover:bg-indigo-700"
+                    className="mt-3 inline-block rounded-full bg-orange-600 px-5 py-2 text-sm font-semibold text-white transition hover:bg-orange-700"
                   >
                     クリエイターポータルへ →
                   </Link>
@@ -405,13 +405,13 @@ export default function AffiliatePage() {
         )}
 
         <div className="mt-6 space-y-3">
-          <div className="flex items-center justify-center gap-2 p-3 rounded-lg border border-indigo-200 bg-indigo-50">
+          <div className="flex items-center justify-center gap-2 p-3 rounded-lg border border-orange-200 bg-orange-50">
             <span className="text-sm">🏭🏢🛒</span>
             <div className="text-left">
-              <p className="text-xs font-medium text-indigo-700">メーカー・代理店・バイヤーの方</p>
+              <p className="text-xs font-medium text-orange-700">メーカー・代理店・バイヤーの方</p>
               <div className="flex gap-2 mt-0.5">
-                <Link href="/login" className="text-[10px] text-indigo-600 hover:text-indigo-800 font-medium underline">ログイン</Link>
-                <Link href="/signup" className="text-[10px] text-indigo-600 hover:text-indigo-800 font-medium underline">新規登録</Link>
+                <Link href="/login" className="text-[10px] text-orange-600 hover:text-orange-800 font-medium underline">ログイン</Link>
+                <Link href="/signup" className="text-[10px] text-orange-600 hover:text-orange-800 font-medium underline">新規登録</Link>
               </div>
             </div>
           </div>

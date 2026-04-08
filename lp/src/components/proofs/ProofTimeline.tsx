@@ -20,7 +20,7 @@ export function ProofTimeline({ steps }: Props) {
                 step.status === "completed"
                   ? "bg-green-500 border-green-500 text-white"
                   : step.status === "active"
-                    ? "bg-indigo-500 border-indigo-500 text-white"
+                    ? "bg-orange-500 border-orange-500 text-white"
                     : "bg-white border-gray-300 text-gray-400"
               }`}
             >

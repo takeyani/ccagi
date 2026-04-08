@@ -86,7 +86,7 @@ export function SurveyQuestionEditor({ initialQuestions }: Props) {
         <button
           type="button"
           onClick={addQuestion}
-          className="text-sm text-indigo-600 hover:text-indigo-800 font-medium"
+          className="text-sm text-orange-600 hover:text-orange-800 font-medium"
         >
           + 質問を追加
         </button>
@@ -188,7 +188,7 @@ export function SurveyQuestionEditor({ initialQuestions }: Props) {
               <button
                 type="button"
                 onClick={() => addOption(qi)}
-                className="text-xs text-indigo-600 hover:text-indigo-800"
+                className="text-xs text-orange-600 hover:text-orange-800"
               >
                 + 選択肢を追加
               </button>

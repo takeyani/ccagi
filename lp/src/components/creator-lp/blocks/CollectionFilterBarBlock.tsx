@@ -111,7 +111,7 @@ export function CollectionFilterBarBlock({ props, items, allTags, onFilter }: Pr
                 value={searchQuery}
                 onChange={(e) => handleSearchChange(e.target.value)}
                 placeholder="商品名で検索..."
-                className="w-full rounded-lg border px-3 py-2 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 focus:outline-none"
+                className="w-full rounded-lg border px-3 py-2 text-sm focus:border-orange-500 focus:ring-2 focus:ring-orange-200 focus:outline-none"
               />
             </div>
           )}
@@ -167,7 +167,7 @@ export function CollectionFilterBarBlock({ props, items, allTags, onFilter }: Pr
                 onClick={() => handleTagToggle(tag.id)}
                 className={`rounded-full px-3 py-1 text-xs font-medium transition ${
                   selectedTagIds.has(tag.id)
-                    ? "bg-indigo-600 text-white"
+                    ? "bg-orange-600 text-white"
                     : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                 }`}
               >

@@ -37,7 +37,7 @@ export default async function EditTagPage({
                 name="name"
                 required
                 defaultValue={tag.name}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -48,7 +48,7 @@ export default async function EditTagPage({
                 name="slug"
                 required
                 defaultValue={tag.slug}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
@@ -59,7 +59,7 @@ export default async function EditTagPage({
                 name="tag_type"
                 required
                 defaultValue={tag.tag_type}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               >
                 {TAG_TYPES.map((t) => (
                   <option key={t} value={t}>
@@ -76,7 +76,7 @@ export default async function EditTagPage({
                 name="sort_order"
                 type="number"
                 defaultValue={tag.sort_order}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
               />
             </div>
           </div>
@@ -88,7 +88,7 @@ export default async function EditTagPage({
               name="description"
               rows={3}
               defaultValue={tag.description ?? ""}
-              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
             />
           </div>
           <div>
@@ -98,7 +98,7 @@ export default async function EditTagPage({
             <input
               name="image_url"
               defaultValue={tag.image_url ?? ""}
-              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
             />
           </div>
           <label className="flex items-center gap-2">
@@ -111,7 +111,7 @@ export default async function EditTagPage({
           </label>
           <button
             type="submit"
-            className="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 font-medium"
+            className="bg-orange-600 text-white px-6 py-2 rounded-lg hover:bg-orange-700 font-medium"
           >
             更新
           </button>
