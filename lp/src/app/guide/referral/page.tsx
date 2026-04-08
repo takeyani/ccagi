@@ -100,7 +100,7 @@ export default function ReferralGuidePage() {
           <div className="space-y-4 text-sm text-gray-700">
             <div className="bg-purple-50 rounded-lg p-4">
               <p className="font-bold text-purple-800 mb-1">報酬</p>
-              <p className="text-purple-700">紹介した代理店の売上に対して <span className="font-bold text-purple-900">1%</span> の紹介報酬が継続的に発生</p>
+              <p className="text-purple-700">紹介した代理店の売上に対して <span className="font-bold text-purple-900">2%</span> の紹介報酬が継続的に発生</p>
             </div>
             <h3 className="font-bold text-gray-900">手順</h3>
             <ol className="space-y-2 ml-4 list-decimal">
@@ -108,7 +108,7 @@ export default function ReferralGuidePage() {
                 <code className="bg-gray-100 px-2 py-0.5 rounded text-xs">https://lot-lp.vercel.app/signup?role=agent&ref=あなたのコード</code>
               </li>
               <li>代理店が登録後、メーカーに商品の販売承認をリクエスト</li>
-              <li>承認後に代理店が商品を販売 → あなたに1%の報酬</li>
+              <li>承認後に代理店が商品を販売 → あなたに2%の報酬</li>
             </ol>
             <h3 className="font-bold text-gray-900">こんな方をご紹介ください</h3>
             <ul className="space-y-1 ml-4 list-disc text-gray-600">
@@ -128,7 +128,7 @@ export default function ReferralGuidePage() {
           <div className="space-y-4 text-sm text-gray-700">
             <div className="bg-pink-50 rounded-lg p-4">
               <p className="font-bold text-pink-800 mb-1">報酬（グループ紹介フィー）</p>
-              <p className="text-pink-700">紹介したクリエイターの売上に対して <span className="font-bold text-pink-900">0.5%</span> のグループ紹介フィー（通常の紹介ポイントとは別枠）</p>
+              <p className="text-pink-700">紹介したクリエイターの売上に対して <span className="font-bold text-pink-900">2%</span> のグループ紹介フィー（通常の紹介ポイントとは別枠）</p>
             </div>
             <h3 className="font-bold text-gray-900">手順</h3>
             <ol className="space-y-2 ml-4 list-decimal">
@@ -137,7 +137,7 @@ export default function ReferralGuidePage() {
               </li>
               <li>クリエイター候補が登録時に「クリエイターとして登録する」にチェック</li>
               <li>クリエイターがメーカーに販売許可をリクエスト → LP作成 → 商品販売</li>
-              <li>クリエイターの売上に対して0.5%のフィーが発生</li>
+              <li>クリエイターの売上に対して2%のフィーが発生</li>
             </ol>
             <h3 className="font-bold text-gray-900">こんな方をご紹介ください</h3>
             <ul className="space-y-1 ml-4 list-disc text-gray-600">
@@ -171,13 +171,13 @@ export default function ReferralGuidePage() {
                 </tr>
                 <tr>
                   <td className="px-4 py-3 font-medium">代理店</td>
-                  <td className="px-4 py-3 font-bold text-purple-600">1%</td>
+                  <td className="px-4 py-3 font-bold text-purple-600">2%</td>
                   <td className="px-4 py-3 text-gray-600">代理店の全売上</td>
                   <td className="px-4 py-3 text-gray-600">紹介リンクから登録</td>
                 </tr>
                 <tr>
                   <td className="px-4 py-3 font-medium">クリエイター</td>
-                  <td className="px-4 py-3 font-bold text-pink-600">0.5%</td>
+                  <td className="px-4 py-3 font-bold text-pink-600">2%</td>
                   <td className="px-4 py-3 text-gray-600">クリエイターの売上</td>
                   <td className="px-4 py-3 text-gray-600">グループ紹介フィー</td>
                 </tr>

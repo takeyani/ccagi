@@ -150,8 +150,8 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
       await calculateMakerReferralCommission(purchaseId, session.amount_total);
     }
 
-    // 5.5. クリエイター紹介フィー（0.5%）
-    // アフィリエイト（クリエイター）が販売した場合、そのクリエイターを紹介した人に0.5%
+    // 5.5. クリエイター紹介フィー（2%）
+    // アフィリエイト（クリエイター）が販売した場合、そのクリエイターを紹介した人に2%
     if (affiliateCode && session.amount_total) {
       try {
         const { data: sellerAffiliate } = await supabase
@@ -161,7 +161,7 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
           .single();
 
         if (sellerAffiliate?.is_creator && sellerAffiliate.referred_by_affiliate_id) {
-          const groupFee = Math.round(session.amount_total * 0.005); // 0.5%
+          const groupFee = Math.round(session.amount_total * 0.02); // 2%
           if (groupFee > 0) {
             const { data: referrer } = await supabase
               .from("affiliates")

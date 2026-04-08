@@ -159,11 +159,11 @@ export default function AffiliatePage() {
               </div>
               <div className="flex items-center justify-between text-xs bg-purple-50 rounded p-1 -mx-1">
                 <span className="text-purple-700 font-bold">グループ紹介フィー（別枠）</span>
-                <span className="font-bold text-purple-600">売上の 0.5%</span>
+                <span className="font-bold text-purple-600">売上の 2%</span>
               </div>
               <div className="flex items-center justify-between text-xs">
                 <span className="text-gray-600">プラットフォーム</span>
-                <span className="font-bold text-gray-600">売上の 9.5%</span>
+                <span className="font-bold text-gray-600">売上の 8%</span>
               </div>
               <div className="border-t pt-1 flex items-center justify-between text-xs">
                 <span className="font-bold text-gray-900">合計手数料</span>
