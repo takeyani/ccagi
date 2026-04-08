@@ -37,12 +37,18 @@ export function PartnerSendMessage() {
     if (!user) return;
 
     const threadId = crypto.randomUUID();
-    await supabase.from("messages").insert({
+    const { error } = await supabase.from("messages").insert({
       thread_id: threadId,
       sender_id: user.id,
       recipient_id: recipientId,
       body,
     });
+
+    if (error) {
+      alert("送信に失敗しました: " + error.message);
+      setSending(false);
+      return;
+    }
 
     setBody("");
     setSending(false);

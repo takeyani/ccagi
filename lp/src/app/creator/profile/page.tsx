@@ -39,12 +39,14 @@ export default function CreatorProfilePage() {
     setSaving(true);
     setMessage("");
 
-    const { error } = await getSupabase()
-      .from("affiliates")
-      .update({ name, bio, avatar_url: avatarUrl })
-      .eq("id", affiliate.id);
+    const code = localStorage.getItem("creator_code");
+    const res = await fetch("/api/creator/profile", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ code, name, bio, avatar_url: avatarUrl }),
+    });
 
-    if (error) {
+    if (!res.ok) {
       setMessage("保存に失敗しました");
     } else {
       setMessage("保存しました");

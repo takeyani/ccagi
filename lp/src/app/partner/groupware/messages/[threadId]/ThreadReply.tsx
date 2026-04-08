@@ -26,12 +26,18 @@ export function ThreadReply({
     } = await supabase.auth.getUser();
     if (!user) return;
 
-    await supabase.from("messages").insert({
+    const { error } = await supabase.from("messages").insert({
       thread_id: threadId,
       sender_id: user.id,
       recipient_id: recipientId,
       body,
     });
+
+    if (error) {
+      alert("返信に失敗しました: " + error.message);
+      setSending(false);
+      return;
+    }
 
     setBody("");
     setSending(false);
