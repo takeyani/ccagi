@@ -36,11 +36,28 @@ export function LoginForm() {
       data: { user },
     } = await supabase.auth.getUser();
     if (user) {
-      const { data: profile } = await supabase
+      let { data: profile } = await supabase
         .from("user_profiles")
         .select("role")
         .eq("id", user.id)
         .single();
+
+      // profileが無い場合は自動作成（メール認証後の初回ログイン等）
+      if (!profile) {
+        const completeRes = await fetch("/api/signup/complete", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            user_id: user.id,
+            display_name: user.user_metadata?.display_name ?? user.email?.split("@")[0] ?? "ユーザー",
+            role: "partner",
+            partner_type: "メーカー",
+          }),
+        });
+        if (completeRes.ok) {
+          profile = { role: "partner" };
+        }
+      }
 
       if (redirect !== "/" && redirect !== "/login") {
         router.push(redirect);

@@ -95,37 +95,23 @@ export function SignupForm() {
       }
 
       if (data.user) {
-        const { error: profileError } = await supabase
-          .from("user_profiles")
-          .upsert({
-            id: data.user.id,
+        // user_profiles + partners の作成を一括でサーバー側 admin 経由で実行
+        const completeRes = await fetch("/api/signup/complete", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            user_id: data.user.id,
             display_name: displayName,
             role: roleDef.role,
-          });
-
-        if (profileError) {
-          setError("プロフィールの作成に失敗しました。再度お試しください。");
+            partner_type: roleDef.partnerType,
+            ref_code: getRefCode(),
+          }),
+        });
+        if (!completeRes.ok) {
+          const err = await completeRes.json().catch(() => ({}));
+          setError(err.error || "登録の完了に失敗しました。再度お試しください。");
           setLoading(false);
           return;
-        }
-
-        if (roleDef.role === "partner" && roleDef.partnerType) {
-          // partners は RLS のためサーバー側で admin 権限で作成
-          const partnerRes = await fetch("/api/signup/partner", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              display_name: displayName,
-              partner_type: roleDef.partnerType,
-              ref_code: getRefCode(),
-            }),
-          });
-          if (!partnerRes.ok) {
-            const err = await partnerRes.json().catch(() => ({}));
-            setError(err.error || "パートナー情報の作成に失敗しました");
-            setLoading(false);
-            return;
-          }
         }
 
         setSuccess(true);

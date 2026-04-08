@@ -61,17 +61,36 @@ export async function GET(request: NextRequest) {
             role,
           });
 
-          // パートナーの場合はpartnerレコードも作成
+          // パートナーの場合はpartnerレコードも作成し、user_profiles.partner_idを紐付け
           if (role === "partner") {
-            await admin.from("partners").upsert(
-              {
-                auth_user_id: user.id,
-                company_name: displayName,
-                partner_type: partnerType,
-                certification_status: "未認証",
-              },
-              { onConflict: "auth_user_id" }
-            );
+            // 既存の partners を auth_user_id で確認
+            const { data: existingPartner } = await admin
+              .from("partners")
+              .select("id")
+              .eq("auth_user_id", user.id)
+              .maybeSingle();
+
+            let partnerId = existingPartner?.id;
+            if (!partnerId) {
+              const { data: newPartner } = await admin
+                .from("partners")
+                .insert({
+                  auth_user_id: user.id,
+                  company_name: displayName,
+                  partner_type: partnerType,
+                  certification_status: "未認証",
+                })
+                .select("id")
+                .single();
+              partnerId = newPartner?.id;
+            }
+
+            if (partnerId) {
+              await admin
+                .from("user_profiles")
+                .update({ partner_id: partnerId })
+                .eq("id", user.id);
+            }
           }
         }
       }
