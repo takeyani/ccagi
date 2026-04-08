@@ -222,7 +222,8 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
             transferred_at: new Date().toISOString(),
           });
 
-          console.log(`Partner payout: ¥${fees.netAmount} → ${partner.company_name} (${transferId})`);
+          // 機密情報を含まない最小ログ（partner名・金額は除外）
+          console.info("partner_payout_success", { partnerId, transferId });
         } else {
           // Stripe Connect未設定の場合はpendingで記録
           if (session.amount_total > 0) {

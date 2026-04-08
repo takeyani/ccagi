@@ -54,3 +54,9 @@ export async function requireBuyerId() {
   if (profile.role !== "buyer") throw new Error("Buyer role required");
   return { buyerId: user.id, supabase, profile };
 }
+
+export async function requireAdmin() {
+  const { user, profile, supabase } = await getSessionProfile();
+  if (profile.role !== "admin") throw new Error("Admin role required");
+  return { user, profile, supabase };
+}

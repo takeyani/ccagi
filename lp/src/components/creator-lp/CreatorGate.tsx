@@ -26,9 +26,13 @@ export function CreatorGate({ children }: Props) {
       if (res.ok && data.affiliate) {
         setAffiliate(data.affiliate);
         localStorage.setItem("creator_code", c);
+        if (data.affiliate.email) {
+          localStorage.setItem("creator_email", data.affiliate.email);
+        }
       } else {
         setError(data.error || "認証に失敗しました");
         localStorage.removeItem("creator_code");
+        localStorage.removeItem("creator_email");
       }
     } catch {
       setError("エラーが発生しました");

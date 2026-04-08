@@ -42,7 +42,8 @@ export async function POST(request: Request) {
   const body = await request.json();
 
   const {
-    affiliate_id,
+    code,
+    email,
     title,
     description,
     category = "business",
@@ -50,12 +51,25 @@ export async function POST(request: Request) {
     tags = [],
   } = body;
 
-  if (!affiliate_id || !title) {
+  if (!code || !email || !title) {
     return NextResponse.json(
-      { error: "affiliate_id and title are required" },
+      { error: "code, email, title は必須です" },
       { status: 400 }
     );
   }
+
+  // クリエイターを code + email で本人確認
+  const { data: affiliate } = await supabase
+    .from("affiliates")
+    .select("id, email, is_creator")
+    .eq("code", code)
+    .maybeSingle();
+
+  if (!affiliate || affiliate.email !== email || !affiliate.is_creator) {
+    return NextResponse.json({ error: "認証に失敗しました" }, { status: 403 });
+  }
+
+  const affiliate_id = affiliate.id;
 
   // テンプレートからブロックとテーマを生成
   const template = getArticleTemplate(template_type as ArticleTemplate);

@@ -23,6 +23,7 @@ export function CreatorSidebar({ affiliate }: Props) {
 
   const handleLogout = () => {
     localStorage.removeItem("creator_code");
+    localStorage.removeItem("creator_email");
     window.location.href = "/creator";
   };
 

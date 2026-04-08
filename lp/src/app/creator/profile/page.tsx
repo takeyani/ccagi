@@ -43,7 +43,7 @@ export default function CreatorProfilePage() {
     const res = await fetch("/api/creator/profile", {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ code, name, bio, avatar_url: avatarUrl }),
+      body: JSON.stringify({ code, email: affiliate.email, name, bio, avatar_url: avatarUrl }),
     });
 
     if (!res.ok) {

@@ -3,10 +3,16 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { cookies } from "next/headers";
 import { NextResponse, type NextRequest } from "next/server";
 
+function isSafeRedirect(path: string): boolean {
+  // 同一オリジンの相対パスのみ許可（// や http(s):// は拒否）
+  return /^\/[^/\\]/.test(path) || path === "/";
+}
+
 export async function GET(request: NextRequest) {
   const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get("code");
-  const next = searchParams.get("redirect") ?? "/";
+  const rawNext = searchParams.get("redirect") ?? "/";
+  const next = isSafeRedirect(rawNext) ? rawNext : "/";
 
   if (code) {
     const cookieStore = await cookies();

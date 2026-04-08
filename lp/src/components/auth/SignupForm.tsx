@@ -4,7 +4,8 @@ import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 
-const PASSWORD_REGEX = /^(?=.*[a-zA-Z])(?=.*\d).{8,}$/;
+// 最低10文字、英字+数字+記号 を必須
+const PASSWORD_REGEX = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!-/:-@[-`{-~]).{10,}$/;
 
 const ROLES = [
   {
@@ -63,7 +64,7 @@ export function SignupForm() {
     }
 
     if (!PASSWORD_REGEX.test(password)) {
-      setError("パスワードは8文字以上で、英字と数字を含めてください。");
+      setError("パスワードは10文字以上で、英字・数字・記号をそれぞれ含めてください。");
       return;
     }
 
@@ -236,10 +237,10 @@ export function SignupForm() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
-          placeholder="8文字以上（英字+数字）"
+          placeholder="10文字以上（英字+数字+記号）"
         />
         {password && !PASSWORD_REGEX.test(password) && (
-          <p className="text-xs text-amber-600 mt-1">8文字以上、英字と数字を含めてください</p>
+          <p className="text-xs text-amber-600 mt-1">10文字以上、英字・数字・記号をそれぞれ含めてください</p>
         )}
       </div>
       <button

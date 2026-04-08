@@ -107,10 +107,12 @@ export function CollectionEditor({ collection }: Props) {
   const handleSave = async () => {
     setSaving(true);
     try {
+      const code = typeof window !== "undefined" ? localStorage.getItem("creator_code") : null;
+      const email = typeof window !== "undefined" ? localStorage.getItem("creator_email") : null;
       const res = await fetch(`/api/creator/collections/${collection.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ design_config: blocks, theme, affiliate_id: collection.affiliate_id }),
+        body: JSON.stringify({ design_config: blocks, theme, code, email }),
       });
       if (res.ok) {
         setIsDirty(false);

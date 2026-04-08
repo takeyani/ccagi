@@ -227,6 +227,7 @@ VALUES ('ユーザーのUUID', 'buyer', 'テストバイヤー');
 | ファイル | 文書ID | 内容 |
 |---------|--------|------|
 | `docs/system-requirements.md` | REQ-SYSTEM-001 | システム全体要件定義（全25モジュール） |
+| `docs/security-policy.md` | SEC-POLICY-001 | セキュリティポリシー（認証・認可・脆弱性対策） |
 | `docs/buying-agent-requirements.md` | REQ-BUYING-AGENT-001 | 購買エージェント要件定義 |
 | `docs/buying-agent-design.md` | DES-BUYING-AGENT-001 | 購買エージェント設計書 |
 | `docs/embed-requirements.md` | REQ-EMBED-001 | EC埋め込みウィジェット要件定義 |

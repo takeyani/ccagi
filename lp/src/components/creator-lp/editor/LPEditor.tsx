@@ -148,10 +148,12 @@ export function LPEditor({ design }: Props) {
   const handleSave = async () => {
     setSaving(true);
     try {
+      const code = typeof window !== "undefined" ? localStorage.getItem("creator_code") : null;
+      const email = typeof window !== "undefined" ? localStorage.getItem("creator_email") : null;
       const res = await fetch(`/api/creator/designs/${design.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ design_config: blocks, theme, affiliate_id: design.affiliate_id }),
+        body: JSON.stringify({ design_config: blocks, theme, code, email }),
       });
       if (res.ok) {
         setIsDirty(false);

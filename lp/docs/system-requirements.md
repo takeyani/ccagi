@@ -683,6 +683,21 @@ CollectionFilterConditions = {
 | 年齢確認 | 酒類・たばこ等の年齢制限商品の確認フロー | 未実装 |
 | 輸出管理 | 該非判定・EAR規制チェック | 未実装 |
 
+### 16.7 セキュリティ対策（SEC-POLICY-001）
+
+| 対策 | 内容 |
+|------|------|
+| 認証 | Supabase Auth + コードベース（クリエイター） |
+| ロール検証 | middleware + `requireAdmin()` / `requirePartnerId()` / `requireBuyerId()` |
+| パスワードポリシー | 10文字以上、英字+数字+記号 必須 |
+| レート制限 | signup, affiliate-register, creator-profile に IP単位の制限 |
+| オープンリダイレクト対策 | OAuth callback の `redirect` パラメータ検証 |
+| IDOR対策 | クリエイター系 API は code+email で本人確認 |
+| 機密情報保護 | Stripe webhook ログから partner名/金額を除外 |
+| Cron 認証 | 全 cron エンドポイントで `CRON_SECRET` Bearer 検証 |
+
+詳細は `docs/security-policy.md` を参照。
+
 ---
 
 ## 18. Stripe Connect パートナーペイアウト管理

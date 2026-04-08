@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getSupabase } from "@/lib/supabase";
+import { rateLimit, getClientIp } from "@/lib/rate-limit";
 
 function generateCode(name: string): string {
   const base = name
@@ -21,6 +22,13 @@ async function lookupAffiliateId(refCode: string): Promise<string | null> {
 
 export async function POST(request: Request) {
   try {
+    // レート制限: 1時間あたり 10回まで（IP単位）
+    const ip = getClientIp(request);
+    const { allowed } = rateLimit(`affiliate-register:${ip}`, { maxRequests: 10, windowMs: 3_600_000 });
+    if (!allowed) {
+      return NextResponse.json({ error: "リクエストが多すぎます" }, { status: 429 });
+    }
+
     const { name, email, is_creator, ref } = await request.json();
 
     if (!name || !email) {
