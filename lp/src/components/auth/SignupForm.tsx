@@ -110,28 +110,22 @@ export function SignupForm() {
         }
 
         if (roleDef.role === "partner" && roleDef.partnerType) {
-          const refCode = getRefCode();
-          let referredByAffiliateId: string | null = null;
-
-          if (refCode) {
-            const { data: affiliate } = await supabase
-              .from("affiliates")
-              .select("id")
-              .eq("code", refCode)
-              .single();
-            referredByAffiliateId = affiliate?.id ?? null;
-          }
-
-          await supabase.from("partners").upsert(
-            {
-              auth_user_id: data.user.id,
-              company_name: displayName,
+          // partners は RLS のためサーバー側で admin 権限で作成
+          const partnerRes = await fetch("/api/signup/partner", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              display_name: displayName,
               partner_type: roleDef.partnerType,
-              certification_status: "未認証",
-              ...(referredByAffiliateId ? { referred_by_affiliate_id: referredByAffiliateId } : {}),
-            },
-            { onConflict: "auth_user_id" }
-          );
+              ref_code: getRefCode(),
+            }),
+          });
+          if (!partnerRes.ok) {
+            const err = await partnerRes.json().catch(() => ({}));
+            setError(err.error || "パートナー情報の作成に失敗しました");
+            setLoading(false);
+            return;
+          }
         }
 
         setSuccess(true);
