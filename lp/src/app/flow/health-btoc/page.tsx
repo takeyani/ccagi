@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "健康食品・化粧品 BtoC向けシステム | 単品決済ロットLP",
+  title: "健康食品・化粧品 BtoC向けシステム | Cross Infinity",
   description:
     "健康食品・化粧品・サプリメントを個人消費者向けに販売するためのシステム紹介です。",
 };
@@ -44,7 +44,7 @@ export default function HealthBtoCPage() {
     <div className="min-h-screen bg-gray-50">
       <header className="bg-white border-b border-gray-200">
         <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
-          <Link href="/" className="font-bold text-gray-900">単品決済ロットLP</Link>
+          <Link href="/" className="font-bold text-gray-900">Cross Infinity</Link>
           <nav className="flex gap-4 text-sm">
             <Link href="/flow" className="text-gray-600 hover:text-gray-900">フロー全体</Link>
             <Link href="/flow/general-btob" className="text-gray-600 hover:text-gray-900">一般商材 BtoB</Link>

@@ -36,7 +36,7 @@ export function ScreenMockup({
 export function MockSidebar({ items, active }: { items: string[]; active: string }) {
   return (
     <div className="w-36 bg-gray-900 text-white p-3 shrink-0">
-      <div className="font-bold text-[10px] mb-3 text-gray-300">単品決済ロットLP</div>
+      <div className="font-bold text-[10px] mb-3 text-gray-300">Cross Infinity</div>
       {items.map((item) => (
         <div
           key={item}

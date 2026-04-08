@@ -5,7 +5,7 @@ import { BuyerScreenGallery } from "@/components/flow/FlowScreenGallery";
 export const metadata: Metadata = {
   title: "バイヤー業務フロー | 購入エージェントガイド",
   description:
-    "単品決済ロットLPマーケットプレイスにおけるバイヤーの業務フローを解説。購入エージェントによる自動検索・スコアリングから購入までの流れ。",
+    "Cross Infinityマーケットプレイスにおけるバイヤーの業務フローを解説。購入エージェントによる自動検索・スコアリングから購入までの流れ。",
 };
 
 type Step = {
@@ -157,7 +157,7 @@ export default function BuyerFlowPage() {
       {/* ヘッダー */}
       <header className="bg-white border-b border-gray-200">
         <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
-          <Link href="/" className="font-bold text-gray-900">単品決済ロットLP</Link>
+          <Link href="/" className="font-bold text-gray-900">Cross Infinity</Link>
           <nav className="flex gap-6 text-sm">
             <Link href="/flow" className="text-gray-600 hover:text-gray-900">メーカー・販売代理店</Link>
             <a href="#steps" className="text-gray-600 hover:text-gray-900">業務フロー</a>
@@ -614,7 +614,7 @@ export default function BuyerFlowPage() {
 
       <footer className="bg-slate-900 text-gray-400 py-8">
         <div className="max-w-5xl mx-auto px-6 text-center text-xs">
-          &copy; 2026 単品決済ロットLP. All rights reserved.
+          &copy; 2026 Cross Infinity. All rights reserved.
         </div>
       </footer>
     </div>

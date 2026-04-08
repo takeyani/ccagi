@@ -19,13 +19,13 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "単品決済ロットLP | 初期費用0円・成果報酬型マーケットプレイス",
-    template: "%s | 単品決済ロットLP",
+    default: "Cross Infinity | 一人も企業も無限の可能性を持つマーケットプレイス",
+    template: "%s | Cross Infinity",
   },
   description:
     "初期費用0円・月額0円の成果報酬型マーケットプレイス。箱単位から購入可能な商品管理・プルーフチェーン・AI検索・LP作成機能を提供します。",
   openGraph: {
-    siteName: "単品決済ロットLP",
+    siteName: "Cross Infinity",
     type: "website",
     locale: "ja_JP",
   },

@@ -40,7 +40,7 @@ export function LoginForm() {
         .from("user_profiles")
         .select("role")
         .eq("id", user.id)
-        .single();
+        .maybeSingle();
 
       // profileが無い場合は自動作成（メール認証後の初回ログイン等）
       if (!profile) {

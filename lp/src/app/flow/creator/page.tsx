@@ -5,7 +5,7 @@ import { CreatorScreenGallery } from "@/components/flow/FlowScreenGallery";
 export const metadata: Metadata = {
   title: "クリエイター業務フロー | インフルエンサー・映像クリエイター向け",
   description:
-    "単品決済ロットLPマーケットプレイスでインフルエンサーや映像クリエイターがLP作成・アフィリエイトで収益化する方法を解説します。",
+    "Cross Infinityマーケットプレイスでインフルエンサーや映像クリエイターがLP作成・アフィリエイトで収益化する方法を解説します。",
 };
 
 type Step = {
@@ -145,7 +145,7 @@ const useCases = [
     scenarios: [
       {
         title: "比較記事 × コレクションページ",
-        desc: "ブログの比較記事から単品決済ロットLPのコレクションページへリンク。読者が商品を一覧で比較し購入できる導線を構築。",
+        desc: "ブログの比較記事からCross Infinityのコレクションページへリンク。読者が商品を一覧で比較し購入できる導線を構築。",
       },
       {
         title: "SEO記事で長期流入",
@@ -212,7 +212,7 @@ export default function CreatorFlowPage() {
       {/* ヘッダー */}
       <header className="bg-white border-b border-gray-200">
         <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
-          <Link href="/" className="font-bold text-gray-900">単品決済ロットLP</Link>
+          <Link href="/" className="font-bold text-gray-900">Cross Infinity</Link>
           <nav className="flex gap-6 text-sm">
             <Link href="/flow" className="text-gray-600 hover:text-gray-900">メーカー・代理店</Link>
             <Link href="/flow/buyer" className="text-gray-600 hover:text-gray-900">バイヤー</Link>
@@ -650,7 +650,7 @@ export default function CreatorFlowPage() {
 
       <footer className="bg-slate-900 text-gray-400 py-8">
         <div className="max-w-5xl mx-auto px-6 text-center text-xs">
-          &copy; 2026 単品決済ロットLP. All rights reserved.
+          &copy; 2026 Cross Infinity. All rights reserved.
         </div>
       </footer>
     </div>

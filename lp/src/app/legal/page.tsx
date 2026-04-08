@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "特定商取引法に基づく表記 | 単品決済ロットLP",
+  title: "特定商取引法に基づく表記 | Cross Infinity",
 };
 
 export default function LegalPage() {

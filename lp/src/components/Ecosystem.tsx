@@ -92,7 +92,7 @@ export default function Ecosystem() {
             </ul>
           </div>
           <div className="bg-green-950/30 border border-green-800/30 rounded-xl p-5">
-            <h4 className="font-bold text-green-400 text-sm mb-3">単品決済ロットLP</h4>
+            <h4 className="font-bold text-green-400 text-sm mb-3">Cross Infinity</h4>
             <ul className="space-y-2 text-sm text-gray-400">
               <li className="flex items-start gap-2"><span className="text-green-400">✓</span> 全員が売り手にも買い手にもなれる</li>
               <li className="flex items-start gap-2"><span className="text-green-400">✓</span> クリエイターが動画1本で販売を開始</li>

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "プライバシーポリシー | 単品決済ロットLP",
+  title: "プライバシーポリシー | Cross Infinity",
 };
 
 const sections = [
@@ -66,7 +66,7 @@ export default function PrivacyPage() {
 
         <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-8">
           <p className="text-gray-600 text-sm leading-relaxed mb-8">
-            株式会社XXXカンパニー（以下「当社」）は、単品決済ロットLPサービス（以下「本サービス」）における
+            株式会社XXXカンパニー（以下「当社」）は、Cross Infinityサービス（以下「本サービス」）における
             お客様の個人情報の取り扱いについて、以下のとおりプライバシーポリシーを定めます。
           </p>
 

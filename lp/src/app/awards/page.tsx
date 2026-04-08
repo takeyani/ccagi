@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "アワード（デイリー・週間・月間） | 単品決済ロットLP",
+  title: "アワード（デイリー・週間・月間） | Cross Infinity",
   description:
     "カテゴリー別・集計単位別のデイリー・週間・月間アワード。売上・評価・プルーフチェーン・クリエイター実績などを自動集計し、優秀なパートナーを表彰します。",
 };
@@ -186,7 +186,7 @@ export default function AwardsPage() {
     <div className="min-h-screen bg-gray-50">
       <header className="bg-white border-b border-gray-200">
         <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
-          <Link href="/" className="font-bold text-gray-900">単品決済ロットLP</Link>
+          <Link href="/" className="font-bold text-gray-900">Cross Infinity</Link>
           <nav className="flex gap-4 text-sm">
             <Link href="/flow" className="text-gray-600 hover:text-gray-900">フロー全体</Link>
             <Link href="/flow/buyer" className="text-gray-600 hover:text-gray-900">バイヤー</Link>
@@ -859,7 +859,7 @@ export default function AwardsPage() {
 
       <footer className="bg-slate-900 text-gray-400 py-8">
         <div className="max-w-5xl mx-auto px-6 text-center text-xs">
-          &copy; 2026 単品決済ロットLP. All rights reserved.
+          &copy; 2026 Cross Infinity. All rights reserved.
         </div>
       </footer>
     </div>

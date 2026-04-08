@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "EC販売との違い | 単品決済ロットLP vs 従来のEC",
+  title: "EC販売との違い | Cross Infinity vs 従来のEC",
   description:
-    "単品決済ロットLPマーケットプレイスと従来のEC販売の違いを分かりやすく比較。初期費用0円・成果報酬型の料金体系で始められます。",
+    "Cross Infinityマーケットプレイスと従来のEC販売の違いを分かりやすく比較。初期費用0円・成果報酬型の料金体系で始められます。",
 };
 
 type ComparisonRow = {
@@ -117,7 +117,7 @@ const advantages = [
   {
     icon: "💰",
     title: "初期費用0円・成果報酬型で始められる",
-    desc: "従来のECでは初期費用 数十万円＋月額 数万円の固定費が必要。単品決済ロットLPなら初期費用0円・月額0円、商品が売れた時だけ12%の成果報酬のみ。売上ゼロならコストもゼロ。リスクなく始められます。",
+    desc: "従来のECでは初期費用 数十万円＋月額 数万円の固定費が必要。Cross Infinityなら初期費用0円・月額0円、商品が売れた時だけ12%の成果報酬のみ。売上ゼロならコストもゼロ。リスクなく始められます。",
     highlight: true,
   },
   {
@@ -128,7 +128,7 @@ const advantages = [
   {
     icon: "🤖",
     title: "AIエージェントが最適商品を発見",
-    desc: "従来の検索はキーワード頼み。単品決済ロットLPでは、認証・プルーフ・タグ・スペック・価格の5因子でAIが自動スコアリングし、バイヤーに最適な商品を提案します。",
+    desc: "従来の検索はキーワード頼み。Cross Infinityでは、認証・プルーフ・タグ・スペック・価格の5因子でAIが自動スコアリングし、バイヤーに最適な商品を提案します。",
   },
   {
     icon: "🎨",
@@ -158,7 +158,7 @@ export default function ComparisonPage() {
       {/* ヘッダー */}
       <header className="bg-white border-b border-gray-200">
         <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
-          <Link href="/" className="font-bold text-gray-900">単品決済ロットLP</Link>
+          <Link href="/" className="font-bold text-gray-900">Cross Infinity</Link>
           <nav className="flex gap-6 text-sm">
             <Link href="/flow" className="text-gray-600 hover:text-gray-900">業務フロー</Link>
             <a href="#comparison" className="text-gray-600 hover:text-gray-900">比較表</a>
@@ -176,7 +176,7 @@ export default function ComparisonPage() {
             従来のEC販売と<br />何が違うのか？
           </h1>
           <p className="text-indigo-200/80 max-w-2xl mx-auto leading-relaxed mb-6">
-            単品決済ロットLPは、従来のECとはまったく異なるアプローチで
+            Cross Infinityは、従来のECとはまったく異なるアプローチで
             BtoB取引を革新します。初期費用0円・成果報酬型で、
             リスクなく始められるマーケットプレイスです。
           </p>
@@ -208,7 +208,7 @@ export default function ComparisonPage() {
               従来のEC：初期費用 数十万円 + 月額 数万円 + 売上手数料
             </p>
             <p className="text-lg font-extrabold text-indigo-600">
-              単品決済ロットLP：初期費用 0円 + 月額 0円 + 成果報酬12%のみ
+              Cross Infinity：初期費用 0円 + 月額 0円 + 成果報酬12%のみ
             </p>
             <p className="text-sm text-gray-500 mt-2">
               売上が立つまで一切コストがかからないので、リスクゼロで始められます
@@ -223,7 +223,7 @@ export default function ComparisonPage() {
           <span className="inline-block bg-indigo-100 text-indigo-700 text-xs font-bold px-3 py-1 rounded-full mb-3">
             COMPARISON TABLE
           </span>
-          <h2 className="text-2xl font-extrabold text-gray-900 mb-2">従来EC vs 単品決済ロットLP</h2>
+          <h2 className="text-2xl font-extrabold text-gray-900 mb-2">従来EC vs Cross Infinity</h2>
           <p className="text-gray-500 text-sm">主要な14項目で比較</p>
         </div>
         <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
@@ -240,7 +240,7 @@ export default function ComparisonPage() {
                 <th className="text-left px-5 py-4 font-bold text-indigo-600 w-2/5">
                   <span className="flex items-center gap-2">
                     <span className="w-3 h-3 rounded-full bg-indigo-500" />
-                    単品決済ロットLP
+                    Cross Infinity
                   </span>
                 </th>
               </tr>
@@ -270,7 +270,7 @@ export default function ComparisonPage() {
             従来ECにはない7つの優位性
           </h2>
           <p className="text-gray-400 text-center text-sm mb-10 max-w-xl mx-auto">
-            単品決済ロットLPが提供する、BtoB取引に最適化された独自の機能
+            Cross Infinityが提供する、BtoB取引に最適化された独自の機能
           </p>
           <div className="grid md:grid-cols-2 gap-6">
             {advantages.map((a, i) => (
@@ -352,7 +352,7 @@ export default function ComparisonPage() {
 
       <footer className="bg-slate-900 text-gray-400 py-8">
         <div className="max-w-5xl mx-auto px-6 text-center text-xs">
-          &copy; 2026 単品決済ロットLP. All rights reserved.
+          &copy; 2026 Cross Infinity. All rights reserved.
         </div>
       </footer>
     </div>

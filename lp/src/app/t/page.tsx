@@ -4,7 +4,7 @@ import type { Tag } from "@/lib/types";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "タグで探す | 単品決済ロットLP",
+  title: "タグで探す | Cross Infinity",
   description: "商品をタグで探す",
 };
 

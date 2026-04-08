@@ -5,7 +5,7 @@ import { MakerScreenGallery, AgentScreenGallery, CreatorScreenGallery } from "@/
 export const metadata: Metadata = {
   title: "業務フロー | メーカー・代理店向けガイド",
   description:
-    "単品決済ロットLPマーケットプレイスにおけるメーカー・代理店の業務フローを分かりやすく解説します。",
+    "Cross Infinityマーケットプレイスにおけるメーカー・代理店の業務フローを分かりやすく解説します。",
 };
 
 /* ── 型定義 ── */
@@ -340,7 +340,7 @@ function FlowDiagram() {
       <div className="flex items-center justify-center gap-2 mb-2">
         <FlowNode label="メーカー" sub="商品開発・製造" color="#2563eb" />
         <FlowArrow direction="right" label="商品・プルーフ登録" color="#2563eb" />
-        <FlowNode label="単品決済ロットLP" sub="マーケットプレイス" color="#0f172a" />
+        <FlowNode label="Cross Infinity" sub="マーケットプレイス" color="#0f172a" />
         <FlowArrow direction="right" label="商品データ連携" color="#7c3aed" />
         <FlowNode label="販売代理店" sub="メーカー代理店・法人営業" color="#7c3aed" />
       </div>
@@ -425,7 +425,7 @@ export default function FlowPage() {
       <header className="bg-white border-b border-gray-200">
         <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
           <Link href="/" className="font-bold text-gray-900">
-            単品決済ロットLP
+            Cross Infinity
           </Link>
           <nav className="flex gap-6 text-sm">
             <a href="#overview" className="text-gray-600 hover:text-gray-900">
@@ -466,7 +466,7 @@ export default function FlowPage() {
             業務フローガイド
           </h1>
           <p className="text-gray-400 max-w-2xl mx-auto leading-relaxed">
-            単品決済ロットLPマーケットプレイスにおける、メーカー・代理店・クリエイターの
+            Cross Infinityマーケットプレイスにおける、メーカー・代理店・クリエイターの
             業務の流れを分かりやすく解説します。商品登録から受注・出荷、
             LP作成・収益化まで、すべてのステップをカバーします。
           </p>
@@ -1383,7 +1383,7 @@ export default function FlowPage() {
             パートナー登録を始めましょう
           </h2>
           <p className="text-blue-100 text-sm mb-8">
-            メーカー・代理店として登録し、単品決済ロットLPマーケットプレイスで
+            メーカー・代理店として登録し、Cross Infinityマーケットプレイスで
             ビジネスを拡大しませんか？
           </p>
           <div className="flex justify-center gap-4 flex-wrap">
@@ -1412,7 +1412,7 @@ export default function FlowPage() {
       {/* フッター */}
       <footer className="bg-slate-900 text-gray-400 py-8">
         <div className="max-w-5xl mx-auto px-6 text-center text-xs">
-          &copy; 2026 単品決済ロットLP. All rights reserved.
+          &copy; 2026 Cross Infinity. All rights reserved.
         </div>
       </footer>
     </div>
