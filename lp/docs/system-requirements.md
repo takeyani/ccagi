@@ -512,8 +512,36 @@ CollectionFilterConditions = {
 | 関数 | 用途 |
 |------|------|
 | `getSessionProfile()` | セッション + プロフィール取得 |
+| `requireAdmin()` | admin ロール検証 |
 | `requirePartnerId()` | partner ロール検証、partnerId 取得 |
 | `requireBuyerId()` | buyer ロール検証、buyerId 取得 |
+
+### 14.2.1 partners テーブル RLS 対応
+
+partners テーブルは RLS (Row Level Security) で anon ロールからの直接 INSERT を拒否する設計のため、新規登録時は必ずサーバー API を経由する。
+
+| 操作 | 実行方法 | 説明 |
+|------|--------|------|
+| 新規登録（メーカー/代理店） | `POST /api/signup/complete` | admin client で user_profiles + partners + partner_id 紐付けを一括処理 |
+| OAuth登録 | `/api/auth/callback` | 同上（admin client 経由） |
+| Partner 更新 | Server Action + `requirePartnerId()` | 所有者本人のみ |
+| Partner 削除 | Admin のみ | 管理画面から |
+
+クライアント直接 mutation は RLS で拒否される。必ずサーバー API 経由で操作する。
+
+### 14.2.2 クリエイター認証（コードベース）
+
+クリエイターは Supabase Auth ではなく、affiliate コード + email の組み合わせで本人確認する。
+
+| エンドポイント | 認証方式 |
+|--------------|---------|
+| `POST /api/creator/verify` | code でログイン検証（初回） |
+| `PATCH /api/creator/profile` | code + email の一致確認 |
+| `PUT /api/creator/designs/[id]` | code + email + DB所有権検証 |
+| `PUT /api/creator/collections/[id]` | code + email + DB所有権検証 |
+| `POST /api/articles` | code + email + DB所有権検証 |
+
+クライアント側では `localStorage.creator_code` と `localStorage.creator_email` を保存・送信する。
 
 ### 14.3 パートナーメンバー管理
 
@@ -528,10 +556,10 @@ CollectionFilterConditions = {
 | パス | 概要 |
 |------|------|
 | `/forgot-password` | メールアドレス入力 → Supabase resetPasswordForEmail でリセットリンク送信 |
-| `/reset-password` | 新しいパスワード入力（8文字以上+英字+数字バリデーション） |
+| `/reset-password` | 新しいパスワード入力（10文字以上+英字+数字+記号バリデーション） |
 | `/login` | 「パスワードを忘れた方」リンクあり |
 
-パスワード要件: 8文字以上、英字と数字を含む。サインアップ・リセット両方でリアルタイムバリデーション表示。
+パスワード要件: **10文字以上**、**英字・数字・記号** をそれぞれ1文字以上含む。サインアップ・リセット両方でリアルタイムバリデーション表示。
 
 ---
 
@@ -542,11 +570,13 @@ CollectionFilterConditions = {
 | POST | `/api/checkout` | Stripe Checkout セッション作成 |
 | POST | `/api/auctions/checkout` | オークション落札決済 |
 | POST | `/api/auctions/bid` | 入札（自動再入札トリガー付き） |
-| POST | `/api/affiliates/register` | アフィリエイト登録 |
+| POST | `/api/affiliates/register` | アフィリエイト登録（10 req/h IP制限） |
+| POST | `/api/signup/complete` | サインアップ完了処理（user_profiles + partners 作成、10 req/h IP制限） |
 | POST | `/api/creator/verify` | クリエイターコード認証 |
 | POST | `/api/creator/upload` | クリエイターアセットアップロード |
-| PUT | `/api/creator/designs/[id]` | LPデザイン保存 |
-| PUT | `/api/creator/collections/[id]` | コレクション保存 |
+| PATCH | `/api/creator/profile` | クリエイタープロフィール更新（code+email検証、20 req/min IP制限） |
+| PUT | `/api/creator/designs/[id]` | LPデザイン保存（code+email検証） |
+| PUT | `/api/creator/collections/[id]` | コレクション保存（code+email検証） |
 | DELETE | `/api/creator/designs/[id]` | LPデザイン削除 |
 | DELETE | `/api/creator/collections/[id]` | コレクション削除 |
 | POST | `/api/boards/threads` | スレッド作成 |
@@ -1270,16 +1300,16 @@ non_financial_insights テーブル:
 | 機能 | 説明 |
 |------|------|
 | OGタグ/Twitterカード | 商品ページにgenerateMetadata追加。画像・価格・説明を自動生成 |
-| サイト名テンプレート | 全ページタイトルに「| 単品決済ロットLP」を自動付与 |
+| サイト名テンプレート | 全ページタイトルに「\| Cross Infinity」を自動付与 |
 | GA4対応 | `NEXT_PUBLIC_GA_MEASUREMENT_ID`設定時にgtag自動挿入。未設定なら非表示 |
 
 ### 29.3 セキュリティ・インフラ
 
 | 機能 | 説明 | ファイル |
 |------|------|---------|
-| パスワードバリデーション | 8文字+英字+数字、リアルタイム表示 | `components/auth/SignupForm.tsx`, `ResetPasswordForm.tsx` |
+| パスワードバリデーション | **10文字+英字+数字+記号**、リアルタイム表示 | `components/auth/SignupForm.tsx`, `ResetPasswordForm.tsx` |
 | autocomplete属性 | 全フォームにemail/password autocomplete追加 | 各Formコンポーネント |
-| レート制限ヘルパー | メモリベース簡易レート制限（API保護用） | `lib/rate-limit.ts` |
+| レート制限 | signup/affiliate-register/creator-profile に IP単位で適用 | `lib/rate-limit.ts` |
 | 監査ログヘルパー | create/update/delete/approve等の操作記録 | `lib/audit-log.ts` |
 | APIエラーヘルパー | エラーコード付きレスポンス（NOT_FOUND, VALIDATION_ERROR等） | `lib/api-error.ts` |
 | ダークモード無効化 | 管理画面がlight前提のため、prefers-color-scheme darkを無効化 | `globals.css` |

@@ -43,14 +43,19 @@
 ## フロー1: メーカー登録 → 商品販売
 
 ```
-新規登録(/signup?role=maker) → メール or Google認証
+新規登録(/signup?role=maker) → メール+パスワード or Google認証
+  ├─ パスワード要件: 10文字以上、英字+数字+記号
   ↓
 ロール選択で「メーカー」を選択
   ↓
-user_profiles 作成（role: partner）
-partners 作成（partner_type: メーカー, certification_status: 未認証）
-  ※ ?ref= パラメータがある場合 → referred_by_affiliate_id に紹介者を記録
+POST /api/signup/complete（10 req/h IP制限）
+  ├─ admin client で auth user 検証
+  ├─ user_profiles 作成（role: partner）
+  ├─ partners 作成（partner_type: メーカー, certification_status: 未認証, auth_user_id 紐付け）
+  ├─ user_profiles.partner_id を更新（重複作成防止）
+  └─ ※ ?ref= パラメータがある場合 → referred_by_affiliate_id に紹介者を記録
   ※ 紹介者には以降の売上に対して1%の継続報酬が発生
+  ※ partners テーブルは RLS で anon INSERT 拒否のため admin client 経由必須
   ↓
 パートナーダッシュボード(/partner)
   ↓
@@ -75,12 +80,15 @@ partners 作成（partner_type: メーカー, certification_status: 未認証）
 ## フロー2: 代理店登録 → 承認取得 → 販売
 
 ```
-新規登録(/signup?role=agent) → メール or Google認証
+新規登録(/signup?role=agent) → メール+パスワード or Google認証
+  ├─ パスワード要件: 10文字以上、英字+数字+記号
   ↓
 ロール選択で「販売代理店」を選択
   ↓
-user_profiles 作成（role: partner）
-partners 作成（partner_type: 代理店, certification_status: 未認証）
+POST /api/signup/complete（admin client、10 req/h IP制限）
+  ├─ user_profiles 作成（role: partner）
+  └─ partners 作成（partner_type: 代理店, certification_status: 未認証, auth_user_id 紐付け）
+  ※ 紹介者には以降の売上に対して2%の継続報酬が発生
   ↓
 パートナーダッシュボード(/partner)
   ↓
@@ -115,12 +123,19 @@ partners 作成（partner_type: 代理店, certification_status: 未認証）
 
 ```
 アフィリエイト登録(/affiliate)
-  ├─ 名前・メールアドレス入力
+  ├─ 名前・メールアドレス入力（または Google で登録）
   └─ 「クリエイターとして登録する」チェックボックスON
   ↓
-アフィリエイトコード発行（例: yamada-abc1）
+POST /api/affiliates/register（10 req/h IP制限）
+  ├─ affiliates テーブルに is_creator=true で作成
+  └─ アフィリエイトコード発行（例: yamada-abc1）
   ↓
 クリエイターコードで認証(/creator)
+  ├─ POST /api/creator/verify でコード検証
+  ├─ affiliates から取得した code/email を localStorage に保存
+  │     - localStorage.creator_code
+  │     - localStorage.creator_email （以降のmutation用）
+  └─ クリエイターダッシュボードへ
   ↓
 クリエイターダッシュボード
   ├─ デザイン作成(/creator/designs/new)
@@ -130,9 +145,13 @@ partners 作成（partner_type: 代理店, certification_status: 未認証）
   │     ├─ ブロック追加・並べ替え・複製・削除
   │     ├─ テーマプリセット切替（7色）
   │     └─ プレビュー確認 → 保存
+  │           └─ PUT /api/creator/designs/[id]
+  │                 └─ code+email検証 + DB所有権検証
   ├─ コレクション作成(/creator/collections/new)
+  │     └─ PUT /api/creator/collections/[id]（code+email検証）
   ├─ アクセス分析(/creator/analytics)
   └─ プロフィール管理(/creator/profile)
+        └─ PATCH /api/creator/profile（code+email検証、20 req/min IP制限）
   ↓
 LP公開
   ├─ 公開URL: /c/[code]/[slug]/[lotId]
