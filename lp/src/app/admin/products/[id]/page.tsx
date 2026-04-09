@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { updateProduct, deleteProduct } from "../actions";
 import { ProductAttributes } from "@/components/ProductAttributes";
+import { DeleteButton } from "@/components/admin/DeleteButton";
 import type { Tag } from "@/lib/types";
 
 const TAG_TYPE_ORDER = ["生産者", "メーカー", "カテゴリ", "キーワード"] as const;
@@ -194,12 +195,7 @@ export default async function EditProductPage({
           </button>
         </form>
         <form action={deleteWithId} className="mt-4">
-          <button
-            type="submit"
-            className="text-red-600 hover:text-red-800 text-sm"
-          >
-            この商品を削除
-          </button>
+          <DeleteButton label="この商品を削除" confirmMessage="この商品を削除します。本当によろしいですか？関連するロット・注文データも影響を受ける可能性があります。" />
         </form>
       </div>
     </div>

@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { updateTag, deleteTag } from "../actions";
+import { DeleteButton } from "@/components/admin/DeleteButton";
 
 const TAG_TYPES = ["生産者", "メーカー", "カテゴリ", "キーワード"] as const;
 
@@ -117,12 +118,7 @@ export default async function EditTagPage({
           </button>
         </form>
         <form action={deleteWithId} className="mt-4">
-          <button
-            type="submit"
-            className="text-red-600 hover:text-red-800 text-sm"
-          >
-            このタグを削除
-          </button>
+          <DeleteButton label="このタグを削除" confirmMessage="このタグを削除します。本当によろしいですか？" />
         </form>
       </div>
     </div>

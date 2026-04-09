@@ -4,49 +4,102 @@ import { Sidebar } from "@/components/admin/Sidebar";
 import { MobileMenuButton } from "@/components/admin/MobileMenuButton";
 import { NotificationBell } from "@/components/shared/NotificationBell";
 
-const navItems = [
-  { href: "/admin", label: "ダッシュボード", icon: "📊" },
-  { href: "/admin/partners", label: "取引先", icon: "🏢" },
-  { href: "/admin/products", label: "商品", icon: "📦" },
-  { href: "/admin/lots", label: "ロット", icon: "🏷️" },
-  { href: "/admin/tags", label: "タグ", icon: "#️⃣" },
-  { href: "/admin/recurring", label: "定期購入", icon: "🔄" },
-  { href: "/admin/auctions", label: "オークション", icon: "🔨" },
-  { href: "/admin/authorizations", label: "商品承認", icon: "🔐" },
-  { href: "/admin/orders", label: "注文", icon: "🧾" },
-  { href: "/admin/quotes", label: "見積書", icon: "📝" },
-  { href: "/admin/invoices", label: "請求書", icon: "🧾" },
-  { href: "/admin/delivery-slips", label: "納品書", icon: "📄" },
-  { href: "/admin/affiliates", label: "アフィリエイト", icon: "🤝" },
-  { href: "/admin/asp", label: "ASPサービス", icon: "🌐" },
-  { href: "/admin/creator-designs", label: "Creator LP", icon: "🎨" },
-  { href: "/admin/proofs", label: "証明チェーン", icon: "🔗" },
-  { href: "/admin/proofs/entity", label: "主体証明", icon: "🪪" },
-  { href: "/admin/proofs/product", label: "商品証明", icon: "🧪" },
-  { href: "/admin/proofs/inventory", label: "在庫証明", icon: "📍" },
-  { href: "/admin/proofs/ownership", label: "所有証明", icon: "📜" },
-  { href: "/admin/proofs/delivery", label: "配送証明", icon: "🚚" },
-  { href: "/admin/buying-agents", label: "購買エージェント", icon: "🤖" },
-  { href: "/admin/surveys", label: "アンケート", icon: "🗳️" },
-  { href: "/admin/boards", label: "掲示板", icon: "📌" },
-  { href: "/admin/questions", label: "商品Q&A", icon: "❓" },
-  { href: "/admin/rankings", label: "ランキング", icon: "🏆" },
-  { href: "/admin/groupware/announcements", label: "お知らせ", icon: "📢" },
-  { href: "/admin/groupware/messages", label: "メッセージ", icon: "💬" },
-  { href: "/admin/groupware/tasks", label: "タスク", icon: "✅" },
-  { href: "/admin/groupware/files", label: "ファイル", icon: "📁" },
-  { href: "/admin/groupware/calendar", label: "カレンダー", icon: "📅" },
-  { href: "/admin/groupware/activity", label: "活動ログ", icon: "📋" },
-  { href: "/admin/groupware/notifications", label: "通知", icon: "🔔" },
-  { href: "/admin/step-mail", label: "ステップメール", icon: "📧" },
-  { href: "/admin/step-mail/api-keys", label: "EC連携APIキー", icon: "🔑" },
-  { href: "/admin/ec-connectors", label: "EC連携コネクタ", icon: "🔌" },
-  { href: "/admin/maker-referrals", label: "メーカー紹介報酬", icon: "💰" },
-  { href: "/admin/articles", label: "記事LP", icon: "📰" },
-  { href: "/admin/lp-analytics", label: "LPアクセス分析", icon: "📊" },
-  { href: "/admin/marketing", label: "マーケティング", icon: "📈" },
-  { href: "/admin/non-financial", label: "非財務インサイト", icon: "🙏" },
+const navGroups: { title: string; items: { href: string; label: string; icon: string }[] }[] = [
+  {
+    title: "概要",
+    items: [
+      { href: "/admin", label: "ダッシュボード", icon: "📊" },
+    ],
+  },
+  {
+    title: "商品・在庫",
+    items: [
+      { href: "/admin/products", label: "商品", icon: "📦" },
+      { href: "/admin/lots", label: "ロット", icon: "🏷️" },
+      { href: "/admin/tags", label: "タグ", icon: "#️⃣" },
+      { href: "/admin/authorizations", label: "商品承認", icon: "🔐" },
+    ],
+  },
+  {
+    title: "取引・帳票",
+    items: [
+      { href: "/admin/orders", label: "注文", icon: "🧾" },
+      { href: "/admin/recurring", label: "定期購入", icon: "🔄" },
+      { href: "/admin/auctions", label: "オークション", icon: "🔨" },
+      { href: "/admin/quotes", label: "見積書", icon: "📝" },
+      { href: "/admin/invoices", label: "請求書", icon: "🧾" },
+      { href: "/admin/delivery-slips", label: "納品書", icon: "📄" },
+    ],
+  },
+  {
+    title: "取引先・パートナー",
+    items: [
+      { href: "/admin/partners", label: "取引先", icon: "🏢" },
+      { href: "/admin/maker-referrals", label: "メーカー紹介報酬", icon: "💰" },
+    ],
+  },
+  {
+    title: "証明チェーン",
+    items: [
+      { href: "/admin/proofs", label: "サマリー", icon: "🔗" },
+      { href: "/admin/proofs/entity", label: "主体証明", icon: "🪪" },
+      { href: "/admin/proofs/product", label: "商品証明", icon: "🧪" },
+      { href: "/admin/proofs/inventory", label: "在庫証明", icon: "📍" },
+      { href: "/admin/proofs/ownership", label: "所有証明", icon: "📜" },
+      { href: "/admin/proofs/delivery", label: "配送証明", icon: "🚚" },
+    ],
+  },
+  {
+    title: "マーケティング",
+    items: [
+      { href: "/admin/marketing", label: "マーケティング", icon: "📈" },
+      { href: "/admin/lp-analytics", label: "LPアクセス分析", icon: "📊" },
+      { href: "/admin/non-financial", label: "非財務インサイト", icon: "🙏" },
+      { href: "/admin/rankings", label: "ランキング", icon: "🏆" },
+      { href: "/admin/articles", label: "記事LP", icon: "📰" },
+      { href: "/admin/creator-designs", label: "Creator LP", icon: "🎨" },
+    ],
+  },
+  {
+    title: "アフィリエイト",
+    items: [
+      { href: "/admin/affiliates", label: "アフィリエイト", icon: "🤝" },
+      { href: "/admin/asp", label: "ASPサービス", icon: "🌐" },
+    ],
+  },
+  {
+    title: "顧客接点",
+    items: [
+      { href: "/admin/surveys", label: "アンケート", icon: "🗳️" },
+      { href: "/admin/questions", label: "商品Q&A", icon: "❓" },
+      { href: "/admin/boards", label: "掲示板", icon: "📌" },
+      { href: "/admin/buying-agents", label: "購買エージェント", icon: "🤖" },
+    ],
+  },
+  {
+    title: "メール・連携",
+    items: [
+      { href: "/admin/step-mail", label: "ステップメール", icon: "📧" },
+      { href: "/admin/step-mail/api-keys", label: "API キー", icon: "🔑" },
+      { href: "/admin/ec-connectors", label: "EC連携コネクタ", icon: "🔌" },
+    ],
+  },
+  {
+    title: "グループウェア",
+    items: [
+      { href: "/admin/groupware/announcements", label: "お知らせ", icon: "📢" },
+      { href: "/admin/groupware/messages", label: "メッセージ", icon: "💬" },
+      { href: "/admin/groupware/tasks", label: "タスク", icon: "✅" },
+      { href: "/admin/groupware/files", label: "ファイル", icon: "📁" },
+      { href: "/admin/groupware/calendar", label: "カレンダー", icon: "📅" },
+      { href: "/admin/groupware/activity", label: "活動ログ", icon: "📋" },
+      { href: "/admin/groupware/notifications", label: "通知", icon: "🔔" },
+    ],
+  },
 ];
+
+// MobileMenu等の互換性のために flat な navItems もエクスポート
+const navItems = navGroups.flatMap((g) => g.items);
 
 export default async function AdminLayout({
   children,
@@ -90,7 +143,7 @@ export default async function AdminLayout({
           <h2 className="text-lg font-bold tracking-wide">管理ダッシュボード</h2>
           <p className="text-sm text-gray-400 mt-1">{displayName}</p>
         </div>
-        <Sidebar items={navItems} />
+        <Sidebar groups={navGroups} />
         <div className="p-4 border-t border-gray-800">
           <LogoutButton />
         </div>

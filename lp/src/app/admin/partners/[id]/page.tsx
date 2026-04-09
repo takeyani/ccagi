@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { updatePartner, deletePartner, addPartnerMember } from "../actions";
+import { DeleteButton } from "@/components/admin/DeleteButton";
+import { SubmitButton } from "@/components/admin/SubmitButton";
 
 export default async function EditPartnerPage({
   params,
@@ -175,21 +177,11 @@ export default async function EditPartnerPage({
             value={partner.parent_partner_id ?? ""}
           />
           <div className="flex gap-3">
-            <button
-              type="submit"
-              className="bg-orange-600 text-white px-6 py-2 rounded-lg hover:bg-orange-700 font-medium"
-            >
-              更新
-            </button>
+            <SubmitButton>更新</SubmitButton>
           </div>
         </form>
         <form action={deleteWithId} className="mt-4">
-          <button
-            type="submit"
-            className="text-red-600 hover:text-red-800 text-sm"
-          >
-            この取引先を削除
-          </button>
+          <DeleteButton label="この取引先を削除" confirmMessage="この取引先を削除します。本当によろしいですか？" />
         </form>
       </div>
 

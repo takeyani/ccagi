@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { updateLot, deleteLot } from "../actions";
+import { DeleteButton } from "@/components/admin/DeleteButton";
 
 export default async function EditLotPage({
   params,
@@ -234,12 +235,7 @@ export default async function EditLotPage({
           </button>
         </form>
         <form action={deleteWithId} className="mt-4">
-          <button
-            type="submit"
-            className="text-red-600 hover:text-red-800 text-sm"
-          >
-            このロットを削除
-          </button>
+          <DeleteButton label="このロットを削除" confirmMessage="このロットを削除します。本当によろしいですか？" />
         </form>
       </div>
     </div>
