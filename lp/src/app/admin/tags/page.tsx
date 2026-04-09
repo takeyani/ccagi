@@ -17,7 +17,7 @@ export default async function AdminTagsPage() {
       key: "tag_type",
       label: "タイプ",
       render: (t: Tag) => (
-        <span className="inline-block px-2 py-0.5 rounded text-xs font-medium bg-orange-100 text-orange-700">
+        <span className="inline-block px-2 py-0.5 rounded text-xs font-medium bg-orange-100/60 text-orange-700">
           {t.tag_type}
         </span>
       ),

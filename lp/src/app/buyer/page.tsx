@@ -99,7 +99,7 @@ export default async function BuyerDashboardPage() {
 
       {/* クイックアクション */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <Link href="/buyer/agents/new" className="bg-orange-50 border border-orange-200 rounded-xl p-4 hover:bg-orange-100 transition text-center">
+        <Link href="/buyer/agents/new" className="bg-orange-50/40 border border-orange-200 rounded-xl p-4 hover:bg-orange-100/60 transition text-center">
           <span className="text-2xl">🤖</span>
           <p className="text-sm font-medium text-orange-700 mt-1">新しいエージェント作成</p>
         </Link>

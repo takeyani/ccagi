@@ -60,7 +60,7 @@ export default async function PartnerQuestionDetailPage({ params }: Props) {
         {/* 質問内容 */}
         <div className="rounded-xl bg-gray-50 p-4">
           <div className="flex items-center gap-2 mb-2">
-            <span className="inline-flex items-center rounded-full bg-orange-100 px-2.5 py-0.5 text-xs font-medium text-orange-800">
+            <span className="inline-flex items-center rounded-full bg-orange-100/60 px-2.5 py-0.5 text-xs font-medium text-orange-800">
               Q
             </span>
             <span className="text-sm font-medium text-gray-900">質問内容</span>

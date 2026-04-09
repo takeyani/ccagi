@@ -103,7 +103,7 @@ export function ProductRegistrationScreen() {
             {/* フラグ */}
             <div className="flex gap-3 pt-1">
               <div className="flex items-center gap-1">
-                <div className="w-2.5 h-2.5 border border-gray-300 rounded-sm bg-orange-500" />
+                <div className="w-2.5 h-2.5 border border-gray-300 rounded-sm bg-orange-50/400" />
                 <span className="text-[9px] text-gray-600">有効</span>
               </div>
               <div className="flex items-center gap-1">
@@ -171,7 +171,7 @@ export function ProofChainScreen() {
               { layer: "L5", name: "配送証明", status: "none", files: "未登録" },
             ].map((p) => (
               <div key={p.layer} className="bg-white border border-gray-200 rounded-lg p-2 flex items-center gap-2">
-                <div className="w-7 h-7 rounded bg-orange-100 text-orange-700 flex items-center justify-center text-[9px] font-bold shrink-0">
+                <div className="w-7 h-7 rounded bg-orange-100/60 text-orange-700 flex items-center justify-center text-[9px] font-bold shrink-0">
                   {p.layer}
                 </div>
                 <div className="flex-1">

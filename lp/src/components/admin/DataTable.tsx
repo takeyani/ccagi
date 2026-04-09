@@ -59,7 +59,7 @@ export function DataTable({
     <div className="bg-white rounded-2xl border shadow-sm overflow-hidden">
       {/* バッチアクションバー */}
       {hasBatch && someChecked && (
-        <div className="bg-orange-50 border-b border-orange-200 px-4 py-2 flex items-center justify-between">
+        <div className="bg-orange-50/40 border-b border-orange-200 px-4 py-2 flex items-center justify-between">
           <span className="text-sm text-orange-700 font-medium">
             {selectedIds.size}件を選択中
           </span>
@@ -130,7 +130,7 @@ export function DataTable({
                 return (
                   <tr
                     key={id}
-                    className={`border-b last:border-0 hover:bg-gray-50 ${checked ? "bg-orange-50/50" : ""}`}
+                    className={`border-b last:border-0 hover:bg-gray-50 ${checked ? "bg-orange-50/40/50" : ""}`}
                   >
                     {hasBatch && (
                       <td className="px-4 py-3">

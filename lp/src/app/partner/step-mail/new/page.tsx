@@ -129,7 +129,7 @@ export default function NewPartnerCampaignPage() {
               <div className="space-y-1">
                 {t.steps.map((s) => (
                   <div key={s.step_number} className="flex items-center gap-2 text-xs text-gray-600">
-                    <span className="w-5 h-5 bg-orange-100 text-orange-700 rounded-full flex items-center justify-center text-[10px] font-bold">{s.step_number}</span>
+                    <span className="w-5 h-5 bg-orange-100/60 text-orange-700 rounded-full flex items-center justify-center text-[10px] font-bold">{s.step_number}</span>
                     <span>{s.delay_hours === 0 ? "即時" : s.delay_hours < 24 ? `${s.delay_hours}時間後` : `${Math.round(s.delay_hours / 24)}日後`}</span>
                     <span className="text-gray-400">-</span>
                     <span className="truncate">{s.subject}</span>

@@ -374,7 +374,7 @@ function FlowDiagram() {
           <div className="flex items-center gap-2 text-[10px] text-gray-600">
             <span className="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded font-medium">バイヤー</span>
             <span className="text-gray-400">→ LP閲覧 →</span>
-            <span className="bg-orange-100 text-orange-700 px-2 py-0.5 rounded font-medium">Stripe決済</span>
+            <span className="bg-orange-100/60 text-orange-700 px-2 py-0.5 rounded font-medium">Stripe決済</span>
             <span className="text-gray-400">→ 注文 →</span>
             <span className="bg-blue-100 text-blue-700 px-2 py-0.5 rounded font-medium">メーカー出荷</span>
             <span className="text-gray-400">→</span>

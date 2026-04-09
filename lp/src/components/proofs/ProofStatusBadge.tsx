@@ -7,7 +7,7 @@ const colorMap: Record<string, string> = {
   取消: "bg-gray-100 text-gray-500",
   準備中: "bg-gray-100 text-gray-600",
   発送済み: "bg-blue-100 text-blue-700",
-  配達中: "bg-orange-100 text-orange-700",
+  配達中: "bg-orange-100/60 text-orange-700",
   配達完了: "bg-green-100 text-green-700",
   受領確認済み: "bg-emerald-100 text-emerald-700",
 };

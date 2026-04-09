@@ -226,7 +226,7 @@ export default async function LotPage({ params }: Props) {
               <Link
                 key={tag.id}
                 href={`/t/${tag.slug}`}
-                className="inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-sm text-gray-700 hover:bg-orange-100 hover:text-orange-700 transition"
+                className="inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-sm text-gray-700 hover:bg-orange-100/60 hover:text-orange-700 transition"
               >
                 {tag.name}
               </Link>
@@ -315,7 +315,7 @@ export default async function LotPage({ params }: Props) {
           {hasActiveAuction ? (
             <Link
               href={`/products/${slug}/${lotId}/auction`}
-              className="mt-6 block w-full rounded-full bg-orange-500 py-4 text-center text-lg font-semibold text-white transition hover:bg-orange-600"
+              className="mt-6 block w-full rounded-full bg-orange-50/400 py-4 text-center text-lg font-semibold text-white transition hover:bg-orange-600"
             >
               オークション開催中 →
             </Link>

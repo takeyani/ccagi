@@ -303,7 +303,7 @@ export function InquiryCreateScreen() {
         <div className="flex-1 p-3 bg-gray-50">
           <div className="font-bold text-sm mb-2 text-gray-900">問い合わせ作成</div>
           <div className="bg-white border border-gray-200 rounded-lg p-3">
-            <div className="bg-orange-50 rounded-lg p-2 mb-2 text-[10px]">
+            <div className="bg-orange-50/40 rounded-lg p-2 mb-2 text-[10px]">
               <div className="font-bold text-orange-700">京都有機抹茶 100g</div>
               <div className="text-orange-500">宇治園製茶 ・ スコア: 92.4 ・ ¥3,500/個</div>
             </div>

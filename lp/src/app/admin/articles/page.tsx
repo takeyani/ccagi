@@ -176,7 +176,7 @@ export default function ArticlesAdminPage() {
                       onClick={() => setNewTemplate(t.id)}
                       className={`text-left p-4 rounded-xl border-2 transition ${
                         newTemplate === t.id
-                          ? "border-orange-500 bg-orange-50"
+                          ? "border-orange-500 bg-orange-50/40"
                           : "border-gray-200 hover:border-gray-300"
                       }`}
                     >

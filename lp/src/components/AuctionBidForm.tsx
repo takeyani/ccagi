@@ -169,7 +169,7 @@ export default function AuctionBidForm({
         <button
           onClick={() => handleBid(true)}
           disabled={loading}
-          className="w-full rounded-full bg-orange-500 py-3 font-semibold text-white transition hover:bg-orange-600 disabled:cursor-not-allowed disabled:opacity-50"
+          className="w-full rounded-full bg-orange-50/400 py-3 font-semibold text-white transition hover:bg-orange-600 disabled:cursor-not-allowed disabled:opacity-50"
         >
           {loading
             ? "処理中..."

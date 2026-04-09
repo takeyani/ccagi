@@ -61,7 +61,7 @@ export default function RecurringPurchaseForm({ lotId, price }: Props) {
     return (
       <button
         onClick={() => setOpen(true)}
-        className="mt-3 w-full rounded-full border-2 border-orange-600 py-3 text-sm font-semibold text-orange-600 transition hover:bg-orange-50"
+        className="mt-3 w-full rounded-full border-2 border-orange-600 py-3 text-sm font-semibold text-orange-600 transition hover:bg-orange-50/40"
       >
         定期購入で申し込む
       </button>
@@ -71,7 +71,7 @@ export default function RecurringPurchaseForm({ lotId, price }: Props) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="mt-4 rounded-xl border bg-orange-50 p-5 space-y-4"
+      className="mt-4 rounded-xl border bg-orange-50/40 p-5 space-y-4"
     >
       <h3 className="text-sm font-bold text-gray-900">
         定期購入のお申し込み

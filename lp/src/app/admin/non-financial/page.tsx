@@ -39,7 +39,7 @@ export default async function AdminNonFinancialPage() {
         ))}
       </div>
 
-      <div className="bg-orange-50 border border-orange-200 rounded-xl p-4 mb-6">
+      <div className="bg-orange-50/40 border border-orange-200 rounded-xl p-4 mb-6">
         <p className="text-sm text-orange-800">
           合計 <span className="font-bold">{total}</span> 件（RAGデータベース蓄積中）。
           pgvector有効化後、ベクトル検索によるAI分析が可能になります。

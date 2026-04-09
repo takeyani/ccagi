@@ -142,7 +142,7 @@ export default async function AdminLPAnalyticsPage() {
                 <div className="flex items-center gap-2">
                   <div className="w-24 bg-gray-100 rounded-full h-2">
                     <div
-                      className="bg-orange-500 rounded-full h-2"
+                      className="bg-orange-50/400 rounded-full h-2"
                       style={{ width: `${(count / (topReferrers[0]?.[1] || 1)) * 100}%` }}
                     />
                   </div>
@@ -191,7 +191,7 @@ export default async function AdminLPAnalyticsPage() {
                   <div key={date} className="flex flex-col items-center gap-1 w-8">
                     <span className="text-[10px] text-gray-500">{count}</span>
                     <div
-                      className="w-5 bg-orange-500 rounded-t"
+                      className="w-5 bg-orange-50/400 rounded-t"
                       style={{ height: `${height}%`, minHeight: count > 0 ? "4px" : "0" }}
                     />
                     <span className="text-[9px] text-gray-400 -rotate-45 origin-top-left whitespace-nowrap">

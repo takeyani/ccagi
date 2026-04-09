@@ -397,7 +397,7 @@ export default async function EditAgentPage({
                       {r.products?.name}
                     </p>
                     {previewAuctionMap[r.lot_id]?.status === "出品中" && (
-                      <span className="px-1.5 py-0.5 rounded-full text-[10px] font-medium bg-orange-100 text-orange-700">
+                      <span className="px-1.5 py-0.5 rounded-full text-[10px] font-medium bg-orange-100/60 text-orange-700">
                         オークション中
                       </span>
                     )}

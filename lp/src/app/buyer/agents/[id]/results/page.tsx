@@ -145,7 +145,7 @@ export default async function AgentResultsPage({
                         </span>
                       )}
                       {auction && auction.status === "出品中" && (
-                        <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-700">
+                        <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-orange-100/60 text-orange-700">
                           オークション中
                         </span>
                       )}
@@ -212,7 +212,7 @@ export default async function AgentResultsPage({
                       </span>
                     </div>
                     {auction && (
-                      <div className="flex items-center gap-4 mt-1.5 text-sm text-orange-700 bg-orange-50 rounded px-2 py-1">
+                      <div className="flex items-center gap-4 mt-1.5 text-sm text-orange-700 bg-orange-50/40 rounded px-2 py-1">
                         <span>現在価格: &yen;{auction.current_price.toLocaleString()}</span>
                         <span>入札: {auction.bid_count}件</span>
                         <span>終了: {new Date(auction.ends_at).toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" })}</span>
@@ -286,7 +286,7 @@ export default async function AgentResultsPage({
                       {auction && auction.status === "出品中" && (
                         <Link
                           href={`/products/${r.products?.slug}/${r.lot_id}/auction?agent_result_id=${r.id}`}
-                          className="bg-orange-500 text-white px-4 py-1.5 rounded-lg hover:bg-orange-600 text-sm font-medium text-center"
+                          className="bg-orange-50/400 text-white px-4 py-1.5 rounded-lg hover:bg-orange-600 text-sm font-medium text-center"
                         >
                           入札ページへ
                         </Link>

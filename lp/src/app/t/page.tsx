@@ -98,7 +98,7 @@ export default async function TagsIndexPage() {
                 tagsByType[type].length > 0 && (
                   <section key={type}>
                     <h2 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                      <span className="inline-block px-2 py-0.5 rounded text-xs font-medium bg-orange-100 text-orange-700">
+                      <span className="inline-block px-2 py-0.5 rounded text-xs font-medium bg-orange-100/60 text-orange-700">
                         {type}
                       </span>
                     </h2>
@@ -131,7 +131,7 @@ export default async function TagsIndexPage() {
               {TAG_TYPE_ORDER.map((type) => (
                 <section key={type}>
                   <h2 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                    <span className="inline-block px-2 py-0.5 rounded text-xs font-medium bg-orange-100 text-orange-700">
+                    <span className="inline-block px-2 py-0.5 rounded text-xs font-medium bg-orange-100/60 text-orange-700">
                       {type}
                     </span>
                   </h2>

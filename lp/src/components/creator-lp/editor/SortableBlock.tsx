@@ -138,7 +138,7 @@ export function SortableBlock({ block, isSelected, onSelect, onRemove, onDuplica
         )}
         {blockType === "cta" && (
           <div className="text-center">
-            <span className="inline-block rounded-full bg-orange-100 px-4 py-1 text-sm text-orange-700">
+            <span className="inline-block rounded-full bg-orange-100/60 px-4 py-1 text-sm text-orange-700">
               {(block.props.text as string) || "CTAボタン"}
             </span>
           </div>

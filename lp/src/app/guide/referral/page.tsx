@@ -20,10 +20,10 @@ export default function ReferralGuidePage() {
             アフィリエイト登録をして紹介リンクを発行するだけで、誰でも紹介者になれます。
             紹介先がプラットフォームに登録・販売を開始すると、売上に対して報酬が発生します。
           </p>
-          <div className="bg-orange-50 rounded-xl p-6">
+          <div className="bg-orange-50/40 rounded-xl p-6">
             <div className="flex items-center justify-between text-center text-sm">
               <div>
-                <div className="w-14 h-14 mx-auto bg-orange-100 rounded-full flex items-center justify-center text-2xl mb-2">👤</div>
+                <div className="w-14 h-14 mx-auto bg-orange-100/60 rounded-full flex items-center justify-center text-2xl mb-2">👤</div>
                 <p className="text-xs font-bold text-orange-700">あなた</p>
                 <p className="text-[10px] text-orange-500">紹介者</p>
               </div>

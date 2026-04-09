@@ -195,7 +195,7 @@ export default function ComparisonPage() {
           <div className="grid md:grid-cols-3 gap-6">
             {pricingPoints.map((p) => (
               <div key={p.title} className="text-center">
-                <div className="w-16 h-16 bg-orange-50 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-3">
+                <div className="w-16 h-16 bg-orange-50/40 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-3">
                   {p.icon}
                 </div>
                 <h4 className="font-extrabold text-gray-900 text-lg mb-2">{p.title}</h4>
@@ -220,7 +220,7 @@ export default function ComparisonPage() {
       {/* 比較表 */}
       <section id="comparison" className="max-w-5xl mx-auto px-6 mb-20">
         <div className="mb-10 text-center">
-          <span className="inline-block bg-orange-100 text-orange-700 text-xs font-bold px-3 py-1 rounded-full mb-3">
+          <span className="inline-block bg-orange-100/60 text-orange-700 text-xs font-bold px-3 py-1 rounded-full mb-3">
             COMPARISON TABLE
           </span>
           <h2 className="text-2xl font-extrabold text-gray-900 mb-2">従来EC vs Cross Infinity</h2>
@@ -239,7 +239,7 @@ export default function ComparisonPage() {
                 </th>
                 <th className="text-left px-5 py-4 font-bold text-orange-600 w-2/5">
                   <span className="flex items-center gap-2">
-                    <span className="w-3 h-3 rounded-full bg-orange-500" />
+                    <span className="w-3 h-3 rounded-full bg-orange-50/400" />
                     Cross Infinity
                   </span>
                 </th>
@@ -247,7 +247,7 @@ export default function ComparisonPage() {
             </thead>
             <tbody>
               {comparisonRows.map((row, i) => (
-                <tr key={i} className={`border-b last:border-0 ${row.highlight ? "bg-orange-50/50" : ""}`}>
+                <tr key={i} className={`border-b last:border-0 ${row.highlight ? "bg-orange-50/40/50" : ""}`}>
                   <td className="px-5 py-3 font-medium text-gray-900">{row.label}</td>
                   <td className="px-5 py-3 text-gray-500">{row.traditional}</td>
                   <td className={`px-5 py-3 ${row.highlight ? "font-bold text-orange-600" : "text-gray-700"}`}>
@@ -337,7 +337,7 @@ export default function ComparisonPage() {
             完全成果報酬型のマーケットプレイスです。
           </p>
           <div className="flex justify-center gap-4 flex-wrap">
-            <Link href="/signup" className="bg-white text-orange-700 font-bold px-6 py-3 rounded-lg hover:bg-orange-50 text-sm transition">
+            <Link href="/signup" className="bg-white text-orange-700 font-bold px-6 py-3 rounded-lg hover:bg-orange-50/40 text-sm transition">
               無料で登録する
             </Link>
             <Link href="/flow" className="border border-white/50 text-white px-6 py-3 rounded-lg hover:bg-white/10 text-sm transition">

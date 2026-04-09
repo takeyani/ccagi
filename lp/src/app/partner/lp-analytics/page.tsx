@@ -151,7 +151,7 @@ export default async function PartnerLPAnalyticsPage() {
                       <td className="px-3 py-2 w-48">
                         <div className="bg-gray-100 rounded-full h-2">
                           <div
-                            className="bg-orange-500 rounded-full h-2"
+                            className="bg-orange-50/400 rounded-full h-2"
                             style={{ width: `${max > 0 ? (count / max) * 100 : 0}%` }}
                           />
                         </div>

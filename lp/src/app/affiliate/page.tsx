@@ -75,7 +75,7 @@ export default function AffiliatePage() {
               { step: "4", text: "紹介先の売上発生時、12%の成果報酬のうち2%をポイント獲得" },
             ].map((item) => (
               <div key={item.step} className="flex items-start gap-3">
-                <span className="flex-shrink-0 w-6 h-6 bg-orange-100 text-orange-700 rounded-full flex items-center justify-center text-xs font-bold">{item.step}</span>
+                <span className="flex-shrink-0 w-6 h-6 bg-orange-100/60 text-orange-700 rounded-full flex items-center justify-center text-xs font-bold">{item.step}</span>
                 <p className="text-sm text-gray-700">{item.text}</p>
               </div>
             ))}
@@ -385,7 +385,7 @@ export default function AffiliatePage() {
               </p>
 
               {isCreator && (
-                <div className="mt-4 rounded-lg border border-orange-200 bg-orange-50 p-4">
+                <div className="mt-4 rounded-lg border border-orange-200 bg-orange-50/40 p-4">
                   <p className="text-sm font-medium text-orange-900">
                     クリエイターとして登録されました
                   </p>
@@ -405,7 +405,7 @@ export default function AffiliatePage() {
         )}
 
         <div className="mt-6 space-y-3">
-          <div className="flex items-center justify-center gap-2 p-3 rounded-lg border border-orange-200 bg-orange-50">
+          <div className="flex items-center justify-center gap-2 p-3 rounded-lg border border-orange-200 bg-orange-50/40">
             <span className="text-sm">🏭🏢🛒</span>
             <div className="text-left">
               <p className="text-xs font-medium text-orange-700">メーカー・代理店・バイヤーの方</p>

@@ -38,12 +38,12 @@ type AwardTier = {
 /* ── データ ── */
 
 const categories: AwardCategory[] = [
-  { id: "food", name: "食品", icon: "🍱", color: "text-orange-600", bgColor: "bg-orange-50", borderColor: "border-orange-200" },
+  { id: "food", name: "食品", icon: "🍱", color: "text-orange-600", bgColor: "bg-orange-50/40", borderColor: "border-orange-200" },
   { id: "cosmetics", name: "化粧品・健康食品", icon: "💄", color: "text-pink-600", bgColor: "bg-pink-50", borderColor: "border-pink-200" },
   { id: "electronics", name: "家電・電子機器", icon: "📱", color: "text-blue-600", bgColor: "bg-blue-50", borderColor: "border-blue-200" },
   { id: "apparel", name: "洋服・ファッション", icon: "👕", color: "text-purple-600", bgColor: "bg-purple-50", borderColor: "border-purple-200" },
   { id: "service", name: "サービス・コンサル", icon: "💼", color: "text-teal-600", bgColor: "bg-teal-50", borderColor: "border-teal-200" },
-  { id: "digital", name: "映像・デジタル商品", icon: "🎬", color: "text-orange-600", bgColor: "bg-orange-50", borderColor: "border-orange-200" },
+  { id: "digital", name: "映像・デジタル商品", icon: "🎬", color: "text-orange-600", bgColor: "bg-orange-50/40", borderColor: "border-orange-200" },
   { id: "industrial", name: "産業用・工業製品", icon: "🏭", color: "text-gray-600", bgColor: "bg-gray-50", borderColor: "border-gray-200" },
 ];
 
@@ -170,7 +170,7 @@ function MetricCard({ metric }: { metric: AwardMetric }) {
           <p className="text-xs text-gray-500 leading-relaxed mb-2">{metric.description}</p>
           <div className="flex flex-wrap gap-1">
             {metric.targets.map((t) => (
-              <span key={t} className="text-[10px] bg-orange-50 text-orange-600 px-2 py-0.5 rounded-full font-medium">{t}</span>
+              <span key={t} className="text-[10px] bg-orange-50/40 text-orange-600 px-2 py-0.5 rounded-full font-medium">{t}</span>
             ))}
           </div>
         </div>
@@ -583,7 +583,7 @@ export default function AwardsPage() {
             <div className="flex flex-wrap gap-2 justify-center mb-6">
               {categories.slice(0, 4).map((cat, i) => (
                 <span key={cat.id} className={`text-xs px-3 py-1.5 rounded-full font-medium ${
-                  i === 0 ? "bg-orange-100 text-orange-700 border border-orange-300" : "bg-gray-100 text-gray-500"
+                  i === 0 ? "bg-orange-100/60 text-orange-700 border border-orange-300" : "bg-gray-100 text-gray-500"
                 }`}>
                   {cat.icon} {cat.name}
                 </span>

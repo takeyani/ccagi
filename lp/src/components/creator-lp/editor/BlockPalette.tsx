@@ -20,7 +20,7 @@ export function BlockPalette({ onAdd, definitions }: Props) {
           <button
             key={def.type}
             onClick={() => onAdd(def.type)}
-            className="flex w-full items-center gap-2 rounded-lg border bg-white px-3 py-2 text-sm text-gray-700 transition hover:border-orange-300 hover:bg-orange-50"
+            className="flex w-full items-center gap-2 rounded-lg border bg-white px-3 py-2 text-sm text-gray-700 transition hover:border-orange-300 hover:bg-orange-50/40"
           >
             <span>{def.icon}</span>
             <span>{def.label}</span>

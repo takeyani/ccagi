@@ -66,7 +66,7 @@ export function MobileMenu({
                 href={item.href}
                 className={`flex items-center gap-2 rounded-lg px-3 py-2 text-sm transition ${
                   isActive
-                    ? "bg-orange-50 text-orange-700 font-medium"
+                    ? "bg-orange-50/40 text-orange-700 font-medium"
                     : "text-gray-600 hover:bg-gray-50"
                 }`}
               >

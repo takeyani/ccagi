@@ -14,7 +14,7 @@ type CalendarEvent = {
 const typeColors: Record<string, string> = {
   task: "bg-blue-500",
   invoice_due: "bg-red-500",
-  quote_due: "bg-orange-500",
+  quote_due: "bg-orange-50/400",
   delivery: "bg-green-500",
 };
 

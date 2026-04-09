@@ -133,7 +133,7 @@ export function LPEditorScreen() {
                 </div>
               </div>
               {/* CTA */}
-              <div className="p-2 bg-orange-50 text-center">
+              <div className="p-2 bg-orange-50/40 text-center">
                 <div className="text-[8px] text-gray-400 mb-0.5">CTA ブロック</div>
                 <MockButton label="今すぐ購入する" primary />
               </div>
@@ -224,7 +224,7 @@ export function PublicLPScreen() {
       <div className="p-3">
         <div className="grid grid-cols-3 gap-2 mb-2 text-center">
           {["⭐ 有機JAS認証", "🍵 宇治産100%", "📦 即日発送"].map((f) => (
-            <div key={f} className="bg-orange-50 rounded-lg p-1.5 text-[9px] text-orange-700 font-medium">{f}</div>
+            <div key={f} className="bg-orange-50/40 rounded-lg p-1.5 text-[9px] text-orange-700 font-medium">{f}</div>
           ))}
         </div>
         <div className="bg-gray-50 rounded-lg p-2 mb-2">

@@ -14,7 +14,7 @@ function getDeadlineColor(dateStr: string): string {
   const diff = (target.getTime() - today.getTime()) / (1000 * 60 * 60 * 24);
 
   if (diff <= 0) return "text-red-600 bg-red-50";
-  if (diff <= 3) return "text-orange-600 bg-orange-50";
+  if (diff <= 3) return "text-orange-600 bg-orange-50/40";
   if (diff <= 7) return "text-yellow-600 bg-yellow-50";
   return "text-gray-600 bg-gray-50";
 }

@@ -3,8 +3,8 @@ import Image from "next/image";
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-orange-500 via-orange-400 to-amber-400 text-white">
-      <div className="absolute inset-0 bg-black/10" />
+    <section className="relative overflow-hidden bg-gradient-to-br from-orange-400 via-amber-300 to-orange-300 text-white">
+      <div className="absolute inset-0 bg-black/5" />
       <div className="relative mx-auto max-w-5xl px-6 py-32 text-center sm:py-40">
         <Image src="/logo.png" alt="Cross Infinity" width={96} height={96} className="mx-auto mb-6 bg-white rounded-2xl p-2 shadow-xl" />
         <p className="text-sm font-semibold tracking-widest text-white/90 uppercase mb-4">

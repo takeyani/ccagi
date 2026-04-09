@@ -82,7 +82,7 @@ export default function AspProgramsPage() {
                     </p>
                   </div>
                   <div className="text-right">
-                    <span className="inline-flex rounded-full bg-orange-100 px-3 py-1 text-sm font-bold text-orange-800">
+                    <span className="inline-flex rounded-full bg-orange-100/60 px-3 py-1 text-sm font-bold text-orange-800">
                       {p.commission_type}
                     </span>
                     <p className="text-lg font-bold text-orange-600 mt-1">

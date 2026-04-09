@@ -120,7 +120,7 @@ export default function GeneralBtoBPage() {
               <div key={p.layer} className="bg-white rounded-xl border border-gray-200 p-5 shadow-sm">
                 <div className="flex items-center gap-2 mb-2">
                   <span className="text-2xl">{p.icon}</span>
-                  <span className="text-xs font-bold text-orange-600 bg-orange-50 px-2 py-0.5 rounded-full">{p.layer}</span>
+                  <span className="text-xs font-bold text-orange-600 bg-orange-50/40 px-2 py-0.5 rounded-full">{p.layer}</span>
                   <span className="font-bold text-gray-900 text-sm">{p.name}</span>
                 </div>
                 <div className="flex items-center gap-2 mb-2">
@@ -152,7 +152,7 @@ export default function GeneralBtoBPage() {
               </div>
             ))}
           </div>
-          <div className="mt-4 bg-orange-50 border border-orange-200 rounded-xl p-4">
+          <div className="mt-4 bg-orange-50/40 border border-orange-200 rounded-xl p-4">
             <p className="text-xs text-orange-700">
               <span className="font-bold">インボイス対応：</span>
               適格請求書発行事業者番号（T+13桁）を登録すると、すべての帳票にインボイス番号が自動反映されます。

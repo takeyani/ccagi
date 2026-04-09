@@ -182,7 +182,7 @@ export default async function AuctionPage({ params, searchParams }: Props) {
         <div className="mt-8 rounded-2xl border-2 border-orange-600 bg-white p-8 shadow-xl">
           {/* ステータスバナー */}
           {isActive && (
-            <div className="mb-6 rounded-lg bg-orange-50 p-3 text-center">
+            <div className="mb-6 rounded-lg bg-orange-50/40 p-3 text-center">
               <span className="text-sm font-semibold text-orange-700">オークション開催中</span>
             </div>
           )}
@@ -290,7 +290,7 @@ export default async function AuctionPage({ params, searchParams }: Props) {
                       <td className="px-4 py-3 text-gray-900">
                         {bid.bidder_name}
                         {bid.is_buy_now && (
-                          <span className="ml-2 rounded bg-orange-100 px-1.5 py-0.5 text-xs font-medium text-orange-700">
+                          <span className="ml-2 rounded bg-orange-100/60 px-1.5 py-0.5 text-xs font-medium text-orange-700">
                             即決
                           </span>
                         )}

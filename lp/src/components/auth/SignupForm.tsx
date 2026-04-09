@@ -168,7 +168,7 @@ export function SignupForm() {
               onClick={() => setSelectedRole(r.value)}
               className={`flex flex-col items-center gap-1 p-3 rounded-xl border-2 transition text-center ${
                 selectedRole === r.value
-                  ? "border-orange-600 bg-orange-50 ring-1 ring-orange-600"
+                  ? "border-orange-600 bg-orange-50/40 ring-1 ring-orange-600"
                   : "border-gray-200 hover:border-gray-300 bg-white"
               }`}
             >
