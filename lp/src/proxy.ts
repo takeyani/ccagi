@@ -2,6 +2,14 @@ import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
 export async function proxy(request: NextRequest) {
+  // メンテナンスモード: MAINTENANCE_MODE=1 で全ページをブロック
+  if (process.env.MAINTENANCE_MODE === "1") {
+    return new NextResponse(
+      '<html><body style="display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:sans-serif;background:#f9fafb;"><div style="text-align:center;"><h1 style="font-size:2rem;color:#333;">Cross Infinity</h1><p style="color:#666;margin-top:1rem;">現在メンテナンス中です。しばらくお待ちください。</p></div></body></html>',
+      { status: 503, headers: { "Content-Type": "text/html; charset=utf-8", "Retry-After": "3600" } }
+    );
+  }
+
   const { pathname } = request.nextUrl;
   const isProtected =
     pathname.startsWith("/admin") || pathname.startsWith("/partner") || pathname.startsWith("/buyer");
@@ -67,5 +75,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*", "/partner/:path*", "/buyer/:path*"],
+  matcher: ["/((?!_next/static|_next/image|favicon.ico|logo.png|embed.js).*)"],
 };
