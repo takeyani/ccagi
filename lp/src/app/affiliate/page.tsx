@@ -371,14 +371,37 @@ export default function AffiliatePage() {
                     className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm text-gray-700"
                   />
                   <button
-                    onClick={() =>
-                      navigator.clipboard.writeText(referralLink)
-                    }
+                    onClick={() => {
+                      navigator.clipboard.writeText(referralLink);
+                      alert("コピーしました");
+                    }}
                     className="shrink-0 rounded-lg bg-orange-600 px-4 py-3 text-sm font-medium text-white transition hover:bg-orange-700"
                   >
                     コピー
                   </button>
                 </div>
+              </div>
+              <div className="flex flex-col items-center gap-3 p-4 bg-white rounded-lg border">
+                <p className="text-sm font-medium text-gray-600">QRコード（スマホで読み取り可能）</p>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(referralLink)}`}
+                  alt="紹介QRコード"
+                  width={200}
+                  height={200}
+                  className="rounded-lg"
+                />
+                <button
+                  onClick={() => {
+                    const link = document.createElement("a");
+                    link.href = `https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodeURIComponent(referralLink)}`;
+                    link.download = `cross-infinity-qr-${result.code}.png`;
+                    link.click();
+                  }}
+                  className="text-sm text-orange-600 hover:text-orange-800 font-medium underline"
+                >
+                  QRコードをダウンロード
+                </button>
               </div>
               <p className="text-sm text-gray-500">
                 このリンクを経由して購入が発生すると、売上の2%がポイントとして付与されます。ポイントはプラットフォーム内の全商品の購入にご利用いただけます。
