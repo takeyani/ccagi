@@ -79,8 +79,8 @@ export async function POST(request: Request) {
       results.errors.push({ row: rowNum, message: "base_price は1以上の数値が必要です: " + row.base_price });
       continue;
     }
-    if (price > 10_000_000) {
-      results.errors.push({ row: rowNum, message: "base_price が上限（¥10,000,000）を超えています。高額商品は事前審査が必要です" });
+    if (price > 500_000) {
+      results.errors.push({ row: rowNum, message: "base_price が上限（¥500,000）を超えています" });
       continue;
     }
 

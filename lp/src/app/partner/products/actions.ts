@@ -46,8 +46,8 @@ export async function createPartnerProduct(formData: FormData) {
   if (fields.base_price <= 0) {
     throw new Error("価格は1円以上で設定してください。");
   }
-  if (fields.base_price > 10_000_000) {
-    throw new Error("価格が上限（¥10,000,000）を超えています。高額商品の出品は事前審査が必要です。");
+  if (fields.base_price > 500_000) {
+    throw new Error("価格が上限（¥500,000）を超えています。");
   }
   if (!fields.name || fields.name.trim().length < 2) {
     throw new Error("商品名は2文字以上で入力してください。");
