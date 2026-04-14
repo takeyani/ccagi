@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { DataTable } from "@/components/admin/DataTable";
 import Link from "next/link";

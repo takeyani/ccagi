@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { requireBuyerId } from "@/lib/auth";
 import { DataTable } from "@/components/admin/DataTable";
 

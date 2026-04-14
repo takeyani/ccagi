@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { requireBuyerId } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { DataTable } from "@/components/admin/DataTable";

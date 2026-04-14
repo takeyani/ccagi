@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { requirePartnerId } from "@/lib/auth";
 import { DataTable } from "@/components/admin/DataTable";
 
