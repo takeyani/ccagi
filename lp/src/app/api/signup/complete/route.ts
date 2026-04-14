@@ -99,7 +99,7 @@ export async function POST(request: Request) {
           auth_user_id: user_id,
           company_name: display_name,
           partner_type,
-          certification_status: "未認証",
+          certification_status: "仮登録",
           ...(referredByAffiliateId ? { referred_by_affiliate_id: referredByAffiliateId } : {}),
         })
         .select("id")

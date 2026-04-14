@@ -36,6 +36,44 @@ export default async function EditPartnerPage({
   return (
     <div>
       <h1 className="text-2xl font-bold mb-6">取引先 編集</h1>
+
+      {/* 登録ステータス */}
+      <div className={`mb-4 p-4 rounded-lg border ${
+        partner.certification_status === "本登録" ? "bg-green-50 border-green-200" :
+        partner.certification_status === "仮登録" ? "bg-amber-50 border-amber-200" :
+        "bg-gray-50 border-gray-200"
+      }`}>
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="text-sm font-bold">
+              登録ステータス: <span className={
+                partner.certification_status === "本登録" ? "text-green-700" :
+                partner.certification_status === "仮登録" ? "text-amber-700" : "text-gray-700"
+              }>{partner.certification_status}</span>
+            </p>
+            {partner.certification_status === "仮登録" && (
+              <p className="text-xs text-amber-600 mt-1">面談完了後に「本登録」に変更してください</p>
+            )}
+          </div>
+          <form action={updateWithId}>
+            <input type="hidden" name="company_name" value={partner.company_name} />
+            <input type="hidden" name="certification_status" value={
+              partner.certification_status === "本登録" ? "仮登録" : "本登録"
+            } />
+            <button
+              type="submit"
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
+                partner.certification_status === "本登録"
+                  ? "bg-amber-100 text-amber-700 hover:bg-amber-200"
+                  : "bg-green-600 text-white hover:bg-green-700"
+              }`}
+            >
+              {partner.certification_status === "本登録" ? "仮登録に戻す" : "本登録に変更"}
+            </button>
+          </form>
+        </div>
+      </div>
+
       <div className="bg-white rounded-2xl border shadow-sm p-6 max-w-2xl">
         <form action={updateWithId} className="space-y-4">
           <div className="grid grid-cols-2 gap-4">

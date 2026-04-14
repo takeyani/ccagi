@@ -35,7 +35,7 @@ export async function requirePartnerId() {
       .insert({
         company_name: displayName,
         partner_type: "メーカー",
-        certification_status: "未認証",
+        certification_status: "仮登録",
       })
       .select("id")
       .single();

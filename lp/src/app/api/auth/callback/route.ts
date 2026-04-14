@@ -84,7 +84,7 @@ export async function GET(request: NextRequest) {
                   auth_user_id: user.id,
                   company_name: displayName,
                   partner_type: partnerType,
-                  certification_status: "未認証",
+                  certification_status: "仮登録",
                 })
                 .select("id")
                 .single();

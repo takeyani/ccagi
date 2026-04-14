@@ -49,7 +49,7 @@ async function getPartnerData() {
         .insert({
           company_name: profile.display_name || "パートナー",
           partner_type: "メーカー",
-          certification_status: "未認証",
+          certification_status: "仮登録",
         })
         .select("id")
         .single();
@@ -64,17 +64,20 @@ async function getPartnerData() {
     }
 
     let companyName = "";
+    let certStatus = "仮登録";
     if (partnerId) {
       const { data: partner } = await admin
         .from("partners")
-        .select("company_name")
+        .select("company_name, certification_status")
         .eq("id", partnerId)
         .maybeSingle();
       companyName = partner?.company_name ?? "";
+      certStatus = partner?.certification_status ?? "仮登録";
     }
 
     return {
       displayName: companyName || profile?.display_name || user.email || "",
+      isProvisional: certStatus === "仮登録",
     };
   } catch {
     return null;
@@ -107,6 +110,15 @@ export default async function PartnerLayout({
       </aside>
       <div className="flex-1 flex flex-col">
         <BetaBanner />
+        {data.isProvisional && (
+          <div className="bg-amber-50 border-b border-amber-200 px-4 py-3 text-sm">
+            <p className="font-bold text-amber-800">仮登録中</p>
+            <p className="text-amber-700 text-xs mt-0.5">
+              現在は仮登録の状態です。面談完了後に本登録となり、全機能がご利用いただけます。
+              商品の出品・販売は本登録後に可能になります。
+            </p>
+          </div>
+        )}
         <main className="flex-1 bg-gray-50 p-4 md:p-8">{children}</main>
       </div>
     </div>
