@@ -3,7 +3,6 @@ import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { LogoutButton } from "@/components/auth/LogoutButton";
 import { PartnerSidebar } from "@/components/partner/Sidebar";
-import { NotificationBell } from "@/components/shared/NotificationBell";
 import { MobileMenu } from "@/components/shared/MobileMenu";
 import { BetaBanner } from "@/components/BetaBanner";
 
@@ -22,23 +21,12 @@ const navItems = [
   { href: "/partner/invoices", label: "請求書", icon: "🧾" },
   { href: "/partner/delivery-slips", label: "納品書", icon: "📄" },
   { href: "/partner/proofs", label: "証明チェーン", icon: "🔗" },
-  { href: "/partner/proofs/entity", label: "主体証明", icon: "🪪" },
-  { href: "/partner/proofs/product", label: "商品証明", icon: "🧪" },
-  { href: "/partner/proofs/inventory", label: "在庫証明", icon: "📍" },
-  { href: "/partner/proofs/delivery", label: "配送証明", icon: "🚚" },
   { href: "/partner/sales-agent", label: "販売エージェント", icon: "🤖" },
   { href: "/partner/lp-analytics", label: "LPアクセス分析", icon: "📊" },
   { href: "/partner/step-mail", label: "ステップメール", icon: "📧" },
   { href: "/partner/non-financial", label: "非財務インサイト", icon: "🙏" },
   { href: "/partner/profile", label: "プロフィール", icon: "🏢" },
   { href: "/partner/members", label: "メンバー", icon: "👥" },
-  { href: "/partner/groupware/announcements", label: "お知らせ", icon: "📢" },
-  { href: "/partner/groupware/messages", label: "メッセージ", icon: "💬" },
-  { href: "/partner/groupware/tasks", label: "タスク", icon: "✅" },
-  { href: "/partner/groupware/files", label: "ファイル", icon: "📁" },
-  { href: "/partner/groupware/calendar", label: "カレンダー", icon: "📅" },
-  { href: "/partner/groupware/activity", label: "活動ログ", icon: "📋" },
-  { href: "/partner/groupware/notifications", label: "通知", icon: "🔔" },
 ];
 
 export default async function PartnerLayout({
@@ -46,71 +34,59 @@ export default async function PartnerLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const supabase = await createSupabaseServerClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  let displayName = "";
 
-  if (!user) {
+  try {
+    const supabase = await createSupabaseServerClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (!user) {
+      redirect("/login");
+    }
+
+    const admin = createAdminClient();
+    const { data: profile } = await admin
+      .from("user_profiles")
+      .select("display_name, partner_id")
+      .eq("id", user.id)
+      .maybeSingle();
+
+    let partnerId = profile?.partner_id;
+    if (!partnerId && profile) {
+      const { data: newPartner } = await admin
+        .from("partners")
+        .insert({
+          company_name: profile.display_name || "パートナー",
+          partner_type: "メーカー",
+          certification_status: "未認証",
+        })
+        .select("id")
+        .single();
+
+      if (newPartner) {
+        partnerId = newPartner.id;
+        await admin
+          .from("user_profiles")
+          .update({ partner_id: newPartner.id })
+          .eq("id", user.id);
+      }
+    }
+
+    if (partnerId) {
+      const { data: partner } = await admin
+        .from("partners")
+        .select("company_name")
+        .eq("id", partnerId)
+        .maybeSingle();
+      displayName = partner?.company_name ?? "";
+    }
+
+    displayName = displayName || profile?.display_name || user.email || "";
+  } catch {
     redirect("/login");
   }
-
-  // admin clientでプロフィール取得（RLS影響を回避）
-  const admin = createAdminClient();
-  const { data: profile } = await admin
-    .from("user_profiles")
-    .select("display_name, partner_id")
-    .eq("id", user.id)
-    .maybeSingle();
-
-  // partner_id がない場合、パートナーを自動作成
-  let partnerId = profile?.partner_id;
-  if (!partnerId && profile) {
-    const displayName = profile.display_name || user.email?.split("@")[0] || "パートナー";
-    const { data: newPartner } = await admin
-      .from("partners")
-      .insert({
-        company_name: displayName,
-        partner_type: "メーカー",
-        certification_status: "未認証",
-      })
-      .select("id")
-      .single();
-
-    if (newPartner) {
-      partnerId = newPartner.id;
-      await admin
-        .from("user_profiles")
-        .update({ partner_id: newPartner.id })
-        .eq("id", user.id);
-    }
-  }
-
-  let companyName = "";
-  if (partnerId) {
-    const { data: partner } = await admin
-      .from("partners")
-      .select("company_name")
-      .eq("id", partnerId)
-      .maybeSingle();
-    companyName = partner?.company_name ?? "";
-  }
-
-  // 通知取得
-  const { data: notifications } = await admin
-    .from("notifications")
-    .select("id, title, body, link, is_read, created_at")
-    .eq("user_id", user.id)
-    .order("created_at", { ascending: false })
-    .limit(10);
-
-  const { count: unreadCount } = await admin
-    .from("notifications")
-    .select("*", { count: "exact", head: true })
-    .eq("user_id", user.id)
-    .eq("is_read", false);
-
-  const displayName = companyName || profile?.display_name || user!.email || "";
 
   return (
     <div className="flex min-h-screen">
@@ -127,14 +103,6 @@ export default async function PartnerLayout({
       </aside>
       <div className="flex-1 flex flex-col">
         <BetaBanner />
-        <header className="bg-white border-b px-4 md:px-8 py-3 flex items-center justify-end">
-          <NotificationBell
-            notifications={notifications ?? []}
-            unreadCount={unreadCount ?? 0}
-            userId={user!.id}
-            notificationsPath="/partner/groupware/notifications"
-          />
-        </header>
         <main className="flex-1 bg-gray-50 p-4 md:p-8">{children}</main>
       </div>
     </div>
