@@ -29,67 +29,76 @@ const navItems = [
   { href: "/partner/members", label: "メンバー", icon: "👥" },
 ];
 
+async function getPartnerData() {
+  try {
+    const supabase = await createSupabaseServerClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return null;
+
+    const admin = createAdminClient();
+    const { data: profile } = await admin
+      .from("user_profiles")
+      .select("display_name, partner_id")
+      .eq("id", user.id)
+      .maybeSingle();
+
+    let partnerId = profile?.partner_id;
+    if (!partnerId && profile) {
+      const { data: newPartner } = await admin
+        .from("partners")
+        .insert({
+          company_name: profile.display_name || "パートナー",
+          partner_type: "メーカー",
+          certification_status: "未認証",
+        })
+        .select("id")
+        .single();
+
+      if (newPartner) {
+        partnerId = newPartner.id;
+        await admin
+          .from("user_profiles")
+          .update({ partner_id: newPartner.id })
+          .eq("id", user.id);
+      }
+    }
+
+    let companyName = "";
+    if (partnerId) {
+      const { data: partner } = await admin
+        .from("partners")
+        .select("company_name")
+        .eq("id", partnerId)
+        .maybeSingle();
+      companyName = partner?.company_name ?? "";
+    }
+
+    return {
+      displayName: companyName || profile?.display_name || user.email || "",
+    };
+  } catch {
+    return null;
+  }
+}
+
 export default async function PartnerLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  // 認証チェック（redirect は try-catch の外で行う）
-  const supabase = await createSupabaseServerClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const data = await getPartnerData();
 
-  if (!user) {
+  if (!data) {
     redirect("/login");
   }
 
-  const admin = createAdminClient();
-  const { data: profile } = await admin
-    .from("user_profiles")
-    .select("display_name, partner_id")
-    .eq("id", user.id)
-    .maybeSingle();
-
-  let partnerId = profile?.partner_id;
-  if (!partnerId && profile) {
-    const { data: newPartner } = await admin
-      .from("partners")
-      .insert({
-        company_name: profile.display_name || "パートナー",
-        partner_type: "メーカー",
-        certification_status: "未認証",
-      })
-      .select("id")
-      .single();
-
-    if (newPartner) {
-      partnerId = newPartner.id;
-      await admin
-        .from("user_profiles")
-        .update({ partner_id: newPartner.id })
-        .eq("id", user.id);
-    }
-  }
-
-  let displayName = "";
-  if (partnerId) {
-    const { data: partner } = await admin
-      .from("partners")
-      .select("company_name")
-      .eq("id", partnerId)
-      .maybeSingle();
-    displayName = partner?.company_name ?? "";
-  }
-  displayName = displayName || profile?.display_name || user.email || "";
-
   return (
     <div className="flex min-h-screen">
-      <MobileMenu items={navItems} title="取引先ポータル" displayName={displayName} />
+      <MobileMenu items={navItems} title="取引先ポータル" displayName={data.displayName} />
       <aside className="hidden md:flex w-64 bg-white border-r flex-col sticky top-0 h-screen overflow-y-auto">
         <div className="p-4 border-b">
           <h2 className="text-lg font-bold text-gray-900">取引先ポータル</h2>
-          <p className="text-sm text-gray-500 mt-1">{displayName}</p>
+          <p className="text-sm text-gray-500 mt-1">{data.displayName}</p>
         </div>
         <PartnerSidebar items={navItems} />
         <div className="p-4 border-t">
