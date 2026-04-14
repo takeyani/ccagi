@@ -18,11 +18,11 @@ export async function getSessionProfile() {
 
   if (!profile) throw new Error("Profile not found");
 
-  return { user, profile, supabase };
+  return { user, profile, supabase: admin };
 }
 
 export async function requirePartnerId() {
-  const { user, profile, supabase } = await getSessionProfile();
+  const { user, profile, supabase: admin } = await getSessionProfile();
 
   if (!profile.partner_id) {
     // パートナー未登録の場合、admin権限で自動作成
@@ -48,17 +48,17 @@ export async function requirePartnerId() {
   }
 
   if (!profile.partner_id) throw new Error("No partner association");
-  return { partnerId: profile.partner_id as string, supabase, profile };
+  return { partnerId: profile.partner_id as string, supabase: admin, profile };
 }
 
 export async function requireBuyerId() {
-  const { user, profile, supabase } = await getSessionProfile();
+  const { user, profile, supabase: admin } = await getSessionProfile();
   if (profile.role !== "buyer") throw new Error("Buyer role required");
-  return { buyerId: user.id, supabase, profile };
+  return { buyerId: user.id, supabase: admin, profile };
 }
 
 export async function requireAdmin() {
-  const { user, profile, supabase } = await getSessionProfile();
+  const { user, profile, supabase: admin } = await getSessionProfile();
   if (profile.role !== "admin") throw new Error("Admin role required");
-  return { user, profile, supabase };
+  return { user, profile, supabase: admin };
 }

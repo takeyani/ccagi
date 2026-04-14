@@ -8,6 +8,7 @@ export default function Footer() {
         <p>&copy; {new Date().getFullYear()} Cross Infinity Inc. All rights reserved.</p>
         <div className="mt-3 flex flex-wrap justify-center gap-6">
           <Link href="/legal" className="transition hover:text-gray-700">特定商取引法に基づく表記</Link>
+          <Link href="/legal/seller-terms" className="transition hover:text-gray-700">出店規約</Link>
           <Link href="/privacy" className="transition hover:text-gray-700">プライバシーポリシー</Link>
           <Link href="/request" className="transition hover:text-gray-700">制作リクエスト</Link>
           <Link href="/affiliate" className="transition hover:text-gray-700">アフィリエイト</Link>
