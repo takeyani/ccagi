@@ -11,37 +11,17 @@ function extractProductFields(formData: FormData) {
     return v ? Number(v) : null;
   };
 
+  // 本番DBに存在するカラムのみ（拡張フィールドはcustom_fieldsに格納）
   return {
     name: formData.get("name") as string,
-    master_name: str("master_name"),
     slug: formData.get("slug") as string,
-    product_code: str("product_code"),
-    jan_code: str("jan_code"),
-    country_of_origin: str("country_of_origin"),
-    category1: str("category1"),
-    category2: str("category2"),
-    category3: str("category3"),
     base_price: Number(formData.get("base_price")),
-    carton_quantity: num("carton_quantity"),
     min_order_quantity: num("min_order_quantity") ?? 1,
     min_order_amount: num("min_order_amount"),
-    width_mm: num("width_mm"),
-    depth_mm: num("depth_mm"),
-    height_mm: num("height_mm"),
-    net_weight_kg: num("net_weight_kg"),
-    gross_weight_kg: num("gross_weight_kg"),
     description: str("description"),
-    material: str("material"),
-    notes: str("notes"),
     order_notes: str("order_notes"),
     image_url: str("image_url"),
-    image_url2: str("image_url2"),
-    image_url3: str("image_url3"),
-    image_url4: str("image_url4"),
-    image_url5: str("image_url5"),
-    product_page_url: str("product_page_url"),
     is_active: formData.get("is_active") === "on",
-    is_new_or_renewal: formData.get("is_new_or_renewal") === "on",
     category_template_id: str("category_template_id"),
     custom_fields: extractCustomFields(formData),
   };
