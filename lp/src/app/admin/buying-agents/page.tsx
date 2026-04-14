@@ -1,6 +1,6 @@
 export const dynamic = "force-dynamic";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
-import { DataTable } from "@/components/admin/DataTable";
+import { ServerDataTable as DataTable } from "@/components/admin/ServerDataTable";
 
 export default async function AdminBuyingAgentsPage() {
   const supabase = await createSupabaseServerClient();

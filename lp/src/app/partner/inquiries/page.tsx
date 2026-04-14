@@ -1,6 +1,6 @@
 export const dynamic = "force-dynamic";
 import { requirePartnerId } from "@/lib/auth";
-import { DataTable } from "@/components/admin/DataTable";
+import { ServerDataTable as DataTable } from "@/components/admin/ServerDataTable";
 
 export default async function PartnerInquiriesPage() {
   const { partnerId, supabase } = await requirePartnerId();

@@ -1,7 +1,7 @@
 export const dynamic = "force-dynamic";
 import Link from "next/link";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
-import { DataTable } from "@/components/admin/DataTable";
+import { ServerDataTable as DataTable } from "@/components/admin/ServerDataTable";
 import type { Lot } from "@/lib/types";
 
 export default async function AdminLotsPage() {

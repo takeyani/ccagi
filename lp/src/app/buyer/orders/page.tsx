@@ -1,7 +1,7 @@
 export const dynamic = "force-dynamic";
 import { requireBuyerId } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
-import { DataTable } from "@/components/admin/DataTable";
+import { ServerDataTable as DataTable } from "@/components/admin/ServerDataTable";
 
 export default async function BuyerOrdersPage() {
   const { buyerId } = await requireBuyerId();

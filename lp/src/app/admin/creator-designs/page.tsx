@@ -1,6 +1,6 @@
 export const dynamic = "force-dynamic";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
-import { DataTable } from "@/components/admin/DataTable";
+import { ServerDataTable as DataTable } from "@/components/admin/ServerDataTable";
 import Link from "next/link";
 
 export default async function AdminCreatorDesignsPage() {
