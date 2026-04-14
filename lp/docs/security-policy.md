@@ -117,9 +117,46 @@ OAuthコールバック (`/api/auth/callback`) で `redirect` パラメータを
 
 ---
 
-## 10. 修正履歴
+## 10. カード不正利用対策
+
+### 10.1 金額制限
+
+| 制限 | 値 | 対象 |
+|------|---|------|
+| 1回の注文上限 | ¥500,000 | checkout, auction checkout |
+| 高額注文閾値 | ¥100,000 | 手動キャプチャ対象 |
+
+### 10.2 高額注文の手動承認
+
+¥100,000 以上の注文は Stripe の `capture_method: manual` で決済を保留。
+管理者が Stripe Dashboard で確認後にキャプチャ（決済確定）する。
+7日以内にキャプチャしない場合、オーソリは自動失効。
+
+metadata に `high_value: "true"`, `requires_review: "true"` を付与して識別。
+
+### 10.3 3Dセキュア（SCA）
+
+Stripe Checkout はデフォルトで Strong Customer Authentication (SCA) に対応。
+カード発行会社が3Dセキュアを要求する場合、自動的に認証画面が表示される。
+
+### 10.4 レート制限
+
+| エンドポイント | 制限 |
+|--------------|------|
+| `/api/checkout` | 20 req/h（IP単位） |
+| `/api/auctions/checkout` | 10 req/h（IP単位） |
+
+### 10.5 Stripe Radar
+
+Stripe のAI不正検知サービス（Radar）がデフォルトで有効。
+不正スコアの高い決済は自動ブロックまたはレビュー対象になる。
+
+---
+
+## 11. 修正履歴
 
 | 日付 | 内容 |
 |------|------|
 | 2026-04-09 | セキュリティ監査実施。CRITICAL 3件、HIGH 4件、MEDIUM 3件を修正 |
 | 2026-04-09 | requireAdmin() 追加、OAuth open redirect対策、IDOR修正、パスワード強化、レート制限導入 |
+| 2026-04-15 | カード不正利用対策: 金額上限¥500,000、高額注文手動キャプチャ、checkout レート制限 |

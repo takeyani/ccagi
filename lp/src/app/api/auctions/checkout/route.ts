@@ -1,7 +1,11 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { getSupabase } from "@/lib/supabase";
+import { rateLimit, getClientIp } from "@/lib/rate-limit";
 import type { Auction, Bid } from "@/lib/types";
+
+const MAX_ORDER_AMOUNT = 500_000;
+const HIGH_VALUE_THRESHOLD = 100_000;
 
 function getStripe() {
   return new Stripe(process.env.STRIPE_SECRET_KEY!, {
@@ -11,6 +15,12 @@ function getStripe() {
 
 export async function POST(request: Request) {
   try {
+    const ip = getClientIp(request);
+    const { allowed } = rateLimit(`auction-checkout:${ip}`, { maxRequests: 10, windowMs: 3_600_000 });
+    if (!allowed) {
+      return NextResponse.json({ error: "リクエストが多すぎます" }, { status: 429 });
+    }
+
     const body = await request.json();
     const { auction_id, email } = body;
 
@@ -95,6 +105,16 @@ export async function POST(request: Request) {
       .eq("id", lot.product_id)
       .single();
 
+    // 金額上限チェック
+    if (auction.current_price > MAX_ORDER_AMOUNT) {
+      return NextResponse.json(
+        { error: `1回の注文上限は¥${MAX_ORDER_AMOUNT.toLocaleString()}です` },
+        { status: 400 }
+      );
+    }
+
+    const isHighValue = auction.current_price >= HIGH_VALUE_THRESHOLD;
+
     // Stripe checkout session 作成（price_dataで落札金額を動的指定）
     const stripe = getStripe();
     const session = await stripe.checkout.sessions.create({
@@ -118,7 +138,14 @@ export async function POST(request: Request) {
         partner_id: (lot as Record<string, unknown>).products
           ? ((lot as Record<string, unknown>).products as Record<string, string>)?.partner_id || ""
           : "",
+        ...(isHighValue ? { high_value: "true", requires_review: "true" } : {}),
       },
+      ...(isHighValue ? {
+        payment_intent_data: {
+          capture_method: "manual" as const,
+          description: `高額落札（¥${auction.current_price.toLocaleString()}）- 管理者確認後にキャプチャ`,
+        },
+      } : {}),
       customer_email: email,
       success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/cancel`,

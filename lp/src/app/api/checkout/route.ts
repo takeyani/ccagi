@@ -1,7 +1,12 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { getSupabase } from "@/lib/supabase";
+import { rateLimit, getClientIp } from "@/lib/rate-limit";
 import type { Lot, Product } from "@/lib/types";
+
+// 不正利用対策: 金額上限
+const MAX_ORDER_AMOUNT = 500_000; // 1回の注文上限: ¥500,000
+const HIGH_VALUE_THRESHOLD = 100_000; // ¥100,000以上は手動キャプチャ
 
 function getStripe() {
   return new Stripe(process.env.STRIPE_SECRET_KEY!, {
@@ -11,6 +16,13 @@ function getStripe() {
 
 export async function POST(request: Request) {
   try {
+    // レート制限: 1時間あたり20回まで
+    const ip = getClientIp(request);
+    const { allowed } = rateLimit(`checkout:${ip}`, { maxRequests: 20, windowMs: 3_600_000 });
+    if (!allowed) {
+      return NextResponse.json({ error: "リクエストが多すぎます。しばらく経ってから再度お試しください" }, { status: 429 });
+    }
+
     const body = await request.json().catch(() => ({}));
     const ref = body.ref as string | undefined;
     const lotId = body.lot_id as string | undefined;
@@ -125,7 +137,32 @@ export async function POST(request: Request) {
       priceId = process.env.STRIPE_PRICE_ID!;
     }
 
+    // 金額上限チェック（ロット経由の場合）
+    if (lotId) {
+      const lotPrice = Number(metadata.shipping_fee ?? 0);
+      const { data: lotData } = await getSupabase()
+        .from("lots")
+        .select("price")
+        .eq("id", lotId)
+        .single();
+      const totalAmount = ((lotData?.price ?? 0) * requestedQty) + lotPrice;
+
+      if (totalAmount > MAX_ORDER_AMOUNT) {
+        return NextResponse.json(
+          { error: `1回の注文上限は¥${MAX_ORDER_AMOUNT.toLocaleString()}です。数量を減らすか、複数回に分けてご注文ください。` },
+          { status: 400 }
+        );
+      }
+    }
+
     const stripe = getStripe();
+
+    // 高額注文（¥100,000以上）は手動キャプチャ（管理者確認後に決済確定）
+    const lotPrice = metadata.lot_id
+      ? await getSupabase().from("lots").select("price").eq("id", metadata.lot_id).single().then(r => (r.data?.price ?? 0) * requestedQty)
+      : 0;
+    const isHighValue = lotPrice >= HIGH_VALUE_THRESHOLD;
+
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
       line_items: [
@@ -134,7 +171,16 @@ export async function POST(request: Request) {
           quantity: requestedQty,
         },
       ],
-      metadata,
+      metadata: {
+        ...metadata,
+        ...(isHighValue ? { high_value: "true", requires_review: "true" } : {}),
+      },
+      ...(isHighValue ? {
+        payment_intent_data: {
+          capture_method: "manual" as const,
+          description: `高額注文（¥${lotPrice.toLocaleString()}）- 管理者確認後にキャプチャ`,
+        },
+      } : {}),
       success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/cancel`,
     });
