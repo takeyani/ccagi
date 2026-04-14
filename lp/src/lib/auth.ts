@@ -8,11 +8,13 @@ export async function getSessionProfile() {
   } = await supabase.auth.getUser();
   if (!user) throw new Error("Unauthorized");
 
-  const { data: profile } = await supabase
+  // admin client で RLS を回避してプロフィール取得
+  const admin = createAdminClient();
+  const { data: profile } = await admin
     .from("user_profiles")
     .select("*")
     .eq("id", user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile) throw new Error("Profile not found");
 
