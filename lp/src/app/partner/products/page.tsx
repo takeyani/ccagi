@@ -41,12 +41,20 @@ export default async function PartnerProductsPage() {
     <div>
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold">商品管理</h1>
-        <Link
-          href="/partner/products/new"
-          className="bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700 text-sm font-medium"
-        >
-          新規登録
-        </Link>
+        <div className="flex gap-2">
+          <Link
+            href="/partner/products/import"
+            className="border border-orange-600 text-orange-600 px-4 py-2 rounded-lg hover:bg-orange-50/40 text-sm font-medium"
+          >
+            CSV一括登録
+          </Link>
+          <Link
+            href="/partner/products/new"
+            className="bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700 text-sm font-medium"
+          >
+            新規登録
+          </Link>
+        </div>
       </div>
       <DataTable
         columns={columns}

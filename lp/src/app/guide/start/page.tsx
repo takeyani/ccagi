@@ -1,189 +1,105 @@
 import Link from "next/link";
+import Image from "next/image";
 
-export const metadata = { title: "はじめてガイド - ご利用の流れ" };
+export const metadata = { title: "はじめてガイド" };
 
-const ROLES = [
+const roles = [
   {
-    id: "buyer",
-    icon: "🛒",
-    label: "商品を購入したい",
-    color: "emerald",
-    description: "商品を購入するだけなら、アカウント登録なしでもOK。商品ページから直接購入できます。",
-    steps: [
-      "トップページや商品一覧から気になる商品を探す",
-      "商品ページで「今すぐ購入する」をクリック",
-      "Stripe決済画面でお支払い → 購入完了",
-    ],
-    advanced: {
-      label: "バイヤーアカウントを作ると...",
-      features: [
-        "AIエージェントが条件に合う商品を自動で探してくれる",
-        "購入履歴の管理・注文一覧の確認",
-        "購入した商品を所有権付きで再出品",
-      ],
-      cta: { label: "バイヤー登録", href: "/signup?role=buyer" },
-    },
-  },
-  {
-    id: "referrer",
-    icon: "📢",
-    label: "商品を紹介して報酬を得たい",
-    color: "amber",
-    description: "紹介リンクを共有するだけで、購入金額の2%がポイントとして還元されます。",
-    steps: [
-      "アフィリエイト登録で紹介コードを取得",
-      "紹介リンクをSNS・ブログ・LINEなどで共有",
-      "リンクから誰かが商品を購入 → 売上の2%をポイント獲得",
-      "ポイントはプラットフォーム内の商品購入に使える",
-    ],
-    advanced: null,
-    cta: { label: "アフィリエイト登録", href: "/affiliate" },
-  },
-  {
-    id: "creator",
-    icon: "🎨",
-    label: "自分のLPで商品を売りたい",
-    color: "pink",
-    description: "メーカー商品のLPを作成して、卸値との差額が利益に。仕入れ不要・在庫リスクなし。",
-    steps: [
-      "アフィリエイト登録で「クリエイターとして登録」にチェック",
-      "クリエイターポータルでLP（ランディングページ）を作成",
-      "メーカーに販売許可をリクエスト → 承認後にLP公開",
-      "商品が売れると、販売価格と卸値の差額があなたの利益",
-    ],
-    advanced: null,
-    cta: { label: "クリエイター登録", href: "/affiliate" },
-  },
-  {
-    id: "maker",
+    role: "メーカー",
     icon: "🏭",
-    label: "自社商品を販売したい（メーカー）",
-    color: "blue",
-    description: "商品を登録するだけで、代理店やクリエイターが自動で販路を拡大してくれます。",
     steps: [
-      "メーカーとして新規登録",
-      "商品情報を登録（画像・価格・カテゴリ・仕様）",
-      "ロット（在庫）を作成して販売開始",
-      "代理店・クリエイターからの販売許可リクエストを承認",
-      "購入が発生 → Stripe Connectで自動的に売上が入金",
+      { label: "アカウント登録", desc: "メーカーとして新規登録", href: "/signup?role=maker", cta: "メーカー登録" },
+      { label: "商品登録", desc: "商品情報・画像・価格を登録（CSV一括登録も可能）", href: "/partner/products/new", cta: "商品を登録" },
+      { label: "ロット作成", desc: "在庫数・販売単位・配送方法を設定", href: "/partner/lots/new", cta: "ロットを作成" },
+      { label: "販売開始", desc: "商品ページが公開され購入可能に", href: null, cta: null },
     ],
-    advanced: null,
-    cta: { label: "メーカー登録", href: "/signup?role=maker" },
   },
   {
-    id: "agent",
+    role: "販売代理店",
     icon: "🏢",
-    label: "メーカー商品を仕入れて販売したい（代理店）",
-    color: "purple",
-    description: "メーカーの商品を卸価格で仕入れ、独自の価格で販売できます。在庫リスクなし。",
     steps: [
-      "代理店として新規登録",
-      "販売したい商品のメーカーに承認をリクエスト",
-      "承認後、卸価格で商品を仕入れて販売",
-      "販売価格と卸価格の差額が利益",
+      { label: "アカウント登録", desc: "代理店として新規登録", href: "/signup?role=agent", cta: "代理店登録" },
+      { label: "商品承認リクエスト", desc: "メーカーに販売許可を申請", href: "/partner/authorizations", cta: "承認リクエスト" },
+      { label: "メーカー承認待ち", desc: "メーカーが承認すると販売可能に", href: null, cta: null },
+      { label: "ロット作成・販売開始", desc: "自社の価格・在庫を設定して販売", href: "/partner/lots/new", cta: "ロットを作成" },
     ],
-    advanced: null,
-    cta: { label: "代理店登録", href: "/signup?role=agent" },
+  },
+  {
+    role: "クリエイター",
+    icon: "🎨",
+    steps: [
+      { label: "アフィリエイト登録", desc: "クリエイターとして登録（Googleでも可）", href: "/affiliate", cta: "クリエイター登録" },
+      { label: "コードでログイン", desc: "発行されたコードでクリエイターポータルへ", href: "/creator", cta: "ポータルへ" },
+      { label: "LP作成", desc: "テンプレートを選んでLPを作成・編集", href: "/creator/designs/new", cta: "LP作成" },
+      { label: "公開・共有", desc: "SNSやブログでLPを共有して収益化", href: null, cta: null },
+    ],
+  },
+  {
+    role: "バイヤー",
+    icon: "🛒",
+    steps: [
+      { label: "アカウント登録", desc: "バイヤーとして新規登録", href: "/signup?role=buyer", cta: "バイヤー登録" },
+      { label: "購買エージェント作成", desc: "条件を設定してAIが自動検索", href: "/buyer/agents/new", cta: "エージェント作成" },
+      { label: "結果確認・注文", desc: "スコアリング結果から注文を送信", href: null, cta: null },
+      { label: "購入", desc: "Stripe Checkout で安全に決済", href: null, cta: null },
+    ],
   },
 ];
 
-const colorMap: Record<string, { bg: string; text: string; border: string; badge: string }> = {
-  emerald: { bg: "bg-emerald-50", text: "text-emerald-700", border: "border-emerald-200", badge: "bg-emerald-600" },
-  amber: { bg: "bg-amber-50", text: "text-amber-700", border: "border-amber-200", badge: "bg-amber-600" },
-  pink: { bg: "bg-pink-50", text: "text-pink-700", border: "border-pink-200", badge: "bg-pink-600" },
-  blue: { bg: "bg-blue-50", text: "text-blue-700", border: "border-blue-200", badge: "bg-blue-600" },
-  purple: { bg: "bg-purple-50", text: "text-purple-700", border: "border-purple-200", badge: "bg-purple-600" },
-};
-
 export default function StartGuidePage() {
   return (
-    <div className="min-h-screen bg-gray-50 py-16 px-6">
-      <div className="mx-auto max-w-3xl">
-        <div className="text-center mb-12">
+    <div className="min-h-screen bg-gray-50 py-12 px-6">
+      <div className="max-w-4xl mx-auto">
+        <div className="text-center mb-10">
+          <Image src="/logo.png" alt="Cross Infinity" width={64} height={64} className="mx-auto mb-4" />
           <h1 className="text-3xl font-bold text-gray-900">はじめてガイド</h1>
-          <p className="mt-3 text-gray-600">
-            あなたのやりたいことに合わせて、最適な始め方をご案内します
-          </p>
+          <p className="mt-2 text-gray-500">あなたの立場に合わせた登録・利用の流れをご案内します</p>
         </div>
 
-        <div className="space-y-6">
-          {ROLES.map((role) => {
-            const c = colorMap[role.color];
-            return (
-              <section
-                key={role.id}
-                className={`bg-white rounded-2xl border shadow-sm overflow-hidden`}
-              >
-                <div className={`${c.bg} ${c.border} border-b px-6 py-4 flex items-center gap-3`}>
-                  <span className="text-2xl">{role.icon}</span>
-                  <h2 className="text-lg font-bold text-gray-900">{role.label}</h2>
-                </div>
-                <div className="p-6 space-y-4">
-                  <p className="text-sm text-gray-600">{role.description}</p>
-                  <div>
-                    <p className="text-xs font-bold text-gray-500 mb-2">ご利用の流れ</p>
-                    <ol className="space-y-2">
-                      {role.steps.map((step, i) => (
-                        <li key={i} className="flex items-start gap-3 text-sm text-gray-700">
-                          <span className={`flex-shrink-0 w-5 h-5 ${c.badge} text-white rounded-full flex items-center justify-center text-[10px] font-bold`}>
-                            {i + 1}
-                          </span>
-                          {step}
-                        </li>
-                      ))}
-                    </ol>
-                  </div>
-
-                  {role.advanced && (
-                    <div className={`${c.bg} rounded-lg p-4 border ${c.border}`}>
-                      <p className={`text-xs font-bold ${c.text} mb-2`}>{role.advanced.label}</p>
-                      <ul className="space-y-1">
-                        {role.advanced.features.map((f) => (
-                          <li key={f} className="text-xs text-gray-600 flex items-start gap-2">
-                            <span className={c.text}>&#10003;</span> {f}
-                          </li>
-                        ))}
-                      </ul>
-                      <Link
-                        href={role.advanced.cta.href}
-                        className={`mt-3 inline-block ${c.badge} text-white text-xs font-bold px-4 py-2 rounded-lg hover:opacity-90 transition`}
-                      >
-                        {role.advanced.cta.label} &rarr;
-                      </Link>
+        <div className="space-y-8">
+          {roles.map((r) => (
+            <section key={r.role} className="bg-white rounded-2xl border shadow-sm overflow-hidden">
+              <div className="px-6 py-4 bg-orange-50/40 border-b">
+                <h2 className="text-lg font-bold text-gray-900 flex items-center gap-2">
+                  <span className="text-2xl">{r.icon}</span>
+                  {r.role}の方
+                </h2>
+              </div>
+              <div className="p-6">
+                <div className="space-y-4">
+                  {r.steps.map((step, i) => (
+                    <div key={i} className="flex items-start gap-4">
+                      <div className="flex-shrink-0 w-8 h-8 rounded-full bg-orange-100/60 text-orange-700 flex items-center justify-center text-sm font-bold">
+                        {i + 1}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="font-medium text-gray-900">{step.label}</p>
+                        <p className="text-sm text-gray-500">{step.desc}</p>
+                      </div>
+                      {step.href && step.cta && (
+                        <Link
+                          href={step.href}
+                          className="shrink-0 text-xs font-medium text-orange-600 border border-orange-300 rounded-lg px-3 py-1.5 hover:bg-orange-50/40 transition"
+                        >
+                          {step.cta} &rarr;
+                        </Link>
+                      )}
                     </div>
-                  )}
-
-                  {"cta" in role && role.cta && !role.advanced && (
-                    <Link
-                      href={role.cta.href}
-                      className={`inline-block ${c.badge} text-white text-sm font-bold px-6 py-2.5 rounded-lg hover:opacity-90 transition`}
-                    >
-                      {role.cta.label} &rarr;
-                    </Link>
-                  )}
+                  ))}
                 </div>
-              </section>
-            );
-          })}
+              </div>
+            </section>
+          ))}
         </div>
 
-        {/* フッターリンク */}
-        <div className="mt-12 text-center space-y-3">
-          <p className="text-sm text-gray-500">紹介して報酬を得たい方は</p>
-          <Link
-            href="/guide/referral"
-            className="inline-block rounded-full bg-orange-600 px-8 py-3 text-sm font-bold text-white shadow hover:bg-orange-700 transition"
-          >
-            紹介ガイドを見る &rarr;
+        <div className="mt-10 text-center space-y-3">
+          <Link href="/guide/referral" className="inline-block text-sm text-orange-600 hover:underline">
+            紹介して報酬を得る方法 &rarr;
           </Link>
-          <div className="flex justify-center gap-4 mt-4">
-            <Link href="/flow" className="text-sm text-orange-600 hover:underline">
-              業務フローを見る
-            </Link>
-            <Link href="/" className="text-sm text-gray-500 hover:text-gray-700">
-              トップページに戻る
-            </Link>
-          </div>
+          <br />
+          <Link href="/" className="inline-block text-sm text-gray-500 hover:text-gray-700">
+            &larr; トップページに戻る
+          </Link>
         </div>
       </div>
     </div>
