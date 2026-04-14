@@ -1,4 +1,5 @@
 import { createServerClient } from "@supabase/ssr";
+import { createClient } from "@supabase/supabase-js";
 import { NextResponse, type NextRequest } from "next/server";
 
 export async function proxy(request: NextRequest) {
@@ -6,8 +7,11 @@ export async function proxy(request: NextRequest) {
   const isProtected =
     pathname.startsWith("/admin") || pathname.startsWith("/partner") || pathname.startsWith("/buyer");
 
-  let response = NextResponse.next({ request });
+  const response = NextResponse.next({ request });
 
+  if (!isProtected) return response;
+
+  // セッションからユーザー取得
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -30,8 +34,6 @@ export async function proxy(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!isProtected) return response;
-
   // 未認証 → ログインへ
   if (!user) {
     const loginUrl = new URL("/login", request.url);
@@ -39,16 +41,22 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(loginUrl);
   }
 
-  // ロール取得
-  const { data: profile } = await supabase
+  // admin client でロール取得（RLS回避）
+  const admin = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!,
+    { auth: { autoRefreshToken: false, persistSession: false } }
+  );
+
+  const { data: profile } = await admin
     .from("user_profiles")
     .select("role")
     .eq("id", user.id)
-    .single();
+    .maybeSingle();
 
   const role = profile?.role;
 
-  // partner が /admin/* にアクセス → 自ポータルへ（アクセス拒否通知付き）
+  // partner が /admin/* にアクセス → 自ポータルへ
   if (pathname.startsWith("/admin") && role !== "admin") {
     const dest = role === "buyer" ? "/buyer" : "/partner";
     const url = new URL(dest, request.url);
@@ -56,7 +64,7 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
-  // buyer が /partner/* にアクセス → /buyer へ（アクセス拒否通知付き）
+  // buyer が /partner/* にアクセス → /buyer へ
   if (pathname.startsWith("/partner") && role === "buyer") {
     const url = new URL("/buyer", request.url);
     url.searchParams.set("denied", "partner");
