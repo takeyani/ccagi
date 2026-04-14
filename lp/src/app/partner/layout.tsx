@@ -55,16 +55,17 @@ export default async function PartnerLayout({
     redirect("/login");
   }
 
-  const { data: profile } = await supabase
+  // admin clientでプロフィール取得（RLS影響を回避）
+  const admin = createAdminClient();
+  const { data: profile } = await admin
     .from("user_profiles")
     .select("display_name, partner_id")
     .eq("id", user.id)
-    .single();
+    .maybeSingle();
 
-  // partner_id がない場合、admin権限でパートナーを自動作成
+  // partner_id がない場合、パートナーを自動作成
   let partnerId = profile?.partner_id;
   if (!partnerId && profile) {
-    const admin = createAdminClient();
     const displayName = profile.display_name || user.email?.split("@")[0] || "パートナー";
     const { data: newPartner } = await admin
       .from("partners")
@@ -87,23 +88,23 @@ export default async function PartnerLayout({
 
   let companyName = "";
   if (partnerId) {
-    const { data: partner } = await supabase
+    const { data: partner } = await admin
       .from("partners")
       .select("company_name")
       .eq("id", partnerId)
-      .single();
+      .maybeSingle();
     companyName = partner?.company_name ?? "";
   }
 
   // 通知取得
-  const { data: notifications } = await supabase
+  const { data: notifications } = await admin
     .from("notifications")
     .select("id, title, body, link, is_read, created_at")
     .eq("user_id", user.id)
     .order("created_at", { ascending: false })
     .limit(10);
 
-  const { count: unreadCount } = await supabase
+  const { count: unreadCount } = await admin
     .from("notifications")
     .select("*", { count: "exact", head: true })
     .eq("user_id", user.id)

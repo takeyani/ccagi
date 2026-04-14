@@ -1,4 +1,5 @@
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { LogoutButton } from "@/components/auth/LogoutButton";
 import { Sidebar } from "@/components/admin/Sidebar";
 import { MobileMenuButton } from "@/components/admin/MobileMenuButton";
@@ -111,21 +112,24 @@ export default async function AdminLayout({
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  const { data: profile } = await supabase
+
+  // admin client で RLS を回避してデータ取得
+  const adminClient = createAdminClient();
+  const { data: profile } = await adminClient
     .from("user_profiles")
     .select("display_name")
     .eq("id", user!.id)
-    .single();
+    .maybeSingle();
 
   // 通知取得
-  const { data: notifications } = await supabase
+  const { data: notifications } = await adminClient
     .from("notifications")
     .select("id, title, body, link, is_read, created_at")
     .eq("user_id", user!.id)
     .order("created_at", { ascending: false })
     .limit(10);
 
-  const { count: unreadCount } = await supabase
+  const { count: unreadCount } = await adminClient
     .from("notifications")
     .select("*", { count: "exact", head: true })
     .eq("user_id", user!.id)
