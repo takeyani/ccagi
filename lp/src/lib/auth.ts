@@ -1,14 +1,18 @@
+import { redirect } from "next/navigation";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 
 export async function getSessionProfile() {
-  const supabase = await createSupabaseServerClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user) throw new Error("Unauthorized");
+  let user;
+  try {
+    const supabase = await createSupabaseServerClient();
+    const result = await supabase.auth.getUser();
+    user = result.data.user;
+  } catch {
+    // セッション取得失敗
+  }
+  if (!user) redirect("/login");
 
-  // admin client で RLS を回避してプロフィール取得
   const admin = createAdminClient();
   const { data: profile } = await admin
     .from("user_profiles")
@@ -16,7 +20,7 @@ export async function getSessionProfile() {
     .eq("id", user.id)
     .maybeSingle();
 
-  if (!profile) throw new Error("Profile not found");
+  if (!profile) redirect("/login");
 
   return { user, profile, supabase: admin };
 }
@@ -25,8 +29,6 @@ export async function requirePartnerId() {
   const { user, profile, supabase: admin } = await getSessionProfile();
 
   if (!profile.partner_id) {
-    // パートナー未登録の場合、admin権限で自動作成
-    const admin = createAdminClient();
     const displayName = profile.display_name || user.email?.split("@")[0] || "パートナー";
     const { data: newPartner } = await admin
       .from("partners")
@@ -47,18 +49,18 @@ export async function requirePartnerId() {
     }
   }
 
-  if (!profile.partner_id) throw new Error("No partner association");
+  if (!profile.partner_id) redirect("/login");
   return { partnerId: profile.partner_id as string, supabase: admin, profile };
 }
 
 export async function requireBuyerId() {
   const { user, profile, supabase: admin } = await getSessionProfile();
-  if (profile.role !== "buyer") throw new Error("Buyer role required");
+  if (profile.role !== "buyer") redirect("/login");
   return { buyerId: user.id, supabase: admin, profile };
 }
 
 export async function requireAdmin() {
   const { user, profile, supabase: admin } = await getSessionProfile();
-  if (profile.role !== "admin") throw new Error("Admin role required");
+  if (profile.role !== "admin") redirect("/partner");
   return { user, profile, supabase: admin };
 }
