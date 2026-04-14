@@ -1,29 +1,37 @@
 import Link from "next/link";
-import { redirect } from "next/navigation";
-import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { DataTable } from "@/components/admin/DataTable";
 
+async function getProducts() {
+  try {
+    const supabase = await createSupabaseServerClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return [];
+
+    const admin = createAdminClient();
+    const { data: profile } = await admin
+      .from("user_profiles")
+      .select("partner_id")
+      .eq("id", user.id)
+      .maybeSingle();
+
+    if (!profile?.partner_id) return [];
+
+    const { data: products } = await admin
+      .from("products")
+      .select("*")
+      .eq("partner_id", profile.partner_id)
+      .order("created_at", { ascending: false });
+
+    return products ?? [];
+  } catch {
+    return [];
+  }
+}
+
 export default async function PartnerProductsPage() {
-  const supabase = await createSupabaseServerClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) redirect("/login");
-
-  const admin = createAdminClient();
-  const { data: profile } = await admin
-    .from("user_profiles")
-    .select("partner_id")
-    .eq("id", user.id)
-    .maybeSingle();
-
-  const partnerId = profile?.partner_id;
-  if (!partnerId) redirect("/partner");
-
-  const { data: products } = await admin
-    .from("products")
-    .select("*")
-    .eq("partner_id", partnerId)
-    .order("created_at", { ascending: false });
+  const products = await getProducts();
 
   const columns = [
     { key: "name", label: "商品名" },
@@ -31,7 +39,7 @@ export default async function PartnerProductsPage() {
       key: "base_price",
       label: "価格",
       render: (p: { base_price: number }) =>
-        `¥${p.base_price.toLocaleString()}`,
+        `¥${p.base_price?.toLocaleString() ?? 0}`,
     },
     { key: "slug", label: "スラッグ" },
     {
@@ -72,10 +80,9 @@ export default async function PartnerProductsPage() {
       </div>
       <DataTable
         columns={columns}
-        data={products ?? []}
+        data={products}
         editHref={(p) => `/partner/products/${p.id}`}
       />
     </div>
   );
 }
-// cache bust 1776177334
