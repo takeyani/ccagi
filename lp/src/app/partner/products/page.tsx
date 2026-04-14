@@ -1,11 +1,25 @@
 import Link from "next/link";
-import { requirePartnerId } from "@/lib/auth";
+import { redirect } from "next/navigation";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { DataTable } from "@/components/admin/DataTable";
 
 export default async function PartnerProductsPage() {
-  const { partnerId, supabase } = await requirePartnerId();
+  const supabase = await createSupabaseServerClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) redirect("/login");
 
-  const { data: products } = await supabase
+  const admin = createAdminClient();
+  const { data: profile } = await admin
+    .from("user_profiles")
+    .select("partner_id")
+    .eq("id", user.id)
+    .maybeSingle();
+
+  const partnerId = profile?.partner_id;
+  if (!partnerId) redirect("/partner");
+
+  const { data: products } = await admin
     .from("products")
     .select("*")
     .eq("partner_id", partnerId)
