@@ -5,6 +5,7 @@ import { LogoutButton } from "@/components/auth/LogoutButton";
 import { PartnerSidebar } from "@/components/partner/Sidebar";
 import { NotificationBell } from "@/components/shared/NotificationBell";
 import { MobileMenu } from "@/components/shared/MobileMenu";
+import { BetaBanner } from "@/components/BetaBanner";
 
 const navItems = [
   { href: "/partner", label: "ダッシュボード", icon: "📊" },
@@ -124,6 +125,7 @@ export default async function PartnerLayout({
         </div>
       </aside>
       <div className="flex-1 flex flex-col">
+        <BetaBanner />
         <header className="bg-white border-b px-4 md:px-8 py-3 flex items-center justify-end">
           <NotificationBell
             notifications={notifications ?? []}

@@ -2,6 +2,7 @@ import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { LogoutButton } from "@/components/auth/LogoutButton";
 import { BuyerSidebar } from "@/components/buyer/Sidebar";
 import { MobileMenu } from "@/components/shared/MobileMenu";
+import { BetaBanner } from "@/components/BetaBanner";
 
 const navItems = [
   { href: "/buyer", label: "ダッシュボード", icon: "📊" },
@@ -41,7 +42,10 @@ export default async function BuyerLayout({
           <LogoutButton />
         </div>
       </aside>
-      <main className="flex-1 bg-gray-50 p-4 md:p-8">{children}</main>
+      <div className="flex-1 flex flex-col">
+        <BetaBanner />
+        <main className="flex-1 bg-gray-50 p-4 md:p-8">{children}</main>
+      </div>
     </div>
   );
 }

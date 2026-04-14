@@ -3,6 +3,7 @@ import { LogoutButton } from "@/components/auth/LogoutButton";
 import { Sidebar } from "@/components/admin/Sidebar";
 import { MobileMenuButton } from "@/components/admin/MobileMenuButton";
 import { NotificationBell } from "@/components/shared/NotificationBell";
+import { BetaBanner } from "@/components/BetaBanner";
 
 const navGroups: { title: string; items: { href: string; label: string; icon: string }[] }[] = [
   {
@@ -149,6 +150,7 @@ export default async function AdminLayout({
         </div>
       </aside>
       <div className="flex-1 flex flex-col min-w-0">
+        <BetaBanner />
         <header className="bg-white border-b px-4 md:px-8 py-3 flex items-center justify-end">
           <NotificationBell
             notifications={notifications ?? []}
