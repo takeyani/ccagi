@@ -60,6 +60,24 @@ export default function LegalPage() {
             </ul>
           </div>
 
+          {/* 取扱禁止商品 */}
+          <div className="bg-red-50 rounded-2xl border border-red-200 shadow-sm p-6">
+            <h3 className="text-lg font-bold text-red-800 mb-3">取扱禁止商品</h3>
+            <p className="text-sm text-red-700 mb-3">以下に該当する商品は、免許・許可の確認が困難なため、当プラットフォームでの取扱いを禁止しています。</p>
+            <ul className="text-sm text-red-700 space-y-2 list-disc pl-5">
+              <li><span className="font-bold">古物</span>（古物営業法） — 中古品・リユース品の売買。古物商許可証が必要</li>
+              <li><span className="font-bold">酒類</span>（酒税法） — 酒類販売業免許が必要</li>
+              <li><span className="font-bold">たばこ</span>（たばこ事業法） — たばこ小売販売業の許可が必要</li>
+              <li><span className="font-bold">医薬品・医療機器</span>（薬機法） — 販売業の許可・届出が必要</li>
+              <li><span className="font-bold">銃砲刀剣類</span>（銃刀法） — 所持許可・販売許可が必要</li>
+              <li><span className="font-bold">その他</span> — 法令で免許・許可・届出が必要な全ての商品</li>
+            </ul>
+            <p className="text-xs text-red-600 mt-3">
+              上記カテゴリの商品を登録した場合、予告なくアカウントを停止する場合があります。
+              免許確認の仕組みが整い次第、段階的に取扱いを開始する予定です。
+            </p>
+          </div>
+
           {/* 食品全般 */}
           <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
             <h3 className="text-lg font-bold text-gray-800 mb-3">食品の取扱いについて</h3>

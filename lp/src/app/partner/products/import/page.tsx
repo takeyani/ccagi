@@ -49,6 +49,10 @@ export default function ProductImportPage() {
         <Link href="/partner/products" className="text-sm text-orange-600 hover:underline">&larr; 商品一覧に戻る</Link>
       </div>
 
+      <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-700">
+        <p className="font-bold">取扱禁止商品にご注意ください</p>
+        <p className="mt-1 text-xs">古物・酒類・たばこ・医薬品・銃砲刀剣類など、免許・許可が必要な商品は登録できません。</p>
+      </div>
       <div className="bg-white rounded-2xl border shadow-sm p-6 max-w-2xl">
         <div className="mb-6 p-4 bg-gray-50 rounded-lg text-sm text-gray-600 space-y-2">
           <p className="font-bold text-gray-800">CSVフォーマット</p>

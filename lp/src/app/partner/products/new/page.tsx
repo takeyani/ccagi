@@ -31,6 +31,10 @@ export default async function NewPartnerProductPage() {
     <div>
       <Link href="/partner/products" className="text-sm text-orange-600 hover:text-orange-800 mb-4 inline-block">← 商品一覧に戻る</Link>
       <h1 className="text-2xl font-bold mb-6">商品 新規登録</h1>
+      <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-700">
+        <p className="font-bold">取扱禁止商品にご注意ください</p>
+        <p className="mt-1 text-xs">古物・酒類・たばこ・医薬品・銃砲刀剣類など、免許・許可が必要な商品は当プラットフォームでは取扱禁止です。詳細は<a href="/legal" className="underline font-medium">利用規約</a>をご確認ください。</p>
+      </div>
       <div className="bg-white rounded-2xl border shadow-sm p-6 max-w-3xl">
         <form action={createPartnerProduct} className="space-y-6">
 
