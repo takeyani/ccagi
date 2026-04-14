@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 // メンテナンスモード: この変数を false に戻すとサイトを再公開
-const MAINTENANCE = true;
+const MAINTENANCE = false;
 
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
