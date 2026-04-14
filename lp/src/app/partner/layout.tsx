@@ -34,59 +34,54 @@ export default async function PartnerLayout({
 }: {
   children: React.ReactNode;
 }) {
-  let displayName = "";
+  // 認証チェック（redirect は try-catch の外で行う）
+  const supabase = await createSupabaseServerClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-  try {
-    const supabase = await createSupabaseServerClient();
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-
-    if (!user) {
-      redirect("/login");
-    }
-
-    const admin = createAdminClient();
-    const { data: profile } = await admin
-      .from("user_profiles")
-      .select("display_name, partner_id")
-      .eq("id", user.id)
-      .maybeSingle();
-
-    let partnerId = profile?.partner_id;
-    if (!partnerId && profile) {
-      const { data: newPartner } = await admin
-        .from("partners")
-        .insert({
-          company_name: profile.display_name || "パートナー",
-          partner_type: "メーカー",
-          certification_status: "未認証",
-        })
-        .select("id")
-        .single();
-
-      if (newPartner) {
-        partnerId = newPartner.id;
-        await admin
-          .from("user_profiles")
-          .update({ partner_id: newPartner.id })
-          .eq("id", user.id);
-      }
-    }
-
-    if (partnerId) {
-      const { data: partner } = await admin
-        .from("partners")
-        .select("company_name")
-        .eq("id", partnerId)
-        .maybeSingle();
-      displayName = partner?.company_name ?? "";
-    }
-
-    displayName = displayName || profile?.display_name || user.email || "";
-  } catch {
+  if (!user) {
     redirect("/login");
   }
+
+  const admin = createAdminClient();
+  const { data: profile } = await admin
+    .from("user_profiles")
+    .select("display_name, partner_id")
+    .eq("id", user.id)
+    .maybeSingle();
+
+  let partnerId = profile?.partner_id;
+  if (!partnerId && profile) {
+    const { data: newPartner } = await admin
+      .from("partners")
+      .insert({
+        company_name: profile.display_name || "パートナー",
+        partner_type: "メーカー",
+        certification_status: "未認証",
+      })
+      .select("id")
+      .single();
+
+    if (newPartner) {
+      partnerId = newPartner.id;
+      await admin
+        .from("user_profiles")
+        .update({ partner_id: newPartner.id })
+        .eq("id", user.id);
+    }
+  }
+
+  let displayName = "";
+  if (partnerId) {
+    const { data: partner } = await admin
+      .from("partners")
+      .select("company_name")
+      .eq("id", partnerId)
+      .maybeSingle();
+    displayName = partner?.company_name ?? "";
+  }
+  displayName = displayName || profile?.display_name || user.email || "";
 
   return (
     <div className="flex min-h-screen">
