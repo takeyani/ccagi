@@ -29,7 +29,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: [
-    "/((?!_next/static|_next/image|favicon.ico|logo.png|embed.js|csv-template.csv).*)",
-  ],
+  matcher: ["/admin/:path*", "/partner/:path*", "/buyer/:path*"],
 };
