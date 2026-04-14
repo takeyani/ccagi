@@ -190,6 +190,48 @@ export default function SellerTermsPage() {
             </ol>
           </section>
 
+          {/* 第12条の2 */}
+          <section className="bg-red-50 rounded-2xl border border-red-200 shadow-sm p-6">
+            <h2 className="text-lg font-bold text-red-900 mb-3">第12条の2（不正利用対策・リスク管理）</h2>
+            <ol className="list-decimal pl-5 space-y-2">
+              <li><strong>カード不正利用の防止</strong>
+                <ul className="list-disc pl-5 mt-1 space-y-1 text-gray-600">
+                  <li>1回の注文上限は¥500,000とします。</li>
+                  <li>¥100,000以上の注文は、当社が確認するまで決済を保留（手動キャプチャ）します。</li>
+                  <li>3Dセキュア認証およびStripe Radarによる不正検知を実施します。</li>
+                  <li>不正取引が疑われる場合、当社は注文の取消・返金を行うことができます。</li>
+                </ul>
+              </li>
+              <li><strong>高額商品の出品に関する義務</strong>
+                <ul className="list-disc pl-5 mt-1 space-y-1 text-gray-600">
+                  <li>¥100,000以上の商品を出品する場合、パートナーは事前に当社の審査を受けるものとします。</li>
+                  <li>高額商品には追加のプルーフチェーン認証（L2商品証明以上）を必須とします。</li>
+                  <li>パートナーは、不正購入による損害リスクを認識し、適切な在庫管理・出荷前確認を行うものとします。</li>
+                </ul>
+              </li>
+              <li><strong>チャージバック・不正返金に関する責任</strong>
+                <ul className="list-disc pl-5 mt-1 space-y-1 text-gray-600">
+                  <li>カード不正利用によるチャージバックが発生した場合、出荷前であれば当社が注文を取消します。</li>
+                  <li>出荷後のチャージバックについて、当社は調査に協力しますが、商品の回収費用はパートナーと協議のうえ決定します。</li>
+                  <li>パートナーが出荷前確認義務を怠った場合、チャージバックによる損害はパートナーが負担するものとします。</li>
+                </ul>
+              </li>
+              <li><strong>異常検知・モニタリング</strong>
+                <ul className="list-disc pl-5 mt-1 space-y-1 text-gray-600">
+                  <li>当社は、異常な注文パターン（短時間での大量注文、同一カードによる複数注文等）を自動検知します。</li>
+                  <li>異常が検知された場合、当社は注文の保留・取消・アカウントの一時停止を行うことができます。</li>
+                  <li>パートナーは、不審な注文に気づいた場合、速やかに当社に報告するものとします。</li>
+                </ul>
+              </li>
+              <li><strong>リスク承諾</strong>
+                <ul className="list-disc pl-5 mt-1 space-y-1 text-gray-600">
+                  <li>パートナーは、オンライン取引に伴うカード不正利用のリスクを認識し、本規約に定めるリスク管理措置に同意するものとします。</li>
+                  <li>当社が本条に基づき注文の保留・取消を行った場合、パートナーは当社に対して損害賠償を請求できないものとします。</li>
+                </ul>
+              </li>
+            </ol>
+          </section>
+
           {/* 第13条 */}
           <section className="bg-white rounded-2xl border shadow-sm p-6">
             <h2 className="text-lg font-bold text-gray-900 mb-3">第13条（アカウントの停止・解除）</h2>
