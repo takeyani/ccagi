@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
-import { DataTable } from "@/components/admin/DataTable";
+
+export const dynamic = "force-dynamic";
 
 async function getProducts() {
   try {
@@ -33,32 +34,6 @@ async function getProducts() {
 export default async function PartnerProductsPage() {
   const products = await getProducts();
 
-  const columns = [
-    { key: "name", label: "商品名" },
-    {
-      key: "base_price",
-      label: "価格",
-      render: (p: { base_price: number }) =>
-        `¥${p.base_price?.toLocaleString() ?? 0}`,
-    },
-    { key: "slug", label: "スラッグ" },
-    {
-      key: "is_active",
-      label: "状態",
-      render: (p: { is_active: boolean }) => (
-        <span
-          className={`inline-block px-2 py-0.5 rounded text-xs font-medium ${
-            p.is_active
-              ? "bg-green-100 text-green-700"
-              : "bg-gray-100 text-gray-600"
-          }`}
-        >
-          {p.is_active ? "有効" : "無効"}
-        </span>
-      ),
-    },
-  ];
-
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
@@ -78,11 +53,49 @@ export default async function PartnerProductsPage() {
           </Link>
         </div>
       </div>
-      <DataTable
-        columns={columns}
-        data={products}
-        editHref={(p) => `/partner/products/${p.id}`}
-      />
+
+      <div className="bg-white rounded-xl border shadow-sm overflow-hidden">
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="border-b bg-gray-50">
+              <th className="px-4 py-3 text-left font-medium text-gray-600">商品名</th>
+              <th className="px-4 py-3 text-left font-medium text-gray-600">価格</th>
+              <th className="px-4 py-3 text-left font-medium text-gray-600">スラッグ</th>
+              <th className="px-4 py-3 text-left font-medium text-gray-600">状態</th>
+              <th className="px-4 py-3 text-left font-medium text-gray-600"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {products.length === 0 ? (
+              <tr>
+                <td colSpan={5} className="px-4 py-8 text-center text-gray-400">
+                  商品がありません。「新規登録」または「CSV一括登録」から追加してください。
+                </td>
+              </tr>
+            ) : (
+              products.map((p: { id: string; name: string; base_price: number; slug: string; is_active: boolean }) => (
+                <tr key={p.id} className="border-b hover:bg-gray-50">
+                  <td className="px-4 py-3 font-medium">{p.name}</td>
+                  <td className="px-4 py-3">¥{p.base_price?.toLocaleString() ?? 0}</td>
+                  <td className="px-4 py-3 text-gray-500 font-mono text-xs">{p.slug}</td>
+                  <td className="px-4 py-3">
+                    <span className={`inline-block px-2 py-0.5 rounded text-xs font-medium ${
+                      p.is_active ? "bg-green-100 text-green-700" : "bg-gray-100 text-gray-600"
+                    }`}>
+                      {p.is_active ? "有効" : "無効"}
+                    </span>
+                  </td>
+                  <td className="px-4 py-3">
+                    <Link href={`/partner/products/${p.id}`} className="text-orange-600 hover:underline text-xs">
+                      編集
+                    </Link>
+                  </td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
