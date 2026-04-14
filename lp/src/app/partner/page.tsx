@@ -1,5 +1,7 @@
 import { Suspense } from "react";
-import { requirePartnerId } from "@/lib/auth";
+import { redirect } from "next/navigation";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { PartnerStatsCard } from "@/components/partner/StatsCard";
 import { DocumentStatusSummary } from "@/components/shared/DocumentStatusSummary";
 import { ActivityLogList } from "@/components/shared/ActivityLogList";
@@ -8,7 +10,14 @@ import { AccessDeniedBanner } from "@/components/shared/AccessDeniedBanner";
 import type { ActivityLog } from "@/lib/types";
 
 export default async function PartnerDashboardPage() {
-  const { partnerId, supabase } = await requirePartnerId();
+  const supabaseSession = await createSupabaseServerClient();
+  const { data: { user } } = await supabaseSession.auth.getUser();
+  if (!user) redirect("/login");
+
+  const supabase = createAdminClient();
+  const { data: prof } = await supabase.from("user_profiles").select("partner_id").eq("id", user.id).maybeSingle();
+  const partnerId = prof?.partner_id;
+  if (!partnerId) redirect("/login");
 
   const [
     { data: paidInvoices },
