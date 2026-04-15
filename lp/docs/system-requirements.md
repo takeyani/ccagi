@@ -5,7 +5,7 @@
 | 文書ID | REQ-SYSTEM-001 |
 | バージョン | 2.0 |
 | 作成日 | 2026-03-06 |
-| 更新日 | 2026-04-06 |
+| 更新日 | 2026-04-15 |
 | ステータス | 実装済み |
 
 ---
@@ -492,14 +492,47 @@ CollectionFilterConditions = {
 
 ## 14. 認証・認可
 
-### 14.1 ミドルウェア
+### 14.0 パートナー登録ステータス（仮登録→本登録）
+
+業者（メーカー・代理店）は2段階で登録が進行する。
+
+| ステータス | certification_status | 説明 |
+|----------|---------------------|------|
+| 仮登録 | `仮登録` | 紹介後の初回登録。面談前。プロフィール閲覧のみ |
+| 本登録 | `本登録` | 管理者が面談後に承認。全機能利用可能 |
+
+フロー:
+```
+紹介 → 新規登録 → certification_status: "仮登録"
+  → 管理者と面談
+  → /admin/partners/[id] で「本登録に変更」ボタン
+  → certification_status: "本登録"
+  → 全機能解放
+```
+
+パートナーポータルでは仮登録中に注意バナーを表示。
+
+### 14.1 セッションリフレッシュ（proxy.ts）
+
+```
+proxy.ts (Edge Runtime, セッションリフレッシュのみ)
+  ├─ createServerClient（cookie ベース）
+  ├─ supabase.auth.getUser()（トークン自動更新）
+  └─ NextResponse.next()（DB照会・リダイレクトなし）
+
+matcher: /admin/*, /partner/*, /buyer/*
+```
+
+### 14.1.1 ミドルウェア（認証チェック）
+
+認証チェックは各 layout (Server Component) で実施。proxy はセッションリフレッシュのみ。
 
 ```
 リクエスト → pathname が /admin/* or /partner/* or /buyer/* ?
   NO → 通過
-  YES → 認証チェック
-    未認証 → /login?redirect=pathname
-    認証済み → ロール判定
+  YES → 認証チェック（layout内）
+    未認証 → redirect("/login")
+    認証済み → admin client でDB照会（RLS回避）
       /admin/* → admin以外は自ロールポータルへリダイレクト（?denied=admin付き）
       /partner/* → buyer は /buyer へリダイレクト（?denied=partner付き）
       /buyer/* → 認証済みなら許可

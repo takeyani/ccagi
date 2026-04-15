@@ -5,7 +5,7 @@
 | 文書ID | GUIDE-ONBOARDING-001 |
 | バージョン | 1.1 |
 | 作成日 | 2026-03-06 |
-| 更新日 | 2026-04-06 |
+| 更新日 | 2026-04-15 |
 
 ---
 
@@ -226,12 +226,16 @@ VALUES ('ユーザーのUUID', 'buyer', 'テストバイヤー');
 
 | ファイル | 文書ID | 内容 |
 |---------|--------|------|
-| `docs/system-requirements.md` | REQ-SYSTEM-001 | システム全体要件定義（全25モジュール） |
-| `docs/security-policy.md` | SEC-POLICY-001 | セキュリティポリシー（認証・認可・脆弱性対策） |
+| `docs/system-requirements.md` | REQ-SYSTEM-001 | システム全体要件定義（25モジュール） |
+| `docs/business-flow.md` | — | ビジネスフロー（15フロー + 仮登録→本登録） |
+| `docs/security-policy.md` | SEC-POLICY-001 | セキュリティポリシー |
+| `docs/security-requirements.md` | REQ-SECURITY-001 | セキュリティ対策 要件定義書 |
+| `docs/security-design.md` | DES-SECURITY-001 | セキュリティ対策 設計書 |
 | `docs/buying-agent-requirements.md` | REQ-BUYING-AGENT-001 | 購買エージェント要件定義 |
 | `docs/buying-agent-design.md` | DES-BUYING-AGENT-001 | 購買エージェント設計書 |
 | `docs/embed-requirements.md` | REQ-EMBED-001 | EC埋め込みウィジェット要件定義 |
 | `docs/embed-design.md` | DES-EMBED-001 | EC埋め込みウィジェット設計書 |
+| `docs/csv-import-guide.md` | — | 商品CSV一括登録マニュアル |
 | `docs/onboarding-guide.md` | GUIDE-ONBOARDING-001 | 本書（セットアップ手順） |
 
 ---

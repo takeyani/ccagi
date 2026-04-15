@@ -5,7 +5,7 @@
 | 文書ID | DES-BUYING-AGENT-001 |
 | バージョン | 1.4 |
 | 作成日 | 2026-03-03 |
-| 更新日 | 2026-04-06 |
+| 更新日 | 2026-04-15 |
 | ステータス | 実装済み |
 | 対応要件 | REQ-BUYING-AGENT-001 v1.3 |
 | 関連文書 | REQ-SYSTEM-001（システム全体要件）, DES-EMBED-001（埋め込みウィジェット設計） |
@@ -337,7 +337,7 @@ run_buying_agent(p_agent_id)
 ```
 certification_score = CASE partners.certification_status
   WHEN '認証済み'  THEN 100
-  WHEN '未認証'    THEN 30
+  WHEN '仮登録'    THEN 30
   WHEN '期限切れ'  THEN 10
   ELSE 30
 END

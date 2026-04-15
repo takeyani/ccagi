@@ -1,9 +1,26 @@
 # 業務フロー定義書
 
+| 項目 | 内容 |
+|------|------|
+| 更新日 | 2026-04-15 |
+
 ## 概要
 
 本システムは、メーカー・代理店・クリエイター・バイヤーの4つのロールが連携する成果報酬型マーケットプレイスです。
 商品の登録から販売・決済・送金までの全フローを以下に定義します。
+
+### 登録ステータス
+
+業者（メーカー・代理店）は以下の2段階で登録が進行します。
+
+| ステータス | 説明 | 可能な操作 |
+|----------|------|----------|
+| **仮登録** | 紹介後の初回登録時。面談前の状態 | プロフィール閲覧・編集のみ。商品登録・販売は制限 |
+| **本登録** | 管理者が面談完了後に承認 | 全機能利用可能（商品登録・ロット作成・販売・決済） |
+
+```
+紹介 → 新規登録（仮登録）→ 管理者と面談 → 本登録承認（管理画面）→ 全機能解放
+```
 
 ---
 
@@ -51,7 +68,7 @@
 POST /api/signup/complete（10 req/h IP制限）
   ├─ admin client で auth user 検証
   ├─ user_profiles 作成（role: partner）
-  ├─ partners 作成（partner_type: メーカー, certification_status: 未認証, auth_user_id 紐付け）
+  ├─ partners 作成（partner_type: メーカー, certification_status: 仮登録, auth_user_id 紐付け）
   ├─ user_profiles.partner_id を更新（重複作成防止）
   └─ ※ ?ref= パラメータがある場合 → referred_by_affiliate_id に紹介者を記録
   ※ 紹介者には以降の売上に対して1%の継続報酬が発生
@@ -87,7 +104,7 @@ POST /api/signup/complete（10 req/h IP制限）
   ↓
 POST /api/signup/complete（admin client、10 req/h IP制限）
   ├─ user_profiles 作成（role: partner）
-  └─ partners 作成（partner_type: 代理店, certification_status: 未認証, auth_user_id 紐付け）
+  └─ partners 作成（partner_type: 代理店, certification_status: 仮登録, auth_user_id 紐付け）
   ※ 紹介者には以降の売上に対して2%の継続報酬が発生
   ↓
 パートナーダッシュボード(/partner)
