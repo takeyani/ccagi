@@ -161,3 +161,4 @@ Stripe のAI不正検知サービス（Radar）がデフォルトで有効。
 | 2026-04-09 | セキュリティ監査実施。CRITICAL 3件、HIGH 4件、MEDIUM 3件を修正 |
 | 2026-04-09 | requireAdmin() 追加、OAuth open redirect対策、IDOR修正、パスワード強化、レート制限導入 |
 | 2026-04-15 | カード不正利用対策: 金額上限¥500,000、高額注文手動キャプチャ、checkout レート制限 |
+| 2026-04-15 | 再診断: stripe-connect/creator-upload/marketing-reports に認証追加、auction-bid/non-financial にレート制限、仮登録商品登録ブロック |
