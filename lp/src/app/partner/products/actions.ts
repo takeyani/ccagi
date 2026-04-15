@@ -40,6 +40,12 @@ function extractCustomFields(formData: FormData): Record<string, string | number
 export async function createPartnerProduct(formData: FormData) {
   const { partnerId, supabase } = await requirePartnerId();
 
+  // 仮登録チェック: 本登録パートナーのみ商品登録可能
+  const { data: partnerData } = await supabase.from("partners").select("certification_status").eq("id", partnerId).maybeSingle();
+  if (partnerData?.certification_status === "仮登録") {
+    throw new Error("商品登録には本登録が必要です。管理者にお問い合わせください。");
+  }
+
   const fields = extractProductFields(formData);
 
   // 不正チェック: 異常価格の検出

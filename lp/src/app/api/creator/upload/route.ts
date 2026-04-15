@@ -3,6 +3,14 @@ import { getSupabase } from "@/lib/supabase";
 
 export async function POST(request: Request) {
   try {
+    // 認証チェック
+    const { createSupabaseServerClient } = await import("@/lib/supabase/server");
+    const ssc = await createSupabaseServerClient();
+    const { data: { user } } = await ssc.auth.getUser();
+    if (!user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const formData = await request.formData();
     const file = formData.get("file") as File | null;
 

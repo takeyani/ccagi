@@ -1,9 +1,17 @@
 import { NextResponse } from "next/server";
 import { getSupabase } from "@/lib/supabase";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { rateLimit, getClientIp } from "@/lib/rate-limit";
 
 export async function POST(request: Request) {
   try {
+    // レート制限: 1時間あたり30回まで
+    const ip = getClientIp(request);
+    const { allowed } = rateLimit(`auction-bid:${ip}`, { maxRequests: 30, windowMs: 3_600_000 });
+    if (!allowed) {
+      return NextResponse.json({ error: "リクエストが多すぎます" }, { status: 429 });
+    }
+
     const body = await request.json();
     const { auction_id, bidder_name, bidder_email, amount, is_buy_now, buyer_id, agent_result_id } = body;
 

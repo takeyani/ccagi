@@ -1,7 +1,15 @@
 import { NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { rateLimit, getClientIp } from "@/lib/rate-limit";
 
 export async function POST(request: Request) {
+  // レート制限
+  const ip = getClientIp(request);
+  const { allowed } = rateLimit(`non-financial:${ip}`, { maxRequests: 20, windowMs: 3_600_000 });
+  if (!allowed) {
+    return NextResponse.json({ error: "リクエストが多すぎます" }, { status: 429 });
+  }
+
   const body = await request.json();
   const { source_type, source_id, category, partner_id, product_id, customer_segment, content, summary, tags, sentiment_score, metadata } = body;
 

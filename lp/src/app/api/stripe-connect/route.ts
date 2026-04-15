@@ -14,6 +14,14 @@ export const runtime = "nodejs";
  * Stripe Connectアカウントのステータス取得
  */
 export async function GET(request: Request) {
+  // 認証チェック
+  const { createSupabaseServerClient } = await import("@/lib/supabase/server");
+  const ssc = await createSupabaseServerClient();
+  const { data: { user } } = await ssc.auth.getUser();
+  if (!user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   const { searchParams } = new URL(request.url);
   const partnerId = searchParams.get("partner_id");
 

@@ -12,6 +12,14 @@ export const runtime = "nodejs";
  *   affiliate_id: アフィリエイトID（任意）
  */
 export async function GET(request: Request) {
+  // 認証チェック
+  const { createSupabaseServerClient } = await import("@/lib/supabase/server");
+  const ssc = await createSupabaseServerClient();
+  const { data: { user } } = await ssc.auth.getUser();
+  if (!user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   const supabase = getSupabase();
   const { searchParams } = new URL(request.url);
 
