@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 export async function GET() {
+  const { createSupabaseServerClient: _ssc } = await import("@/lib/supabase/server"); const _sc = await _ssc(); const { data: { user: _u } } = await _sc.auth.getUser(); if (!_u) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const supabase = await createSupabaseServerClient();
   const { data, error } = await supabase
     .from("ec_connectors")

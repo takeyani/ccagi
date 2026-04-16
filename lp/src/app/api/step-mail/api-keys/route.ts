@@ -3,6 +3,7 @@ import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { createHash, randomBytes } from "crypto";
 
 export async function GET() {
+  const { createSupabaseServerClient: _ssc } = await import("@/lib/supabase/server"); const _sc = await _ssc(); const { data: { user: _u } } = await _sc.auth.getUser(); if (!_u) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const supabase = await createSupabaseServerClient();
   const { data, error } = await supabase
     .from("step_mail_api_keys")
@@ -17,6 +18,7 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+  const { createSupabaseServerClient: _ssc } = await import("@/lib/supabase/server"); const _sc = await _ssc(); const { data: { user: _u } } = await _sc.auth.getUser(); if (!_u) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const supabase = await createSupabaseServerClient();
   const { name } = await request.json();
 
@@ -45,6 +47,7 @@ export async function POST(request: Request) {
 }
 
 export async function PUT(request: Request) {
+  const { createSupabaseServerClient: _ssc } = await import("@/lib/supabase/server"); const _sc = await _ssc(); const { data: { user: _u } } = await _sc.auth.getUser(); if (!_u) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const supabase = await createSupabaseServerClient();
   const { id, is_active } = await request.json();
 

@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { syncConnector, getAvailableConnectors } from "@/lib/ec-connectors";
 import type { EcConnectorConfig } from "@/lib/ec-connectors/types";
@@ -14,6 +15,11 @@ export async function POST(
   _request: Request,
   { params }: { params: Promise<{ connectorType: string }> }
 ) {
+  // 認証チェック
+  const authClient = await createSupabaseServerClient();
+  const { data: { user } } = await authClient.auth.getUser();
+  if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
   const { connectorType } = await params;
 
   // コネクタの存在確認

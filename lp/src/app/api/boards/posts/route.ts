@@ -1,3 +1,4 @@
+import { rateLimit, getClientIp } from "@/lib/rate-limit";
 import { NextResponse } from "next/server";
 import { getSupabase } from "@/lib/supabase";
 
