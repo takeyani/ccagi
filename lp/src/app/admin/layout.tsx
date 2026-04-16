@@ -26,6 +26,7 @@ const navGroups: { title: string; items: { href: string; label: string; icon: st
     title: "取引・帳票",
     items: [
       { href: "/admin/orders", label: "注文", icon: "🧾" },
+      { href: "/admin/high-value-orders", label: "高額注文管理", icon: "⚠️" },
       { href: "/admin/recurring", label: "定期購入", icon: "🔄" },
       { href: "/admin/auctions", label: "オークション", icon: "🔨" },
       { href: "/admin/quotes", label: "見積書", icon: "📝" },

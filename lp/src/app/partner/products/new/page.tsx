@@ -3,6 +3,7 @@ import { createPartnerProduct } from "../actions";
 import { getSupabase } from "@/lib/supabase";
 import { ProductAttributes } from "@/components/ProductAttributes";
 import { CategoryFields } from "@/components/CategoryFields";
+import { ImageUpload } from "@/components/partner/ImageUpload";
 import type { Tag } from "@/lib/types";
 
 const TAG_TYPE_ORDER = ["生産者", "メーカー", "カテゴリ", "キーワード"] as const;
@@ -169,32 +170,11 @@ export default async function NewPartnerProductPage() {
 
           {/* 画像 */}
           <div className="border-t pt-4">
-            <h3 className={sectionTitle}>画像</h3>
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className={labelClass}>画像1 URL</label>
-                <input name="image_url" className={inputClass} />
-              </div>
-              <div>
-                <label className={labelClass}>画像2 URL</label>
-                <input name="image_url2" className={inputClass} />
-              </div>
-              <div>
-                <label className={labelClass}>画像3 URL</label>
-                <input name="image_url3" className={inputClass} />
-              </div>
-              <div>
-                <label className={labelClass}>画像4 URL</label>
-                <input name="image_url4" className={inputClass} />
-              </div>
-              <div>
-                <label className={labelClass}>画像5 URL</label>
-                <input name="image_url5" className={inputClass} />
-              </div>
-              <div>
-                <label className={labelClass}>商品ページURL</label>
-                <input name="product_page_url" className={inputClass} placeholder="https://" />
-              </div>
+            <h3 className={sectionTitle}>商品画像</h3>
+            <div>
+              <label className={labelClass}>メイン画像</label>
+              <ImageUpload name="image_url" />
+              <p className="text-xs text-gray-400 mt-1">画像ファイル（5MB以下）をアップロード、またはURLを入力</p>
             </div>
           </div>
 
