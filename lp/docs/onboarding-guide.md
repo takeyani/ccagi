@@ -236,6 +236,7 @@ VALUES ('ユーザーのUUID', 'buyer', 'テストバイヤー');
 | `docs/embed-requirements.md` | REQ-EMBED-001 | EC埋め込みウィジェット要件定義 |
 | `docs/embed-design.md` | DES-EMBED-001 | EC埋め込みウィジェット設計書 |
 | `docs/csv-import-guide.md` | — | 商品CSV一括登録マニュアル |
+| `docs/setup-guide.md` | — | Stripe/GA4/Resend 外部サービス設定ガイド |
 | `docs/onboarding-guide.md` | GUIDE-ONBOARDING-001 | 本書（セットアップ手順） |
 
 ---

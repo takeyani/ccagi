@@ -44,11 +44,16 @@ npm run dev      # http://localhost:3000
 | ファイル | 内容 |
 |---------|------|
 | [docs/system-requirements.md](docs/system-requirements.md) | システム全体要件定義（25モジュール） |
+| [docs/business-flow.md](docs/business-flow.md) | ビジネスフロー（15フロー + 仮登録→本登録） |
+| [docs/security-policy.md](docs/security-policy.md) | セキュリティポリシー |
+| [docs/security-requirements.md](docs/security-requirements.md) | セキュリティ対策 要件定義書 |
+| [docs/security-design.md](docs/security-design.md) | セキュリティ対策 設計書 |
 | [docs/buying-agent-requirements.md](docs/buying-agent-requirements.md) | 購買エージェント要件定義 |
 | [docs/buying-agent-design.md](docs/buying-agent-design.md) | 購買エージェント設計書 |
 | [docs/embed-requirements.md](docs/embed-requirements.md) | EC埋め込みウィジェット要件定義 |
 | [docs/embed-design.md](docs/embed-design.md) | EC埋め込みウィジェット設計書 |
-| [docs/business-flow.md](docs/business-flow.md) | ビジネスフロー（15フロー） |
+| [docs/setup-guide.md](docs/setup-guide.md) | Stripe/GA4/Resend 外部サービス設定ガイド |
+| [docs/csv-import-guide.md](docs/csv-import-guide.md) | 商品CSV一括登録マニュアル |
 | [docs/onboarding-guide.md](docs/onboarding-guide.md) | 開発環境セットアップ |
 
 ## Cronジョブ

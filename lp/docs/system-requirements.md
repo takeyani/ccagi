@@ -92,8 +92,8 @@
 | エンティティ | 主要フィールド | 管理者 |
 |------------|-------------|--------|
 | Partner | company_name, certification_status, partner_type, invoice_registration_number | admin |
-| Product | name, slug, base_price, image_url, is_active, min_order_quantity | admin, partner |
-| Lot | lot_number, stock, price, wholesale_price, selling_unit(個/箱/ケース/パレット), units_per_case, cases_per_pallet, min_order_units, shipping_method, shipping_fee, expiration_date, status(販売中/売切れ/期限切れ) | admin, partner |
+| Product | name, slug, base_price, image_url（ImageUploadコンポーネントでアップロード対応）, is_active, min_order_quantity. 価格上限¥500,000 | admin, partner |
+| Lot | lot_number, stock, price, wholesale_price, selling_unit(個/箱/ケース/パレット/kg/L/セット/本/袋/缶/瓶/枚/台/式), units_per_case, cases_per_pallet, min_order_units, shipping_method, shipping_fee, expiration_date, status(販売中/売切れ/期限切れ) | admin, partner |
 | Tag | name, slug, tag_type(生産者/メーカー/カテゴリ/キーワード), is_active | admin |
 | ProductTag | product_id, tag_id | admin |
 | ProductAttribute | attribute_name, attribute_value | admin |
