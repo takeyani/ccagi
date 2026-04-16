@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { LogoutButton } from "@/components/auth/LogoutButton";
@@ -104,39 +105,52 @@ const navGroups: { title: string; items: { href: string; label: string; icon: st
 // MobileMenu等の互換性のために flat な navItems もエクスポート
 const navItems = navGroups.flatMap((g) => g.items);
 
+async function getAdminData() {
+  try {
+    const supabase = await createSupabaseServerClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return null;
+
+    const adminClient = createAdminClient();
+    const { data: profile } = await adminClient
+      .from("user_profiles")
+      .select("display_name")
+      .eq("id", user.id)
+      .maybeSingle();
+
+    const { data: notifications } = await adminClient
+      .from("notifications")
+      .select("id, title, body, link, is_read, created_at")
+      .eq("user_id", user.id)
+      .order("created_at", { ascending: false })
+      .limit(10);
+
+    const { count: unreadCount } = await adminClient
+      .from("notifications")
+      .select("*", { count: "exact", head: true })
+      .eq("user_id", user.id)
+      .eq("is_read", false);
+
+    return {
+      displayName: profile?.display_name ?? user.email ?? "",
+      notifications: notifications ?? [],
+      unreadCount: unreadCount ?? 0,
+      userId: user.id,
+    };
+  } catch {
+    return null;
+  }
+}
+
 export default async function AdminLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const supabase = await createSupabaseServerClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const data = await getAdminData();
+  if (!data) redirect("/login");
 
-  // admin client で RLS を回避してデータ取得
-  const adminClient = createAdminClient();
-  const { data: profile } = await adminClient
-    .from("user_profiles")
-    .select("display_name")
-    .eq("id", user!.id)
-    .maybeSingle();
-
-  // 通知取得
-  const { data: notifications } = await adminClient
-    .from("notifications")
-    .select("id, title, body, link, is_read, created_at")
-    .eq("user_id", user!.id)
-    .order("created_at", { ascending: false })
-    .limit(10);
-
-  const { count: unreadCount } = await adminClient
-    .from("notifications")
-    .select("*", { count: "exact", head: true })
-    .eq("user_id", user!.id)
-    .eq("is_read", false);
-
-  const displayName = profile?.display_name ?? user!.email ?? "";
+  const { displayName } = data;
 
   return (
     <div className="flex min-h-screen">
@@ -158,9 +172,9 @@ export default async function AdminLayout({
         <BetaBanner />
         <header className="bg-white border-b px-4 md:px-8 py-3 flex items-center justify-end">
           <NotificationBell
-            notifications={notifications ?? []}
-            unreadCount={unreadCount ?? 0}
-            userId={user!.id}
+            notifications={data.notifications}
+            unreadCount={data.unreadCount}
+            userId={data.userId}
             notificationsPath="/admin/groupware/notifications"
           />
         </header>
