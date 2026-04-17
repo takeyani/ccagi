@@ -57,7 +57,7 @@ export default async function NewAgentPage() {
               検索条件
             </h3>
             <div className="grid grid-cols-2 gap-4">
-              <div className="col-span-2">
+              <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   キーワード
                 </label>
@@ -66,6 +66,18 @@ export default async function NewAgentPage() {
                   placeholder="商品名・説明に含まれるキーワード"
                   className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-teal-500"
                 />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  バーコード（JAN/EAN）
+                </label>
+                <input
+                  name="target_barcode"
+                  placeholder="4901234567890"
+                  maxLength={14}
+                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-teal-500 font-mono"
+                />
+                <p className="text-xs text-gray-400 mt-1">特定バーコードの商品のみ検索</p>
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">

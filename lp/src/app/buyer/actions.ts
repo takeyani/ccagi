@@ -48,6 +48,7 @@ export async function createAgent(formData: FormData) {
     min_total_score: formData.get("min_total_score")
       ? Number(formData.get("min_total_score"))
       : null,
+    target_barcode: (formData.get("target_barcode") as string) || null,
     auto_bid_enabled: autoBidEnabled,
     auto_bid_max_price: autoBidMaxPrice,
   });

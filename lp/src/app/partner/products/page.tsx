@@ -59,8 +59,8 @@ export default async function PartnerProductsPage() {
           <thead>
             <tr className="border-b bg-gray-50">
               <th className="px-4 py-3 text-left font-medium text-gray-600">商品名</th>
+              <th className="px-4 py-3 text-left font-medium text-gray-600">バーコード</th>
               <th className="px-4 py-3 text-left font-medium text-gray-600">価格</th>
-              <th className="px-4 py-3 text-left font-medium text-gray-600">スラッグ</th>
               <th className="px-4 py-3 text-left font-medium text-gray-600">状態</th>
               <th className="px-4 py-3 text-left font-medium text-gray-600"></th>
             </tr>
@@ -73,11 +73,11 @@ export default async function PartnerProductsPage() {
                 </td>
               </tr>
             ) : (
-              products.map((p: { id: string; name: string; base_price: number; slug: string; is_active: boolean }) => (
+              products.map((p: { id: string; name: string; barcode?: string; base_price: number; slug: string; is_active: boolean }) => (
                 <tr key={p.id} className="border-b hover:bg-gray-50">
                   <td className="px-4 py-3 font-medium">{p.name}</td>
+                  <td className="px-4 py-3 text-gray-500 font-mono text-xs">{p.barcode || "-"}</td>
                   <td className="px-4 py-3">¥{p.base_price?.toLocaleString() ?? 0}</td>
-                  <td className="px-4 py-3 text-gray-500 font-mono text-xs">{p.slug}</td>
                   <td className="px-4 py-3">
                     <span className={`inline-block px-2 py-0.5 rounded text-xs font-medium ${
                       p.is_active ? "bg-green-100 text-green-700" : "bg-gray-100 text-gray-600"

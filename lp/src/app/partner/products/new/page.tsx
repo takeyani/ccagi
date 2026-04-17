@@ -56,6 +56,10 @@ export default async function NewPartnerProductPage() {
                 <input name="slug" required className={inputClass} placeholder="URL用の英字識別子" />
               </div>
               <div>
+                <label className={labelClass}>バーコード（JAN/EAN）</label>
+                <input name="barcode" className={inputClass} placeholder="4901234567890" maxLength={14} />
+              </div>
+              <div>
                 <label className={labelClass}>品番</label>
                 <input name="product_code" className={inputClass} />
               </div>

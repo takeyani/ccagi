@@ -15,6 +15,7 @@ function extractProductFields(formData: FormData) {
   return {
     name: formData.get("name") as string,
     slug: formData.get("slug") as string,
+    barcode: str("barcode"),
     base_price: Number(formData.get("base_price")),
     min_order_quantity: num("min_order_quantity") ?? 1,
     min_order_amount: num("min_order_amount"),

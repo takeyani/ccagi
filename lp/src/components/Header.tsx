@@ -14,6 +14,12 @@ export default function Header() {
         </Link>
         <nav className="flex items-center gap-3" aria-label="メインナビゲーション">
           <Link
+            href="/products/search"
+            className="text-xs font-medium text-white/70 hover:text-white transition hidden sm:inline"
+          >
+            商品検索
+          </Link>
+          <Link
             href="/affiliate"
             className="text-xs font-medium text-white/70 hover:text-white transition hidden sm:inline"
           >
