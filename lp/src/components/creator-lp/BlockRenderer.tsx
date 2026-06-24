@@ -16,6 +16,7 @@ type BlockContext = {
   partner: Partner | null;
   tags: Tag[];
   theme: LPTheme;
+  ageVerified?: boolean;
 };
 
 export function BlockRenderer({
@@ -61,6 +62,7 @@ function BlockItem({ block, context }: { block: LPBlock; context: BlockContext }
           lot={context.lot}
           product={context.product}
           theme={theme}
+          ageVerified={context.ageVerified}
         />
       );
     case "image":
