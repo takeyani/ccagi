@@ -42,3 +42,7 @@ supabase/.temp/
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# auto-restore-env スクリプトのログ・一時ファイル
+.logs/
+.tmp/
