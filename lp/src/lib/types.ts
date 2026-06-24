@@ -57,6 +57,8 @@ export type Product = {
   order_notes: string | null;
   category_template_id: string | null;
   custom_fields: Record<string, string | number | boolean | null> | null;
+  age_restricted: boolean;
+  restriction_type: "alcohol" | "tobacco" | null;
   created_at: string;
   updated_at: string;
 };

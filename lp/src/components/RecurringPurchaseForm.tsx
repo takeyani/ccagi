@@ -71,26 +71,27 @@ export default function RecurringPurchaseForm({ lotId, price }: Props) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="mt-4 rounded-xl border bg-orange-50/40 p-5 space-y-4"
+      className="mt-4 rounded-xl border bg-orange-50/40 p-4 space-y-4 sm:p-5"
     >
-      <h3 className="text-sm font-bold text-gray-900">
+      <h3 className="text-base font-bold text-gray-900">
         定期購入のお申し込み
       </h3>
-      <p className="text-xs text-gray-500">
-        初回は今すぐ決済、以降は選択した頻度でお届けします。いつでも解約可能です。
+      <p className="text-xs text-gray-600 leading-relaxed">
+        初回のお支払い後、ご指定の頻度で自動的にお届けします。<br />
+        マイページからいつでも解約・スキップ可能です。
       </p>
 
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">
           お届け頻度 <span className="text-red-500">*</span>
         </label>
-        <div className="grid grid-cols-4 gap-2">
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
           {(["毎週", "隔週", "毎月", "隔月"] as const).map((f) => (
             <button
               key={f}
               type="button"
               onClick={() => setFrequency(f)}
-              className={`rounded-lg border px-3 py-2 text-sm font-medium transition ${
+              className={`rounded-lg border px-3 py-2.5 text-sm font-medium transition ${
                 frequency === f
                   ? "border-orange-600 bg-orange-600 text-white"
                   : "border-gray-300 bg-white text-gray-700 hover:border-orange-400"
@@ -102,7 +103,7 @@ export default function RecurringPurchaseForm({ lotId, price }: Props) {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
             お名前 <span className="text-red-500">*</span>
@@ -110,7 +111,7 @@ export default function RecurringPurchaseForm({ lotId, price }: Props) {
           <input
             type="text"
             required
-            className="w-full rounded-lg border px-3 py-2 text-sm"
+            className="w-full rounded-lg border px-3 py-2.5 text-base"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
@@ -122,7 +123,9 @@ export default function RecurringPurchaseForm({ lotId, price }: Props) {
           <input
             type="email"
             required
-            className="w-full rounded-lg border px-3 py-2 text-sm"
+            inputMode="email"
+            autoComplete="email"
+            className="w-full rounded-lg border px-3 py-2.5 text-base"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -130,12 +133,12 @@ export default function RecurringPurchaseForm({ lotId, price }: Props) {
       </div>
 
       <div className="rounded-lg bg-white border p-3 text-sm text-gray-700">
-        <div className="flex justify-between">
-          <span>初回お届け</span>
+        <div className="flex justify-between gap-2">
+          <span>初回お支払い（今すぐ）</span>
           <span className="font-bold">&yen;{price.toLocaleString("ja-JP")}</span>
         </div>
-        <div className="flex justify-between mt-1 text-gray-500">
-          <span>以降 {frequencyLabel[frequency]}</span>
+        <div className="flex justify-between gap-2 mt-1 text-gray-500">
+          <span>2回目以降（{frequencyLabel[frequency]}お届け）</span>
           <span>&yen;{price.toLocaleString("ja-JP")} / 回</span>
         </div>
       </div>

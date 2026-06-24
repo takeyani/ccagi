@@ -4,6 +4,9 @@ import type { Metadata } from "next";
 import { getSupabase } from "@/lib/supabase";
 import LotPurchaseButton from "@/components/LotPurchaseButton";
 import RecurringPurchaseForm from "@/components/RecurringPurchaseForm";
+import AgeRestrictionBadge from "@/components/AgeRestrictionBadge";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { SurveySection } from "@/components/surveys/SurveySection";
 import { NonFinancialSurvey } from "@/components/surveys/NonFinancialSurvey";
 import { BoardSection } from "@/components/boards/BoardSection";
@@ -101,6 +104,26 @@ export default async function LotPage({ params }: Props) {
 
   if (!lot) notFound();
 
+  // 年齢確認状態の取得（年齢制限商品の場合のみ）
+  let ageVerified = false;
+  if (product.age_restricted) {
+    try {
+      const authed = await createSupabaseServerClient();
+      const { data: { user } } = await authed.auth.getUser();
+      if (user) {
+        const admin = createAdminClient();
+        const { data: profile } = await admin
+          .from("user_profiles")
+          .select("age_verified_at")
+          .eq("id", user.id)
+          .maybeSingle();
+        ageVerified = !!profile?.age_verified_at;
+      }
+    } catch {
+      // セッション未取得時は未確認扱い
+    }
+  }
+
   // 商品タグ取得
   const { data: productTags } = await getSupabase()
     .from("product_tags")
@@ -139,9 +162,9 @@ export default async function LotPage({ params }: Props) {
   return (
     <div className="min-h-screen bg-gray-50">
       <LPViewTracker productId={product.id} lotId={lot.id} partnerId={product.partner_id ?? undefined} />
-      <div className="mx-auto max-w-3xl px-6 py-16">
+      <div className="mx-auto max-w-3xl px-4 py-6 sm:px-6 sm:py-16">
         {/* Header */}
-        <nav className="mb-8">
+        <nav className="mb-4 sm:mb-8">
           <Link
             href="/"
             className="text-sm text-orange-600 hover:text-orange-800"
@@ -152,7 +175,7 @@ export default async function LotPage({ params }: Props) {
 
         {/* Product image */}
         {product.image_url && (
-          <div className="mb-8 overflow-hidden rounded-2xl">
+          <div className="mb-5 overflow-hidden rounded-xl sm:mb-8 sm:rounded-2xl">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={product.image_url}
@@ -163,7 +186,7 @@ export default async function LotPage({ params }: Props) {
         )}
 
         {/* Product info */}
-        <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl">
+        <h1 className="text-2xl font-bold text-gray-900 sm:text-4xl break-words">
           {product.name}
         </h1>
 
@@ -171,26 +194,28 @@ export default async function LotPage({ params }: Props) {
         {showBadge && partner && (
           <div className="mt-3">
             {partner.partner_type === "メーカー" ? (
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-green-100 px-3 py-1 text-sm font-medium text-green-800">
-                <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+              <span className="inline-flex items-start gap-1.5 rounded-full bg-green-100 px-3 py-1 text-xs sm:text-sm font-medium text-green-800 break-words">
+                <svg className="h-4 w-4 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                 </svg>
-                認証済みメーカー｜{partner.company_name}
+                <span>認証済みメーカー｜{partner.company_name}</span>
               </span>
             ) : (
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-100 px-3 py-1 text-sm font-medium text-blue-800">
-                <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+              <span className="inline-flex items-start gap-1.5 rounded-full bg-blue-100 px-3 py-1 text-xs sm:text-sm font-medium text-blue-800 break-words">
+                <svg className="h-4 w-4 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                 </svg>
-                正規代理店｜{partner.company_name}
-                {parentPartner && `（${parentPartner.company_name}）`}
+                <span>
+                  正規代理店｜{partner.company_name}
+                  {parentPartner && `（${parentPartner.company_name}）`}
+                </span>
               </span>
             )}
           </div>
         )}
 
         {product.description && (
-          <p className="mt-4 text-gray-600 leading-relaxed whitespace-pre-wrap">
+          <p className="mt-4 text-sm sm:text-base text-gray-600 leading-relaxed whitespace-pre-wrap">
             {product.description}
           </p>
         )}
@@ -201,16 +226,16 @@ export default async function LotPage({ params }: Props) {
           if (!tmpl) return null;
           const fields = tmpl.product_fields;
           return (
-            <div className="mt-6 rounded-xl border bg-white p-6">
+            <div className="mt-6 rounded-xl border bg-white p-4 sm:p-6">
               <h3 className="text-sm font-semibold text-gray-800 mb-3">{tmpl.name} 情報</h3>
-              <div className="grid grid-cols-2 gap-2 text-sm">
+              <div className="grid grid-cols-1 gap-2 text-sm sm:grid-cols-2">
                 {fields.map((f) => {
                   const val = product.custom_fields?.[f.field];
                   if (!val) return null;
                   return (
-                    <div key={f.field} className="flex justify-between border-b pb-1">
-                      <span className="text-gray-500">{f.label}</span>
-                      <span className="font-medium text-gray-900">{String(val)}</span>
+                    <div key={f.field} className="flex justify-between gap-2 border-b pb-1">
+                      <span className="text-gray-500 flex-shrink-0">{f.label}</span>
+                      <span className="font-medium text-gray-900 text-right break-words">{String(val)}</span>
                     </div>
                   );
                 })}
@@ -226,7 +251,7 @@ export default async function LotPage({ params }: Props) {
               <Link
                 key={tag.id}
                 href={`/t/${tag.slug}`}
-                className="inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-sm text-gray-700 hover:bg-orange-100/60 hover:text-orange-700 transition"
+                className="inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-xs sm:text-sm text-gray-700 hover:bg-orange-100/60 hover:text-orange-700 transition"
               >
                 {tag.name}
               </Link>
@@ -235,71 +260,71 @@ export default async function LotPage({ params }: Props) {
         )}
 
         {/* Lot details card */}
-        <div className="mt-8 rounded-2xl border-2 border-orange-600 bg-white p-8 shadow-xl">
-          <div className="flex items-baseline justify-center gap-1">
-            <span className="text-5xl font-extrabold text-gray-900">
+        <div className="mt-6 rounded-2xl border-2 border-orange-600 bg-white p-5 shadow-xl sm:mt-8 sm:p-8">
+          <div className="flex flex-wrap items-baseline justify-center gap-x-1">
+            <span className="text-4xl font-extrabold text-gray-900 sm:text-5xl">
               &yen;{formattedPrice}
             </span>
-            <span className="text-gray-500">
-              /{lot.selling_unit ?? "個"}
+            <span className="text-xs text-gray-500 sm:text-sm">
+              / {lot.selling_unit ?? "個"}
               {lot.selling_unit !== "個" && lot.units_per_case && (
                 <>（{lot.units_per_case}個入）</>
               )}
-              （税込）
+              <span className="ml-1">（税込）</span>
             </span>
           </div>
 
-          <div className="mt-6 space-y-2 text-sm text-gray-600">
-            <div className="flex justify-between border-b pb-2">
-              <span>ロット番号</span>
-              <span className="font-medium text-gray-900">{lot.lot_number}</span>
+          <dl className="mt-5 space-y-2 text-sm text-gray-600 sm:mt-6">
+            <div className="flex justify-between gap-3 border-b pb-2">
+              <dt className="flex-shrink-0">商品ロット番号</dt>
+              <dd className="font-medium text-gray-900 text-right break-all">{lot.lot_number}</dd>
             </div>
-            <div className="flex justify-between border-b pb-2">
-              <span>在庫数</span>
-              <span className="font-medium text-gray-900">
-                {lot.stock > 0 ? `残り ${lot.stock} ${lot.selling_unit ?? "個"}` : "在庫なし"}
-              </span>
+            <div className="flex justify-between gap-3 border-b pb-2">
+              <dt className="flex-shrink-0">残り在庫</dt>
+              <dd className="font-medium text-gray-900 text-right">
+                {lot.stock > 0 ? `あと ${lot.stock} ${lot.selling_unit ?? "個"}` : "在庫なし"}
+              </dd>
             </div>
             {lot.selling_unit && lot.selling_unit !== "個" && (
-              <div className="flex justify-between border-b pb-2">
-                <span>販売単位</span>
-                <span className="font-medium text-gray-900">
-                  {lot.selling_unit}
+              <div className="flex justify-between gap-3 border-b pb-2">
+                <dt className="flex-shrink-0">販売単位</dt>
+                <dd className="font-medium text-gray-900 text-right">
+                  1{lot.selling_unit}単位で販売
                   {lot.units_per_case && `（${lot.units_per_case}個入）`}
                   {lot.cases_per_pallet && ` / パレット${lot.cases_per_pallet}${lot.selling_unit}`}
-                </span>
+                </dd>
               </div>
             )}
             {lot.min_order_units > 1 && (
-              <div className="flex justify-between border-b pb-2">
-                <span>最小注文数</span>
-                <span className="font-medium text-gray-900">
-                  {lot.min_order_units}{lot.selling_unit ?? "個"}〜
-                </span>
+              <div className="flex justify-between gap-3 border-b pb-2">
+                <dt className="flex-shrink-0">最小注文数</dt>
+                <dd className="font-medium text-gray-900 text-right">
+                  {lot.min_order_units}{lot.selling_unit ?? "個"}以上から
+                </dd>
               </div>
             )}
             {lot.expiration_date && (
-              <div className="flex justify-between border-b pb-2">
-                <span>賞味期限</span>
-                <span className="font-medium text-gray-900">
-                  {lot.expiration_date}
-                </span>
+              <div className="flex justify-between gap-3 border-b pb-2">
+                <dt className="flex-shrink-0">賞味期限</dt>
+                <dd className="font-medium text-gray-900 text-right">
+                  {lot.expiration_date} まで
+                </dd>
               </div>
             )}
-            <div className="flex justify-between border-b pb-2">
-              <span>配送</span>
-              <span className="font-medium text-gray-900">
+            <div className="flex flex-col gap-1 border-b pb-2 sm:flex-row sm:justify-between sm:gap-3">
+              <dt className="flex-shrink-0">配送</dt>
+              <dd className="font-medium text-gray-900 sm:text-right break-words">
                 {lot.shipping_method === "メーカー無料"
                   ? "送料無料（メーカー負担）"
                   : lot.shipping_method === "配送会社手配"
-                  ? `配送会社手配（送料 ¥${lot.shipping_fee.toLocaleString("ja-JP")}）`
-                  : `購入者指定（送料 ¥${lot.shipping_fee.toLocaleString("ja-JP")}）`}
-              </span>
+                  ? `配送業者がお届け（送料 ¥${lot.shipping_fee.toLocaleString("ja-JP")}）`
+                  : `お客様指定の配送方法（送料 ¥${lot.shipping_fee.toLocaleString("ja-JP")}）`}
+              </dd>
             </div>
-            <div className="flex justify-between pb-2">
-              <span>ステータス</span>
-              <span
-                className={`font-medium ${
+            <div className="flex justify-between gap-3 pb-2">
+              <dt className="flex-shrink-0">販売状況</dt>
+              <dd
+                className={`font-medium text-right ${
                   lot.status === "販売中"
                     ? "text-green-600"
                     : lot.status === "売切れ"
@@ -307,10 +332,10 @@ export default async function LotPage({ params }: Props) {
                     : "text-yellow-600"
                 }`}
               >
-                {isExpired ? "期限切れ" : lot.status}
-              </span>
+                {isExpired ? "販売終了（期限切れ）" : lot.status}
+              </dd>
             </div>
-          </div>
+          </dl>
 
           {hasActiveAuction ? (
             <Link
@@ -321,6 +346,7 @@ export default async function LotPage({ params }: Props) {
             </Link>
           ) : canPurchase ? (
             <>
+              <AgeRestrictionBadge restrictionType={product.age_restricted ? product.restriction_type : null} />
               <LotPurchaseButton
                 lotId={lot.id}
                 disabled={false}
@@ -328,6 +354,9 @@ export default async function LotPage({ params }: Props) {
                 minOrderUnits={lot.min_order_units}
                 maxStock={lot.stock}
                 sellingUnit={lot.selling_unit ?? undefined}
+                ageRestricted={product.age_restricted}
+                restrictionType={product.restriction_type}
+                ageVerified={ageVerified}
               />
               <RecurringPurchaseForm lotId={lot.id} price={price} />
             </>

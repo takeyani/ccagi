@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { getSupabase } from "@/lib/supabase";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { rateLimit, getClientIp } from "@/lib/rate-limit";
 import type { Lot, Product } from "@/lib/types";
 
@@ -112,6 +114,30 @@ export async function POST(request: Request) {
           { error: "商品が見つかりません" },
           { status: 404 }
         );
+      }
+
+      // 年齢制限商品の場合、ログインユーザーの年齢確認を検証
+      if (product.age_restricted) {
+        const authed = await createSupabaseServerClient();
+        const { data: { user } } = await authed.auth.getUser();
+        if (!user) {
+          return NextResponse.json(
+            { error: "年齢制限商品の購入にはログインが必要です" },
+            { status: 401 }
+          );
+        }
+        const admin = createAdminClient();
+        const { data: profile } = await admin
+          .from("user_profiles")
+          .select("age_verified_at")
+          .eq("id", user.id)
+          .maybeSingle();
+        if (!profile?.age_verified_at) {
+          return NextResponse.json(
+            { error: "age_verification_required", message: "年齢確認が必要です" },
+            { status: 403 }
+          );
+        }
       }
 
       // Price ID解決: lot > product > env
