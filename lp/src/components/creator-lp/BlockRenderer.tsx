@@ -3,6 +3,7 @@ import { HeroBlock } from "./blocks/HeroBlock";
 import { ProductInfoBlock } from "./blocks/ProductInfoBlock";
 import { LotDetailsBlock } from "./blocks/LotDetailsBlock";
 import { ImageBlock } from "./blocks/ImageBlock";
+import { VideoBlock } from "./blocks/VideoBlock";
 import { TextBlock } from "./blocks/TextBlock";
 import { FeaturesBlock } from "./blocks/FeaturesBlock";
 import { TestimonialBlock } from "./blocks/TestimonialBlock";
@@ -67,6 +68,8 @@ function BlockItem({ block, context }: { block: LPBlock; context: BlockContext }
       );
     case "image":
       return <ImageBlock props={block.props} />;
+    case "video":
+      return <VideoBlock props={block.props} />;
     case "text":
       return <TextBlock props={block.props} />;
     case "features":

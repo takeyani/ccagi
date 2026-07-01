@@ -233,21 +233,45 @@ function NumberInput({
   );
 }
 
-function ImageUpload({
+type MediaKind = "image" | "video" | "both";
+
+function detectMediaType(url: string): "image" | "video" | "external" {
+  if (!url) return "image";
+  if (/youtube\.com|youtu\.be|vimeo\.com/i.test(url)) return "external";
+  if (/\.(mp4|webm|mov|ogg|ogv)(\?|$)/i.test(url)) return "video";
+  return "image";
+}
+
+function MediaUpload({
   label,
   value,
   onChange,
+  accept = "image",
+  hint,
 }: {
   label: string;
   value: string;
   onChange: (v: string) => void;
+  accept?: MediaKind;
+  hint?: string;
 }) {
   const [uploading, setUploading] = useState(false);
+  const [dragOver, setDragOver] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+  const acceptAttr =
+    accept === "image" ? "image/*" : accept === "video" ? "video/*" : "image/*,video/*";
+  const acceptLabel =
+    accept === "image"
+      ? "画像"
+      : accept === "video"
+      ? "動画"
+      : "画像 / 動画";
+  const sizeLabel = accept === "video" ? "動画 100MB / 画像 10MB まで" : accept === "image" ? "10MBまで" : "動画 100MB / 画像 10MB まで";
+
+  const uploadFile = async (file: File) => {
     setUploading(true);
+    setError("");
     try {
       const formData = new FormData();
       formData.append("file", file);
@@ -256,38 +280,120 @@ function ImageUpload({
         body: formData,
       });
       const data = await res.json();
-      if (data.url) onChange(data.url);
+      if (!res.ok || !data.url) {
+        setError(data.error || "アップロードに失敗しました");
+        return;
+      }
+      onChange(data.url);
     } catch {
-      alert("アップロードに失敗しました");
+      setError("アップロードに失敗しました");
     } finally {
       setUploading(false);
     }
   };
+
+  const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) await uploadFile(file);
+  };
+
+  const handleDrop = async (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setDragOver(false);
+    const file = e.dataTransfer.files?.[0];
+    if (file) await uploadFile(file);
+  };
+
+  const kind = detectMediaType(value);
 
   return (
     <div>
       <label className="mb-1 block text-xs font-medium text-gray-600">
         {label}
       </label>
+
+      {/* プレビュー */}
+      {value && (
+        <div className="mb-2 rounded-lg border bg-gray-50 p-2">
+          {kind === "image" ? (
+            /* eslint-disable-next-line @next/next/no-img-element */
+            <img
+              src={value}
+              alt=""
+              className="mx-auto h-32 w-auto rounded object-contain"
+              onError={(e) => {
+                (e.currentTarget as HTMLImageElement).style.display = "none";
+              }}
+            />
+          ) : kind === "video" ? (
+            <video
+              src={value}
+              muted
+              playsInline
+              className="mx-auto h-32 w-auto rounded"
+              controls
+            />
+          ) : (
+            <div className="text-center text-xs text-gray-500 py-6">
+              🎬 外部埋め込み動画 ({value.length > 40 ? value.slice(0, 40) + "…" : value})
+            </div>
+          )}
+          <div className="mt-2 text-right">
+            <button
+              onClick={() => onChange("")}
+              className="text-xs text-red-500 hover:text-red-700"
+            >
+              削除
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* URL入力 */}
       <input
         type="text"
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        placeholder="画像URL"
-        className="mb-1 w-full rounded-lg border px-3 py-2 text-sm"
+        placeholder={accept === "video" ? "動画URL / YouTube / Vimeo" : "URL または貼り付け"}
+        className="mb-2 w-full rounded-lg border px-3 py-2 text-sm"
       />
-      <label className="inline-block cursor-pointer rounded border px-3 py-1 text-xs text-gray-600 hover:bg-gray-50">
-        {uploading ? "アップロード中..." : "ファイルを選択"}
-        <input
-          type="file"
-          accept="image/*"
-          onChange={handleUpload}
-          className="hidden"
-          disabled={uploading}
-        />
-      </label>
+
+      {/* ドラッグ&ドロップ + ファイル選択 */}
+      <div
+        onDragOver={(e) => {
+          e.preventDefault();
+          setDragOver(true);
+        }}
+        onDragLeave={() => setDragOver(false)}
+        onDrop={handleDrop}
+        className={`rounded-lg border-2 border-dashed p-3 text-center transition ${
+          dragOver ? "border-orange-400 bg-orange-50" : "border-gray-300 bg-gray-50"
+        }`}
+      >
+        <label className="inline-block cursor-pointer rounded border bg-white px-3 py-1 text-xs text-gray-700 hover:bg-gray-50">
+          {uploading ? "アップロード中..." : `${acceptLabel}を選択`}
+          <input
+            type="file"
+            accept={acceptAttr}
+            onChange={handleUpload}
+            className="hidden"
+            disabled={uploading}
+          />
+        </label>
+        <p className="mt-1 text-[10px] text-gray-500">
+          またはここにドラッグ&ドロップ ({sizeLabel})
+        </p>
+      </div>
+
+      {hint && <p className="mt-1 text-[10px] text-gray-500">{hint}</p>}
+      {error && <p className="mt-1 text-xs text-red-600">{error}</p>}
     </div>
   );
+}
+
+/** 後方互換: 既存 call site 用エイリアス */
+function ImageUpload(props: { label: string; value: string; onChange: (v: string) => void }) {
+  return <MediaUpload {...props} accept="image" />;
 }
 
 export function BlockPropertyEditor({ block, onUpdate }: Props) {
@@ -295,25 +401,46 @@ export function BlockPropertyEditor({ block, onUpdate }: Props) {
   const set = (key: string, value: unknown) => onUpdate({ [key]: value });
 
   switch (block.type) {
-    case "hero":
+    case "hero": {
+      const bgType = (p.bg_type as string) || "gradient";
       return (
         <div className="space-y-4">
           <SelectInput
             label="背景タイプ"
-            value={(p.bg_type as string) || "gradient"}
+            value={bgType}
             options={[
               { value: "gradient", label: "グラデーション" },
               { value: "image", label: "画像" },
+              { value: "video", label: "動画" },
             ]}
             onChange={(v) => set("bg_type", v)}
           />
-          {(p.bg_type as string) === "image" ? (
-            <ImageUpload
-              label="背景画像URL"
+          {bgType === "image" && (
+            <MediaUpload
+              label="背景画像"
+              accept="image"
               value={(p.bg_image_url as string) || ""}
               onChange={(v) => set("bg_image_url", v)}
             />
-          ) : (
+          )}
+          {bgType === "video" && (
+            <>
+              <MediaUpload
+                label="背景動画"
+                accept="video"
+                value={(p.bg_video_url as string) || ""}
+                onChange={(v) => set("bg_video_url", v)}
+                hint="※ 自動再生・無音・ループで再生されます（背景装飾用）"
+              />
+              <MediaUpload
+                label="動画のポスター画像（読み込み前に表示）"
+                accept="image"
+                value={(p.bg_video_poster as string) || ""}
+                onChange={(v) => set("bg_video_poster", v)}
+              />
+            </>
+          )}
+          {bgType === "gradient" && (
             <>
               <ColorInput
                 label="グラデーション開始色"
@@ -326,6 +453,15 @@ export function BlockPropertyEditor({ block, onUpdate }: Props) {
                 onChange={(v) => set("gradient_to", v)}
               />
             </>
+          )}
+          {(bgType === "image" || bgType === "video") && (
+            <NumberInput
+              label="オーバーレイの濃さ (0〜1)"
+              value={typeof p.overlay_opacity === "number" ? (p.overlay_opacity as number) : 0.4}
+              min={0}
+              max={1}
+              onChange={(v) => set("overlay_opacity", v)}
+            />
           )}
           <TextInput
             label="タイトル"
@@ -344,6 +480,7 @@ export function BlockPropertyEditor({ block, onUpdate }: Props) {
           />
         </div>
       );
+    }
 
     case "product_info":
       return (
@@ -400,13 +537,14 @@ export function BlockPropertyEditor({ block, onUpdate }: Props) {
     case "image":
       return (
         <div className="space-y-4">
-          <ImageUpload
-            label="画像URL"
+          <MediaUpload
+            label="画像"
+            accept="image"
             value={(p.image_url as string) || ""}
             onChange={(v) => set("image_url", v)}
           />
           <TextInput
-            label="代替テキスト"
+            label="代替テキスト（アクセシビリティ用）"
             value={(p.alt_text as string) || ""}
             onChange={(v) => set("alt_text", v)}
           />
@@ -414,6 +552,99 @@ export function BlockPropertyEditor({ block, onUpdate }: Props) {
             label="キャプション"
             value={(p.caption as string) || ""}
             onChange={(v) => set("caption", v)}
+          />
+          <TextInput
+            label="クリック時のリンク先URL（空欄なら遷移なし）"
+            value={(p.link_url as string) || ""}
+            onChange={(v) => set("link_url", v)}
+          />
+          <SelectInput
+            label="最大幅"
+            value={(p.max_width as string) || "3xl"}
+            options={[
+              { value: "sm", label: "極小" },
+              { value: "md", label: "小" },
+              { value: "lg", label: "中" },
+              { value: "xl", label: "大" },
+              { value: "2xl", label: "特大" },
+              { value: "3xl", label: "既定（3xl）" },
+              { value: "4xl", label: "超大" },
+              { value: "full", label: "画面いっぱい" },
+            ]}
+            onChange={(v) => set("max_width", v)}
+          />
+          <SelectInput
+            label="角丸"
+            value={(p.rounded as string) || "xl"}
+            options={[
+              { value: "none", label: "なし" },
+              { value: "sm", label: "小" },
+              { value: "md", label: "中" },
+              { value: "lg", label: "大" },
+              { value: "xl", label: "既定（xl）" },
+              { value: "2xl", label: "特大" },
+              { value: "full", label: "円形" },
+            ]}
+            onChange={(v) => set("rounded", v)}
+          />
+        </div>
+      );
+
+    case "video":
+      return (
+        <div className="space-y-4">
+          <MediaUpload
+            label="動画"
+            accept="video"
+            value={(p.video_url as string) || ""}
+            onChange={(v) => set("video_url", v)}
+            hint="MP4/WebM ファイルの他、YouTube・Vimeo のURLも貼り付け可能"
+          />
+          <MediaUpload
+            label="ポスター画像（動画読み込み前に表示）"
+            accept="image"
+            value={(p.poster as string) || ""}
+            onChange={(v) => set("poster", v)}
+          />
+          <TextInput
+            label="キャプション"
+            value={(p.caption as string) || ""}
+            onChange={(v) => set("caption", v)}
+          />
+          <SelectInput
+            label="最大幅"
+            value={(p.max_width as string) || "3xl"}
+            options={[
+              { value: "sm", label: "極小" },
+              { value: "md", label: "小" },
+              { value: "lg", label: "中" },
+              { value: "xl", label: "大" },
+              { value: "2xl", label: "特大" },
+              { value: "3xl", label: "既定（3xl）" },
+              { value: "4xl", label: "超大" },
+              { value: "full", label: "画面いっぱい" },
+            ]}
+            onChange={(v) => set("max_width", v)}
+          />
+          <CheckboxInput
+            label="コントロールを表示"
+            checked={p.controls !== false}
+            onChange={(v) => set("controls", v)}
+          />
+          <CheckboxInput
+            label="自動再生"
+            checked={p.autoplay === true}
+            onChange={(v) => set("autoplay", v)}
+          />
+          <CheckboxInput
+            label="ループ再生"
+            checked={p.loop === true}
+            onChange={(v) => set("loop", v)}
+          />
+          <CheckboxInput
+            label="ミュート"
+            checked={p.muted !== false}
+            onChange={(v) => set("muted", v)}
           />
         </div>
       );

@@ -112,9 +112,41 @@ export function SortableBlock({ block, isSelected, onSelect, onRemove, onDuplica
           </div>
         )}
         {blockType === "image" && (
-          <div className="flex items-center gap-2 text-gray-600">
-            <span>🖼️</span> {(block.props.alt_text as string) || "画像"}
-          </div>
+          (block.props.image_url as string) ? (
+            /* eslint-disable-next-line @next/next/no-img-element */
+            <img
+              src={block.props.image_url as string}
+              alt={(block.props.alt_text as string) || ""}
+              className="mx-auto h-24 w-auto rounded object-contain"
+            />
+          ) : (
+            <div className="flex items-center gap-2 text-gray-600">
+              <span>🖼️</span> {(block.props.alt_text as string) || "画像（未設定）"}
+            </div>
+          )
+        )}
+        {blockType === "video" && (
+          (block.props.video_url as string) ? (
+            /^(https?:)?\/\/(www\.)?(youtube|youtu\.be|vimeo)/i.test(block.props.video_url as string) ? (
+              <div className="flex items-center gap-2 text-gray-600">
+                <span>🎬</span> 埋め込み動画
+                <span className="truncate text-xs text-gray-400">
+                  {(block.props.video_url as string).slice(0, 40)}
+                </span>
+              </div>
+            ) : (
+              <video
+                src={block.props.video_url as string}
+                muted
+                playsInline
+                className="mx-auto h-24 w-auto rounded"
+              />
+            )
+          ) : (
+            <div className="flex items-center gap-2 text-gray-600">
+              <span>🎬</span> 動画（未設定）
+            </div>
+          )
         )}
         {blockType === "text" && (
           <p className="truncate">

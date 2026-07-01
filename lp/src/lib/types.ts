@@ -927,6 +927,8 @@ export type BlockType =
   | "product_info"
   | "lot_details"
   | "image"
+  | "video"
+  | "gallery"
   | "text"
   | "features"
   | "testimonial"
