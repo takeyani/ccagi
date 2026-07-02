@@ -396,6 +396,122 @@ function ImageUpload(props: { label: string; value: string; onChange: (v: string
   return <MediaUpload {...props} accept="image" />;
 }
 
+type GalleryItem = {
+  image_url?: string;
+  alt_text?: string;
+  caption?: string;
+  link_url?: string;
+};
+
+function GalleryItemsEditor({
+  items,
+  onChange,
+}: {
+  items: GalleryItem[];
+  onChange: (items: GalleryItem[]) => void;
+}) {
+  const update = (i: number, patch: Partial<GalleryItem>) => {
+    const next = items.map((it, idx) => (idx === i ? { ...it, ...patch } : it));
+    onChange(next);
+  };
+  const remove = (i: number) => onChange(items.filter((_, idx) => idx !== i));
+  const move = (i: number, dir: -1 | 1) => {
+    const j = i + dir;
+    if (j < 0 || j >= items.length) return;
+    const next = [...items];
+    [next[i], next[j]] = [next[j], next[i]];
+    onChange(next);
+  };
+  const add = () =>
+    onChange([...items, { image_url: "", alt_text: "", caption: "", link_url: "" }]);
+
+  return (
+    <div>
+      <label className="mb-2 block text-xs font-medium text-gray-600">
+        画像アイテム
+      </label>
+      {items.map((item, i) => (
+        <div key={i} className="mb-3 rounded-lg border bg-gray-50 p-3">
+          <div className="mb-2 flex items-center justify-between">
+            <span className="text-xs text-gray-500">#{i + 1}</span>
+            <div className="flex items-center gap-1">
+              <button
+                onClick={() => move(i, -1)}
+                disabled={i === 0}
+                className="text-xs text-gray-500 disabled:opacity-30 hover:text-gray-700"
+                title="上へ"
+              >
+                &uarr;
+              </button>
+              <button
+                onClick={() => move(i, 1)}
+                disabled={i === items.length - 1}
+                className="text-xs text-gray-500 disabled:opacity-30 hover:text-gray-700"
+                title="下へ"
+              >
+                &darr;
+              </button>
+              <button
+                onClick={() => remove(i)}
+                className="ml-1 text-xs text-red-500 hover:text-red-700"
+              >
+                削除
+              </button>
+            </div>
+          </div>
+          <div className="space-y-2">
+            <MediaUpload
+              label="画像"
+              accept="image"
+              value={item.image_url || ""}
+              onChange={(v) => update(i, { image_url: v })}
+            />
+            <div>
+              <label className="mb-0.5 block text-xs text-gray-500">
+                代替テキスト
+              </label>
+              <input
+                type="text"
+                value={item.alt_text || ""}
+                onChange={(e) => update(i, { alt_text: e.target.value })}
+                className="w-full rounded border px-2 py-1 text-sm"
+              />
+            </div>
+            <div>
+              <label className="mb-0.5 block text-xs text-gray-500">
+                キャプション
+              </label>
+              <input
+                type="text"
+                value={item.caption || ""}
+                onChange={(e) => update(i, { caption: e.target.value })}
+                className="w-full rounded border px-2 py-1 text-sm"
+              />
+            </div>
+            <div>
+              <label className="mb-0.5 block text-xs text-gray-500">
+                リンク先URL（任意）
+              </label>
+              <input
+                type="text"
+                value={item.link_url || ""}
+                onChange={(e) => update(i, { link_url: e.target.value })}
+                className="w-full rounded border px-2 py-1 text-sm"
+              />
+            </div>
+          </div>
+        </div>
+      ))}
+      <button
+        onClick={add}
+        className="w-full rounded-lg border border-dashed py-1.5 text-sm text-gray-500 hover:border-orange-300 hover:text-orange-600"
+      >
+        + 画像を追加
+      </button>
+    </div>
+  );
+}
+
 export function BlockPropertyEditor({ block, onUpdate }: Props) {
   const p = block.props;
   const set = (key: string, value: unknown) => onUpdate({ [key]: value });
@@ -586,6 +702,41 @@ export function BlockPropertyEditor({ block, onUpdate }: Props) {
               { value: "full", label: "円形" },
             ]}
             onChange={(v) => set("rounded", v)}
+          />
+        </div>
+      );
+
+    case "gallery":
+      return (
+        <div className="space-y-4">
+          <TextInput
+            label="見出し（任意）"
+            value={(p.heading as string) || ""}
+            onChange={(v) => set("heading", v)}
+          />
+          <SelectInput
+            label="カラム数"
+            value={String((p.columns as number) || 3)}
+            options={[
+              { value: "2", label: "2列" },
+              { value: "3", label: "3列" },
+              { value: "4", label: "4列" },
+            ]}
+            onChange={(v) => set("columns", Number(v))}
+          />
+          <SelectInput
+            label="画像間の余白"
+            value={(p.gap as string) || "md"}
+            options={[
+              { value: "sm", label: "狭い" },
+              { value: "md", label: "標準" },
+              { value: "lg", label: "広い" },
+            ]}
+            onChange={(v) => set("gap", v)}
+          />
+          <GalleryItemsEditor
+            items={(p.items as GalleryItem[] | undefined) ?? []}
+            onChange={(v) => set("items", v)}
           />
         </div>
       );

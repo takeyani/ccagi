@@ -148,6 +148,34 @@ export function SortableBlock({ block, isSelected, onSelect, onRemove, onDuplica
             </div>
           )
         )}
+        {blockType === "gallery" && (() => {
+          const items = ((block.props.items as { image_url?: string }[]) || []).filter(
+            (it) => it.image_url
+          );
+          if (items.length === 0) {
+            return (
+              <div className="flex items-center gap-2 text-gray-600">
+                <span>🎨</span> ギャラリー（画像未設定）
+              </div>
+            );
+          }
+          return (
+            <div className="flex items-center gap-2">
+              <div className="flex -space-x-2">
+                {items.slice(0, 4).map((it, i) => (
+                  /* eslint-disable-next-line @next/next/no-img-element */
+                  <img
+                    key={i}
+                    src={it.image_url as string}
+                    alt=""
+                    className="h-10 w-10 rounded border-2 border-white object-cover"
+                  />
+                ))}
+              </div>
+              <span className="text-xs text-gray-500">{items.length} 枚</span>
+            </div>
+          );
+        })()}
         {blockType === "text" && (
           <p className="truncate">
             {(block.props.content as string)?.slice(0, 60) || "テキスト"}

@@ -76,6 +76,21 @@ export const BLOCK_DEFINITIONS: BlockDefinition[] = [
     },
   },
   {
+    type: "gallery",
+    label: "ギャラリー",
+    icon: "🎨",
+    defaultProps: {
+      heading: "",
+      items: [
+        { image_url: "", alt_text: "", caption: "", link_url: "" },
+        { image_url: "", alt_text: "", caption: "", link_url: "" },
+        { image_url: "", alt_text: "", caption: "", link_url: "" },
+      ],
+      columns: 3,
+      gap: "md",
+    },
+  },
+  {
     type: "text",
     label: "テキスト",
     icon: "📝",
