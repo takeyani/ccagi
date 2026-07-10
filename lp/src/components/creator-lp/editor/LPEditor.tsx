@@ -20,6 +20,7 @@ import { nanoid } from "nanoid";
 import type { LPBlock, LPTheme, CreatorLPDesign } from "@/lib/types";
 import { BLOCK_DEFINITIONS } from "@/lib/creator-lp/block-definitions";
 import { LP_TEMPLATES, THEME_PRESETS, instantiateTemplate } from "@/lib/creator-lp/template-presets";
+import { smartUpload } from "@/lib/creator-lp/upload";
 import { BlockPalette } from "./BlockPalette";
 import { EditorCanvas } from "./EditorCanvas";
 import { PropertiesPanel } from "./PropertiesPanel";
@@ -46,6 +47,8 @@ export function LPEditor({ design }: Props) {
   const [showPreview, setShowPreview] = useState(false);
   const [showTheme, setShowTheme] = useState(false);
   const [showTemplates, setShowTemplates] = useState(blocks.length === 0);
+  const [dropUploading, setDropUploading] = useState<{ done: number; total: number } | null>(null);
+  const [dropError, setDropError] = useState<string>("");
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -133,6 +136,58 @@ export function LPEditor({ design }: Props) {
     },
     []
   );
+
+  const handleFilesDropped = useCallback(async (files: File[]) => {
+    setDropError("");
+    setDropUploading({ done: 0, total: files.length });
+    const newBlocks: LPBlock[] = [];
+    let done = 0;
+    for (const file of files) {
+      try {
+        const result = await smartUpload(file);
+        const isVideo = result.type === "video" || file.type.startsWith("video/");
+        if (isVideo) {
+          newBlocks.push({
+            id: nanoid(),
+            type: "video",
+            props: {
+              video_url: result.url,
+              poster: "",
+              caption: "",
+              autoplay: false,
+              loop: false,
+              muted: true,
+              controls: true,
+              max_width: "3xl",
+            },
+          });
+        } else {
+          newBlocks.push({
+            id: nanoid(),
+            type: "image",
+            props: {
+              image_url: result.url,
+              alt_text: file.name,
+              caption: "",
+              link_url: "",
+              max_width: "3xl",
+              rounded: "xl",
+            },
+          });
+        }
+      } catch (err) {
+        setDropError(err instanceof Error ? err.message : "アップロードに失敗しました");
+      }
+      done += 1;
+      setDropUploading({ done, total: files.length });
+    }
+    if (newBlocks.length > 0) {
+      setBlocks((prev) => [...prev, ...newBlocks]);
+      setSelectedBlockId(newBlocks[newBlocks.length - 1].id);
+      setIsDirty(true);
+    }
+    setDropUploading(null);
+  }, []);
 
   const applyTemplate = useCallback((templateId: string) => {
     const template = LP_TEMPLATES.find((t) => t.id === templateId);
@@ -232,6 +287,7 @@ export function LPEditor({ design }: Props) {
   }
 
   return (
+    <>
     <div className="flex h-screen flex-col">
       {/* Toolbar */}
       <div className="flex items-center justify-between border-b bg-white px-4 py-2">
@@ -322,6 +378,7 @@ export function LPEditor({ design }: Props) {
                 onRemove={removeBlock}
                 onDuplicate={duplicateBlock}
                 onMove={moveBlock}
+                onFilesDropped={handleFilesDropped}
               />
             </SortableContext>
           </DndContext>
@@ -350,5 +407,35 @@ export function LPEditor({ design }: Props) {
         </div>
       </div>
     </div>
+
+    {/* ドロップアップロード進捗トースト */}
+    {dropUploading && (
+      <div className="fixed bottom-4 right-4 z-50 min-w-[240px] rounded-xl bg-gray-900 px-4 py-3 text-white shadow-2xl">
+        <p className="text-sm font-medium">
+          アップロード中... {dropUploading.done}/{dropUploading.total}
+        </p>
+        <div className="mt-2 h-1 w-full overflow-hidden rounded-full bg-white/20">
+          <div
+            className="h-full bg-orange-400 transition-all"
+            style={{
+              width: `${dropUploading.total ? (dropUploading.done / dropUploading.total) * 100 : 0}%`,
+            }}
+          />
+        </div>
+      </div>
+    )}
+    {dropError && !dropUploading && (
+      <div className="fixed bottom-4 right-4 z-50 flex items-center gap-3 rounded-xl bg-red-500 px-4 py-3 text-white shadow-2xl">
+        <span className="text-sm">{dropError}</span>
+        <button
+          onClick={() => setDropError("")}
+          className="rounded p-1 hover:bg-red-600"
+          aria-label="閉じる"
+        >
+          &times;
+        </button>
+      </div>
+    )}
+    </>
   );
 }
