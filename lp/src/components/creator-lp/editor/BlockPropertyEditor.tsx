@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import type { LPBlock, CollectionBlock } from "@/lib/types";
+import { smartUpload } from "@/lib/creator-lp/upload";
+import { MediaLibraryModal } from "./MediaLibraryModal";
 
 type Props = {
   block: LPBlock | CollectionBlock;
@@ -256,8 +258,10 @@ function MediaUpload({
   hint?: string;
 }) {
   const [uploading, setUploading] = useState(false);
+  const [progress, setProgress] = useState(0);
   const [dragOver, setDragOver] = useState(false);
   const [error, setError] = useState("");
+  const [libraryOpen, setLibraryOpen] = useState(false);
 
   const acceptAttr =
     accept === "image" ? "image/*" : accept === "video" ? "video/*" : "image/*,video/*";
@@ -267,26 +271,20 @@ function MediaUpload({
       : accept === "video"
       ? "動画"
       : "画像 / 動画";
-  const sizeLabel = accept === "video" ? "動画 100MB / 画像 10MB まで" : accept === "image" ? "10MBまで" : "動画 100MB / 画像 10MB まで";
+  const sizeLabel = accept === "video" ? "動画 100MB / 画像 10MB まで" : accept === "image" ? "10MBまで (2000px超は自動リサイズ)" : "動画 100MB / 画像 10MB まで";
 
   const uploadFile = async (file: File) => {
     setUploading(true);
     setError("");
+    setProgress(0);
     try {
-      const formData = new FormData();
-      formData.append("file", file);
-      const res = await fetch("/api/creator/upload", {
-        method: "POST",
-        body: formData,
+      const result = await smartUpload(file, {
+        onProgress: (p) => setProgress(p),
       });
-      const data = await res.json();
-      if (!res.ok || !data.url) {
-        setError(data.error || "アップロードに失敗しました");
-        return;
-      }
-      onChange(data.url);
-    } catch {
-      setError("アップロードに失敗しました");
+      onChange(result.url);
+      setProgress(100);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "アップロードに失敗しました");
     } finally {
       setUploading(false);
     }
@@ -358,7 +356,7 @@ function MediaUpload({
         className="mb-2 w-full rounded-lg border px-3 py-2 text-sm"
       />
 
-      {/* ドラッグ&ドロップ + ファイル選択 */}
+      {/* ドラッグ&ドロップ + ファイル選択 + ライブラリ */}
       <div
         onDragOver={(e) => {
           e.preventDefault();
@@ -370,23 +368,69 @@ function MediaUpload({
           dragOver ? "border-orange-400 bg-orange-50" : "border-gray-300 bg-gray-50"
         }`}
       >
-        <label className="inline-block cursor-pointer rounded border bg-white px-3 py-1 text-xs text-gray-700 hover:bg-gray-50">
-          {uploading ? "アップロード中..." : `${acceptLabel}を選択`}
-          <input
-            type="file"
-            accept={acceptAttr}
-            onChange={handleUpload}
-            className="hidden"
+        <div className="flex items-center justify-center gap-2 flex-wrap">
+          <label className="inline-block cursor-pointer rounded border bg-white px-3 py-1 text-xs text-gray-700 hover:bg-gray-50">
+            {uploading ? "アップロード中..." : `${acceptLabel}を選択`}
+            <input
+              type="file"
+              accept={acceptAttr}
+              onChange={handleUpload}
+              className="hidden"
+              disabled={uploading}
+            />
+          </label>
+          <button
+            type="button"
+            onClick={() => setLibraryOpen(true)}
             disabled={uploading}
-          />
-        </label>
+            className="rounded border bg-white px-3 py-1 text-xs text-gray-700 hover:bg-gray-50 disabled:opacity-50"
+          >
+            📚 ライブラリ
+          </button>
+        </div>
         <p className="mt-1 text-[10px] text-gray-500">
           またはここにドラッグ&ドロップ ({sizeLabel})
         </p>
       </div>
 
+      {/* 進捗バー */}
+      {uploading && (
+        <div className="mt-2 space-y-1">
+          <div className="h-1.5 w-full overflow-hidden rounded-full bg-gray-200">
+            <div
+              className="h-full bg-orange-500 transition-all duration-100"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+          <p className="text-[10px] text-gray-500 text-right">{progress}%</p>
+        </div>
+      )}
+
       {hint && <p className="mt-1 text-[10px] text-gray-500">{hint}</p>}
-      {error && <p className="mt-1 text-xs text-red-600">{error}</p>}
+      {error && (
+        <div className="mt-1 flex items-center justify-between gap-2 rounded bg-red-50 px-2 py-1">
+          <p className="text-xs text-red-600">{error}</p>
+          <button
+            type="button"
+            onClick={() => setError("")}
+            className="text-xs text-gray-500 hover:text-gray-700"
+          >
+            閉じる
+          </button>
+        </div>
+      )}
+
+      {/* Media Library モーダル */}
+      {libraryOpen && (
+        <MediaLibraryModal
+          accept={accept}
+          onSelect={(url) => {
+            onChange(url);
+            setLibraryOpen(false);
+          }}
+          onClose={() => setLibraryOpen(false)}
+        />
+      )}
     </div>
   );
 }
