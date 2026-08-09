@@ -1,5 +1,7 @@
 import { notFound } from "next/navigation";
 import { getSupabase } from "@/lib/supabase";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { BlockRenderer } from "@/components/creator-lp/BlockRenderer";
 import type { Affiliate, Product, Lot, Partner, Tag, CreatorLPDesign, LPBlock, LPTheme } from "@/lib/types";
 
@@ -85,10 +87,35 @@ export default async function EmbedLPPage({ params }: Props) {
     font: "inherit",
   }) as LPTheme;
 
+  // 年齢確認状態の取得（年齢制限商品の場合のみ）
+  // 未取得だと確認済みユーザーにも再度モーダルを出してしまうため、
+  // クリエイターLP (/c/[code]/[slug]/[lotId]) と同じ扱いに揃える。
+  // なお iframe 内ではサードパーティCookie制約でセッションを取得できず
+  // ageVerified=false になる場合があるが、その場合もモーダル + /api/checkout の
+  // サーバ側再検証で保護されるため、安全側に倒れる。
+  let ageVerified = false;
+  if (product.age_restricted) {
+    try {
+      const authed = await createSupabaseServerClient();
+      const { data: { user } } = await authed.auth.getUser();
+      if (user) {
+        const admin = createAdminClient();
+        const { data: profile } = await admin
+          .from("user_profiles")
+          .select("age_verified_at")
+          .eq("id", user.id)
+          .maybeSingle();
+        ageVerified = !!profile?.age_verified_at;
+      }
+    } catch {
+      // セッション未取得時は未確認扱い
+    }
+  }
+
   return (
     <BlockRenderer
       blocks={blocks}
-      context={{ product, lot, partner, tags, theme }}
+      context={{ product, lot, partner, tags, theme, ageVerified }}
     />
   );
 }

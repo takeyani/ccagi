@@ -1,0 +1,32 @@
+# 改行コードの正規化
+#
+# 作業ツリーが /mnt/c (Windows) 上にあり Windows 側エディタで編集されるため、
+# 指定がないと全ファイルが CRLF 化して git diff がノイズで埋まる。
+# インデックスは LF に統一し、diff を実質的な変更だけに保つ。
+* text=auto eol=lf
+
+# Windows ネイティブのスクリプトは CRLF のまま維持
+*.ps1 text eol=crlf
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# バイナリ（改行変換の対象外）
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.pdf binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.otf binary
+*.zip binary
+*.xlsx binary
+*.pptx binary
+*.docx binary
+
+# 生成物は diff/言語統計から除外
+package-lock.json linguist-generated=true -diff
+*.tsbuildinfo linguist-generated=true -diff
